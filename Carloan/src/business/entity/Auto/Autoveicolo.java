@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.scene.image.Image;
 import business.entity.Manutenzione.*;
 import business.entity.Auto.Fascia.*;
+import business.entity.Auto.manutenzione.Manutenzione;
 public class Autoveicolo {
 	private String IDauto;
 	private String Targa;

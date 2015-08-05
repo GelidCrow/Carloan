@@ -1,4 +1,4 @@
-package business.entity.Manutenzione;
+package business.entity.Auto.manutenzione;
 
 import java.util.Date;
 
@@ -40,5 +40,4 @@ public abstract class Manutenzione{
 	public void setNote(String note) {
 		this.note = note;
 	}
-	
 }
