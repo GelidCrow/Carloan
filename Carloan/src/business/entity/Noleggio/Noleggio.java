@@ -21,7 +21,24 @@ public class Noleggio {
 	private int numero_chilometri;
 	private int numero_conducenti;
 	private StatoNoleggio stato;
-	
+	/**
+	 * <p>Ciaoo</p>
+	 * @param iDNoleggio
+	 * @param inizioNoleggio
+	 * @param fineNoleggio
+	 * @param rientro
+	 * @param kmRientro
+	 * @param kmPercorsi
+	 * @param kmBase
+	 * @param optional
+	 * @param luogoRestituzione
+	 * @param iDAuto
+	 * @param numeroSettimane
+	 * @param numeroGiorni
+	 * @param numero_chilometri
+	 * @param numero_conducenti
+	 * @param stato
+	 */
 	public Noleggio(String iDNoleggio, Date inizioNoleggio, Date fineNoleggio,
 			Date rientro, int kmRientro, int kmPercorsi, int kmBase,
 			List<Optional> optional, String luogoRestituzione, String iDAuto,
