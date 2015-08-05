@@ -1,4 +1,4 @@
-package business.entity.Noleggio;
+package business.entity;
 
 import java.util.Date;
 
