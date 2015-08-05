@@ -19,6 +19,7 @@ public abstract class Utente {
 	protected Utente(String Nome,String Cognome,char Sesso,String Username,String Password){
 		this(Nome,Cognome,Sesso,new Date(),"","","","",true,Username,Password);
 	}
+	
 	protected Utente(String Nome,String Cognome,char Sesso,Date datanascita,String Indirizzo,String codicefiscale,String numcell,String numfisso,boolean assunto,String Username,String Password){
 		this.Nome=Nome;
 		this.Cognome=Cognome;
@@ -32,7 +33,6 @@ public abstract class Utente {
 		this.UserName=Username;
 		this.Password=Password;
 	}
-	
 	
 	public String getNome() {
 		return Nome;
