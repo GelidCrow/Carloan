@@ -18,6 +18,7 @@ public class Cliente {
 	private String PartitaIva;
 	private String IDCliente;
 	private String Email;
+	private String x;
 	
 	
 	Cliente(String nome, String cognome, String sesso,Date datanascita,
