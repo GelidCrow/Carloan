@@ -16,6 +16,7 @@ public class Cliente {
 	private Date DataScadPatente;
 	private String PartitaIva;
 	private String IDCliente;
+	//icoasdaffd
 	private String Email;
 	
 	
