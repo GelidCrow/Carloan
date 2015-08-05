@@ -1,10 +1,17 @@
 package business.entity.Noleggio.Optional;
 
-public class Guidatore_aggiuntivo extends OptionalNoleggio{
+import java.util.Collections;
+import java.util.List;
 
-	public Guidatore_aggiuntivo(float prezzo, String descrizione) {
+public class Guidatore_aggiuntivo extends OptionalNoleggio{
+	private List<Guidatore> guidatori;
+	private int numero_guidatori;
+	public Guidatore_aggiuntivo(float prezzo, String descrizione,List<Guidatore> guidatori) {
 		super(prezzo, descrizione);
-		// TODO Auto-generated constructor stub
+		Collections.copy(this.guidatori, guidatori);
+		this.numero_guidatori=this.guidatori.size();
 	}
-		
+	public int getNumero_guidatori() {
+		return numero_guidatori;
+	}
 }

@@ -1,10 +1,16 @@
 package business.entity.Noleggio.Optional;
 
 public class Seggiolino extends OptionalAuto{
-
-	public Seggiolino(float prezzo, String descrizione) {
+/**
+ * Il numero di seggiolini 
+ */
+private int numero;
+	public Seggiolino(float prezzo, String descrizione,int numero) {
 		super(prezzo, descrizione);
-		// TODO Auto-generated constructor stub
+	this.numero=numero;
 	}
-
+public int getnumero(){
+	return numero;
+	
+}
 }

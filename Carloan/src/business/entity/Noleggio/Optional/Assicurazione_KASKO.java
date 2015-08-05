@@ -1,10 +1,16 @@
 package business.entity.Noleggio.Optional;
 
 public class Assicurazione_KASKO extends OptionalNoleggio{
-
-	public Assicurazione_KASKO(float prezzo, String descrizione) {
+private double copertura;
+	public Assicurazione_KASKO(float prezzo, String descrizione,double copertura) {
 		super(prezzo, descrizione);
-		// TODO Auto-generated constructor stub
+		this.setCopertura(copertura);
+	}
+	public double getCopertura() {
+		return copertura;
+	}
+	public void setCopertura(double copertura) {
+		this.copertura = copertura;
 	}
 
 }
