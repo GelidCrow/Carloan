@@ -25,6 +25,7 @@ public class Cliente {
 			Date DataEmissPatente, Date DataScadPatente, String PartitaIva, String IDCliente,String Email)
 	{
 		this.nome = nome; 
+		this.cognome= cognome;
 		this.sesso= sesso;
 		this.datanascita= datanascita;
 		this.Indirizzo= Indirizzo;
