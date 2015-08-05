@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import business.entity.Noleggio.Optional.Optional;
-
+/*diocane*/
 public class Noleggio {
 	private String IDNoleggio; 
 	private Date InizioNoleggio;
