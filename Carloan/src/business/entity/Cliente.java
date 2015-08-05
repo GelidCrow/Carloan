@@ -3,6 +3,7 @@ package business.entity;
 import java.util.Date;
 //potrebbeessere astratta e cliente estende cliente... cosi puoi aggiungerne tanti
 public class Cliente {
+	
 	private String nome;
 	private String cognome;
 	private String sesso;
@@ -24,7 +25,6 @@ public class Cliente {
 			Date DataEmissPatente, Date DataScadPatente, String PartitaIva, String IDCliente,String Email)
 	{
 		this.nome = nome; 
-		this.cognome = cognome;
 		this.sesso= sesso;
 		this.datanascita= datanascita;
 		this.Indirizzo= Indirizzo;
