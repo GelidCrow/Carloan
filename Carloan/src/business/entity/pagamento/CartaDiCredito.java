@@ -5,10 +5,13 @@ import java.util.Date;
 public class CartaDiCredito extends Pagamento{
 	private String IDCliente ; 
 	private Date dataScadenza;
+	private String IBAN;
+	private String NueroCarta;
+	private String Circuito;
 	
 	public CartaDiCredito(float depositoCauzinale, float importo,
-		float detrazioneAggiuntiva) {
-	super(depositoCauzinale, importo, detrazioneAggiuntiva);
+			float detrazioneAggiuntiva) {
+			super(depositoCauzinale, importo, detrazioneAggiuntiva);
 	}
 	
 	public String getIDCliente() {
@@ -23,6 +26,31 @@ public class CartaDiCredito extends Pagamento{
 	public void setDataScadenza(Date dataScadenza) {
 		this.dataScadenza = dataScadenza;
 	}
+	public String getIBAN() {
+		return IBAN;
+	}
+
+	public void setIBAN(String iBAN) {
+		IBAN = iBAN;
+	}
+
+	public String getNueroCarta() {
+		return NueroCarta;
+	}
+
+	public void setNueroCarta(String nueroCarta) {
+		NueroCarta = nueroCarta;
+	}
+
+	public String getCircuito() {
+		return Circuito;
+	}
+
+	public void setCircuito(String circuito) {
+		Circuito = circuito;
+	}
+
+	
 	
 		
 }
