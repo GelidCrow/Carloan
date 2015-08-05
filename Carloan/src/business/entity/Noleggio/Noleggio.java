@@ -22,7 +22,7 @@ public class Noleggio {
 	private int numero_conducenti;
 	private StatoNoleggio stato;
 	/**
-	 * <p>Ciaoovczvcvzcvc</p>
+	 * <p>Ciaoovczvcvzcvciiii</p>
 	 * @param iDNoleggio
 	 * @param inizioNoleggio
 	 * @param fineNoleggio
