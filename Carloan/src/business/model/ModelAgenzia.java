@@ -1,7 +1,7 @@
 package business.model;
 
 public class ModelAgenzia implements Model{
-
+    private String sta;
 	@Override
 	public void Inserimento() {
 		// TODO Auto-generated method stub
