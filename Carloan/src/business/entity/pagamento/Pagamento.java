@@ -30,5 +30,4 @@ public abstract class Pagamento {
 			this.importo = importo;
 			this.detrazioneAggiuntiva = detrazioneAggiuntiva;
 		}
-	   
 }
