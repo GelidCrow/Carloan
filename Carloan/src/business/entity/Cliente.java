@@ -16,8 +16,7 @@ public class Cliente {
 	private Date DataScadPatente;
 	private String PartitaIva;
 	private String IDCliente;
-	//icoasdaffd
-	private String Email;
+	private String Emai;
 	
 	
 	Cliente(String nome, String cognome, String sesso,Date datanascita,
