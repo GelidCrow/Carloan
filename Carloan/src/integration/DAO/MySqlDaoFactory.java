@@ -1,33 +1,13 @@
 package integration.DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-import config.ConfiguratorDBReader;
-import config.ConfiguratorReader;
-
 public class MySqlDaoFactory extends DaoFactory{
 	/**
 	 * Costruttore privato 
 	 * Oggetto Singletone.
 	 */
 	private static MySqlDaoFactory dao;
-	
-	
-	private final static String PATH = "src/config/mySql.cfg";
-	private static String host;
-	private static String db;
-	private static String username;
-	private static String password;
-	private static String connessione;
-
-	private static Connection con;
-
-	private ConfiguratorReader reader;
 	/**
 	 * Fornisce l'unica istanza di MySqlDaoFactory.
-	 * 
 	 * @return l'istanza di MySqlDaoFactory.
 	 */
 	public static MySqlDaoFactory getInstance() {
