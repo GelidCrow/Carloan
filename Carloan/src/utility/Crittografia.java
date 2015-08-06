@@ -2,43 +2,23 @@ package utility;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
 
 public class Crittografia {
-	public String CriptaPassword(String password,String salt){
-		 String generatedPassword = null;
-         try {
-       	  MessageDigest md = MessageDigest.getInstance("SHA1");
-             md.update(salt.getBytes());
-             byte[] bytes = md.digest(password.getBytes());
-             StringBuilder sb = new StringBuilder();
-             for(int i=0; i< bytes.length ;i++)
-             {
-                 sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-             }
-             generatedPassword = sb.toString();
-         }
-         catch (NoSuchAlgorithmException e)
-         {
-             e.printStackTrace();
-         }
-         return generatedPassword;
+	public static String CriptaPassword(String password) throws NoSuchAlgorithmException{
+		 MessageDigest md = MessageDigest.getInstance("SHA-256");
+	     md.update(password.getBytes());
+	     byte[] output = md.digest();
+	     return (bytesToHex(output));
 	}
-	public static String getSalt() throws NoSuchAlgorithmException, NoSuchProviderException{
-		//Always use a SecureRandom generator
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", "SUN");
-        //Create array for salt
-        byte[] salt = new byte[16];
-        //Get a random salt
-        sr.nextBytes(salt);
-        return salt.toString();
-	}
-	public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchProviderException{
-		Crittografia x= new Crittografia();
-		System.out.println(x.CriptaPassword("Ciao", Crittografia.getSalt()));
-		System.out.println(x.CriptaPassword("Password", Crittografia.getSalt()));
-		System.out.println(x.CriptaPassword("PassworD", Crittografia.getSalt()));
-	}
+	private static String bytesToHex(byte[] b) {
+	    char hexDigit[] = {'0', '1', '2', '3', '4', '5', '6', '7',
+	                       '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+	    StringBuffer buf = new StringBuffer();
+	    for (int j=0; j<b.length; j++) {
+	       buf.append(hexDigit[(b[j] >> 4) & 0x0f]);
+	       buf.append(hexDigit[b[j] & 0x0f]);
+	    }
+	    return buf.toString();
+	 }
 }
 
