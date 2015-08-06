@@ -1,5 +1,5 @@
 package business.command;
 
 public interface Command {
-   public void execute();
+   public Object execute();
 }

@@ -3,7 +3,7 @@ package business.command;
 public class AggiornamentoAgenzia implements Command{
 
 	@Override
-	public void execute() {
+	public Object execute() {
 		// TODO Auto-generated method stub
 		
 	}
