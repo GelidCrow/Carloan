@@ -1,6 +1,8 @@
-package integration.DAO;
+package integration.DAO.entity;
 
-public class DAODitta implements DAO{
+import integration.DAO.DAO;
+
+public class DAOSupervisoreS implements DAO{
 
 	@Override
 	public void creazione() {

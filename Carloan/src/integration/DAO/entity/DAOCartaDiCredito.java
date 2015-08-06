@@ -1,6 +1,8 @@
-package integration.DAO;
+package integration.DAO.entity;
 
-public class DAOLogin implements DAO{
+import integration.DAO.DAO;
+
+public class DAOCartaDiCredito implements DAO{
 
 	@Override
 	public void creazione() {

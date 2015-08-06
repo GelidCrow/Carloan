@@ -1,4 +1,6 @@
-package integration.DAO;
+package integration.DAO.entity;
+
+import integration.DAO.DAO;
 
 public class DAOOperatore implements DAO{
 

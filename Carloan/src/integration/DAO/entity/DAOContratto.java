@@ -1,6 +1,8 @@
-package integration.DAO;
+package integration.DAO.entity;
 
-public class DAONotification implements DAO{
+import integration.DAO.DAO;
+
+public class DAOContratto implements DAO{
 
 	@Override
 	public void creazione() {
