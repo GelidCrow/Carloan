@@ -2,10 +2,10 @@ package utility;
 
 public class ReaderXML {
 	private String percorsoFile;
-	ReaderXML(String percorsoFile){
-		
+	public  ReaderXML(String percorso){
+		this.percorsoFile=percorso;
 	}
-	public String read(String nomeServizio){
+	public  String read(String nomeServizio){
 		return "";
 	}
 }
