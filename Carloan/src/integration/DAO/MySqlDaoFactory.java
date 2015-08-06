@@ -36,7 +36,6 @@ public class MySqlDaoFactory extends DaoFactory{
 		}
 		return dao;
 	}	
-	
 	/**
 	 * Costruttore privato per la realizzazione del Singletone.
 	 */
@@ -75,5 +74,5 @@ public class MySqlDaoFactory extends DaoFactory{
 	/*public Class<?> getDao(String nameDao){
 		return  Class.forName(nameDao);
 	}*/
-
+	
 }

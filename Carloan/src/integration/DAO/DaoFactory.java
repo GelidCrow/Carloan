@@ -32,5 +32,4 @@ public abstract class DaoFactory {
 			IllegalAccessException {
 		return c.newInstance();
 	}
-
 }
