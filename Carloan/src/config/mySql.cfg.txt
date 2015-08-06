@@ -1,0 +1,4 @@
+hostDB = localhost
+dataBaseDB = Agroludos
+usernameDB = root
+passwordDB = password
