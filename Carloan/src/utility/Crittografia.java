@@ -6,6 +6,7 @@ import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 
 public class Crittografia {
+	private String ciao;
 	public String CriptaPassword(String password,String salt){
 		 String generatedPassword = null;
          try {
