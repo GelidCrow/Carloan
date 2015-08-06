@@ -4,9 +4,9 @@ import business.command.*;
 public class CarLoanAC implements ApplicationController {
 
 	@Override
-	public Object handleRequest(String request, Object parameter) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public Object handleRequest(String request, Object parameter) {
 		ReaderXML reader_xml=new ReaderXML("presentation/AC.xml");
-		Command command=(Command) Class.forName(reader_xml.read(request)).newInstance();
+		Command command=CommandFactory.getInstance(reader_xml.read(request));
 		command.execute();
 		return null;
 	}
