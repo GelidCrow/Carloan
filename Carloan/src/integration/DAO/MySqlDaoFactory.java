@@ -1,7 +1,5 @@
 package integration.DAO;
 
-import integration.DAO.entity.DAOUtente;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -61,7 +59,6 @@ public class MySqlDaoFactory extends DaoFactory{
 		con = DriverManager.getConnection(connessione, username, password);
 		return con;
 	}
-
 	/**
 	 * Chiude la connessione al database.
 	 * @throws SQLException 
@@ -74,8 +71,9 @@ public class MySqlDaoFactory extends DaoFactory{
 			}
 		}
 	}
-	@Override
-	public DAOUtente getUtenteDao() throws InstantiationException, IllegalAccessException{
-		return  (DAOUtente)createDao(DAOUtente.class);
-	}
+	
+	/*public Class<?> getDao(String nameDao){
+		return  Class.forName(nameDao);
+	}*/
+
 }

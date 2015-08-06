@@ -1,7 +1,5 @@
 package integration.DAO;
 
-import integration.DAO.entity.DAOUtente;
-
 
 public abstract class DaoFactory {
 	/**
@@ -35,5 +33,4 @@ public abstract class DaoFactory {
 		return c.newInstance();
 	}
 
-	public abstract DAOUtente getUtenteDao() throws InstantiationException, IllegalAccessException;
 }
