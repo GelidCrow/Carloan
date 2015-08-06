@@ -7,6 +7,4 @@ public class CarLoanAC implements ApplicationController {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 }
