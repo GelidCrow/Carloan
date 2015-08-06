@@ -1,7 +1,7 @@
 package integration.DAO.entity;
 
 
-public class DAOLogin implements DAO{
+public class DAOUtente implements DAO{
 
 	@Override
 	public void creazione() {
@@ -20,5 +20,6 @@ public class DAOLogin implements DAO{
 		// TODO Auto-generated method stub
 		
 	}
+	// qui anche tutte le altre funzioni in più.
 
 }

@@ -1,5 +1,7 @@
 package integration.DAO;
 
+import integration.DAO.entity.DAOUtente;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -72,7 +74,8 @@ public class MySqlDaoFactory extends DaoFactory{
 			}
 		}
 	}
-	
-
-	
+	@Override
+	public DAOUtente getUtenteDao() throws InstantiationException, IllegalAccessException{
+		return  (DAOUtente)createDao(DAOUtente.class);
+	}
 }

@@ -1,6 +1,5 @@
 package integration.DAO.entity;
 
-import integration.DAO.DAO;
 
 public class DAOAutoveicolo implements DAO{
 

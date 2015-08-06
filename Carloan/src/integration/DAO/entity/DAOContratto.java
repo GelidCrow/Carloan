@@ -1,9 +1,8 @@
 package integration.DAO.entity;
 
-import integration.DAO.DAO;
 
 public class DAOContratto implements DAO{
-
+  // ulteriore interfaccia
 	@Override
 	public void creazione() {
 		// TODO Auto-generated method stub

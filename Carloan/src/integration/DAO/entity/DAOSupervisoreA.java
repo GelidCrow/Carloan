@@ -1,6 +1,5 @@
 package integration.DAO.entity;
 
-import integration.DAO.DAO;
 
 public class DAOSupervisoreA implements DAO{
 

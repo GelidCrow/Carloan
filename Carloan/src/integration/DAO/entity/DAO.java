@@ -1,4 +1,4 @@
-package integration.DAO;
+package integration.DAO.entity;
 
 public interface DAO {
 		public void creazione();
