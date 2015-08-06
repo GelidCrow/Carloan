@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class ReaderXML {
 	private String percorsoFile;
+	
 	public  ReaderXML(String percorso){
 		this.percorsoFile=percorso;
 	}
