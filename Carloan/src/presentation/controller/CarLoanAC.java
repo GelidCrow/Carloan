@@ -1,13 +1,14 @@
 package presentation.controller;
+import java.lang.reflect.InvocationTargetException;
+
 import utility.ReaderXML;
 import business.command.*;
+import business.delegate.Delegate;
 public class CarLoanAC implements ApplicationController {
-
+	private Delegate delegate ; 
 	@Override
-	public Object handleRequest(String request, Object parameter) {
-		ReaderXML reader_xml=new ReaderXML("presentation/AC.xml");
-		Command command=CommandFactory.getInstance(reader_xml.read(request));
-		command.execute();
-		return null;
+	public Object handleRequest(String request, Object parameter) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
+		delegate= new Delegate("presentation/AC.xml");
+		return delegate.doTask(request, parameter);
 	}
 }
