@@ -76,25 +76,6 @@ public class ReaderXML {
 		}
 
 		@Override
-		public void endDocument() throws SAXException {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void endElement(String uri, String localName, String qName)
-				throws SAXException {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void startDocument() throws SAXException {
-		System.out.println("Starting document parsing");
-			
-		}
-
-		@Override
 		public void startElement(String uri, String localName, String qName,
 				Attributes atts) throws SAXException {
 		if(qName.equals("call")){
