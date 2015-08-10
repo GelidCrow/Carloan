@@ -15,7 +15,7 @@ import static utility.QueryStringReplacer.queryReplaceFirst;
 public class DAOAgenzia implements DAO{
 
 	
-	private DaoFactory daofactory;
+	private static DaoFactory daofactory;
 	
 	
 	DAOAgenzia(DaoFactory dao){
@@ -45,26 +45,32 @@ public class DAOAgenzia implements DAO{
     
 	}
 
-	@Override
-	public void aggiornamento() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void lettura() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void aggiornamento(Entity x) {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public Entity lettura() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException{
+		Agenzia a= new Agenzia("A3","Viale x","1234567891","SedeOtranto","crln");
+		
+		daofactory = DaoFactory.getDaoFactory(1);
+		
+		
+		DAO x = new DAOAgenzia(daofactory);
+		
+		x.creazione(a);
+		
 		
 	}
+
+
 
 }
