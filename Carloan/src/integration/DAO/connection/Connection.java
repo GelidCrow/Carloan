@@ -30,9 +30,9 @@ public class Connection {
 		this.daofactory=a;
 		host=reader.getField(ConfiguratorDBReader.HOST);
 		db=reader.getField(ConfiguratorDBReader.DATABASE);
-		port=reader.getField(ConfiguratorDBReader.PORT);
 		username=reader.getField(ConfiguratorDBReader.USERNAME);
 		password=reader.getField(ConfiguratorDBReader.PASSWORD);
+		port=reader.getField(ConfiguratorDBReader.PORT);
 		this.connessione="jdbc:";
 		
 		switch(this.daofactory.getClass().getSimpleName()){
@@ -96,7 +96,9 @@ public class Connection {
 				st=connessione_remota.prepareStatement("use "+db+";");
 				st.execute();
 				st=connessione_remota.prepareStatement(query);
-				result=st.executeQuery();
+				st.executeUpdate();
+				
+		
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

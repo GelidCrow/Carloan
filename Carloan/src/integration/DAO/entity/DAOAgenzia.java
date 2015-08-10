@@ -4,6 +4,7 @@ import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import business.entity.Entity;
 import business.entity.Luoghi.Agenzia;
@@ -24,22 +25,23 @@ public class DAOAgenzia implements DAO{
 	@Override
 	public void creazione(Entity x) {
 
-		String INSERT = "insert into Agenzia values('?','?','?','?');";
+		String INSERT = "INSERT INTO Agenzia values('?','?','?','?');";
+		 String insertQuery = INSERT;
 				
 		Agenzia agenzia= (Agenzia)x;
 
-        String insertQuery = queryReplaceFirst(INSERT, agenzia.getIDAgenzia());
+        insertQuery = queryReplaceFirst(insertQuery, agenzia.getIDAgenzia());
         
-        insertQuery= queryReplaceFirst(INSERT,agenzia.getNumTelefono());
+        insertQuery= queryReplaceFirst(insertQuery,agenzia.getNumTelefono());
         
-        insertQuery= queryReplaceFirst(INSERT,agenzia.getNome());
+        insertQuery= queryReplaceFirst(insertQuery,agenzia.getNome());
         
-        insertQuery= queryReplaceFirst(INSERT,agenzia.getIDDitta());
+        insertQuery= queryReplaceFirst(insertQuery,agenzia.getIDDitta());
         
         Connection connection= Connection.getConnection(daofactory);
-        System.out.println(insertQuery);
-        ResultSet idList = connection.execute(insertQuery);
-    
+  
+		ResultSet idList = connection.execute(insertQuery);
+		
 	}
 
 
@@ -56,7 +58,7 @@ public class DAOAgenzia implements DAO{
 	}
 
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException{
-		Agenzia a= new Agenzia("A3","Viale x","1234567891","SedeOtranto","crln");
+		Agenzia a= new Agenzia("A3","1234567891","SedeOtr","Crln");
 		
 		
 		DAO x = new DAOAgenzia(DaoFactory.getDaoFactory(1));
@@ -65,7 +67,5 @@ public class DAOAgenzia implements DAO{
 		
 		
 	}
-
-
 
 }
