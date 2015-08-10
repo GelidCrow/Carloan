@@ -65,8 +65,6 @@ public class DAOAgenzia implements DAO{
 
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException{
 		Agenzia a= new Agenzia("A3","1234567891","SedeOtr","Crln");
-		
-		
 		DAO x = new DAOAgenzia(DaoFactory.getDaoFactory(1));
 		
 		x.creazione(a);

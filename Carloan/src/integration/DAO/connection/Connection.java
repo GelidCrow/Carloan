@@ -97,7 +97,7 @@ public class Connection {
 				st=connessione_remota.prepareStatement("use "+db+";");
 				st.execute();
 				st=connessione_remota.prepareStatement(query);
-				st.executeUpdate();
+				result=st.executeQuery();
 				
 		
 			} catch (SQLException e) {
