@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import integration.DAO.DaoFactory;
 import integration.DAO.DatabaseConnectionException;
@@ -97,8 +98,8 @@ public class Connection {
 				st=connessione_remota.prepareStatement("use "+db+";");
 				st.execute();
 				st=connessione_remota.prepareStatement(query);
-				result=st.executeQuery();
-				
+				st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+				result=st.getGeneratedKeys();
 		
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -120,7 +121,8 @@ public class Connection {
 				st.execute();
 				st.setBinaryStream(1,f,f.available());
 				st=connessione_remota.prepareStatement(query);
-				result=st.executeQuery();
+				st.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
+				result=st.getGeneratedKeys();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
