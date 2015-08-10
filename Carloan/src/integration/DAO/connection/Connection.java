@@ -56,7 +56,8 @@ public class Connection {
 	 * @return la connessione creata.
 	 * @throws SQLException
 	 */
-	public  java.sql.Connection connetti() throws SQLException {
+	public  void connetti() throws SQLException {
+		if(connessione_remota==null){
 		try {
 			switch(vendor){
 			case "mysql":
@@ -72,7 +73,7 @@ public class Connection {
 			e.printStackTrace();
 		}
 		connessione_remota = DriverManager.getConnection(connessione, username, password);
-		return connessione_remota;
+		}
 	}
 	
 	/**
