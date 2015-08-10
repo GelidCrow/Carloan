@@ -4,8 +4,12 @@ package integration.DAO.entity;
 public class DAOAgenzia implements DAO{
 
 	@Override
-	public void creazione() {
-		// TODO Auto-generated method stub
+	public void creazione(Object x) {
+		
+		
+		
+		
+		
 		
 	}
 
@@ -20,6 +24,5 @@ public class DAOAgenzia implements DAO{
 		// TODO Auto-generated method stub
 		
 	}
-	
 
 }

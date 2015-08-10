@@ -82,6 +82,8 @@ public class Connection {
 		if (connessione_remota != null && !connessione_remota.isClosed())
 			connessione_remota.close();
 	}
+	
+	
 	@SuppressWarnings("finally")
 	public ResultSet execute(String query){
 		ResultSet result=null;
@@ -92,7 +94,7 @@ public class Connection {
 				st=connessione_remota.prepareStatement("use "+db+";");
 				st.execute();
 				st=connessione_remota.prepareStatement(query);
-				 result=st.executeQuery();
+				result=st.executeQuery();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
