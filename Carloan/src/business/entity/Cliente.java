@@ -2,7 +2,7 @@ package business.entity;
 
 import java.util.Date;
 //potrebbeessere astratta e cliente estende cliente... cosi puoi aggiungerne tanti
-public class Cliente {
+public class Cliente extends Entity{
 	
 	private String nome;
 	private String cognome;

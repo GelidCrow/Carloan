@@ -1,7 +1,9 @@
 package integration.DAO.entity;
 
+import business.entity.Entity;
+
 public interface DAO {
-		public void creazione(Object x);
-		public void aggiornamento();
-		public void lettura();
+		public void creazione(Entity x );
+		public void aggiornamento(Entity x);
+		public Entity lettura();
 }

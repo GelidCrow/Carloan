@@ -21,9 +21,10 @@ public class Connection {
 	private  String connessione;
 	private  String vendor;
 	private DaoFactory daofactory;
-	private   Connection con;
+	private static   Connection con;
 	private  java.sql.Connection connessione_remota;
 	private ConfiguratorReader reader;	
+	
 	private Connection(DaoFactory a){
 		reader=new ConfiguratorDBReader(PATH);
 		this.daofactory=a;
@@ -33,6 +34,7 @@ public class Connection {
 		username=reader.getField(ConfiguratorDBReader.USERNAME);
 		password=reader.getField(ConfiguratorDBReader.PASSWORD);
 		this.connessione="jdbc:";
+		
 		switch(this.daofactory.getClass().getSimpleName()){
 		case "MySqlDaoFactory":
 			vendor="mysql";
@@ -42,10 +44,10 @@ public class Connection {
 		this.connessione+=vendor+"://"+host+":"+port+"/"+db;
 		
 	}
-	public Connection getConnection(DaoFactory a){
-		if(this.con==null)
-			this.con=new Connection(a);
-		return this.con;
+	public static Connection getConnection(DaoFactory a){
+		if(con==null)
+			con=new Connection(a);
+		return  con;
 	}
 	
 	/**

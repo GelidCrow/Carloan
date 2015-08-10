@@ -2,7 +2,7 @@ package business.entity;
 
 import java.util.Date;
 
-public abstract class Utente {
+public abstract class Utente extends Entity {
 	
 	private String Nome;
 	private String Cognome;
