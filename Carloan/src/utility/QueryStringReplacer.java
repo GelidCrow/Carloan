@@ -6,7 +6,7 @@ public class QueryStringReplacer {
     private static final String APOSTROPHE = "[']";
 
     public static String queryReplaceFirst(String query, String field) {
-        field = field.replaceAll(APOSTROPHE, "''");
+       // field = field.replaceAll(APOSTROPHE, "''");
         return query.replaceFirst(QUESTION_MARK, field);
     }
 

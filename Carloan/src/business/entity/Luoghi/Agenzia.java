@@ -5,13 +5,12 @@ import business.entity.Entity;
 public class Agenzia extends Entity{
 	private String IDAgenzia;
 	private String NumTelefono;
-	private String indirizzo;
+
 	public Agenzia(String iDAgenzia, String numTelefono, String indirizzo,
 			String nome, String iDDitta) {
 		super();
 		IDAgenzia = iDAgenzia;
 		NumTelefono = numTelefono;
-		this.indirizzo = indirizzo;
 		this.nome = nome;
 		IDDitta = iDDitta;
 	}
@@ -42,12 +41,6 @@ public class Agenzia extends Entity{
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public String getIndirizzo() {
-		return indirizzo;
-	}
-	public void setIndirizzo(String indirizzo) {
-		this.indirizzo = indirizzo;
 	}
 	
 }
