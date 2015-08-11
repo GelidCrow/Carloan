@@ -10,7 +10,7 @@ public class CarLoanAC implements ApplicationController {
 	private Delegate delegate ; 
 	@Override
 	public Object handleRequest(String request, Object parameter) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
-		delegate= new Delegate("presentation/AC.xml");
+		delegate= new Delegate("presentation/controller/AC.xml");
 		return delegate.doTask(request, parameter);
 	}
 }

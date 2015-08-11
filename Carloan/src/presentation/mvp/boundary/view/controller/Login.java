@@ -30,10 +30,14 @@ public class Login implements Initializable{
 	@FXML
 	public void btnLogin(ActionEvent e){
 		List<String> parameter = new ArrayList<String>();
+		
 		parameter.add(txtUsername.getText());
+		
 		try {
+			
 			parameter.add(Crittografia.CriptaPassword(txtPsw.getText()));
-			presenter.processRequest("Login",parameter);
+			presenter.processRequest("ModelLogin",parameter);
+			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException

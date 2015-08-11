@@ -61,10 +61,26 @@ public class DAOLogin implements DAO{
 		
 	}
 	
+
+	@Override
+	public Entity lettura() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
 	public boolean  autenticazione(Entity x){
 		Login login= (Login)x;
-		String Autenticazione = "select Username,Password from Credenziali";
 		
+		String Autenticazione = "select Username,Password from Credenziali where Username='?' and password='?'";
+		
+		String insertQuery = Autenticazione;
+	
+
+        insertQuery = queryReplaceFirst(insertQuery, login.getUsername());
+        
+        insertQuery = queryReplaceFirst(insertQuery, login.getPassword());
+        
 		Connection connection= Connection.getConnection(daofactory);
         try {
 			connection.connetti();
@@ -72,31 +88,17 @@ public class DAOLogin implements DAO{
 			e.printStackTrace();
 		}
         
-		ResultSet idList = connection.execute(Autenticazione);
-		
+		ResultSet idList = connection.execute(insertQuery);
+		//se non è vuoto il resultset.
 		try {
-			while(idList.next()){
-				try {
-					if(login.getUsername().equals(idList.getString(1))  &&  login.getPassword().equals(idList.getString(2))){
-						return true;
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
+			if(idList.next()){
+				return true;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
-	}
-
-	@Override
-	public Entity lettura() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

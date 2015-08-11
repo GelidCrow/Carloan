@@ -34,6 +34,14 @@ public class ModelLogin implements Model {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void ricerca() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 	public void autenticazione(Object parameter){
 		try {
 			daofactory= DaoFactory.getDaoFactory(1);
@@ -71,11 +79,4 @@ public class ModelLogin implements Model {
         
         return login;
     }
-
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
