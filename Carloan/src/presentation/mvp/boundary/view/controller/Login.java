@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import business.entity.Entity;
+import business.entity.Gestori.Amministratore;
+import business.entity.Gestori.Operatore;
+import business.entity.Gestori.SupervisoreAgenzia;
+import business.entity.Gestori.SupervisoreSede;
 import presentation.mvp.boundary.view.Presenter;
 import utility.Crittografia;
 import javafx.event.ActionEvent;
@@ -36,7 +41,26 @@ public class Login implements Initializable{
 		try {
 			
 			parameter.add(Crittografia.CriptaPassword(txtPsw.getText()));
-			presenter.processRequest("ModelLogin",parameter);
+			Entity x=(Entity) presenter.processRequest("ModelLogin",parameter);
+			if(x!=null){
+				/*Esito del log in positivo*/
+				if(x instanceof Amministratore){
+					//E' un amministratore
+				}
+				else if(x instanceof SupervisoreAgenzia){
+					
+				}
+				else if(x instanceof SupervisoreSede){
+					
+				}
+				else if(x instanceof Operatore){
+					
+				}
+					
+			}
+			else{
+				/*Esito del log in negativo*/
+			}
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

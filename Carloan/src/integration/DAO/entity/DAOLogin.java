@@ -10,6 +10,10 @@ import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 import business.entity.Entity;
 import business.entity.Login;
+import business.entity.Gestori.Amministratore;
+import business.entity.Gestori.Operatore;
+import business.entity.Gestori.SupervisoreAgenzia;
+import business.entity.Gestori.SupervisoreSede;
 
 
 public class DAOLogin implements DAO{
@@ -45,12 +49,20 @@ public class DAOLogin implements DAO{
  
         
         Connection connection= Connection.getConnection(daofactory);
-        
+        ResultSet idList = null;
 		try {
-			ResultSet idList = connection.execute(insertQuery);
+			 idList = connection.execute(insertQuery);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		finally{
+			try {
+				idList.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -68,10 +80,11 @@ public class DAOLogin implements DAO{
 	}
 	
 
-	public boolean  autenticazione(Entity x){
+	@SuppressWarnings("resource")
+	public Entity  autenticazione(Entity x){
 		Login login= (Login)x;
 		
-		String Autenticazione = "select Username,Password from Credenziali where Username='?' and password='?'";
+		String Autenticazione = "select IDSupervisoreAgenzia,IDSupervisoreSede,IDAmministratore,IDOperatore from Credenziali where Username='?' and password='?'";
 		
 		String insertQuery = Autenticazione;
 	
@@ -81,19 +94,50 @@ public class DAOLogin implements DAO{
         insertQuery = queryReplaceFirst(insertQuery, login.getPassword());
         
 		Connection connection= Connection.getConnection(daofactory);
-        
-		ResultSet idList;
+        Entity result = null;
+		ResultSet idList = null;
 		//se non è vuoto il resultset.
 		try {
 			idList = connection.execute(insertQuery);
-			if(idList.next()){
-				return true;
+			if(idList!=null){
+				if(!idList.getString(1).isEmpty()){//è un supervisoreagenzia
+					String auth="Select IDSupervisoreAgenzia,Nome,Cognome,IDAgenzia from SupervisoreAgenzia where IDSupervisoreAgenzia='"+idList.getString(1)+"'";
+					idList=connection.execute(auth);
+					result=new SupervisoreAgenzia(idList.getString(2),idList.getString(3),idList.getString(1));
+				}
+				
+				else if(!idList.getString(2).isEmpty()){//è un supervisore sede
+					String auth="Select IDSupervisoreSede,Nome,Cognome,IDSede from SupervisoreSede where IDSupervisoreSede='"+idList.getString(2)+"'";
+					idList=connection.execute(auth);
+					result=new SupervisoreSede(idList.getString(2),idList.getString(3),idList.getString(1));
+				}
+				else if(!idList.getString(3).isEmpty()){// è un amministratore
+					String auth="Select IDAmministratore,Nome,Cognome,IDDitta from Amministratore where IDAmministratore='"+idList.getString(3)+"'";
+					idList=connection.execute(auth);
+					result=new Amministratore(idList.getString(2),idList.getString(3),idList.getString(1));
+				}
+				else if(!idList.getString(4).isEmpty()){// è un operatore
+					String auth="Select IDOperatoree,Nome,Cognome,IDSede from Operatoree where IDOperatore='"+idList.getString(4)+"'";
+					idList=connection.execute(auth);
+					result=new Operatore(idList.getString(2),idList.getString(3),idList.getString(1));
+				}
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+		finally{
+			if(idList!=null)
+				try {
+					idList.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+		}
+		return  result;
 	}
 
 }

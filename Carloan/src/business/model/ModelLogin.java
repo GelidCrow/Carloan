@@ -4,6 +4,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 
+
+import business.entity.Entity;
 import business.entity.Login;
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOLogin;
@@ -41,7 +43,8 @@ public class ModelLogin implements Model {
 	}
 	
 	
-	public void autenticazione(Object parameter){
+	public Entity autenticazione(Object parameter){
+		Entity ent=null;
 		try {
 			daofactory= DaoFactory.getDaoFactory(1);
 			
@@ -49,11 +52,12 @@ public class ModelLogin implements Model {
 			
 			Login login = populate(parameter);
 			
-			daoLogin.autenticazione(login);
+		 ent=daoLogin.autenticazione(login);
 				
 		} catch (InstantiationException | IllegalAccessException | NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
+		return ent;
 	}
 	
 	/**
