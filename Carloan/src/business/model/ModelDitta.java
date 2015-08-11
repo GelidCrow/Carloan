@@ -3,18 +3,6 @@ package business.model;
 public class ModelDitta implements Model{
 
 	@Override
-	public void Inserimento() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void aggiorna() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void lettura() {
 		// TODO Auto-generated method stub
 		
@@ -22,6 +10,18 @@ public class ModelDitta implements Model{
 
 	@Override
 	public void ricerca() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void Inserimento(Object parameter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void aggiorna(Object parameter) {
 		// TODO Auto-generated method stub
 		
 	}

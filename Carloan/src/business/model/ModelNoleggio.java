@@ -4,17 +4,7 @@ import business.entity.Noleggio.Noleggio;
 
 public class ModelNoleggio implements Model{
 
-	@Override
-	public void Inserimento() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void aggiorna() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void lettura() {
@@ -29,6 +19,18 @@ public class ModelNoleggio implements Model{
 	}
 
 	public void calcolaPrezzo(Noleggio noleggio){
+		
+	}
+
+	@Override
+	public void Inserimento(Object parameter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void aggiorna(Object parameter) {
+		// TODO Auto-generated method stub
 		
 	}
 		

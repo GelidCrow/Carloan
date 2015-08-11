@@ -2,17 +2,7 @@ package business.model;
 
 public class ModelContratto implements Model{
 
-	@Override
-	public void Inserimento() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void aggiorna() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void lettura() {
@@ -26,6 +16,18 @@ public class ModelContratto implements Model{
 		
 	}
 	public void chiusura(){
+		
+	}
+
+	@Override
+	public void Inserimento(Object parameter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void aggiorna(Object parameter) {
+		// TODO Auto-generated method stub
 		
 	}
 

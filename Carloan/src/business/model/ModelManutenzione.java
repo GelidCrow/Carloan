@@ -4,17 +4,6 @@ import business.entity.Auto.manutenzione.Manutenzione;
 
 public class ModelManutenzione implements Model{
 
-	@Override
-	public void Inserimento() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void aggiorna() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void lettura() {
@@ -28,6 +17,18 @@ public class ModelManutenzione implements Model{
 		
 	}
 	public void chiusuraManutenzione(Manutenzione manutenzione){
+		
+	}
+
+	@Override
+	public void Inserimento(Object parameter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void aggiorna(Object parameter) {
+		// TODO Auto-generated method stub
 		
 	}
 }

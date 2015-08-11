@@ -1,24 +1,28 @@
 package integration.DAO.entity;
 
+import business.entity.Entity;
+
 
 public class DAOCartaDiCredito implements DAO{
 
+
+
 	@Override
-	public void creazione() {
+	public void creazione(Entity x) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void aggiornamento() {
+	public void aggiornamento(Entity x) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void lettura() {
+	public Entity lettura() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

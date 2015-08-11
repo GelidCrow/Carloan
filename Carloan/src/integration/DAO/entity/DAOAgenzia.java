@@ -41,7 +41,7 @@ public class DAOAgenzia implements DAO{
         Connection connection= Connection.getConnection(daofactory);
         
 		try {
-			ResultSet idList = connection.execute(insertQuery);
+			ResultSet idList = connection.executeUpdate(insertQuery);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
