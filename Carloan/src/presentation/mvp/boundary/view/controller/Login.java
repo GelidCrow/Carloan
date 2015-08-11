@@ -24,7 +24,7 @@ public class Login implements Initializable{
 	
 	@FXML
 	public void btnLogin(ActionEvent e){
-	   presenter.
+	   
 	}
 
 	@Override

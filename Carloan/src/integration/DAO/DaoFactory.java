@@ -1,5 +1,7 @@
 package integration.DAO;
 
+import integration.DAO.entity.DAO;
+
 
 public abstract class DaoFactory {
 	/**
@@ -26,5 +28,5 @@ public abstract class DaoFactory {
 		return dao;
 	}
 	
-	public abstract Class<?> getDao(String DaoName);
+	public abstract DAO getDao(String DaoName);
 }

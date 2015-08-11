@@ -1,5 +1,7 @@
 package integration.DAO;
 
+import integration.DAO.entity.DAO;
+
 import java.lang.reflect.InvocationTargetException;
 
 public class MySqlDaoFactory extends DaoFactory{
@@ -29,14 +31,13 @@ public class MySqlDaoFactory extends DaoFactory{
 	 * @param DaoName Il nome del dao da instanziare
 	 * @return Il riferimento alla classe che modella il dao richiesto
 	 */
-	public Class<?> getDao(String DaoName) {
+	public DAO getDao(String DaoName) {
 		try {
-			return  (Class<?>) Class.forName(DaoName).getDeclaredConstructor(DaoName.getClass()).newInstance(dao);
+			return  (DAO) Class.forName(DaoName).getDeclaredConstructor(DaoName.getClass()).newInstance(dao);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Could not find dao: "+DaoName);
 		}
 		return null;
 	}
-
 }
