@@ -2,7 +2,7 @@
 
 <calls>
 	<call id="login">
-		<class>business.model.Login</class>
+		<class>business.model.ModelLogin</class>
 		<method>autenticazione</method>
 	</call>
 	

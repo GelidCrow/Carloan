@@ -16,18 +16,12 @@ public class Login extends Entity{
 	
 
 	
-	public Login(String username, String password, String operatore,
-			String supS, String supA, String amministratore) {
+	public Login(String username, String password) {
 		this.username = username;
-		try {
-			this.password = Crittografia.CriptaPassword(password);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		this.operatore = operatore;
-		SupS = supS;
-		SupA = supA;
-		Amministratore = amministratore;
+			this.password=password;
+		
+		
+
 	}
 
 	public String getSupS() {

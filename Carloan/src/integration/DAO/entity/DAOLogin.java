@@ -22,7 +22,7 @@ public class DAOLogin implements DAO{
 	private  DaoFactory daofactory;
 	
 	
-	DAOLogin(DaoFactory dao){
+	public DAOLogin(DaoFactory dao){
 		this.daofactory = dao;		
 	}
 	
@@ -51,7 +51,7 @@ public class DAOLogin implements DAO{
         Connection connection= Connection.getConnection(daofactory);
         ResultSet idList = null;
 		try {
-			 idList = connection.execute(insertQuery);
+			 idList = connection.executeUpdate(insertQuery);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -98,27 +98,33 @@ public class DAOLogin implements DAO{
 		ResultSet idList = null;
 		//se non è vuoto il resultset.
 		try {
-			idList = connection.execute(insertQuery);
-			if(idList!=null){
-				if(!idList.getString(1).isEmpty()){//è un supervisoreagenzia
+			idList = connection.executeRead(insertQuery);
+			
+			if(idList.next()){
+				
+				if(idList.getString(1)!=null){//è un supervisoreagenzia
 					String auth="Select IDSupervisoreAgenzia,Nome,Cognome,IDAgenzia from SupervisoreAgenzia where IDSupervisoreAgenzia='"+idList.getString(1)+"'";
-					idList=connection.execute(auth);
+					idList=connection.executeRead(auth);
+					idList.next();
 					result=new SupervisoreAgenzia(idList.getString(2),idList.getString(3),idList.getString(1));
 				}
 				
-				else if(!idList.getString(2).isEmpty()){//è un supervisore sede
+				else if(idList.getString(2)!=null){//è un supervisore sede
 					String auth="Select IDSupervisoreSede,Nome,Cognome,IDSede from SupervisoreSede where IDSupervisoreSede='"+idList.getString(2)+"'";
-					idList=connection.execute(auth);
+					idList=connection.executeRead(auth);
+					idList.next();
 					result=new SupervisoreSede(idList.getString(2),idList.getString(3),idList.getString(1));
 				}
-				else if(!idList.getString(3).isEmpty()){// è un amministratore
+				else if(idList.getString(3)!=null){// è un amministratore
 					String auth="Select IDAmministratore,Nome,Cognome,IDDitta from Amministratore where IDAmministratore='"+idList.getString(3)+"'";
-					idList=connection.execute(auth);
+					idList=connection.executeRead(auth);
+					idList.next();
 					result=new Amministratore(idList.getString(2),idList.getString(3),idList.getString(1));
 				}
-				else if(!idList.getString(4).isEmpty()){// è un operatore
+				else if(idList.getString(4)!=null){// è un operatore
 					String auth="Select IDOperatoree,Nome,Cognome,IDSede from Operatoree where IDOperatore='"+idList.getString(4)+"'";
-					idList=connection.execute(auth);
+					idList=connection.executeRead(auth);
+					idList.next();
 					result=new Operatore(idList.getString(2),idList.getString(3),idList.getString(1));
 				}
 				

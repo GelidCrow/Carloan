@@ -72,13 +72,9 @@ public class ModelLogin implements Model {
 		List<String> param = (List<String>) parameter;
 		String username = param.get(0);
 		String password = param.get(1);
-		String supS = param.get(2);// qui mi dice se è un opratore, amministratore ecc..
-		String supA = param.get(3);
-		String Amm = param.get(4);
-		String operatore= param.get(5);
 		//controllo se l'utente non è già esistente ovviamente..
 		
-        Login login = new Login(username,password,supS,supA,Amm,operatore);
+        Login login = new Login(username,password);
         
         return login;
     }

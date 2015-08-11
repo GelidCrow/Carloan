@@ -7,7 +7,7 @@ public class FrontControllerFactory {
     }
 
     public static FrontController getFrontController() {
-    	if(carloanFC!=null){
+    	if(carloanFC==null){
    		 carloanFC= new CarLoanFC();
 	   	}
 	   	return carloanFC;

@@ -6,7 +6,7 @@ public class ApplicationControllerFactory {
 		
 	}
 	public static ApplicationController getApplicationController(){
-		if(carloanAC!=null){
+		if(carloanAC==null){
 			 carloanAC= new CarLoanAC();
 		}
 		return carloanAC;

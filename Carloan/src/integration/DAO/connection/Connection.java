@@ -89,7 +89,7 @@ public class Connection {
 	
 	
 	@SuppressWarnings("finally")
-	public ResultSet execute(String query) throws SQLException{
+	public ResultSet executeUpdate(String query) throws SQLException{
 		this.connetti();
 		ResultSet result=null;
 		if(query!=null && !query.isEmpty()){
@@ -113,7 +113,7 @@ public class Connection {
 	}
 	
 	@SuppressWarnings("finally")
-	public ResultSet execute(String query,FileInputStream f) throws SQLException{
+	public ResultSet executeUpdate(String query,FileInputStream f) throws SQLException{
 		this.connetti();
 		ResultSet result=null;
 		if(query!=null && !query.isEmpty()){
@@ -134,4 +134,27 @@ public class Connection {
 		}
 	return result;
 	}
+	
+	@SuppressWarnings("finally")
+	public ResultSet executeRead(String query) throws SQLException{
+		this.connetti();
+		ResultSet result=null;
+		if(query!=null && !query.isEmpty()){
+			PreparedStatement st;
+			
+			try {
+				st=connessione_remota.prepareStatement("use "+db+";");
+				st.execute();
+				result=st.executeQuery(query);
+		
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally{
+				return result;
+			}
+		}
+	return result;
+	}
+	
 }

@@ -32,12 +32,16 @@ public class MySqlDaoFactory extends DaoFactory{
 	 * @return Il riferimento alla classe che modella il dao richiesto
 	 */
 	public DAO getDao(String DaoName) {
+		DAO dao=null;
 		try {
-			return  (DAO) Class.forName(DaoName).getDeclaredConstructor(DaoName.getClass()).newInstance(dao);
+			String complete_name="integration.DAO.entity."+DaoName;
+			Class<?> c= Class.forName(complete_name);
+			dao= (DAO) c.getDeclaredConstructor(DaoFactory.class).newInstance(this);
+			
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Could not find dao: "+DaoName);
+			e.printStackTrace();
 		}
-		return null;
+		return dao;
 	}
 }
