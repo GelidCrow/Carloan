@@ -39,13 +39,13 @@ public class DAOAgenzia implements DAO{
         insertQuery= queryReplaceFirst(insertQuery,agenzia.getIDDitta());
         
         Connection connection= Connection.getConnection(daofactory);
-        try {
-			connection.connetti();
+        
+		try {
+			ResultSet idList = connection.execute(insertQuery);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-		ResultSet idList = connection.execute(insertQuery);
 		
 	}
 

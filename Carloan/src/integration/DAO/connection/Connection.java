@@ -57,7 +57,7 @@ public class Connection {
 	 * @return la connessione creata.
 	 * @throws SQLException
 	 */
-	public  void connetti() throws SQLException {
+	private  void connetti() throws SQLException {
 		if(connessione_remota==null){
 		try {
 			switch(vendor){
@@ -89,7 +89,8 @@ public class Connection {
 	
 	
 	@SuppressWarnings("finally")
-	public ResultSet execute(String query){
+	public ResultSet execute(String query) throws SQLException{
+		this.connetti();
 		ResultSet result=null;
 		if(query!=null && !query.isEmpty()){
 			PreparedStatement st;
@@ -112,7 +113,8 @@ public class Connection {
 	}
 	
 	@SuppressWarnings("finally")
-	public ResultSet execute(String query,FileInputStream f){
+	public ResultSet execute(String query,FileInputStream f) throws SQLException{
+		this.connetti();
 		ResultSet result=null;
 		if(query!=null && !query.isEmpty()){
 			PreparedStatement st;

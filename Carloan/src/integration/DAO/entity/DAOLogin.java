@@ -5,12 +5,11 @@ import static utility.QueryStringReplacer.queryReplaceFirst;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import utility.Crittografia;
+
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 import business.entity.Entity;
 import business.entity.Login;
-import business.entity.Luoghi.Agenzia;
 
 
 public class DAOLogin implements DAO{
@@ -46,13 +45,13 @@ public class DAOLogin implements DAO{
  
         
         Connection connection= Connection.getConnection(daofactory);
-        try {
-			connection.connetti();
+        
+		try {
+			ResultSet idList = connection.execute(insertQuery);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-		ResultSet idList = connection.execute(insertQuery);
 	}
 
 	@Override
@@ -82,15 +81,11 @@ public class DAOLogin implements DAO{
         insertQuery = queryReplaceFirst(insertQuery, login.getPassword());
         
 		Connection connection= Connection.getConnection(daofactory);
-        try {
-			connection.connetti();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
         
-		ResultSet idList = connection.execute(insertQuery);
+		ResultSet idList;
 		//se non è vuoto il resultset.
 		try {
+			idList = connection.execute(insertQuery);
 			if(idList.next()){
 				return true;
 			}
