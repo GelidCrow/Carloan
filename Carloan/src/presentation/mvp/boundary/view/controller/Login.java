@@ -35,7 +35,7 @@ public class Login implements Initializable{
 		List<String> parameter = new ArrayList<String>();
 		
 		parameter.add(/*txtUsername.getText()*/"Amm1");
-		
+		 
 		try {
 			
 			parameter.add(/*Crittografia.CriptaPassword(txtPsw.getText())*/"EE774405AFA3E5CBB5279D8E77D3C840DEEE46372CEF95B511CFC8B259858031");
