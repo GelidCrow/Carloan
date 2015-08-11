@@ -2,14 +2,18 @@ package presentation.mvp.boundary.view;
 
 import java.io.IOException;
 
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
 	private Stage primaryStage;
+	private VBox vbox;
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage=primaryStage;
@@ -19,8 +23,9 @@ public class Main extends Application {
 public void initRootLayout(){
 	try{
 		FXMLLoader loader=new FXMLLoader();
-		loader.setLocation(Main.class.getResource("Login.fxml"));
-		Scene scene=new Scene(loader.load());
+		loader.setLocation(getClass().getResource("markup/Login.fxml"));
+		vbox=(VBox)loader.load();
+		Scene scene=new Scene(vbox);
 		this.primaryStage.setScene(scene);
 		this.primaryStage.show();
 	}

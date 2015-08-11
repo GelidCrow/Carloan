@@ -21,7 +21,7 @@ public class ReaderXML {
 		SAXParser myparser;
 		try {
 			myparser = SAXParserFactory.newInstance().newSAXParser();
-			myparser.parse(percorsoFile, myhandler);
+			myparser.parse(getClass().getResourceAsStream("../"+percorsoFile), myhandler);
 		} catch (ParserConfigurationException | SAXException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

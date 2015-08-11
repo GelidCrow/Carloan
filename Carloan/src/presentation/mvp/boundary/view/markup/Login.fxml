@@ -6,11 +6,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.boundary.view.controller.Login">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.boundary.view.controller.Login">
    <children>
       <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000000;">
          <children>
-            <ImageView fitHeight="172.0" fitWidth="406.0" layoutY="14.0">
+            <ImageView fitHeight="117.0" fitWidth="406.0" layoutY="42.0">
                <image>
                   <Image url="@Immagini/log_in_logo.jpg" />
                </image>
@@ -19,6 +19,7 @@
       </Pane>
       <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000000;">
          <children>
+            
             <TextField fx:id="txtUsername" layoutX="173.0" layoutY="45.0" promptText="Username" />
             <PasswordField fx:id="txtPsw" layoutX="173.0" layoutY="89.0" promptText="Password" />
             <Label layoutX="27.0" layoutY="38.0" text="Username :" textFill="WHITE">

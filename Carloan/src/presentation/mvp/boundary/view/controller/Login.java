@@ -1,8 +1,10 @@
 package presentation.mvp.boundary.view.controller;
 
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,17 +15,18 @@ import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Gestori.SupervisoreSede;
 import presentation.mvp.boundary.view.Presenter;
+import utility.Crittografia;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
 
 public class Login implements Initializable{
 	@FXML
-	private Text txtUsername;
+	private TextField txtUsername;
 	@FXML
-	private Text txtPsw;
+	private TextField txtPsw;
 	@FXML
 	private Button btnLogin;
 	
@@ -34,17 +37,17 @@ public class Login implements Initializable{
 	public void btnLogin(ActionEvent e){
 		List<String> parameter = new ArrayList<String>();
 		
-		parameter.add(/*txtUsername.getText()*/"Amm1");
+		parameter.add(txtUsername.getText());
 		 
 		try {
 			
-			parameter.add(/*Crittografia.CriptaPassword(txtPsw.getText())*/"EE774405AFA3E5CBB5279D8E77D3C840DEEE46372CEF95B511CFC8B259858031");
+			parameter.add(Crittografia.CriptaPassword(txtPsw.getText()));
 			Entity x=(Entity) presenter.processRequest("login",parameter);
 			if(x!=null){
 				/*Esito del log in positivo*/
 				if(x instanceof Amministratore){
 					//E' un amministratore
-			System.out.println("amministratore");
+					System.out.println("amministratore");
 				}
 				else if(x instanceof SupervisoreAgenzia){
 					
@@ -64,7 +67,7 @@ public class Login implements Initializable{
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
-				| InvocationTargetException e1) {
+				| InvocationTargetException | NoSuchAlgorithmException e1) {
 			e1.printStackTrace();
 		}
 	}
