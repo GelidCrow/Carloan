@@ -1,10 +1,15 @@
 package presentation.mvp.boundary.view.controller;
 
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import presentation.mvp.boundary.view.Presenter;
+import utility.Crittografia;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,7 +29,17 @@ public class Login implements Initializable{
 	
 	@FXML
 	public void btnLogin(ActionEvent e){
-	   
+		List<String> parameter = new ArrayList<String>();
+		parameter.add(txtUsername.getText());
+		try {
+			parameter.add(Crittografia.CriptaPassword(txtPsw.getText()));
+			presenter.processRequest("Login",parameter);
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | NoSuchAlgorithmException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	@Override

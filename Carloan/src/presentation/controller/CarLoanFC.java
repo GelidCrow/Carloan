@@ -9,5 +9,4 @@ public class CarLoanFC implements FrontController {
 		carloanAC = (CarLoanAC) ApplicationControllerFactory.getApplicationController();
 		return carloanAC.handleRequest(request, parameter);
 	}
-
 }
