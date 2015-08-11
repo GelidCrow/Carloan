@@ -13,7 +13,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class ReaderXML {
 	private String percorsoFile;
-	
 	public  ReaderXML(String percorso){
 		this.percorsoFile=percorso;
 	}
@@ -37,8 +36,24 @@ public class ReaderXML {
 		return  coppia;
 	}
 	
+	public String read_UI(String nomeServizio){
+		XMLHandler_UI myhandler=new XMLHandler_UI(nomeServizio);
+		SAXParser myparser;
+		try {
+			myparser= SAXParserFactory.newInstance().newSAXParser();
+			myparser.parse(percorsoFile, myhandler);
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return myhandler.getfxml_name();
+	}
+	
+	
+	
 	/**
-	 * Inner Class who defines a defaulthandler for the sax xml parser
+	 * Inner Class who defines a defaulthandler for the sax xml parser.
+	 * This handler defines how to choose class and method name linked to a serviceName
 	 * @author Gelidcrow
 	 *
 	 */
@@ -91,6 +106,46 @@ public class ReaderXML {
 			should_read_method=true;
 		}
 
+
+	}
+	
+	/**
+	 * Inner class who defines a default handler for the sax xml parser.
+	 * This hanlder defines how to choose fxml file name linked to a serviceName
+	 * @author Gelidcrow
+	 *
+	 */
+	class XMLHandler_UI extends DefaultHandler{
+		boolean should_read=false;
+		boolean should_read_class=false;
+		boolean should_read_method=false;
+		String fxml_name,nomeservizio;
+		
+		 XMLHandler_UI(String nomeServizio) {
+			this.nomeservizio=nomeServizio;
+			
+		}
+		
+		public String getfxml_name(){
+			return fxml_name;
+		}
+
+		@Override
+		public void startElement(String uri, String localName, String qName,
+				Attributes atts) throws SAXException {
+		if(qName.equals("interface")){
+		for(int i=0;i<atts.getLength();i++){
+			if(atts.getQName(i).equals("id")){
+				if(atts.getValue(i).equals(this.nomeservizio))
+					should_read=true;
+			}
+			else if(should_read==true && atts.getQName(i).equals("src")){
+				this.fxml_name=atts.getValue(i);
+				should_read=false;
+			}
+		}
+		}
+		}
 
 	}
 }
