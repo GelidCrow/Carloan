@@ -29,7 +29,7 @@ public class MySqlDaoFactory extends DaoFactory{
 	 * @param DaoName Il nome del dao da instanziare
 	 * @return Il riferimento alla classe che modella il dao richiesto
 	 */
-	public static Class<?>  getDao(String DaoName) {
+	public Class<?> getDao(String DaoName) {
 		try {
 			return  (Class<?>) Class.forName(DaoName).getDeclaredConstructor(DaoName.getClass()).newInstance(dao);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {

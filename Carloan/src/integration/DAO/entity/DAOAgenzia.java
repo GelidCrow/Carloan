@@ -26,7 +26,7 @@ public class DAOAgenzia implements DAO{
 	public void creazione(Entity x) {
 
 		String INSERT = "INSERT INTO Agenzia values('?','?','?','?');";
-		 String insertQuery = INSERT;
+		String insertQuery = INSERT;
 				
 		Agenzia agenzia= (Agenzia)x;
 
@@ -42,15 +42,12 @@ public class DAOAgenzia implements DAO{
         try {
 			connection.connetti();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
 		ResultSet idList = connection.execute(insertQuery);
 		
 	}
-
-
 
 	@Override
 	public void aggiornamento(Entity x) {
@@ -66,10 +63,7 @@ public class DAOAgenzia implements DAO{
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException{
 		Agenzia a= new Agenzia("A5","1234567891","SedeOtr","Crln");
 		DAO x = new DAOAgenzia(DaoFactory.getDaoFactory(1));
-		
 		x.creazione(a);
-		
-		
 	}
 
 }

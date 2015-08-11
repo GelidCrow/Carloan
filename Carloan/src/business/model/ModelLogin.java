@@ -1,10 +1,22 @@
 package business.model;
 
-public class ModelLogin implements Model {
+import integration.DAO.DaoFactory;
 
+public class ModelLogin implements Model {
+	DaoFactory daofactory;
 	@Override
-	public void Inserimento() {
-		// TODO Auto-generated method stub
+	public void Inserimento(){
+		try {
+			daofactory= DaoFactory.getDaoFactory(1);
+			
+			daofactory.getDao("DAOLogin");
+			
+			
+			
+			
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

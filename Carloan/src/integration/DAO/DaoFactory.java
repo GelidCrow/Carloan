@@ -17,7 +17,7 @@ public abstract class DaoFactory {
 		DaoFactory dao = null;
 		switch (i) {
 		case MYSQL:
-			dao = MySqlDaoFactory.class.newInstance();
+			dao = MySqlDaoFactory.getInstance();
 			break;
 		default:
 			dao = null;
@@ -25,4 +25,6 @@ public abstract class DaoFactory {
 		}
 		return dao;
 	}
+	
+	public abstract Class<?> getDao(String DaoName);
 }
