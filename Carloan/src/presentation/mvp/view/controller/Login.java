@@ -84,7 +84,7 @@ public class Login extends Schermata{
 				}	
 			}
 			else{
-				new AlertView("Autenticazione fallita : Ricontrollare l'Username e la password inserite",AlertType.ERROR);
+				AlertView.getAlertView("Autenticazione fallita : Ricontrollare l'Username e la password inserite",AlertType.ERROR);
 			}
 		} catch (InstantiationException | IllegalAccessException| ClassNotFoundException | NoSuchMethodException| SecurityException | IllegalArgumentException
 				| InvocationTargetException | NoSuchAlgorithmException e1) {

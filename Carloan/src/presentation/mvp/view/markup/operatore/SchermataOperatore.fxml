@@ -48,7 +48,7 @@
                                     <Font size="19.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="1034.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Log out" />
+                              <Button fx:id="btnLogout" layoutX="1034.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnLogout" prefHeight="25.0" prefWidth="97.0" text="Log out" />
                               <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="1106.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../Immagini/power.png" />
