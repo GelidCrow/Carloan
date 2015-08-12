@@ -3,4 +3,5 @@
 <interfaces>
 	<interface id="MostraLogin" src ="markup/Login.fxml"></interface>
 	<interface id="MostraSchermataOperatore" src ="markup/operatore/SchermataOperatore.fxml"></interface>
+	<interface id="MostraSchermataNuovoContratto" src ="markup/operatore/contratto/Nuovo_contratto.fxml"></interface>
 </interfaces>

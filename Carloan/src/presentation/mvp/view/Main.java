@@ -14,9 +14,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		parameter= new ParametriFXML("Login",false);
-		
 		presenter= new Presenter();
-		
 		initRootLayout();
 	}
 	
@@ -29,7 +27,6 @@ public class Main extends Application {
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
 				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}	
