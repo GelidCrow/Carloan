@@ -14,6 +14,7 @@ public class ReturnableStage extends Stage {
 	private Scene scene;
     private Parent root;
     private ParametriFXML param;
+    private  Schermata schermata;
 
 	public ReturnableStage(String schemeResource,Object parameter) {
     		param= (ParametriFXML) parameter;
@@ -28,14 +29,23 @@ public class ReturnableStage extends Stage {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            Schermata schermata = loader.getController();
-     
-			scene = new Scene(root);
-			
+			this.schermata = loader.getController();
+           	
+            scene = new Scene(root);
+            
 			this.setTitle(param.getTitolo());
 			
 			this.setResizable(param.isRidimensionabile());
 			
 			setScene(scene);	
+			
+			//this.schermata.setStage(this); <=cosi non funziona, da null pointer. 
     }
+	/**
+	 * <p>Serve a settare lo stage in modo tale da non perderlo per fare delle cose sulla finestra, per sempio nel login posso chiudere la finestra dopo l'autenticazione</p>
+	 * @param stage
+	 */
+	public void setStageToWindow(Stage stage){
+		schermata.setStage(stage);
+	}
 }

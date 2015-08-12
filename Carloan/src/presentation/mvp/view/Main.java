@@ -1,16 +1,13 @@
 package presentation.mvp.view;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-
 import utility.ParametriFXML;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	private Stage stage;
+	private ReturnableStage stage;
 	private Presenter presenter;
 	private ParametriFXML parameter;
 	
@@ -25,7 +22,8 @@ public class Main extends Application {
 	
 	public void initRootLayout(){
 		try {
-			stage= (Stage) presenter.processRequest("MostraLogin", parameter);
+			stage= (ReturnableStage) presenter.processRequest("MostraLogin", parameter);
+			stage.setStageToWindow(stage);
 			this.stage.show();
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
@@ -34,8 +32,7 @@ public class Main extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
+	}	
 	public static void main(String[] args) {
 		launch(args);
 	}

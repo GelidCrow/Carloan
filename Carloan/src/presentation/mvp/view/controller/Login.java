@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class Login extends Schermata{
 	@FXML
@@ -34,6 +35,8 @@ public class Login extends Schermata{
 	private Presenter presenter ;
 	
 	private ParametriFXML FXMLParameter;
+	
+	private Stage stage;
 	
 	@FXML
 	public void btnLogin(ActionEvent e){
@@ -64,9 +67,9 @@ public class Login extends Schermata{
 				else if(x instanceof Operatore){
 				    FXMLParameter.setTitolo("Operatore");
 				    FXMLParameter.setRidimensionabile(false);
-					
-					ReturnableStage stage= (ReturnableStage) presenter.processRequest("MostraSchermataOperatore",FXMLParameter);
-					stage.show();
+					this.chiudiFinestra();
+					ReturnableStage stager= (ReturnableStage) presenter.processRequest("MostraSchermataOperatore",FXMLParameter);
+					stager.show();
 				}
 			
 			}
@@ -78,7 +81,15 @@ public class Login extends Schermata{
 			e1.printStackTrace();
 		}
 	}
-
+	
+	@Override
+	public void chiudiFinestra(){
+		 stage.close();
+	 }
+	@Override
+	public void setStage(Stage stage){
+		this.stage=stage;
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
