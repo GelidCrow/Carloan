@@ -15,6 +15,7 @@ import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Gestori.SupervisoreSede;
 import presentation.mvp.boundary.view.Presenter;
+import presentation.mvp.boundary.view.ReturnableStage;
 import utility.Crittografia;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -63,9 +64,7 @@ public class Login extends Schermata implements Initializable{
 			else{
 			
 			}
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
+		} catch (InstantiationException | IllegalAccessException| ClassNotFoundException | NoSuchMethodException| SecurityException | IllegalArgumentException
 				| InvocationTargetException | NoSuchAlgorithmException e1) {
 			e1.printStackTrace();
 		}
@@ -74,7 +73,9 @@ public class Login extends Schermata implements Initializable{
 	@FXML
 	public void btnAltroLogin(ActionEvent e){
 		try {
-			presenter.processRequest("MostraLogin", null);
+			ReturnableStage stage= (ReturnableStage) presenter.processRequest("MostraLogin", null);
+			stage.show();
+			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
