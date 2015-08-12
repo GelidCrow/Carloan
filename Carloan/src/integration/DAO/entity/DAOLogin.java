@@ -122,7 +122,7 @@ public class DAOLogin implements DAO{
 					result=new Amministratore(idList.getString(2),idList.getString(3),idList.getString(1));
 				}
 				else if(idList.getString(4)!=null){// è un operatore
-					String auth="Select IDOperatoree,Nome,Cognome,IDSede from Operatoree where IDOperatore='"+idList.getString(4)+"'";
+					String auth="Select IDOperatore,Nome,Cognome,IDSede from Operatore where IDOperatore='"+idList.getString(4)+"'";
 					idList=connection.executeRead(auth);
 					idList.next();
 					result=new Operatore(idList.getString(2),idList.getString(3),idList.getString(1));
