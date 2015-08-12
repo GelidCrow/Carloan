@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Modality;
 
 
 public class SchermataOperatore extends Schermata{
@@ -25,6 +26,7 @@ public class SchermataOperatore extends Schermata{
 		    FXMLParameter.setRidimensionabile(false);
 			stager = (ReturnableStage) presenter.processRequest("MostraSchermataNuovoContratto",FXMLParameter);
 			stager.setStageToWindow(stager);
+			stager.initModality(Modality.APPLICATION_MODAL);
 			stager.showWindow();
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
