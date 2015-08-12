@@ -17,13 +17,14 @@ import business.entity.Gestori.SupervisoreSede;
 import presentation.mvp.boundary.view.Presenter;
 import presentation.mvp.boundary.view.ReturnableStage;
 import utility.Crittografia;
+import utility.ParametriFXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class Login extends Schermata implements Initializable{
+public class Login extends Schermata{
 	@FXML
 	private TextField txtUsername;
 	@FXML
@@ -33,10 +34,11 @@ public class Login extends Schermata implements Initializable{
 	
 	private Presenter presenter ;
 	
+	private ParametriFXML FXMLParameter;
 	
 	@FXML
 	public void btnLogin(ActionEvent e){
-		List<Object> FXMLParameter = new ArrayList<Object>();
+		FXMLParameter = new ParametriFXML(null,false);
 		
 		List<String> parameter = new ArrayList<String>();
 		
@@ -45,16 +47,14 @@ public class Login extends Schermata implements Initializable{
 		try {
 			
 			parameter.add(Crittografia.CriptaPassword(txtPsw.getText()));
+			
 			Entity x=(Entity) presenter.processRequest("login",parameter);
+			
 			if(x!=null){
 				/*Esito del log in positivo*/
 				if(x instanceof Amministratore){
 					
-					FXMLParameter.add("Amministratore");
-					FXMLParameter.add(false);
-					
-					ReturnableStage stage= (ReturnableStage) presenter.processRequest("MostraSchermataAmministratore",FXMLParameter);
-					stage.show();
+				
 				}
 				else if(x instanceof SupervisoreAgenzia){
 					
@@ -63,7 +63,11 @@ public class Login extends Schermata implements Initializable{
 					
 				}
 				else if(x instanceof Operatore){
+				    FXMLParameter.setTitolo("Operatore");
+				    FXMLParameter.setRidimensionabile(false);
 					
+					ReturnableStage stage= (ReturnableStage) presenter.processRequest("MostraSchermataOperatore",FXMLParameter);
+					stage.show();
 				}
 			
 			}

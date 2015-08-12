@@ -9,17 +9,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import presentation.mvp.boundary.view.controller.Schermata;
+import utility.ParametriFXML;
 
 public class ReturnableStage extends Stage {
    
 	private Scene scene;
     private Parent root;
-    private List<Object> parameter;
+    private ParametriFXML param;
 
     @SuppressWarnings("unchecked")
 	public ReturnableStage(String schemeResource,Object parameter) {
-    		parameter= (ArrayList<Object>) parameter;
+    		param= (ParametriFXML) parameter;
        
+    		
         	FXMLLoader loader=new FXMLLoader();
 			loader.setLocation(getClass().getResource(schemeResource));
 			
@@ -33,9 +35,9 @@ public class ReturnableStage extends Stage {
      
 			scene = new Scene(root);
 			
-			this.setTitle((String)this.parameter.get(0));
+			this.setTitle(param.getTitolo());
 			
-			this.setResizable((boolean)this.parameter.get(1));
+			this.setResizable(param.isRidimensionabile());
 			
 			setScene(scene);	
     }

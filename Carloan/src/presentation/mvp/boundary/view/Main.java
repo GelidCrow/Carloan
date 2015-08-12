@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import utility.ParametriFXML;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,15 +12,14 @@ public class Main extends Application {
 
 	private Stage stage;
 	private Presenter presenter;
-	private List<Object> parameter;
+	private ParametriFXML parameter;
 	
 	@Override
 	public void start(Stage stage) {
-		parameter= new ArrayList<Object>();
-		parameter.add("Login");
-		parameter.add(false);
+		parameter= new ParametriFXML("Login",false);
 		
 		presenter= new Presenter();
+		
 		initRootLayout();
 	}
 	
