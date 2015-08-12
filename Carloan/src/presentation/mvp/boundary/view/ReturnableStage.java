@@ -1,6 +1,8 @@
 package presentation.mvp.boundary.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,11 +12,13 @@ import presentation.mvp.boundary.view.controller.Schermata;
 
 public class ReturnableStage extends Stage {
    
-	protected Scene scene;
+	private Scene scene;
     private Parent root;
+    private List<Object> parameter;
 
-
-    public ReturnableStage(String schemeResource,Object parameter) {
+    @SuppressWarnings("unchecked")
+	public ReturnableStage(String schemeResource,Object parameter) {
+    		parameter= (ArrayList<Object>) parameter;
        
         	FXMLLoader loader=new FXMLLoader();
 			loader.setLocation(getClass().getResource(schemeResource));
@@ -27,9 +31,12 @@ public class ReturnableStage extends Stage {
 			}
             Schermata schermata = loader.getController();
      
-			
 			scene = new Scene(root);
 			
-			setScene(scene);
+			this.setTitle((String)this.parameter.get(0));
+			
+			this.setResizable((boolean)this.parameter.get(1));
+			
+			setScene(scene);	
     }
 }

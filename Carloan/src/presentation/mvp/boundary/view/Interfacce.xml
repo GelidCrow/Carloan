@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <interfaces>
-	<interface id="MostraLogin" src ="markup/Login.fxml">
-	</interface>
+	<interface id="MostraLogin" src ="markup/Login.fxml"></interface>
+	<interface id="MostraSchermataOperatore" src ="markup/operatore/SchermataOperatore.fxml"></interface>
 </interfaces>

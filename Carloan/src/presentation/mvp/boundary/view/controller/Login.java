@@ -31,11 +31,13 @@ public class Login extends Schermata implements Initializable{
 	@FXML
 	private Button btnLogin;
 	
-	Presenter presenter ;
+	private Presenter presenter ;
 	
 	
 	@FXML
 	public void btnLogin(ActionEvent e){
+		List<Object> FXMLParameter = new ArrayList<Object>();
+		
 		List<String> parameter = new ArrayList<String>();
 		
 		parameter.add(txtUsername.getText());
@@ -47,8 +49,12 @@ public class Login extends Schermata implements Initializable{
 			if(x!=null){
 				/*Esito del log in positivo*/
 				if(x instanceof Amministratore){
-					//E' un amministratore
-					System.out.println("amministratore");
+					
+					FXMLParameter.add("Amministratore");
+					FXMLParameter.add(false);
+					
+					ReturnableStage stage= (ReturnableStage) presenter.processRequest("MostraSchermataAmministratore",FXMLParameter);
+					stage.show();
 				}
 				else if(x instanceof SupervisoreAgenzia){
 					
@@ -69,30 +75,9 @@ public class Login extends Schermata implements Initializable{
 			e1.printStackTrace();
 		}
 	}
-	
-	@FXML
-	public void btnAltroLogin(ActionEvent e){
-		try {
-			ReturnableStage stage= (ReturnableStage) presenter.processRequest("MostraLogin", null);
-			stage.show();
-			
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
-				| InvocationTargetException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}	
-	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
-	}
-	
-	public static void main(String[] args){
-	Login l=new Login();
-	l.presenter=new Presenter();
-	l.btnLogin(null);
-	
 	}
 }
