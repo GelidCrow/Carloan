@@ -1,4 +1,4 @@
-package presentation.mvp.boundary.view;
+package presentation.mvp.view;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

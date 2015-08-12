@@ -1,14 +1,12 @@
-package presentation.mvp.boundary.view;
+package presentation.mvp.view;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import presentation.mvp.boundary.view.controller.Schermata;
+import presentation.mvp.view.controller.Schermata;
 import utility.ParametriFXML;
 
 public class ReturnableStage extends Stage {
@@ -17,7 +15,6 @@ public class ReturnableStage extends Stage {
     private Parent root;
     private ParametriFXML param;
 
-    @SuppressWarnings("unchecked")
 	public ReturnableStage(String schemeResource,Object parameter) {
     		param= (ParametriFXML) parameter;
        
