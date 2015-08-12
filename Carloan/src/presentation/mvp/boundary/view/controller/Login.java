@@ -22,7 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class Login implements Initializable{
+public class Login extends Schermata implements Initializable{
 	@FXML
 	private TextField txtUsername;
 	@FXML
@@ -70,11 +70,22 @@ public class Login implements Initializable{
 			e1.printStackTrace();
 		}
 	}
-
+	
+	@FXML
+	public void btnAltroLogin(ActionEvent e){
+		try {
+			presenter.processRequest("MostraLogin", null);
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}	
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
-		
 	}
 	
 	public static void main(String[] args){

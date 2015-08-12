@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.boundary.view.controller.Login">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.boundary.view.controller.Login">
    <children>
       <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000000;">
          <children>
@@ -37,6 +37,7 @@
       <Pane prefHeight="157.0" prefWidth="406.0" style="-fx-background-color: #000000;">
          <children>
             <Button fx:id="btnLogin" layoutX="151.0" layoutY="25.0" mnemonicParsing="false" onAction="#btnLogin" prefHeight="39.0" prefWidth="99.0" text="Log In" />
+            <Button fx:id="btnAltroLogin" layoutX="159.0" layoutY="92.0" mnemonicParsing="false" onAction="#btnAltroLogin" text="AltroLogin" />
          </children>
       </Pane>
    </children>

@@ -6,6 +6,7 @@ import utility.ReaderXML;
 public class ViewDispatcher {
 	private ReaderXML reader;
 	private String srcFXML;
+	private ReturnableStage stage;
 	
 	public ViewDispatcher(String path){
 		reader= new ReaderXML(path);
@@ -13,6 +14,7 @@ public class ViewDispatcher {
 	
 	public Object dispatch(String serviceName,Object parameter) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException{
 	    	srcFXML= reader.read_UI(serviceName);
-	    	return returnableStage.
+	    	stage= new ReturnableStage(srcFXML,parameter);
+	    	return stage;
 	}	
 }
