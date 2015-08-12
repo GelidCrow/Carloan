@@ -63,7 +63,6 @@ public class Login implements Initializable{
 			else{
 			
 			}
-			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException

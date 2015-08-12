@@ -14,25 +14,30 @@ public class Main extends Application {
 
 	private Stage primaryStage;
 	private VBox vbox;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage=primaryStage;
 		this.primaryStage.setTitle("CarLoan");
+		this.primaryStage.setResizable(false);
 		initRootLayout();
 	}
-public void initRootLayout(){
-	try{
-		FXMLLoader loader=new FXMLLoader();
-		loader.setLocation(getClass().getResource("markup/Login.fxml"));
-		vbox=(VBox)loader.load();
-		Scene scene=new Scene(vbox);
-		this.primaryStage.setScene(scene);
-		this.primaryStage.show();
+	
+	
+	public void initRootLayout(){
+		try{
+			FXMLLoader loader=new FXMLLoader();
+			loader.setLocation(getClass().getResource("markup/Login.fxml"));
+			vbox=(VBox)loader.load();
+			Scene scene=new Scene(vbox);
+			this.primaryStage.setScene(scene);
+			this.primaryStage.show();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
 	}
-	catch(IOException e){
-		e.printStackTrace();
-	}
-}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
