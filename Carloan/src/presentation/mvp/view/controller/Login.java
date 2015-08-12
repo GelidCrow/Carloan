@@ -55,7 +55,7 @@ public class Login extends Schermata{
 					this.chiudiFinestra();
 					ReturnableStage stager= (ReturnableStage) presenter.processRequest("MostraSchermataAmministratore",FXMLParameter);
 					stager.setStageToWindow(stager);
-					stager.show();
+					stager.showWindow();
 				
 				}
 				else if(x instanceof SupervisoreAgenzia){
@@ -64,7 +64,7 @@ public class Login extends Schermata{
 					this.chiudiFinestra();
 					ReturnableStage stager= (ReturnableStage) presenter.processRequest("MostraSchermataSupervisoreAgenzia",FXMLParameter);
 					stager.setStageToWindow(stager);
-					stager.show();
+					stager.showWindow();
 				}
 				else if(x instanceof SupervisoreSede){
 					FXMLParameter.setTitolo("Supervisore Sede");
@@ -72,7 +72,7 @@ public class Login extends Schermata{
 					this.chiudiFinestra();
 					ReturnableStage stager= (ReturnableStage) presenter.processRequest("MostraSchermataSupervisoreSede",FXMLParameter);
 					stager.setStageToWindow(stager);
-					stager.show();
+					stager.showWindow();
 				}
 				else if(x instanceof Operatore){
 				    FXMLParameter.setTitolo("Operatore");
@@ -80,7 +80,7 @@ public class Login extends Schermata{
 					this.chiudiFinestra();
 					ReturnableStage stager= (ReturnableStage) presenter.processRequest("MostraSchermataOperatore",FXMLParameter);
 					stager.setStageToWindow(stager);
-					stager.show();
+					stager.showWindow();
 				}	
 			}
 			else{

@@ -25,7 +25,7 @@ public class SchermataOperatore extends Schermata{
 		    FXMLParameter.setRidimensionabile(false);
 			stager = (ReturnableStage) presenter.processRequest("MostraSchermataNuovoContratto",FXMLParameter);
 			stager.setStageToWindow(stager);
-			stager.show();
+			stager.showWindow();
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException

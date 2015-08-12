@@ -24,7 +24,9 @@ public abstract class Schermata implements Initializable{
 	 */
 	protected Stage stage;
 	
-	
+	protected void nascondiFinestra(){
+		stage.hide();
+	}
 	protected void chiudiFinestra(){
 		 stage.close();
 	 }
@@ -32,7 +34,9 @@ public abstract class Schermata implements Initializable{
 	public void setStage(Stage stage){
 		this.stage=stage;
 	}
-	
+	public Stage getStage(){
+		return stage;
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();

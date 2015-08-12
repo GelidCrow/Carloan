@@ -48,4 +48,7 @@ public class ReturnableStage extends Stage {
 	public void setStageToWindow(Stage stage){
 		schermata.setStage(stage);
 	}
+    public void showWindow() {
+    	schermata.getStage().showAndWait();
+    }
 }

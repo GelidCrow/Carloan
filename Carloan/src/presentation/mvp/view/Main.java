@@ -22,7 +22,7 @@ public class Main extends Application {
 		try {
 			stage= (ReturnableStage) presenter.processRequest("MostraLogin", parameter);
 			stage.setStageToWindow(stage);
-			this.stage.show();
+			stage.showWindow();
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
