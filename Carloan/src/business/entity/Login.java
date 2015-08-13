@@ -1,8 +1,5 @@
 package business.entity;
 
-import java.security.NoSuchAlgorithmException;
-
-import utility.Crittografia;
 
 
 
@@ -18,10 +15,7 @@ public class Login extends Entity{
 	
 	public Login(String username, String password) {
 		this.username = username;
-			this.password=password;
-		
-		
-
+		this.password=password;
 	}
 
 	public String getSupS() {

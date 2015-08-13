@@ -1,28 +1,28 @@
 package business.entity;
 
-import java.util.Date;
+import javafx.scene.control.DatePicker;
+
 //potrebbeessere astratta e cliente estende cliente... cosi puoi aggiungerne tanti
 public class Cliente extends Entity{
 	
 	private String nome;
 	private String cognome;
 	private String sesso;
-	private Date datanascita;
+	private DatePicker DataEmissPatente;
+	private DatePicker datanascita;
 	private String Indirizzo;
 	private String codFiscale;
 	private String numCell;
 	private String numTel;
 	private String PatenteGuida;
-	private Date DataEmissPatente;
-	private Date DataScadPatente;
+	private DatePicker DataScadPatente;
 	private String PartitaIva;
-	private String IDCliente;
 	private String Email;
 	
 	
-	Cliente(String nome, String cognome, String sesso,Date datanascita,
+	public Cliente(String nome, String cognome, String sesso,DatePicker DataEmissPatente,DatePicker datanascita,
 			String Indirizzo, String codFiscale,String numCell,String numTel,String PatenteGuida,
-			Date DataEmissPatente, Date DataScadPatente, String PartitaIva, String IDCliente,String Email)
+			DatePicker DataScadPatente, String PartitaIva, String Email)
 	{
 		this.nome = nome; 
 		this.cognome= cognome;
@@ -36,7 +36,6 @@ public class Cliente extends Entity{
 		this.DataEmissPatente= DataEmissPatente;
 		this.DataScadPatente= DataScadPatente;
 		this.PartitaIva=PartitaIva;
-		this.IDCliente= IDCliente;
 		this.Email= Email;
 	 }
 
@@ -81,12 +80,12 @@ public class Cliente extends Entity{
 	}
 
 
-	public Date getDatanascita() {
+	public DatePicker getDatanascita() {
 		return datanascita;
 	}
 
 
-	public void setDatanascita(Date datanascita) {
+	public void setDatanascita(DatePicker datanascita) {
 		this.datanascita = datanascita;
 	}
 
@@ -131,22 +130,22 @@ public class Cliente extends Entity{
 	}
 
 
-	public Date getDataEmissPatente() {
+	public DatePicker getDataEmissPatente() {
 		return DataEmissPatente;
 	}
 
 
-	public void setDataEmissPatente(Date dataEmissPatente) {
+	public void setDataEmissPatente(DatePicker dataEmissPatente) {
 		DataEmissPatente = dataEmissPatente;
 	}
 
 
-	public Date getDataScadPatente() {
+	public DatePicker getDataScadPatente() {
 		return DataScadPatente;
 	}
 
 
-	public void setDataScadPatente(Date dataScadPatente) {
+	public void setDataScadPatente(DatePicker dataScadPatente) {
 		DataScadPatente = dataScadPatente;
 	}
 
@@ -159,17 +158,6 @@ public class Cliente extends Entity{
 	public void setPartitaIva(String partitaIva) {
 		PartitaIva = partitaIva;
 	}
-
-
-	public String getIDCliente() {
-		return IDCliente;
-	}
-
-
-	public void setIDCliente(String iDCliente) {
-		IDCliente = iDCliente;
-	}
-
 
 	public String getEmail() {
 		return Email;

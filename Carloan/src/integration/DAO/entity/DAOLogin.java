@@ -59,6 +59,7 @@ public class DAOLogin implements DAO{
 		finally{
 			try {
 				idList.close();
+				connection.chiudiConnessione();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -136,7 +137,8 @@ public class DAOLogin implements DAO{
 		finally{
 			if(idList!=null)
 				try {
-					idList.close();
+					idList.close();	
+					connection.chiudiConnessione();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -145,5 +147,4 @@ public class DAOLogin implements DAO{
 		}
 		return  result;
 	}
-
 }

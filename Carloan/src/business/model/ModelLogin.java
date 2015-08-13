@@ -1,10 +1,5 @@
 package business.model;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
-
-
 import business.entity.Entity;
 import business.entity.Login;
 import integration.DAO.DaoFactory;
@@ -59,23 +54,4 @@ public class ModelLogin implements Model {
 		}
 		return ent;
 	}
-	
-	/**
-	 * <p>Scompatta il parameter ricevuto e istanzia un entity popolata dai valori di quel parameter</p>
-	 * @param parameter
-	 * @return
-	 * @throws NoSuchAlgorithmException 
-	 * @throws CommonException
-	 */
-	private Login populate(Object parameter) throws NoSuchAlgorithmException{
-		@SuppressWarnings("unchecked")
-		List<String> param = (List<String>) parameter;
-		String username = param.get(0);
-		String password = param.get(1);
-		//controllo se l'utente non è già esistente ovviamente..
-		
-        Login login = new Login(username,password);
-        
-        return login;
-    }
 }
