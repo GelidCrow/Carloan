@@ -38,7 +38,7 @@ public class ModelLogin implements Model {
 	}
 	
 	
-	public Entity autenticazione(Object parameter){
+	public Entity autenticazione(Entity parameter){
 		Entity ent=null;
 		try {
 			daofactory= DaoFactory.getDaoFactory(1);
