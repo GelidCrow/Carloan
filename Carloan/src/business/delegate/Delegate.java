@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import business.entity.Entity;
 import business.model.Model;
+import business.model.Exception.CommonException;
 import business.model.checker.Checker;
 import utility.ReaderXML;
 
@@ -20,7 +21,7 @@ public class Delegate {
     public Delegate(String path){
     	reader= new ReaderXML(path);
     }
-    public Object doTask(String serviceName,Object parameter) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException{
+    public Object doTask(String serviceName,Object parameter) throws  CommonException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException{
     	service_method = reader.read(serviceName);
     	if(Class.forName(service_method.get(0)).newInstance() instanceof Checker){
     		checker = (Checker) Class.forName(service_method.get(0)).newInstance();

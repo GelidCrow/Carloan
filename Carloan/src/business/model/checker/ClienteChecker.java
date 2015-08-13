@@ -4,7 +4,6 @@ package business.model.checker;
 import business.entity.Cliente;
 import business.entity.Entity;
 import business.model.Exception.CommonException;
-import business.model.Exception.NomeClienteNonValido;
 
 public class ClienteChecker implements Checker{
     private static final int MIN_NOME_VALUE = 3;
@@ -19,23 +18,21 @@ public class ClienteChecker implements Checker{
 	@Override
 	public void check(Entity entity) throws CommonException {
 		cliente= (Cliente) entity;
-        checkNome() ;
-        //checkCognome();
+        checkNome();
 	}
 	
 	
-	public void checkNome() throws NomeClienteNonValido{
+	public void checkNome() throws CommonException{
 		int length;
 		
         length = cliente.getNome().length();
 
-        isValid = (length >= MIN_COGNOME_VALUE)
-                && (length <= MAX_COGNOME_VALUE);
+        isValid = (length >= MIN_NOME_VALUE)
+                && (length <= MAX_NOME_VALUE);
 
         if (!isValid) {
-            throw new NomeClienteNonValido("Nome cliente non valido");
+        	throw new CommonException("Nome cliente non valido");
         }
-		
 	}
 
 }

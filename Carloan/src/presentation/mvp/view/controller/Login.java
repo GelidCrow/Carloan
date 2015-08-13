@@ -11,6 +11,7 @@ import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Gestori.SupervisoreSede;
+import business.model.Exception.CommonException;
 import utility.Crittografia;
 import utility.Finestra;
 import javafx.event.ActionEvent;
@@ -34,9 +35,16 @@ public class Login extends Schermata{
 		business.entity.Login credenziali;
 		try {
 
-			credenziali = new business.entity.Login(txtUsername.getText(),Crittografia.CriptaPassword(txtPsw.getText()));
+			credenziali = new business.entity.Login(txtUsername.getText(),txtPsw.getText());
+			
+			//non crittografo la password per verificare se rispetta i campi
+			presenter.processRequest("VerificaLogin", credenziali);//controlal solo se sono corretti , non se nel db esistono!
+			
+			//la password viene crittografata e settata
+			credenziali.setPassword(Crittografia.CriptaPassword(credenziali.getPassword()));
 			
 			Entity x=(Entity) presenter.processRequest("login",credenziali);
+			
 			
 			if(x!=null){
 				/*Esito del log in positivo*/
@@ -70,8 +78,8 @@ public class Login extends Schermata{
 				AlertView.getAlertView("Autenticazione fallita : Ricontrollare l'Username e la password inserite",AlertType.ERROR);
 			}
 		} catch (InstantiationException | IllegalAccessException| ClassNotFoundException | NoSuchMethodException| SecurityException | IllegalArgumentException
-				| InvocationTargetException | NoSuchAlgorithmException e1) {
-				AlertView.getAlertView("C'è stato un problema :"+ e1.getMessage() ,AlertType.ERROR);
+				| InvocationTargetException | NoSuchAlgorithmException | CommonException e1) {
+				//AlertView.getAlertView("C'è stato un problema" + e1.getMessage(), AlertType.ERROR);
 		}
 	}
 	

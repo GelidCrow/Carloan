@@ -2,6 +2,7 @@ package utility;
 
 import java.lang.reflect.InvocationTargetException;
 
+import business.model.Exception.CommonException;
 import javafx.stage.Modality;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.ReturnableStage;
@@ -13,6 +14,7 @@ public class Finestra {
 	 * @param FXMLParameter
 	 * @param operation
 	 * @param modality
+	 * @throws NomeClienteNonValido 
 	 */
 	
 	public static void visualizzaFinestra(Presenter presenter,ParametriFXML FXMLParameter,String schermata,Modality modality){
@@ -24,7 +26,7 @@ public class Finestra {
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
-				| InvocationTargetException e) {
+				| InvocationTargetException | CommonException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

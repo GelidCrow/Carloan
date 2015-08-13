@@ -5,8 +5,18 @@
 		<class>business.model.ModelLogin</class>
 		<method>autenticazione</method>
 	</call>
+	
+	
+	
+	
+	
+	
 	<call id="VerificaCliente">
 		<class>business.model.checker.ClienteChecker</class>
+		<method>check</method>
+	</call>
+	<call id="VerificaLogin">
+		<class>business.model.checker.LoginChecker</class>
 		<method>check</method>
 	</call>
 </calls>
