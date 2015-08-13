@@ -3,11 +3,7 @@ package presentation.mvp.view.controller;
 
 
 import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
 import Errori.AlertView;
 import business.entity.Entity;
@@ -15,18 +11,14 @@ import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Gestori.SupervisoreSede;
-import presentation.mvp.view.Presenter;
-import presentation.mvp.view.ReturnableStage;
 import utility.Crittografia;
 import utility.Finestra;
-import utility.ParametriFXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 public class Login extends Schermata{
 	@FXML
@@ -39,15 +31,12 @@ public class Login extends Schermata{
 	@FXML
 	public void btnLogin(ActionEvent e){
 		
-		List<String> parameter = new ArrayList<String>();
-		
-		parameter.add(txtUsername.getText());
-		 
+		business.entity.Login credenziali;
 		try {
+
+			credenziali = new business.entity.Login(txtUsername.getText(),Crittografia.CriptaPassword(txtPsw.getText()));
 			
-			parameter.add(Crittografia.CriptaPassword(txtPsw.getText()));
-			
-			Entity x=(Entity) presenter.processRequest("login",parameter);
+			Entity x=(Entity) presenter.processRequest("login",credenziali);
 			
 			if(x!=null){
 				/*Esito del log in positivo*/

@@ -16,7 +16,7 @@ public class AlertView {
 	 */
 	public static Optional<ButtonType> getAlertView(String message,Alert.AlertType type){
 		Alert alert = new Alert(type);
-		alert.setTitle("Un momento..");
+		alert.setTitle("Notifica");
 		alert.setContentText(message);
 		return alert.showAndWait();
 	}

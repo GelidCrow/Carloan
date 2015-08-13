@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.SchermataOperatore">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.operatore.SchermataOperatore">
    <children>
       <MenuBar layoutY="1.0" prefHeight="20.0" prefWidth="1228.0">
         <menus>
@@ -65,7 +65,7 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <TableView layoutY="115.0" prefHeight="396.0" prefWidth="1228.0" />
-                                    <Button fx:id="btnNuovo" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovo" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
+                                    <Button fx:id="btnNuovoContratto" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoContratto" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="125.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="241.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Chiudi" />
                                     <Button layoutX="819.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
@@ -103,7 +103,7 @@
                               <AnchorPane layoutX="-12.0" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
                                     <TableView layoutY="111.0" prefHeight="407.0" prefWidth="1236.0" />
-                                    <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
+                                    <Button fx:id="btnNuovoCliente" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoCliente" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
                                     <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">

@@ -1,5 +1,6 @@
-package presentation.mvp.view.controller;
+package presentation.mvp.view.controller.operatore.contratto;
 
+import presentation.mvp.view.controller.Schermata;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

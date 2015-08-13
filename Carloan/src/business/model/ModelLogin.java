@@ -50,11 +50,11 @@ public class ModelLogin implements Model {
 			
 			daoLogin= (DAOLogin) daofactory.getDao("DAOLogin");
 			
-			Login login = populate(parameter);
+			Login login = (Login) parameter;
 			
-		 ent=daoLogin.autenticazione(login);
+			ent=daoLogin.autenticazione(login);
 				
-		} catch (InstantiationException | IllegalAccessException | NoSuchAlgorithmException e) {
+		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return ent;

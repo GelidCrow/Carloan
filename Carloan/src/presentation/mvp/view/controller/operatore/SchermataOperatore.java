@@ -1,7 +1,8 @@
-package presentation.mvp.view.controller;
+package presentation.mvp.view.controller.operatore;
 
 import java.util.Optional;
 
+import presentation.mvp.view.controller.Schermata;
 import Errori.AlertView;
 import utility.Finestra;
 import javafx.event.ActionEvent;
@@ -18,11 +19,21 @@ public class SchermataOperatore extends Schermata{
 	private Button btnNuovo;
 
 	@FXML
-	public void btnNuovo(ActionEvent e){
+	public void btnNuovoContratto(ActionEvent e){
 		FXMLParameter.setTitolo("Nuovo Contratto");
 	    FXMLParameter.setRidimensionabile(false);
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,"MostraSchermataNuovoContratto",Modality.APPLICATION_MODAL);
 	}
+	
+
+	
+	@FXML
+	public void btnNuovoCliente(ActionEvent e){
+		FXMLParameter.setTitolo("Nuovo Cliente");
+	    FXMLParameter.setRidimensionabile(false);
+		Finestra.visualizzaFinestra(presenter,FXMLParameter,"MostraSchermataNuovoCliente",Modality.APPLICATION_MODAL);
+	}
+
 	
 	@FXML
 	public void btnLogout(ActionEvent e){
