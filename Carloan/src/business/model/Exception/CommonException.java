@@ -6,8 +6,15 @@ import javafx.scene.control.Alert.AlertType;
 
 @SuppressWarnings("serial")
 public class CommonException extends Exception{
-   public CommonException(String string){
-	   AlertView.getAlertView(string,AlertType.ERROR);
-	   //super(string);
+	private String message;
+	public CommonException(String message){
+		this.message= message;
+	}
+	@Override
+	public String getMessage(){
+		return message;
+	}
+   public void showMessage(){
+	   AlertView.getAlertView(message,AlertType.ERROR);
    }
 }

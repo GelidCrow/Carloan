@@ -1,7 +1,10 @@
 package business.model;
 
+import presentation.controller.FrontController;
 import business.entity.Entity;
 import business.entity.Login;
+import business.model.Exception.CommonException;
+import business.model.checker.LoginChecker;
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOLogin;
 
@@ -41,11 +44,14 @@ public class ModelLogin implements Model {
 	public Entity autenticazione(Entity parameter){
 		Entity ent=null;
 		try {
+			Login login = (Login) parameter;
+					
+			//new LoginChecker().check(login);
+			
 			daofactory= DaoFactory.getDaoFactory(1);
 			
 			daoLogin= (DAOLogin) daofactory.getDao("DAOLogin");
 			
-			Login login = (Login) parameter;
 			
 			ent=daoLogin.autenticazione(login);
 				
