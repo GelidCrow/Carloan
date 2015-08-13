@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import presentation.mvp.view.controller.Schermata;
 import utility.ParametriFXML;
@@ -48,7 +49,9 @@ public class ReturnableStage extends Stage {
 	public void setStageToWindow(Stage stage){
 		schermata.setStage(stage);
 	}
-    public void showWindow() {
-    	schermata.getStage().showAndWait();
+	
+    public void showWindow(Modality modality) {
+    	initModality(modality);
+    	show();
     }
 }

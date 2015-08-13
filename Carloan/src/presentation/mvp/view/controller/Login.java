@@ -18,12 +18,14 @@ import business.entity.Gestori.SupervisoreSede;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.ReturnableStage;
 import utility.Crittografia;
+import utility.Finestra;
 import utility.ParametriFXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Login extends Schermata{
@@ -53,34 +55,26 @@ public class Login extends Schermata{
 					FXMLParameter.setTitolo("Amministratore");
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
-					ReturnableStage stager= (ReturnableStage) presenter.processRequest("MostraSchermataAmministratore",FXMLParameter);
-					stager.setStageToWindow(stager);
-					stager.showWindow();
+					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,"MostraSchermataAmministratore",Modality.APPLICATION_MODAL);
 				
 				}
 				else if(x instanceof SupervisoreAgenzia){
 					FXMLParameter.setTitolo("Supervisore Agenzia");
 					FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
-					ReturnableStage stager= (ReturnableStage) presenter.processRequest("MostraSchermataSupervisoreAgenzia",FXMLParameter);
-					stager.setStageToWindow(stager);
-					stager.showWindow();
+					Finestra.visualizzaFinestra(this.presenter,FXMLParameter, "MostraSchermataSupervisoreAgenzia",Modality.APPLICATION_MODAL);
 				}
 				else if(x instanceof SupervisoreSede){
 					FXMLParameter.setTitolo("Supervisore Sede");
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
-					ReturnableStage stager= (ReturnableStage) presenter.processRequest("MostraSchermataSupervisoreSede",FXMLParameter);
-					stager.setStageToWindow(stager);
-					stager.showWindow();
+					Finestra.visualizzaFinestra(this.presenter, FXMLParameter,"MostraSchermataSupervisoreSede",Modality.APPLICATION_MODAL);
 				}
 				else if(x instanceof Operatore){
 				    FXMLParameter.setTitolo("Operatore");
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
-					ReturnableStage stager= (ReturnableStage) presenter.processRequest("MostraSchermataOperatore",FXMLParameter);
-					stager.setStageToWindow(stager);
-					stager.showWindow();
+					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,"MostraSchermataOperatore",Modality.APPLICATION_MODAL);
 				}	
 			}
 			else{
@@ -91,4 +85,5 @@ public class Login extends Schermata{
 			e1.printStackTrace();
 		}
 	}
+	
 }

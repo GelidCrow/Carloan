@@ -1,13 +1,14 @@
 package presentation.mvp.view;
 
-import java.lang.reflect.InvocationTargetException;
+
+import utility.Finestra;
 import utility.ParametriFXML;
 import javafx.application.Application;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	private ReturnableStage stage;
 	private Presenter presenter;
 	private ParametriFXML parameter;
 	
@@ -19,16 +20,7 @@ public class Main extends Application {
 	}
 	
 	public void initRootLayout(){
-		try {
-			stage= (ReturnableStage) presenter.processRequest("MostraLogin", parameter);
-			stage.setStageToWindow(stage);
-			stage.showWindow();
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
-				| InvocationTargetException e) {
-			e.printStackTrace();
-		}
+			Finestra.visualizzaFinestra(presenter,parameter,"MostraLogin",Modality.WINDOW_MODAL);
 	}	
 	public static void main(String[] args) {
 		launch(args);
