@@ -82,8 +82,12 @@ public class Login extends Schermata{
 			}
 		} catch (InstantiationException | IllegalAccessException| ClassNotFoundException | NoSuchMethodException| SecurityException | IllegalArgumentException
 				| InvocationTargetException | NoSuchAlgorithmException e1) {
-			e1.printStackTrace();
+				AlertView.getAlertView("C'è stato un problema :"+ e1.getMessage() ,AlertType.ERROR);
 		}
 	}
 	
+	@FXML
+	public void btnEsci(ActionEvent e){
+		this.chiudiFinestra();
+	}
 }

@@ -37,6 +37,7 @@
       <Pane prefHeight="175.0" prefWidth="406.0" style="-fx-background-color: #000000;">
          <children>
             <Button fx:id="btnLogin" layoutX="151.0" layoutY="25.0" mnemonicParsing="false" onAction="#btnLogin" prefHeight="39.0" prefWidth="99.0" text="Log In" />
+            <Button fx:id="btnEsci" layoutX="334.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnEsci" prefHeight="25.0" prefWidth="50.0" text="Esci" />
          </children>
       </Pane>
    </children>

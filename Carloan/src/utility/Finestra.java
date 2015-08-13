@@ -7,12 +7,18 @@ import presentation.mvp.view.Presenter;
 import presentation.mvp.view.ReturnableStage;
 
 public class Finestra {
+	/**
+	 * <p>permette di visualizzare finestre basandosi sul presenter passato, sui parametri di quella finestra </p>
+	 * @param presenter
+	 * @param FXMLParameter
+	 * @param operation
+	 * @param modality
+	 */
 	
-	
-	public static void visualizzaFinestra(Presenter presenter,ParametriFXML FXMLParameter,String operation,Modality modality){
+	public static void visualizzaFinestra(Presenter presenter,ParametriFXML FXMLParameter,String schermata,Modality modality){
 		ReturnableStage stager;
 		try {
-			stager = (ReturnableStage) presenter.processRequest(operation,FXMLParameter);
+			stager = (ReturnableStage) presenter.processRequest(schermata,FXMLParameter);
 			stager.setStageToWindow(stager);
 			stager.showWindow(modality);
 		} catch (InstantiationException | IllegalAccessException
