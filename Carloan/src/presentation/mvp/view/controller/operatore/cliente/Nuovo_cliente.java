@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -21,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
+import presentation.mvp.view.controller.operatore.SchermataOperatore;
 import utility.ParametriFXML;
 
 public class Nuovo_cliente extends Schermata{
@@ -56,7 +58,7 @@ public class Nuovo_cliente extends Schermata{
 	private TextField txtPartIva;
 	@FXML
 	private TextField txtEmail;
- 
+	
 	final ToggleGroup group = new ToggleGroup();
 	@FXML
 	public void btnCancella(ActionEvent event){
@@ -66,6 +68,7 @@ public class Nuovo_cliente extends Schermata{
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	@FXML
 	public void btnConferma(ActionEvent event){
 		LocalDate dParam= null;
@@ -100,11 +103,11 @@ public class Nuovo_cliente extends Schermata{
 		cliente.setPartitaIva(txtPartIva.getText());
 		
 		cliente.setEmail(txtEmail.getText());
-		
-		
+	
 		try {
 				presenter.processRequest("VerificaCliente", cliente);	
 				presenter.processRequest("InserimentoCliente", cliente);
+				((SchermataOperatore)this.getChiamante()).aggiornaTabellaCliente((List<ClienteFactory>) presenter.processRequest("getAllClienti",null));
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

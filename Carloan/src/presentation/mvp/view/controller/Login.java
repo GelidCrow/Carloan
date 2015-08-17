@@ -52,26 +52,26 @@ public class Login extends Schermata{
 					FXMLParameter.setTitolo("Amministratore");
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
-					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,"MostraSchermataAmministratore",Modality.APPLICATION_MODAL);
+					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataAmministratore",Modality.APPLICATION_MODAL);
 				
 				}
 				else if(x instanceof SupervisoreAgenzia){
 					FXMLParameter.setTitolo("Supervisore Agenzia");
 					FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
-					Finestra.visualizzaFinestra(this.presenter,FXMLParameter, "MostraSchermataSupervisoreAgenzia",Modality.APPLICATION_MODAL);
+					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataSupervisoreAgenzia",Modality.APPLICATION_MODAL);
 				}
 				else if(x instanceof SupervisoreSede){
 					FXMLParameter.setTitolo("Supervisore Sede");
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
-					Finestra.visualizzaFinestra(this.presenter, FXMLParameter,"MostraSchermataSupervisoreSede",Modality.APPLICATION_MODAL);
+					Finestra.visualizzaFinestra(this.presenter, FXMLParameter,this,"MostraSchermataSupervisoreSede",Modality.APPLICATION_MODAL);
 				}
 				else if(x instanceof Operatore){
 				    FXMLParameter.setTitolo("Operatore");
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
-					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,"MostraSchermataOperatore",Modality.APPLICATION_MODAL);
+					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataOperatore",Modality.APPLICATION_MODAL);
 				}	
 			}
 			else{

@@ -11,6 +11,11 @@
 		<method>Inserimento</method>
 	</call>
 	
+	<call id="getAllClienti">
+		<class>business.model.ModelCliente</class>
+		<method>getAll</method>
+	</call>
+
 	<call id="VerificaCliente">
 		<class>business.model.checker.ClienteChecker</class>
 		<method>check</method>
@@ -21,6 +26,7 @@
 		<method>check</method>
 	</call>
 	
+
 	
 
 </calls>

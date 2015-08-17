@@ -15,7 +15,8 @@ public class ReturnableStage extends Stage {
 	private Scene scene;
     private Parent root;
     private ParametriFXML param;
-    private  Schermata schermata;
+    private Schermata schermata;
+    private Schermata schermataChiamante;
 
 	public ReturnableStage(String schemeResource,Object parameter) {
     		param= (ParametriFXML) parameter;
@@ -49,7 +50,13 @@ public class ReturnableStage extends Stage {
 	public void setStageToWindow(Stage stage){
 		schermata.setStage(stage);
 	}
-	
+	/**
+	 * <p>Serve a settare lo stage in modo tale da non perderlo per fare delle cose sulla finestra, per sempio nel login posso chiudere la finestra dopo l'autenticazione</p>
+	 * @param stage
+	 */
+	public void setControllerChiamante(Schermata chiamante){
+		schermata.setChiamante(chiamante);
+	}
     public void showWindow(Modality modality) {
     	initModality(modality);
     	show();

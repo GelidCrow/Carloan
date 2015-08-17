@@ -24,6 +24,8 @@ public abstract class Schermata implements Initializable{
 	 */
 	protected Stage stage;
 	
+	protected Schermata chiamante;
+	
 	protected void nascondiFinestra(){
 		stage.hide();
 	}
@@ -36,6 +38,13 @@ public abstract class Schermata implements Initializable{
 	}
 	public Stage getStage(){
 		return stage;
+	}
+	
+	public void setChiamante(Schermata chiamante){
+		this.chiamante=chiamante;
+	}
+	public Schermata getChiamante(){
+		return chiamante;
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

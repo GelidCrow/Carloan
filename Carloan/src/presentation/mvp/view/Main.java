@@ -7,7 +7,7 @@ import javafx.application.Application;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main extends Application{
 
 	private Presenter presenter;
 	private ParametriFXML parameter;
@@ -20,7 +20,7 @@ public class Main extends Application {
 	}
 	
 	public void initRootLayout(){
-			Finestra.visualizzaFinestra(presenter,parameter,"MostraLogin",Modality.WINDOW_MODAL);
+			Finestra.visualizzaFinestra(presenter,parameter,null,"MostraLogin",Modality.WINDOW_MODAL);
 	}	
 	public static void main(String[] args) {
 		launch(args);

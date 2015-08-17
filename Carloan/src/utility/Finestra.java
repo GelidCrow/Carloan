@@ -4,8 +4,10 @@ import java.lang.reflect.InvocationTargetException;
 
 import business.model.Exception.CommonException;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.ReturnableStage;
+import presentation.mvp.view.controller.Schermata;
 
 public class Finestra {
 	/**
@@ -17,11 +19,12 @@ public class Finestra {
 	 * @throws NomeClienteNonValido 
 	 */
 	
-	public static void visualizzaFinestra(Presenter presenter,ParametriFXML FXMLParameter,String schermata,Modality modality){
+	public static void visualizzaFinestra(Presenter presenter,ParametriFXML FXMLParameter,Schermata chiamante,String schermata,Modality modality){
 		ReturnableStage stager;
 		try {
 			stager = (ReturnableStage) presenter.processRequest(schermata,FXMLParameter);
 			stager.setStageToWindow(stager);
+			stager.setControllerChiamante(chiamante);
 			stager.showWindow(modality);
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

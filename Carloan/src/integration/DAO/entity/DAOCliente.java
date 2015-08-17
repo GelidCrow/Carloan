@@ -19,7 +19,6 @@ public class DAOCliente implements DAO{
 
 	private  DaoFactory daofactory;
 
-	
 	public DAOCliente(DaoFactory dao){
 		this.daofactory = dao;		
 	}
@@ -100,7 +99,7 @@ public class DAOCliente implements DAO{
 		
 	}
 
-	public List<Cliente> getAll(){
+	public List<Cliente> getAll() throws SQLException{		
 		 String readQuery = "Select Nome,Cognome,Sesso,DataEmissPatente,DataNascita,"
 				 			+ "Indirizzo,CodFiscale,NumCell,NumTel,PatenteGuida,DataScadPatente,PartitaIva,Email from cliente";
 		 Connection connection= Connection.getConnection(daofactory);
@@ -108,8 +107,7 @@ public class DAOCliente implements DAO{
 	     ResultSet readQueryResultSet = null;
 	        
 	     try {
-			readQueryResultSet = connection.executeRead(readQuery);
-			AlertView.getAlertView("Cliente inserito con successo",AlertType.INFORMATION);
+			readQueryResultSet = connection.executeRead(readQuery);		
 		 } catch (SQLException e) {
 			e.printStackTrace();
 			AlertView.getAlertView("Non è stato possibile leggere i clienti " , AlertType.ERROR);
@@ -123,13 +121,15 @@ public class DAOCliente implements DAO{
 			}
 		}
 
-	        return creaElencoClienti(readQueryResultSet);
+	    return creaElencoClienti(readQueryResultSet);
 	}
 	
 	public List<Cliente> creaElencoClienti(ResultSet resultset){
 		List<Cliente> risultato = new LinkedList<>();
+	
         String sParam= null;
         Date dParam = null;
+        
         try {
             while (resultset.next()) {
                 Cliente cliente = new Cliente();
@@ -157,7 +157,6 @@ public class DAOCliente implements DAO{
                 
                 sParam = resultset.getString("NumCell"); 
                 cliente.setNumCell(sParam);
-                
 
                 sParam = resultset.getString("NumTel");
                 cliente.setNumTel(sParam);
