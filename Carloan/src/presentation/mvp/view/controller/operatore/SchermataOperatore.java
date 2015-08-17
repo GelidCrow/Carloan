@@ -86,7 +86,8 @@ public class SchermataOperatore extends Schermata{
 		FXMLParameter = new ParametriFXML(null,false);
 		bindingValues();
 		try {
-			List<ClienteTab> clienteTab = new ArrayList<ClienteTab>();
+			ClienteTab clienteTabSupporto = new ClienteTab();
+			List<ClienteTab> clienteTab;
 			clienteTab = ((ClienteTab) clienteTab).converter((List<Cliente>)presenter.processRequest("getAllClienti",null));
 			this.aggiornaTabellaCliente(clienteTab);
 		} catch (InstantiationException | IllegalAccessException
