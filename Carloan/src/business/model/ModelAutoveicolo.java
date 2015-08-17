@@ -1,6 +1,6 @@
 package business.model;
 
-public class modelAutoveicolo implements Model{
+public class ModelAutoveicolo implements Model{
 
 
 	@Override

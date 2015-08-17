@@ -1,7 +1,21 @@
 package business.model;
 
+import business.entity.Entity;
+
 public class ModelAgenzia implements Model{
     private String sta;
+
+	@Override
+	public void Inserimento(Entity parameter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void aggiorna(Entity parameter) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void lettura() {
@@ -15,15 +29,5 @@ public class ModelAgenzia implements Model{
 		
 	}
 
-	@Override
-	public void Inserimento(Object parameter) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void aggiorna(Object parameter) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

@@ -15,6 +15,7 @@
 		<class>business.model.checker.ClienteChecker</class>
 		<method>check</method>
 	</call>
+	
 	<call id="VerificaLogin">
 		<class>business.model.checker.LoginChecker</class>
 		<method>check</method>

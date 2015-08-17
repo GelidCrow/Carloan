@@ -18,7 +18,6 @@ public class ModelCliente implements Model{
 
 	@Override
 	public void Inserimento(Object parameter) {
-		// TODO Auto-generated method stub
 		
 	}
 
