@@ -33,7 +33,7 @@ public abstract class Utente extends Entity {
 		this.UserName=Username;
 		this.Password=Password;
 	}
-protected Utente(String Nome,String Cognome){
+	protected Utente(String Nome,String Cognome){
 		this(Nome,Cognome,'\0',new Date(),"","","","",true,"","");
 	}
 	public String getNome() {
