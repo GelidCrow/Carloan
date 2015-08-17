@@ -9,10 +9,16 @@ public class ClienteChecker implements Checker{
 	
     private static final int MIN_NOME_VALUE = 3;
     private static final int MAX_NOME_VALUE = 20;
+    
     private static final int MIN_COGNOME_VALUE = 3;
     private static final int MAX_COGNOME_VALUE = 20;
+    
+    private static final int MIN_SESSO_VALUE=7;
+    private static final int MAX_SESSO_VALUE=7;
+    
     private static final int MIN_INDIRIZZO_VALUE=10;
     private static final int MAX_INDIRIZZO_VALUE=50;
+    
     private static final int CODFISCALE_VALUE= 16;
 
     private static final int MIN_PARTITAIVA_VALUE=0;
@@ -37,6 +43,7 @@ public class ClienteChecker implements Checker{
 		cliente= (Cliente) entity;
         checkNome();
         checkCognome();
+        checkSesso();
         checkIndirizzo();
         checkCodFiscale();
         checkNumCell();
@@ -73,7 +80,18 @@ public class ClienteChecker implements Checker{
         	throw new CommonException("Cognome  non valido");
         }
 	}
-	
+	public void checkSesso() throws CommonException{
+		int length;
+		
+        length = cliente.getSesso().length();
+
+        isValid = (length >= MIN_SESSO_VALUE)
+                && (length <= MAX_SESSO_VALUE);
+
+        if (!isValid) {
+        	throw new CommonException("Sesso non valido");
+        }
+	}
 	public void checkIndirizzo() throws CommonException{
 		int length;
 		

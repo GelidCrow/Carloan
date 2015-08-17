@@ -1,11 +1,13 @@
 package business.model;
 
+
+
+import java.util.List;
+
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOCliente;
-import integration.DAO.entity.DAOLogin;
 import business.entity.Cliente;
 import business.entity.Entity;
-import business.entity.Login;
 
 public class ModelCliente implements Model{
 	private DaoFactory daofactory;
@@ -39,16 +41,28 @@ public class ModelCliente implements Model{
 
 	@Override
 	public void lettura() {
-		// TODO Auto-generated method stub
 		
 	}
-
+	
+	
 	@Override
 	public void ricerca() {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
+	
+	public List<Cliente> getAll(){
+		try {
+			daofactory= DaoFactory.getDaoFactory(1);
+			
+			daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
+			
+			return daoCliente.getAll();
+		//	ent=daoCliente.autenticazione(login);
+				
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;	
+	}
 }

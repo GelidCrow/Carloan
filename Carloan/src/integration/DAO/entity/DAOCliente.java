@@ -4,9 +4,11 @@ import static utility.QueryStringReplacer.queryReplaceFirst;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
 import Errori.AlertView;
@@ -24,7 +26,6 @@ public class DAOCliente implements DAO{
 	
 	@Override
 	public void creazione(Entity x) {
-		 LocalDate date= null;
 		String INSERT = "INSERT INTO Cliente"
 				+ "(Nome,Cognome,Sesso,DataEmissPatente,DataNascita,"
 				+ "Indirizzo,CodFiscale,NumCell,NumTel,PatenteGuida,DataScadPatente,PartitaIva,Email) "
@@ -40,13 +41,9 @@ public class DAOCliente implements DAO{
 
         insertQuery= queryReplaceFirst(insertQuery,cliente.getSesso());
 
-		date = cliente.getDataEmissPatente().getValue();
+        insertQuery= queryReplaceFirst(insertQuery,cliente.getDataEmissPatente().toString());
 
-        insertQuery= queryReplaceFirst(insertQuery,date.toString());
-        
-        date = cliente.getDatanascita().getValue();
-
-        insertQuery= queryReplaceFirst(insertQuery,date.toString());
+        insertQuery= queryReplaceFirst(insertQuery,cliente.getDatanascita().toString());
 
         insertQuery= queryReplaceFirst(insertQuery,cliente.getIndirizzo());
         
@@ -58,9 +55,7 @@ public class DAOCliente implements DAO{
 
         insertQuery= queryReplaceFirst(insertQuery,cliente.getPatenteGuida());
         
-        date = cliente.getDataScadPatente().getValue();
-        
-        insertQuery= queryReplaceFirst(insertQuery,date.toString());
+        insertQuery= queryReplaceFirst(insertQuery,cliente.getDataScadPatente().toString());
 
         insertQuery= queryReplaceFirst(insertQuery,cliente.getPartitaIva());
         
@@ -89,6 +84,15 @@ public class DAOCliente implements DAO{
 		}
 		
 	}
+	
+	@Override
+	public Entity lettura(int id) {
+		
+		
+		
+		
+		return null;
+	}
 
 	@Override
 	public void aggiornamento(Entity x) {
@@ -96,10 +100,86 @@ public class DAOCliente implements DAO{
 		
 	}
 
-	@Override
-	public Entity lettura() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<Cliente> getAll(){
+		 String readQuery = "Select Nome,Cognome,Sesso,DataEmissPatente,DataNascita,"
+				 			+ "Indirizzo,CodFiscale,NumCell,NumTel,PatenteGuida,DataScadPatente,PartitaIva,Email from cliente";
+		 Connection connection= Connection.getConnection(daofactory);
+	        
+	     ResultSet readQueryResultSet = null;
+	        
+	     try {
+			readQueryResultSet = connection.executeRead(readQuery);
+			AlertView.getAlertView("Cliente inserito con successo",AlertType.INFORMATION);
+		 } catch (SQLException e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere i clienti " , AlertType.ERROR);
+		 }
+		 finally{
+			try {
+				readQueryResultSet.close();
+				//connection.chiudiConnessione();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
 
+	        return creaElencoClienti(readQueryResultSet);
+	}
+	
+	public List<Cliente> creaElencoClienti(ResultSet resultset){
+		List<Cliente> risultato = new LinkedList<>();
+        String sParam= null;
+        Date dParam = null;
+        try {
+            while (resultset.next()) {
+                Cliente cliente = new Cliente();
+               
+                sParam = resultset.getString("Nome");              
+                cliente.setNome(sParam);
+
+                sParam = resultset.getString("Cognome");
+                cliente.setCognome(sParam);
+                
+                sParam = resultset.getString("Sesso");
+                cliente.setSesso(sParam);
+
+                dParam = resultset.getDate("DataEmissPatente");               
+                cliente.setDataEmissPatente(dParam);
+                
+                dParam = resultset.getDate("DataNascita");             
+                cliente.setDatanascita(dParam);
+                
+                sParam = resultset.getString("Indirizzo");
+                cliente.setIndirizzo(sParam);
+  
+                sParam = resultset.getString("CodFiscale");
+                cliente.setCodFiscale(sParam);
+                
+                sParam = resultset.getString("NumCell"); 
+                cliente.setNumCell(sParam);
+                
+
+                sParam = resultset.getString("NumTel");
+                cliente.setNumTel(sParam);
+
+	            sParam = resultset.getString("PatenteGuida");
+	            cliente.setPatenteGuida(sParam);
+
+                dParam = resultset.getDate("DataScadPatente");
+                cliente.setDataScadPatente(dParam);
+	              
+	            sParam = resultset.getString("PartitaIva");
+	            cliente.setPartitaIva(sParam);
+	
+	            sParam = resultset.getString("Email");
+	            cliente.setEmail(sParam);
+                       
+                risultato.add(cliente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		return risultato;
+	
+	}
 }

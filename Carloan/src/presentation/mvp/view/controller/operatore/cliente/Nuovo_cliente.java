@@ -1,7 +1,11 @@
 package presentation.mvp.view.controller.operatore.cliente;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import business.entity.Cliente;
 import business.model.Exception.CommonException;
@@ -14,7 +18,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
+import utility.ParametriFXML;
 
 public class Nuovo_cliente extends Schermata{
 	@FXML
@@ -27,6 +34,8 @@ public class Nuovo_cliente extends Schermata{
 	private TextField txtCognome;
 	@FXML
 	private RadioButton rdMaschio;
+	@FXML
+	private RadioButton rdFemmina;
 	@FXML
 	private DatePicker dEmissPatente;
 	@FXML
@@ -48,7 +57,7 @@ public class Nuovo_cliente extends Schermata{
 	@FXML
 	private TextField txtEmail;
  
-	
+	final ToggleGroup group = new ToggleGroup();
 	@FXML
 	public void btnCancella(ActionEvent event){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
@@ -59,9 +68,39 @@ public class Nuovo_cliente extends Schermata{
 	
 	@FXML
 	public void btnConferma(ActionEvent event){
+		LocalDate dParam= null;
 		
-		Cliente cliente = new Cliente(txtNome.getText(),txtCognome.getText(),"Maschio",dEmissPatente,dNascita,
-				txtIndirizzo.getText(),txtCodFisc.getText(),txtNumCel.getText(),txtNumCel.getText(),txtPatGuida.getText(),dScadPatente,txtPartIva.getText(),txtEmail.getText());
+		Cliente cliente= new Cliente();
+		
+		cliente.setNome(txtNome.getText());
+		
+		cliente.setCognome(txtCognome.getText());
+		
+		cliente.setSesso(((RadioButton)group.getSelectedToggle()).getText());
+		
+		dParam= dEmissPatente.getValue();
+		cliente.setDataEmissPatente(Date.valueOf(dParam));
+		
+		dParam= dNascita.getValue();
+		cliente.setDatanascita(Date.valueOf(dParam));
+		
+		cliente.setIndirizzo(txtIndirizzo.getText());
+		
+		cliente.setCodFiscale(txtCodFisc.getText());
+		
+		cliente.setNumCell(txtNumCel.getText());
+		
+		cliente.setNumTel(txtNumTel.getText());
+		
+		cliente.setPatenteGuida(txtPatGuida.getText());
+		
+		dParam=  dScadPatente.getValue();
+		cliente.setDataScadPatente(Date.valueOf(dParam));
+		
+		cliente.setPartitaIva(txtPartIva.getText());
+		
+		cliente.setEmail(txtEmail.getText());
+		
 		
 		try {
 				presenter.processRequest("VerificaCliente", cliente);	
@@ -73,5 +112,16 @@ public class Nuovo_cliente extends Schermata{
 				| InvocationTargetException | CommonException e) {
 			//AlertView.getAlertView(e.toString(), AlertType.ERROR);
 		}
+	}
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		presenter=new Presenter();
+		FXMLParameter = new ParametriFXML(null,false);
+		
+		rdMaschio.setToggleGroup(group);
+		rdMaschio.setSelected(true);
+		
+		rdFemmina.setToggleGroup(group);
 	}
 }

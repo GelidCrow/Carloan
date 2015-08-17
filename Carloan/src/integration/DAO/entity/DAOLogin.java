@@ -1,3 +1,4 @@
+
 package integration.DAO.entity;
 
 import static utility.QueryStringReplacer.queryReplaceFirst;
@@ -74,11 +75,7 @@ public class DAOLogin implements DAO{
 	}
 	
 
-	@Override
-	public Entity lettura() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	
 
 	@SuppressWarnings("resource")
@@ -146,5 +143,12 @@ public class DAOLogin implements DAO{
 			
 		}
 		return  result;
+	}
+
+
+	@Override
+	public Entity lettura(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

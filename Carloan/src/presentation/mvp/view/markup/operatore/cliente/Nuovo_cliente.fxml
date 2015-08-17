@@ -83,7 +83,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <Label layoutX="49.0" layoutY="42.0" prefHeight="44.0" prefWidth="380.0" style="-fx-background-color: #FFFF;" text="NUOVO CLIENTE" textFill="#ff6f00">
+      <Label fx:id="lblTitolo" layoutX="49.0" layoutY="42.0" prefHeight="44.0" prefWidth="380.0" style="-fx-background-color: #FFFF;" text="NUOVO CLIENTE" textFill="#ff6f00">
          <font>
             <Font name="Cambria Bold Italic" size="36.0" />
          </font>
