@@ -2,11 +2,13 @@ package presentation.mvp.view.controller.operatore;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import business.entity.Cliente;
+import business.entity.ClienteTab;
 import business.model.Exception.CommonException;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
@@ -31,13 +33,12 @@ public class SchermataOperatore extends Schermata{
 	private Button btnNuovo;
 	
 	@FXML
-	private TableView<Cliente> tbCliente;
-		
-	/**
-	 * <p>Contiene tutti i valori di tutte le tuple in tutti gli attributi (Tabella Dinamica)</p>
-	 */
+	private TableView<ClienteTab> tbCliente;
+	
 	@FXML
-	private TableView<ParsedOutput> outputTableView;
+	private TableColumn<ClienteTab,String> nome;
+	@FXML
+	private TableColumn<ClienteTab,String> cognome;
 
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
@@ -64,15 +65,18 @@ public class SchermataOperatore extends Schermata{
 			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraLogin",Modality.WINDOW_MODAL);
 		}
 	}
-	public void aggiornaTabellaCliente(List<Cliente> listaClienti){
 	
-		ObservableList<Cliente> clienti= FXCollections.observableArrayList(listaClienti);
-		
-		for(int i=0; i<listaClienti.size();i++){
-			List<ClienteFactory> clientef= new ClienteFactory(listaClienti.get(0));
-		}
-			nome.setCellValueFactory(cellData -> cellData.getValue().
-		
+	public void aggiornaTabellaCliente(List<ClienteTab> listaClienti){
+		ObservableList<ClienteTab> clienti= FXCollections.observableArrayList(listaClienti);
+		tbCliente.setItems(clienti);
+	}
+	/**
+	 * <p>Effettua il binding con i singoli campi della tabella</p>
+	 */
+	public void bindingValues(){
+		nome.setCellValueFactory(cellData -> cellData.getValue().getNome());
+		cognome.setCellValueFactory(cellData -> cellData.getValue().getCognome());
+
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -80,9 +84,11 @@ public class SchermataOperatore extends Schermata{
 		
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
-		
+		bindingValues();
 		try {
-			this.aggiornaTabellaCliente((List<Cliente>)presenter.processRequest("getAllClienti", null));
+			List<ClienteTab> clienteTab = new ArrayList<ClienteTab>();
+			clienteTab = ((ClienteTab) clienteTab).converter((List<Cliente>)presenter.processRequest("getAllClienti",null));
+			this.aggiornaTabellaCliente(clienteTab);
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException

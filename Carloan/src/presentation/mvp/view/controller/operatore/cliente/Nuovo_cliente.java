@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import business.entity.Cliente;
+import business.entity.ClienteTab;
 import business.model.Exception.CommonException;
 import Errori.AlertView;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import presentation.mvp.view.Presenter;
@@ -58,6 +60,9 @@ public class Nuovo_cliente extends Schermata{
 	private TextField txtPartIva;
 	@FXML
 	private TextField txtEmail;
+	
+	
+	
 	
 	final ToggleGroup group = new ToggleGroup();
 	@FXML
@@ -107,7 +112,7 @@ public class Nuovo_cliente extends Schermata{
 		try {
 				presenter.processRequest("VerificaCliente", cliente);	
 				presenter.processRequest("InserimentoCliente", cliente);
-				((SchermataOperatore)this.getChiamante()).aggiornaTabellaCliente((List<ClienteFactory>) presenter.processRequest("getAllClienti",null));
+				((SchermataOperatore)this.getChiamante()).aggiornaTabellaCliente((List<Cliente>) presenter.processRequest("getAllClienti",null));
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
