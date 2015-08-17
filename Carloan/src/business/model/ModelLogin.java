@@ -12,20 +12,7 @@ public class ModelLogin implements Model {
 	
 	private DaoFactory daofactory;
 	private DAOLogin daoLogin;
-	
-	@Override
-	public void Inserimento(Object parameter){
-		
-	}
-	
 
-
-
-	@Override
-	public void aggiorna(Object parameter) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 	@Override
@@ -59,5 +46,17 @@ public class ModelLogin implements Model {
 			e.printStackTrace();
 		}
 		return ent;
+	}
+
+	@Override
+	public void Inserimento(Entity parameter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void aggiorna(Entity parameter) {
+		// TODO Auto-generated method stub
+		
 	}
 }

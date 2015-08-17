@@ -7,7 +7,7 @@ public class Cliente extends Entity{
 	
 	private String nome;
 	private String cognome;
-	private String sesso;
+	private String sesso="Maschio";
 	private DatePicker DataEmissPatente;
 	private DatePicker datanascita;
 	private String Indirizzo;

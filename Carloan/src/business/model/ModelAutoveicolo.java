@@ -1,5 +1,7 @@
 package business.model;
 
+import business.entity.Entity;
+
 public class ModelAutoveicolo implements Model{
 
 
@@ -16,13 +18,13 @@ public class ModelAutoveicolo implements Model{
 	}
 
 	@Override
-	public void Inserimento(Object parameter) {
+	public void Inserimento(Entity parameter) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void aggiorna(Object parameter) {
+	public void aggiorna(Entity parameter) {
 		// TODO Auto-generated method stub
 		
 	}

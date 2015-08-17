@@ -21,7 +21,6 @@ public class Nuovo_cliente extends Schermata{
 	private Button btnCancella;
 	@FXML
 	private Button btnConferma;
-	
 	@FXML
 	private TextField txtNome;
 	@FXML
@@ -56,6 +55,7 @@ public class Nuovo_cliente extends Schermata{
 		if(result.isPresent() && result.get() == ButtonType.OK)
 			this.chiudiFinestra();
 	}
+
 	
 	@FXML
 	public void btnConferma(ActionEvent event){
@@ -65,7 +65,7 @@ public class Nuovo_cliente extends Schermata{
 		
 		try {
 				presenter.processRequest("VerificaCliente", cliente);	
-				//presenter.processRequest("InserimentoCliente", cliente);
+				presenter.processRequest("InserimentoCliente", cliente);
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

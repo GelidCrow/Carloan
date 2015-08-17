@@ -6,10 +6,10 @@
 		<method>autenticazione</method>
 	</call>
 	
-	
-	
-	
-	
+		<call id="InserimentoCliente">
+		<class>business.model.ModelCliente</class>
+		<method>Inserimento</method>
+	</call>
 	
 	<call id="VerificaCliente">
 		<class>business.model.checker.ClienteChecker</class>
@@ -20,4 +20,7 @@
 		<class>business.model.checker.LoginChecker</class>
 		<method>check</method>
 	</call>
+	
+	
+
 </calls>

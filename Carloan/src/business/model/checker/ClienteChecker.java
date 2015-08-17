@@ -16,7 +16,7 @@ public class ClienteChecker implements Checker{
     private static final int CODFISCALE_VALUE= 16;
 
     private static final int MIN_PARTITAIVA_VALUE=0;
-    private static final int MAX_PARTITAIVA_VALUE=16;
+    private static final int MAX_PARTITAIVA_VALUE=11;
     
     private static final int MIN_EMAIL_VALUE=10;
     private static final int MAX_EMAIL_VALUE=20;
@@ -158,7 +158,7 @@ public class ClienteChecker implements Checker{
         isValid = (length==NUMPATENTE_VALUE);
 
         if (!isValid) {
-        	throw new CommonException("Patente  non valida");
+        	throw new CommonException("Patente non valida");
         }
 	}
 }
