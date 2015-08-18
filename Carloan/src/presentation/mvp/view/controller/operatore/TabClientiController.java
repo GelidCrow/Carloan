@@ -4,9 +4,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import business.entity.Cliente;
 
-public class TabClientiController extends SchermataGenerale<Cliente>{
+public class TabClientiController<T> extends SchermataGenerale<Cliente>{
 	
-	protected ObservableList<TableColumn<Cliente,?>> client;
+	private ObservableList<TableColumn<T,?>> client;
 
 	/**
 	 * <p>Effettua il binding con i singoli campi della tabella</p>
@@ -40,8 +40,9 @@ public class TabClientiController extends SchermataGenerale<Cliente>{
 		client.get(12).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getEmailT());
 
 	}
-	public TabClientiController(){
-		client = tbCliente.getColumns();
-	}
 
+	void setClienti(ObservableList<TableColumn<T, ?>> observableList){
+		client= observableList;
+		bindingValuesCliente();
+	}
 }

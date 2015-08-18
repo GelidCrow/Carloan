@@ -46,6 +46,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	private boolean tbClienteCaricata=false;
 
+	
+	
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
 		FXMLParameter.setTitolo("Nuovo Contratto");
@@ -59,7 +61,17 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	    FXMLParameter.setRidimensionabile(false);
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataNuovoCliente",Modality.APPLICATION_MODAL);
 	}
-	
+	@FXML
+	public void btnLogout(ActionEvent e){
+		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);
+		 
+		if(result.isPresent() && result.get() == ButtonType.OK){
+			this.chiudiFinestra();
+			FXMLParameter.setTitolo("Login");
+		    FXMLParameter.setRidimensionabile(false);
+			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraLogin",Modality.WINDOW_MODAL);
+		}
+	}
 	/**
 	 * <p>Aggiunge il cliente alla tabella già creata</p>
 	 */
@@ -77,6 +89,11 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		return true;
 	}
 	
+	
+	
+	public TableView<T> getTableClienti(){
+		return tbCliente;
+	}
 	/**
 	 * <p> Ascoltatore per il cambio di tab </p>
 	 */
@@ -94,6 +111,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			else if(panes.get(2)==newValue){
 					if(tbClienteCaricata==false){
 						try {
+							TabClientiController<T> tbClientController = new TabClientiController<T>();
+							tbClientController.setClienti(tbCliente.getColumns());
 							tbClienteCaricata = caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
 						} catch (InstantiationException
 								| IllegalAccessException
@@ -105,7 +124,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					}
+				}
 			}
 	    }
 	} 
@@ -114,27 +133,9 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
 		
-		TabClientiController tbClientController = new TabClientiController();
-		tbClientController.bindingValuesCliente();
-	
 		panes= tabPane.getTabs();
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
 	}
 
-	
-	@FXML
-	public void btnLogout(ActionEvent e){
-		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);
-		 
-		if(result.isPresent() && result.get() == ButtonType.OK){
-			this.chiudiFinestra();
-			FXMLParameter.setTitolo("Login");
-		    FXMLParameter.setRidimensionabile(false);
-			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraLogin",Modality.WINDOW_MODAL);
-		}
-	}
-	
-	public TableView<T> getTableClienti(){
-		return tbCliente;
-	}
+
 }
