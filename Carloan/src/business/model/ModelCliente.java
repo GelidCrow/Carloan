@@ -40,7 +40,7 @@ public class ModelCliente implements Model{
 			
 			daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
 			
-			return daoCliente.aggiornamento(parameter);
+			daoCliente.aggiornamento(parameter);
 				
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();

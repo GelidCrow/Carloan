@@ -16,27 +16,27 @@ public class ClienteChecker implements Checker{
     private static final int MIN_SESSO_VALUE=7;
     private static final int MAX_SESSO_VALUE=7;
     
-    private static final int MIN_INDIRIZZO_VALUE=10;
-    private static final int MAX_INDIRIZZO_VALUE=50;
+    protected static final int MIN_INDIRIZZO_VALUE=10;
+    protected static final int MAX_INDIRIZZO_VALUE=50;
     
     private static final int CODFISCALE_VALUE= 16;
 
-    private static final int MIN_PARTITAIVA_VALUE=0;
-    private static final int MAX_PARTITAIVA_VALUE=11;
+    protected static final int MIN_PARTITAIVA_VALUE=0;
+    protected static final int MAX_PARTITAIVA_VALUE=11;
     
-    private static final int MIN_EMAIL_VALUE=10;
-    private static final int MAX_EMAIL_VALUE=20;
+    protected static final int MIN_EMAIL_VALUE=10;
+    protected static final int MAX_EMAIL_VALUE=20;
     
-    private static final int NUMCELL_VALUE= 10;
+    protected static final int NUMCELL_VALUE= 10;
 
-    private static final int MIN_NUMTEL_VALUE= 0;
-    private static final int MAX_NUMTEL_VALUE= 10;
+    protected static final int MIN_NUMTEL_VALUE= 0;
+    protected static final int MAX_NUMTEL_VALUE= 10;
 
     private static final int NUMPATENTE_VALUE= 10;
     
     
-    private Cliente cliente;
-    private boolean isValid;
+    protected Cliente cliente;
+    protected boolean isValid;
     
 	@Override
 	public void check(Entity entity) throws CommonException {
@@ -80,6 +80,7 @@ public class ClienteChecker implements Checker{
         	throw new CommonException("Cognome  non valido");
         }
 	}
+	
 	public void checkSesso() throws CommonException{
 		int length;
 		
@@ -93,6 +94,7 @@ public class ClienteChecker implements Checker{
         }
 	}
 	public void checkIndirizzo() throws CommonException{
+		System.out.println("Ciao");
 		int length;
 		
         length = cliente.getIndirizzo().length();

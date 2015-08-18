@@ -25,7 +25,10 @@
 		<class>business.model.checker.ClienteChecker</class>
 		<method>check</method>
 	</call>
-	
+	<call id="VerificaClienteModificato">
+		<class>business.model.checker.ClienteEditChecker</class>
+		<method>check</method>
+	</call>
 	<call id="VerificaLogin">
 		<class>business.model.checker.LoginChecker</class>
 		<method>check</method>

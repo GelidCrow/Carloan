@@ -22,46 +22,47 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.operatore.SchermataGenerale;
 import utility.ParametriFXML;
 
-public class ControllerCliente extends Schermata{
+public class NuovoCliente extends Schermata{
 	@FXML
-	private Button btnCancella;
+	protected Button btnCancella;
 	@FXML
-	private Button btnConferma;
+	protected Button btnConferma;
 	@FXML
-	private Button btnConfermaModifica;
+	protected Button btnConfermaModifica;
 	@FXML
-	private TextField txtNome;
+	protected TextField txtNome;
 	@FXML
-	private TextField txtCognome;
+	protected TextField txtCognome;
 	@FXML
-	private RadioButton rdMaschio;
+	protected RadioButton rdMaschio;
 	@FXML
-	private RadioButton rdFemmina;
+	protected RadioButton rdFemmina;
 	@FXML
-	private DatePicker dEmissPatente;
+	protected DatePicker dEmissPatente;
 	@FXML
-	private DatePicker dNascita;
+	protected DatePicker dNascita;
 	@FXML
-	private TextField txtIndirizzo;
+	protected TextField txtIndirizzo;
 	@FXML
-	private TextField txtCodFisc;
+	protected TextField txtCodFisc;
 	@FXML
-	private TextField txtNumCel;
+	protected TextField txtNumCel;
 	@FXML
-	private TextField txtNumTel;
+	protected TextField txtNumTel;
 	@FXML
-	private TextField txtPatGuida;
+	protected TextField txtPatGuida;
 	@FXML
-	private DatePicker dScadPatente;
+	protected DatePicker dScadPatente;
 	@FXML
-	private TextField txtPartIva;
+	protected TextField txtPartIva;
 	@FXML
-	private TextField txtEmail;
+	protected TextField txtEmail;
 	
 	final ToggleGroup group = new ToggleGroup();
 	
@@ -91,27 +92,8 @@ public class ControllerCliente extends Schermata{
 		}
 	}
 	
-	@SuppressWarnings({ "unchecked","rawtypes" })
-	@FXML
-	public void btnConfermaModifica(ActionEvent event){
-
-		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
-		Cliente cliente= (Cliente) scChiamante.getEntitaElementoSelezionato();
-		//	settaViewIniziale();
-		try {
-				presenter.processRequest("VerificaCliente", cliente);	
-				presenter.processRequest("ModificaCliente", cliente);
-				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
-				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato(),cliente,((SchermataGenerale)this.getChiamante()).getTableClienti());
-			
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
-				| InvocationTargetException | CommonException e) {
-			//AlertView.getAlertView(e.toString(), AlertType.ERROR);
-		}
-	}
 	
+
 	/**
 	 * 
 	 * <p>Prende i valori inseriti e ci crea un istanza.</p>
@@ -164,5 +146,6 @@ public class ControllerCliente extends Schermata{
 		rdMaschio.setSelected(true);
 		
 		rdFemmina.setToggleGroup(group);
+		
 	}
 }

@@ -184,6 +184,39 @@ public class DAOCliente implements DAO{
 
 	@Override
 	public void aggiornamento(Entity parameter) {
+		Cliente cliente= (Cliente) parameter;
+		String UPDATE = "UPDATE  Cliente  SET"
+				+ "Indirizzo,NumCell,NumTel,PartitaIva,Email"
+				+ "WHERE ID = ?";
+		String updateQuery = UPDATE;
 		
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getIndirizzo());
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getNumCell());      
+	    updateQuery= queryReplaceFirst(updateQuery,cliente.getNumTel());
+	    updateQuery= queryReplaceFirst(updateQuery,cliente.getPartitaIva());
+        updateQuery= queryReplaceFirst(updateQuery,cliente.getEmail());
+        updateQuery= queryReplaceFirst(updateQuery,cliente.getId().toString());   
+        
+        Connection connection= Connection.getConnection(daofactory);
+        
+        ResultSet idList = null;
+        
+		try {
+			 idList = connection.executeUpdate(updateQuery);
+			 AlertView.getAlertView("Cliente aggiornato con successo",AlertType.INFORMATION);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 AlertView.getAlertView("Non è stato possibile aggiornare il cliente" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				idList.close();
+				//connection.chiudiConnessione();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
