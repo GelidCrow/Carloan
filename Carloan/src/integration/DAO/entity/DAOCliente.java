@@ -185,9 +185,9 @@ public class DAOCliente implements DAO{
 	@Override
 	public void aggiornamento(Entity parameter) {
 		Cliente cliente= (Cliente) parameter;
-		String UPDATE = "UPDATE  Cliente  SET"
-				+ "Indirizzo,NumCell,NumTel,PartitaIva,Email"
-				+ "WHERE ID = ?";
+		String UPDATE = "UPDATE  Cliente  SET "
+				+ "Indirizzo='?',NumCell='?',NumTel='?',PartitaIva='?',Email='?'"
+				+ "WHERE IDCliente = ?";
 		String updateQuery = UPDATE;
 		
 		updateQuery= queryReplaceFirst(updateQuery,cliente.getIndirizzo());
@@ -204,6 +204,7 @@ public class DAOCliente implements DAO{
 		try {
 			 idList = connection.executeUpdate(updateQuery);
 			 AlertView.getAlertView("Cliente aggiornato con successo",AlertType.INFORMATION);
+			 System.out.println("Ciao");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

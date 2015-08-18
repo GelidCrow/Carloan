@@ -113,7 +113,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	
 	public int getElemSelezionato(){
-		return tbCliente.getSelectionModel().getSelectedIndex();
+		return tbCliente.getSelectionModel().getSelectedIndex()+1;
 	}
 	
 	public T getEntitaElementoSelezionato(){

@@ -16,40 +16,46 @@ import business.model.Exception.CommonException;
 public class ModificaCliente extends NuovoCliente{
 	@FXML
 	private Button btnConfermaModifica;
-	
+	private Cliente cliente;
 	@SuppressWarnings({ "unchecked","rawtypes" })
 	@FXML
 	public void btnConfermaModifica(ActionEvent event){
 
 		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
-		Cliente cliente= prendiDatiDaView();
-	System.out.println(	cliente.getIndirizzo());
-		try {
-				presenter.processRequest("VerificaClienteModificato", cliente);	
+		cliente= (Cliente)scChiamante.getEntitaElementoSelezionato();//ottengo le info sul cliente selezionato, ma ne cambio alcune
+		cliente= prendiDatiDaView();
+			try {
+				presenter.processRequest("VerificaCliente", cliente);
 				presenter.processRequest("ModificaCliente", cliente);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
-				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato(),cliente,((SchermataGenerale)this.getChiamante()).getTableClienti());
-				/*if(this.getStage().getTitle()=="Modifica Cliente"){
-				@SuppressWarnings("rawtypes")
-				SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
-				Cliente cliente= (Cliente) scChiamante.getEntitaElementoSelezionato();
-				settaView(cliente);
-			}*/
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
-				| InvocationTargetException | CommonException e) {
-			//AlertView.getAlertView(e.toString(), AlertType.ERROR);
-		}
+				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato(),cliente,((SchermataGenerale)this.getChiamante()).getTableClienti());			
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | NoSuchMethodException
+					| SecurityException | IllegalArgumentException
+					| InvocationTargetException | CommonException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 	}
 	@Override
 	public Cliente prendiDatiDaView(){
-		Cliente cliente= new Cliente();
-		cliente.setIndirizzo(txtIndirizzo.getText());
-		cliente.setNumCell(txtNumCel.getText());
-		cliente.setNumTel(txtNumTel.getText());
-		cliente.setPartitaIva(txtPartIva.getText());
-		cliente.setEmail(txtEmail.getText());
+		String indirizzo = txtIndirizzo.getText();
+		String numCellu= txtNumCel.getText();
+		String numTel = txtNumTel.getText();
+		String PartitaIva= txtPartIva.getText();
+		String Email = txtEmail.getText();
+		
+		if(indirizzo!= null)
+			cliente.setIndirizzo(indirizzo);
+		if(numCellu!= null)
+			cliente.setNumCell(numCellu);
+		if(numTel!= null)
+			cliente.setNumTel(numTel);
+		if(PartitaIva!= null)
+			cliente.setPartitaIva(PartitaIva);
+		if(Email!= null)
+			cliente.setEmail(Email);
+		
 		return cliente;
 	}
 	@Override

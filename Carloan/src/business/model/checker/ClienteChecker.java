@@ -61,7 +61,7 @@ public class ClienteChecker implements Checker{
 
         isValid = (length >= MIN_NOME_VALUE)
                 && (length <= MAX_NOME_VALUE);
-
+        
         if (!isValid) {
         	throw new CommonException("Nome  non valido");
         }
@@ -94,7 +94,6 @@ public class ClienteChecker implements Checker{
         }
 	}
 	public void checkIndirizzo() throws CommonException{
-		System.out.println("Ciao");
 		int length;
 		
         length = cliente.getIndirizzo().length();
@@ -140,7 +139,6 @@ public class ClienteChecker implements Checker{
 
         isValid =    (length >= MIN_EMAIL_VALUE)
                 && (length <= MAX_EMAIL_VALUE);
-
         if (!isValid) {
         	throw new CommonException("Email non valido");
         }

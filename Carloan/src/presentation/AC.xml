@@ -13,7 +13,7 @@
 	
 	<call id="ModificaCliente">
 		<class>business.model.ModelCliente</class>
-		<method>aggiorna</method>
+		<method>aggiornamento</method>
 	</call>
 	
 	<call id="getAllClienti">

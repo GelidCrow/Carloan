@@ -15,18 +15,14 @@ public class ModelCliente implements Model{
 
 	@Override
 	public void Inserimento(Entity parameter) {
-	//	Entity ent=null;
 		try {
 			Cliente cliente = (Cliente) parameter;
-					
-			//new LoginChecker().check(login);
 			
 			daofactory= DaoFactory.getDaoFactory(1);
 			
 			daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
 			
 			daoCliente.creazione(cliente);
-		//	ent=daoCliente.autenticazione(login);
 				
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
@@ -36,11 +32,13 @@ public class ModelCliente implements Model{
 	@Override
 	public void aggiornamento(Entity parameter) {
 		try {
+			Cliente cliente = (Cliente) parameter;
+			
 			daofactory= DaoFactory.getDaoFactory(1);
 			
 			daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
 			
-			daoCliente.aggiornamento(parameter);
+			daoCliente.aggiornamento(cliente);
 				
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
