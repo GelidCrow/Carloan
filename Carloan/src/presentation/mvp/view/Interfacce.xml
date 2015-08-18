@@ -4,5 +4,6 @@
 	<interface id="MostraLogin" src ="markup/Login.fxml"></interface>
 	<interface id="MostraSchermataOperatore" src ="markup/operatore/SchermataGenerale.fxml"></interface>
 	<interface id="MostraSchermataNuovoContratto" src ="markup/operatore/contratto/Nuovo_contratto.fxml"></interface>
-	<interface id="MostraSchermataNuovoCliente" src ="markup/operatore/cliente/Nuovo_cliente.fxml"></interface>
+	<interface id="MostraSchermataNuovoCliente" src ="markup/operatore/cliente/NuovoCliente.fxml"></interface>
+	<interface id="MostraSchermataModificaCliente" src ="markup/operatore/cliente/ModificaCliente.fxml"></interface>
 </interfaces>

@@ -33,9 +33,10 @@ import javafx.stage.Modality;
 
 
 public class SchermataGenerale<T extends Entity> extends Schermata{
-
 	@FXML
-	private Button btnNuovo;
+	private Button btnNuovoCliente;
+	@FXML
+	private Button btnModificaCliente;
 	@FXML
 	private TabPane tabPane;
 	
@@ -46,7 +47,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	private boolean tbClienteCaricata=false;
 
-	
 	
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
@@ -61,6 +61,17 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	    FXMLParameter.setRidimensionabile(false);
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataNuovoCliente",Modality.APPLICATION_MODAL);
 	}
+	
+	@FXML
+	public void btnModificaCliente(ActionEvent e) throws CommonException{
+		FXMLParameter.setTitolo("Modifica Cliente");
+	    FXMLParameter.setRidimensionabile(false);
+	    if(tbCliente.getSelectionModel().getSelectedIndex()< 0){
+	    		throw new CommonException("Nessun elemento selezionato");
+	    }
+	    else
+	    	Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataModificaCliente",Modality.APPLICATION_MODAL);	
+	}
 	@FXML
 	public void btnLogout(ActionEvent e){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);
@@ -73,11 +84,18 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 	}
 	/**
-	 * <p>Aggiunge il cliente alla tabella già creata</p>
+	 * <p>Aggiunge un elemento ad una tabella</p>
 	 */
 	public void aggiungiElementoAtabella(T elem,TableView<T> table){
 		table.getItems().add((T) elem);
 	}
+	/**
+	 * <p>Modifica un elemento da una tabella</p>
+	 */
+	public void aggiornaElementotabella(int id,T elem,TableView<T> table){
+		table.getItems().add(id, (T) elem);
+	}
+	
 	/**
 	 * <p>Carica la tabella dei clienti graficamente</p>
 	 * @param listaClienti
@@ -91,6 +109,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 
 	public TableView<T> getTableClienti(){
 		return tbCliente;
+	}
+	
+	public int getElemSelezionato(){
+		return tbCliente.getSelectionModel().getSelectedIndex();
 	}
 	/**
 	 * <p> Ascoltatore per il cambio di tab </p>

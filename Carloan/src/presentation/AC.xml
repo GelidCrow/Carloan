@@ -6,9 +6,14 @@
 		<method>autenticazione</method>
 	</call>
 	
-		<call id="InserimentoCliente">
+	<call id="InserimentoCliente">
 		<class>business.model.ModelCliente</class>
 		<method>Inserimento</method>
+	</call>
+	
+	<call id="ModificaCliente">
+		<class>business.model.ModelCliente</class>
+		<method>aggiorna</method>
 	</call>
 	
 	<call id="getAllClienti">

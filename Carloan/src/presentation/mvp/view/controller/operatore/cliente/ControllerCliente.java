@@ -33,6 +33,8 @@ public class ControllerCliente extends Schermata{
 	@FXML
 	private Button btnConferma;
 	@FXML
+	private Button btnConfermaModifica;
+	@FXML
 	private TextField txtNome;
 	@FXML
 	private TextField txtCognome;
@@ -74,6 +76,46 @@ public class ControllerCliente extends Schermata{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
 	public void btnConferma(ActionEvent event){
+		Cliente cliente= prendiDati();
+		try {
+				presenter.processRequest("VerificaCliente", cliente);	
+				presenter.processRequest("InserimentoCliente", cliente);
+				//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
+				((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(cliente,((SchermataGenerale)this.getChiamante()).getTableClienti());
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			//AlertView.getAlertView(e.toString(), AlertType.ERROR);
+		}
+	}
+	
+	@SuppressWarnings({ "unchecked","rawtypes" })
+	@FXML
+	public void btnConfermaModifica(ActionEvent event){
+		Cliente cliente= prendiDati();
+		try {
+				presenter.processRequest("VerificaCliente", cliente);	
+				presenter.processRequest("ModificaCliente", cliente);
+				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
+				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(((SchermataGenerale)this.getChiamante()).getElemSelezionato(),cliente,((SchermataGenerale)this.getChiamante()).getTableClienti());
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			//AlertView.getAlertView(e.toString(), AlertType.ERROR);
+		}
+	}
+	
+	/**
+	 * 
+	 * <p>Prende i valori inseriti e ci crea un istanza.</p>
+	 * @return
+	 */
+	
+	public Cliente prendiDati(){
 		LocalDate dParam= null;
 		
 		Cliente cliente= new Cliente();
@@ -106,19 +148,8 @@ public class ControllerCliente extends Schermata{
 		cliente.setPartitaIva(txtPartIva.getText());
 		
 		cliente.setEmail(txtEmail.getText());
-	
-		try {
-				presenter.processRequest("VerificaCliente", cliente);	
-				presenter.processRequest("InserimentoCliente", cliente);
-				//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
-				((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(cliente,((SchermataGenerale)this.getChiamante()).getTableClienti());
-			
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
-				| InvocationTargetException | CommonException e) {
-			//AlertView.getAlertView(e.toString(), AlertType.ERROR);
-		}
+		
+		return cliente;
 	}
 	
 	@Override
