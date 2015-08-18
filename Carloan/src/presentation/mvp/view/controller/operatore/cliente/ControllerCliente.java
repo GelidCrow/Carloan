@@ -24,10 +24,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
-import presentation.mvp.view.controller.operatore.SchermataOperatore;
+import presentation.mvp.view.controller.operatore.SchermataGenerale;
 import utility.ParametriFXML;
 
-public class Nuovo_cliente extends Schermata{
+public class ControllerCliente extends Schermata{
 	@FXML
 	private Button btnCancella;
 	@FXML
@@ -61,10 +61,8 @@ public class Nuovo_cliente extends Schermata{
 	@FXML
 	private TextField txtEmail;
 	
-	
-	
-	
 	final ToggleGroup group = new ToggleGroup();
+	
 	@FXML
 	public void btnCancella(ActionEvent event){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
@@ -73,7 +71,6 @@ public class Nuovo_cliente extends Schermata{
 	}
 
 	
-	@SuppressWarnings("unchecked")
 	@FXML
 	public void btnConferma(ActionEvent event){
 		LocalDate dParam= null;
@@ -112,7 +109,7 @@ public class Nuovo_cliente extends Schermata{
 		try {
 				presenter.processRequest("VerificaCliente", cliente);	
 				presenter.processRequest("InserimentoCliente", cliente);
-				((SchermataOperatore)this.getChiamante()).aggiungiClienteTabella(cliente);
+				((SchermataGenerale)this.getChiamante()).aggiungiClienteTabella(cliente);
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

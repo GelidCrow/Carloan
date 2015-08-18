@@ -29,41 +29,41 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 
 
-public class SchermataOperatore extends Schermata{
+public class SchermataGenerale<T extends Entity> extends Schermata{
 
 	@FXML
 	private Button btnNuovo;
 	@FXML
-	private TableView<Cliente> tbCliente;
+	private TableView<T> tbCliente;
 	@FXML
-	private TableColumn<Cliente,String> nome;
+	private TableColumn<T,String> nome;
 	@FXML
-	private TableColumn<Cliente,String> cognome;
+	private TableColumn<T,String> cognome;
 	@FXML
-	private TableColumn<Cliente,String> sessoT;
+	private TableColumn<T,String> sessoT;
 	@FXML
-	private TableColumn<Cliente,Date> dataNascita;
+	private TableColumn<T,Date> dataNascita;
 	@FXML
-	private TableColumn<Cliente,Date> DataEmissPatente;
+	private TableColumn<T,Date> DataEmissPatente;
 	@FXML
-	private TableColumn<Cliente,String> Email;
+	private TableColumn<T,String> Email;
 	@FXML
-	private TableColumn<Cliente,Date> DataScadPatente;
+	private TableColumn<T,Date> DataScadPatente;
 	@FXML
-	private TableColumn<Cliente,String> Indirizzo;
+	private TableColumn<T,String> Indirizzo;
 	@FXML
-	private TableColumn<Cliente,String> codFiscale;
+	private TableColumn<T,String> codFiscale;
 	@FXML
-	private TableColumn<Cliente,String> numCell;
+	private TableColumn<T,String> numCell;
 	@FXML
-	private TableColumn<Cliente,String> numTel;
+	private TableColumn<T,String> numTel;
 	@FXML
-	private TableColumn<Cliente,String> PatenteGuida;
+	private TableColumn<T,String> PatenteGuida;
 	@FXML
-	private TableColumn<Cliente,String> PartitaIva;
+	private TableColumn<T,String> PartitaIva;
 	
 	
-	private boolean tabellaCaricata=false;
+	private boolean tbClienteCaricata=false;
 
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
@@ -94,48 +94,49 @@ public class SchermataOperatore extends Schermata{
 	 * <p>Aggiunge il cliente alla tabella già creata</p>
 	 * @param cliente
 	 */
+	@SuppressWarnings("unchecked")
 	public void aggiungiClienteTabella(Cliente cliente){
-		tbCliente.getItems().add(cliente);
+		tbCliente.getItems().add((T) cliente);
 	}
 	/**
 	 * <p>Carica la tabella dei clienti graficamente</p>
 	 * @param listaClienti
 	 * @return
 	 */
-	public boolean caricaTabellaCliente(List<Cliente> listaClienti){
-		ObservableList<Cliente> clienti= FXCollections.observableList(listaClienti);
-		tbCliente.setItems(clienti);
+	public boolean caricaTabella(List<T> list,TableView<T> table){
+		ObservableList<T> obsList= FXCollections.observableList(list);
+		table.setItems(obsList);
 		return true;
 	}
 	/**
 	 * <p>Effettua il binding con i singoli campi della tabella</p>
 	 */
 	public void bindingValues(){
-		nome.setCellValueFactory(cellData -> cellData.getValue().getNomeT());
+		nome.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getNomeT());
 		
-		cognome.setCellValueFactory(cellData -> cellData.getValue().getCognomeT());
+		cognome.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getCognomeT());
 		
-		sessoT.setCellValueFactory(cellData -> cellData.getValue().getSessoT());
+		sessoT.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getSessoT());
 		
-		dataNascita.setCellValueFactory(cellData -> cellData.getValue().getDatanascitaT());
+		dataNascita.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getDatanascitaT());
 		
-		Indirizzo.setCellValueFactory(cellData -> cellData.getValue().getIndirizzoT());
+		Indirizzo.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getIndirizzoT());
 		
-		codFiscale.setCellValueFactory(cellData -> cellData.getValue().getCodFiscaleT());
+		codFiscale.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getCodFiscaleT());
 		
-		numCell.setCellValueFactory(cellData -> cellData.getValue().getNumCellT());
+		numCell.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getNumCellT());
 
-		numTel.setCellValueFactory(cellData -> cellData.getValue().getNumTelT());
+		numTel.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getNumTelT());
 
-	    PatenteGuida.setCellValueFactory(cellData -> cellData.getValue().getPatenteGuidaT());
+	    PatenteGuida.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getPatenteGuidaT());
 
-		DataEmissPatente.setCellValueFactory(cellData -> cellData.getValue().getDataEmissPatenteT());
+		DataEmissPatente.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getDataEmissPatenteT());
 
-		DataScadPatente.setCellValueFactory(cellData -> cellData.getValue().getDataScadPatenteT());
+		DataScadPatente.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getDataScadPatenteT());
 
-		PartitaIva.setCellValueFactory(cellData -> cellData.getValue().getPartitaIvaT());
+		PartitaIva.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getPartitaIvaT());
 
-		Email.setCellValueFactory(cellData -> cellData.getValue().getEmailT());
+		Email.setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getEmailT());
 
 	}
 	
@@ -158,8 +159,8 @@ public class SchermataOperatore extends Schermata{
 		@Override
 	    public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
 			try {
-				if(tabellaCaricata==false)
-					tabellaCaricata= caricaTabellaCliente((List<Cliente>)presenter.processRequest("getAllClienti",null));
+				if(tbClienteCaricata==false)
+					tbClienteCaricata= caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
 					| SecurityException | IllegalArgumentException
