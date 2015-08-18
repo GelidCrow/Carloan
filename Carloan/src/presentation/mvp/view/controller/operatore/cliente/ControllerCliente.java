@@ -71,6 +71,7 @@ public class ControllerCliente extends Schermata{
 	}
 
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
 	public void btnConferma(ActionEvent event){
 		LocalDate dParam= null;
@@ -109,7 +110,8 @@ public class ControllerCliente extends Schermata{
 		try {
 				presenter.processRequest("VerificaCliente", cliente);	
 				presenter.processRequest("InserimentoCliente", cliente);
-				((SchermataGenerale)this.getChiamante()).aggiungiClienteTabella(cliente);
+				//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
+				((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(cliente,((SchermataGenerale)this.getChiamante()).getTableClienti());
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

@@ -58,7 +58,7 @@
                         </Pane>
                      </children>
                   </Pane>
-                  <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="1">
+                  <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="1">
                     <tabs>
                         <Tab text="Contratto">
                            <content>
@@ -98,7 +98,7 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                      <Tab text="Clienti">
+                      <Tab fx:id="tabCliente" text="Clienti">
                         <content>
                               <AnchorPane layoutX="-12.0" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
