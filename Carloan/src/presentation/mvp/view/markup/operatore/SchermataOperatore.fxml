@@ -38,7 +38,7 @@
                      <children>
                         <Pane prefHeight="89.0" prefWidth="1228.0" style="-fx-background-color: #000000;">
                            <children>
-                              <ImageView fitHeight="89.0" fitWidth="326.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="sesso" fitHeight="89.0" fitWidth="326.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../Immagini/log_in_logo.jpg" />
                                  </image>
@@ -104,9 +104,9 @@
                                  <children>
                                     <TableView fx:id="tbCliente" layoutY="111.0" prefHeight="407.0" prefWidth="1236.0">
                                        <columns>
-                                          <TableColumn prefWidth="75.0" text="Nome" />
-                                          <TableColumn prefWidth="75.0" text="Cognome" />
-                                          <TableColumn prefWidth="75.0" text="Sesso" />
+                                          <TableColumn fx:id="nome" prefWidth="75.0" text="Nome" />
+                                          <TableColumn fx:id="cognome" prefWidth="75.0" text="Cognome" />
+                                          <TableColumn fx:id="sesso" prefWidth="75.0" text="Sesso" />
                                           <TableColumn prefWidth="120.0" text="D. Emiss. Patente" />
                                           <TableColumn prefWidth="89.0" text="D. Nascita" />
                                           <TableColumn minWidth="8.0" prefWidth="90.0" text="Indirizzo" />

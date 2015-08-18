@@ -58,7 +58,6 @@ public class ModelCliente implements Model{
 			daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
 			
 			return daoCliente.getAll();
-		//	ent=daoCliente.autenticazione(login);
 				
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();

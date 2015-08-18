@@ -2,6 +2,11 @@ package business.entity;
 
 import java.sql.Date;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 
 //potrebbeessere astratta e cliente estende cliente... cosi puoi aggiungerne tanti
 public class Cliente extends Entity{
@@ -19,6 +24,21 @@ public class Cliente extends Entity{
 	private  Date DataScadPatente;
 	private String PartitaIva;
 	private String Email;
+	
+	
+	private StringProperty nomeT;
+	private StringProperty cognomeT;
+	private StringProperty sessoT;
+	private ObjectProperty<Date> DataEmissPatenteT;
+	private ObjectProperty<Date>  datanascitaT;
+	private StringProperty IndirizzoT;
+	private StringProperty codFiscaleT;
+	private StringProperty numCellT;
+	private StringProperty numTelT;
+	private StringProperty PatenteGuidaT;
+	private ObjectProperty<Date>  DataScadPatenteT;
+	private StringProperty PartitaIvaT;
+	private StringProperty EmailT;
 	
 	public Cliente(){
 		
@@ -41,6 +61,21 @@ public class Cliente extends Entity{
 		this.DataScadPatente= DataScadPatente;
 		this.PartitaIva=PartitaIva;
 		this.Email= Email;
+		
+		
+		this.nomeT = new SimpleStringProperty(nome);
+        this.cognomeT = new SimpleStringProperty(cognome);
+        this.sessoT= new SimpleStringProperty(sesso);
+        this.DataEmissPatenteT =new SimpleObjectProperty<Date>(DataEmissPatente);
+        this.datanascitaT =new SimpleObjectProperty<Date>(datanascita);
+        this.IndirizzoT = new SimpleStringProperty(Indirizzo);
+        this.codFiscaleT = new SimpleStringProperty(codFiscale);
+        this.numCellT = new SimpleStringProperty(numCell);
+        this.numTelT = new SimpleStringProperty(numTel);
+        this.PatenteGuidaT = new SimpleStringProperty(PatenteGuida);
+        this.DataScadPatenteT = new SimpleObjectProperty<Date>(DataScadPatente);
+        this.PartitaIvaT = new SimpleStringProperty(PartitaIva);
+        this.EmailT = new SimpleStringProperty(Email);
 	 }
 
 
@@ -48,6 +83,110 @@ public class Cliente extends Entity{
 		return nome;
 	}
 
+
+	public StringProperty getNomeT() {
+		return nomeT;
+	}
+
+	public void setNomeT(StringProperty nomeT) {
+		this.nomeT = nomeT;
+	}
+
+	public StringProperty getCognomeT() {
+		return cognomeT;
+	}
+
+	public void setCognomeT(StringProperty cognomeT) {
+		this.cognomeT = cognomeT;
+	}
+
+	public StringProperty getSessoT() {
+		return sessoT;
+	}
+
+	public void setSessoT(StringProperty sessoT) {
+		this.sessoT = sessoT;
+	}
+
+	public ObjectProperty<Date> getDataEmissPatenteT() {
+		return DataEmissPatenteT;
+	}
+
+	public void setDataEmissPatenteT(ObjectProperty<Date> dataEmissPatenteT) {
+		DataEmissPatenteT = dataEmissPatenteT;
+	}
+
+	public ObjectProperty<Date> getDatanascitaT() {
+		return datanascitaT;
+	}
+
+	public void setDatanascitaT(ObjectProperty<Date> datanascitaT) {
+		this.datanascitaT = datanascitaT;
+	}
+
+	public StringProperty getIndirizzoT() {
+		return IndirizzoT;
+	}
+
+	public void setIndirizzoT(StringProperty indirizzoT) {
+		IndirizzoT = indirizzoT;
+	}
+
+	public StringProperty getCodFiscaleT() {
+		return codFiscaleT;
+	}
+
+	public void setCodFiscaleT(StringProperty codFiscaleT) {
+		this.codFiscaleT = codFiscaleT;
+	}
+
+	public StringProperty getNumCellT() {
+		return numCellT;
+	}
+
+	public void setNumCellT(StringProperty numCellT) {
+		this.numCellT = numCellT;
+	}
+
+	public StringProperty getNumTelT() {
+		return numTelT;
+	}
+
+	public void setNumTelT(StringProperty numTelT) {
+		this.numTelT = numTelT;
+	}
+
+	public StringProperty getPatenteGuidaT() {
+		return PatenteGuidaT;
+	}
+
+	public void setPatenteGuidaT(StringProperty patenteGuidaT) {
+		PatenteGuidaT = patenteGuidaT;
+	}
+
+	public ObjectProperty<Date> getDataScadPatenteT() {
+		return DataScadPatenteT;
+	}
+
+	public void setDataScadPatenteT(ObjectProperty<Date> dataScadPatenteT) {
+		DataScadPatenteT = dataScadPatenteT;
+	}
+
+	public StringProperty getPartitaIvaT() {
+		return PartitaIvaT;
+	}
+
+	public void setPartitaIvaT(StringProperty partitaIvaT) {
+		PartitaIvaT = partitaIvaT;
+	}
+
+	public StringProperty getEmailT() {
+		return EmailT;
+	}
+
+	public void setEmailT(StringProperty emailT) {
+		EmailT = emailT;
+	}
 
 	public void setNome(String nome) {
 		this.nome = nome;

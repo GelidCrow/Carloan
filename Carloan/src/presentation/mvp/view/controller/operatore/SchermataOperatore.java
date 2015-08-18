@@ -2,6 +2,7 @@ package presentation.mvp.view.controller.operatore;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 
 
@@ -31,14 +33,34 @@ public class SchermataOperatore extends Schermata{
 
 	@FXML
 	private Button btnNuovo;
-	
 	@FXML
-	private TableView<ClienteTab> tbCliente;
-	
+	private TableView<Cliente> tbCliente;
 	@FXML
-	private TableColumn<ClienteTab,String> nome;
+	private TableColumn<Cliente,String> nome;
 	@FXML
-	private TableColumn<ClienteTab,String> cognome;
+	private TableColumn<Cliente,String> cognome;
+	@FXML
+	private TableColumn<Cliente,String> sesso;
+	@FXML
+	private TableColumn<Cliente,Date> dataNascita;
+	@FXML
+	private TableColumn<Cliente,Date> DataEmissPatente;
+	@FXML
+	private TableColumn<Cliente,String> Email;
+	@FXML
+	private TableColumn<Cliente,Date> DataScadPatente;
+	@FXML
+	private TableColumn<Cliente,String> Indirizzo;
+	@FXML
+	private TableColumn<Cliente,String> codFiscale;
+	@FXML
+	private TableColumn<Cliente,String> numCell;
+	@FXML
+	private TableColumn<Cliente,String> numTel;
+	@FXML
+	private TableColumn<Cliente,String> PatenteGuida;
+	@FXML
+	private TableColumn<Cliente,String> PartitaIva;
 
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
@@ -66,16 +88,39 @@ public class SchermataOperatore extends Schermata{
 		}
 	}
 	
-	public void aggiornaTabellaCliente(List<ClienteTab> listaClienti){
-		ObservableList<ClienteTab> clienti= FXCollections.observableArrayList(listaClienti);
+	public void aggiornaTabellaCliente(List<Cliente> listaClienti){
+		ObservableList<Cliente> clienti= FXCollections.observableArrayList(listaClienti);
 		tbCliente.setItems(clienti);
 	}
 	/**
 	 * <p>Effettua il binding con i singoli campi della tabella</p>
 	 */
 	public void bindingValues(){
-		nome.setCellValueFactory(cellData -> cellData.getValue().getNome());
-		cognome.setCellValueFactory(cellData -> cellData.getValue().getCognome());
+		nome.setCellValueFactory(cellData -> cellData.getValue().getNomeT());
+		
+		cognome.setCellValueFactory(cellData -> cellData.getValue().getCognomeT());
+		
+		sesso.setCellValueFactory(cellData -> cellData.getValue().getSessoT());
+		
+		dataNascita.setCellValueFactory(cellData -> cellData.getValue().getDatanascitaT());
+		
+		Indirizzo.setCellValueFactory(cellData -> cellData.getValue().getIndirizzoT());
+		
+		codFiscale.setCellValueFactory(cellData -> cellData.getValue().getSessoT());
+		
+		numCell.setCellValueFactory(cellData -> cellData.getValue().getNumCellT());
+
+		numTel.setCellValueFactory(cellData -> cellData.getValue().getNumTelT());
+
+	    PatenteGuida.setCellValueFactory(cellData -> cellData.getValue().getPatenteGuidaT());
+
+		DataEmissPatente.setCellValueFactory(cellData -> cellData.getValue().getDataEmissPatenteT());
+
+		DataScadPatente.setCellValueFactory(cellData -> cellData.getValue().getDataScadPatenteT());
+
+		PartitaIva.setCellValueFactory(cellData -> cellData.getValue().getPartitaIvaT());
+
+		Email.setCellValueFactory(cellData -> cellData.getValue().getEmailT());
 
 	}
 	@SuppressWarnings("unchecked")
@@ -86,10 +131,7 @@ public class SchermataOperatore extends Schermata{
 		FXMLParameter = new ParametriFXML(null,false);
 		bindingValues();
 		try {
-			ClienteTab clienteTabSupporto = new ClienteTab();
-			List<ClienteTab> clienteTab;
-			clienteTab = ((ClienteTab) clienteTab).converter((List<Cliente>)presenter.processRequest("getAllClienti",null));
-			this.aggiornaTabellaCliente(clienteTab);
+			this.aggiornaTabellaCliente((List<Cliente>)presenter.processRequest("getAllClienti",null));
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException

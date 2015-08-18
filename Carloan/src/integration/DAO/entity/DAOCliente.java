@@ -99,7 +99,7 @@ public class DAOCliente implements DAO{
 		
 	}
 
-	public List<Cliente> getAll() throws SQLException{		
+	public List<Cliente> getAll(){		
 		 String readQuery = "Select Nome,Cognome,Sesso,DataEmissPatente,DataNascita,"
 				 			+ "Indirizzo,CodFiscale,NumCell,NumTel,PatenteGuida,DataScadPatente,PartitaIva,Email from cliente";
 		 Connection connection= Connection.getConnection(daofactory);
