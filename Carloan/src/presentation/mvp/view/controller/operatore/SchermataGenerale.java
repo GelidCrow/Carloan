@@ -83,14 +83,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * @param listaClienti
 	 * @return
 	 */
-	public boolean caricaTabella(List<T> list,TableView<T> table){
+	private boolean caricaTabella(List<T> list,TableView<T> table){
 		ObservableList<T> obsList= FXCollections.observableList(list);
 		table.setItems(obsList);
 		return true;
 	}
-	
-	
-	
+
 	public TableView<T> getTableClienti(){
 		return tbCliente;
 	}
@@ -106,13 +104,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		@Override
 	    public void changed(ObservableValue<? extends Tab> ov, Tab oldValue, Tab newValue) {
 			if( panes.get(0)==newValue){
-				System.out.println("Contratto");
+				
 			}
 			else if(panes.get(2)==newValue){
 					if(tbClienteCaricata==false){
 						try {
-							TabClientiController<T> tbClientController = new TabClientiController<T>();
-							tbClientController.setClienti(tbCliente.getColumns());
+							TabClientiController<T> tbClientController = new TabClientiController<T>(tbCliente.getColumns());
 							tbClienteCaricata = caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
 						} catch (InstantiationException
 								| IllegalAccessException
@@ -136,6 +133,4 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		panes= tabPane.getTabs();
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
 	}
-
-
 }
