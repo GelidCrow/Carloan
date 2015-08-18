@@ -76,7 +76,7 @@ public class ControllerCliente extends Schermata{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
 	public void btnConferma(ActionEvent event){
-		Cliente cliente= prendiDati();
+		Cliente cliente= prendiDatiDaView();
 		try {
 				presenter.processRequest("VerificaCliente", cliente);	
 				presenter.processRequest("InserimentoCliente", cliente);
@@ -94,12 +94,15 @@ public class ControllerCliente extends Schermata{
 	@SuppressWarnings({ "unchecked","rawtypes" })
 	@FXML
 	public void btnConfermaModifica(ActionEvent event){
-		Cliente cliente= prendiDati();
+
+		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
+		Cliente cliente= (Cliente) scChiamante.getEntitaElementoSelezionato();
+		//	settaViewIniziale();
 		try {
 				presenter.processRequest("VerificaCliente", cliente);	
 				presenter.processRequest("ModificaCliente", cliente);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
-				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(((SchermataGenerale)this.getChiamante()).getElemSelezionato(),cliente,((SchermataGenerale)this.getChiamante()).getTableClienti());
+				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato(),cliente,((SchermataGenerale)this.getChiamante()).getTableClienti());
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
@@ -115,7 +118,7 @@ public class ControllerCliente extends Schermata{
 	 * @return
 	 */
 	
-	public Cliente prendiDati(){
+	public Cliente prendiDatiDaView(){
 		LocalDate dParam= null;
 		
 		Cliente cliente= new Cliente();

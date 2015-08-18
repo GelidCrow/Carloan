@@ -34,9 +34,17 @@ public class ModelCliente implements Model{
 	}
 
 	@Override
-	public void aggiorna(Entity parameter) {
-		// TODO Auto-generated method stub
-		
+	public void aggiornamento(Entity parameter) {
+		try {
+			daofactory= DaoFactory.getDaoFactory(1);
+			
+			daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
+			
+			return daoCliente.aggiornamento(parameter);
+				
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

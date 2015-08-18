@@ -86,21 +86,13 @@ public class DAOCliente implements DAO{
 	
 	@Override
 	public Entity lettura(int id) {
-		
-		
-		
-		
 		return null;
 	}
 
-	@Override
-	public void aggiornamento(Entity x) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	public List<Cliente> getAll(){		
-		 String readQuery = "Select Nome,Cognome,Sesso,DataEmissPatente,DataNascita,"
+		 String readQuery = "Select IDCliente,Nome,Cognome,Sesso,DataEmissPatente,DataNascita,"
 				 			+ "Indirizzo,CodFiscale,NumCell,NumTel,PatenteGuida,DataScadPatente,PartitaIva,Email from cliente";
 		 Connection connection= Connection.getConnection(daofactory);
 	        
@@ -130,12 +122,17 @@ public class DAOCliente implements DAO{
 	
         String sParam= null;
         Date dParam = null;
+        int iParam;
         
         try {
          if(resultset!=null){
             while (resultset.next()) {
                 Cliente cliente = new Cliente();
                
+                
+                iParam = resultset.getInt("IdCliente");
+                cliente.setId(iParam);
+                
                 sParam = resultset.getString("Nome");              
                 cliente.setNome(sParam);
 
@@ -183,5 +180,10 @@ public class DAOCliente implements DAO{
             e.printStackTrace();
         } 
 		return risultato;
+	}
+
+	@Override
+	public void aggiornamento(Entity parameter) {
+		
 	}
 }

@@ -2,7 +2,9 @@ package business.entity;
 
 import java.sql.Date;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -11,6 +13,7 @@ import javafx.beans.property.StringProperty;
 //potrebbeessere astratta e cliente estende cliente... cosi puoi aggiungerne tanti
 public class Cliente extends Entity{
 	
+	private Integer id;
 	private String nome;
 	private String cognome;
 	private String sesso;
@@ -25,7 +28,7 @@ public class Cliente extends Entity{
 	private String PartitaIva;
 	private String Email;
 	
-	
+	private IntegerProperty idT;
 	private StringProperty nomeT;
 	private StringProperty cognomeT;
 	private StringProperty sessoT;
@@ -44,10 +47,11 @@ public class Cliente extends Entity{
 		
 	}
 	
-	public Cliente(String nome, String cognome, String sesso, Date DataEmissPatente, Date datanascita,
+	public Cliente(Integer id,String nome, String cognome, String sesso, Date DataEmissPatente, Date datanascita,
 			String Indirizzo, String codFiscale,String numCell,String numTel,String PatenteGuida,
 			 Date DataScadPatente, String PartitaIva, String Email)
 	{
+		this.id= id;
 		this.nome = nome; 
 		this.cognome= cognome;
 		this.sesso= sesso;
@@ -62,7 +66,7 @@ public class Cliente extends Entity{
 		this.PartitaIva=PartitaIva;
 		this.Email= Email;
 		
-		
+		this.idT= new SimpleIntegerProperty(id);
 		this.nomeT = new SimpleStringProperty(nome);
         this.cognomeT = new SimpleStringProperty(cognome);
         this.sessoT= new SimpleStringProperty(sesso);
@@ -77,6 +81,23 @@ public class Cliente extends Entity{
         this.PartitaIvaT = new SimpleStringProperty(PartitaIva);
         this.EmailT = new SimpleStringProperty(Email);
 	 }
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+		this.idT= new SimpleIntegerProperty(id);
+	}
+
+	public IntegerProperty getIdT() {
+		return idT;
+	}
+
+	public void setIdT(IntegerProperty idT) {
+		this.idT = idT;
+	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -322,4 +343,8 @@ public class Cliente extends Entity{
 	public void setEmailT(StringProperty emailT) {
 		EmailT = emailT;
 	}	
+	public String  toString(){
+		return nome+cognome;
+		
+	}
 }

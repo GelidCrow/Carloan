@@ -44,7 +44,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 
 	@FXML
 	protected TableView<T> tbCliente;
-	
+	private List<T> listaClienti;
 	private boolean tbClienteCaricata=false;
 
 	
@@ -102,6 +102,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * @return
 	 */
 	private boolean caricaTabella(List<T> list,TableView<T> table){
+		listaClienti= list;
 		ObservableList<T> obsList= FXCollections.observableList(list);
 		table.setItems(obsList);
 		return true;
@@ -113,6 +114,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	public int getElemSelezionato(){
 		return tbCliente.getSelectionModel().getSelectedIndex();
+	}
+	
+	public T getEntitaElementoSelezionato(){
+		return tbCliente.getSelectionModel().getSelectedItem();
 	}
 	/**
 	 * <p> Ascoltatore per il cambio di tab </p>
