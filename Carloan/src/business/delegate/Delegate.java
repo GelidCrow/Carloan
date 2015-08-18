@@ -26,13 +26,18 @@ public class Delegate {
     	if(Class.forName(service_method.get(0)).newInstance() instanceof Checker){
     		checker = (Checker) Class.forName(service_method.get(0)).newInstance();
     		method = checker.getClass().getMethod(service_method.get(1),Entity.class);
-    		result=  method.invoke(checker, parameter);
-    		
+    		result=  method.invoke(checker, parameter); 		
     	}
     	else {
     		model = (Model) Class.forName(service_method.get(0)).newInstance();
-    		method = model.getClass().getMethod(service_method.get(1), Entity.class);
-    		result=  method.invoke(model, parameter);
+    		if(parameter==null){
+    			method = model.getClass().getMethod(service_method.get(1), null);
+    			result=  method.invoke(model,null);
+    		}
+    		else{
+    			method = model.getClass().getMethod(service_method.get(1), Entity.class);
+    			result=  method.invoke(model, parameter);
+    		}
     	}
     	return result;
     }

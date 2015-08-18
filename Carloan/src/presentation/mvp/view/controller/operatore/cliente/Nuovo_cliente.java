@@ -112,7 +112,7 @@ public class Nuovo_cliente extends Schermata{
 		try {
 				presenter.processRequest("VerificaCliente", cliente);	
 				presenter.processRequest("InserimentoCliente", cliente);
-				((SchermataOperatore)this.getChiamante()).aggiornaTabellaCliente((List<Cliente>) presenter.processRequest("getAllClienti",null));
+				((SchermataOperatore)this.getChiamante()).aggiungiClienteTabella(cliente);
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

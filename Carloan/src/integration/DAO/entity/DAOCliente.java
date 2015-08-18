@@ -105,9 +105,10 @@ public class DAOCliente implements DAO{
 		 Connection connection= Connection.getConnection(daofactory);
 	        
 	     ResultSet readQueryResultSet = null;
-	        
+	     List<Cliente> risultato = null;
 	     try {
-			readQueryResultSet = connection.executeRead(readQuery);		
+			readQueryResultSet = connection.executeRead(readQuery);	
+			risultato= creaElencoClienti(readQueryResultSet);
 		 } catch (SQLException e) {
 			e.printStackTrace();
 			AlertView.getAlertView("Non è stato possibile leggere i clienti " , AlertType.ERROR);
@@ -121,7 +122,7 @@ public class DAOCliente implements DAO{
 			}
 		}
 
-	    return creaElencoClienti(readQueryResultSet);
+	    return risultato;
 	}
 	
 	public List<Cliente> creaElencoClienti(ResultSet resultset){
@@ -131,6 +132,7 @@ public class DAOCliente implements DAO{
         Date dParam = null;
         
         try {
+         if(resultset!=null){
             while (resultset.next()) {
                 Cliente cliente = new Cliente();
                
@@ -175,10 +177,11 @@ public class DAOCliente implements DAO{
                        
                 risultato.add(cliente);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+         }
         }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } 
 		return risultato;
-	
 	}
 }

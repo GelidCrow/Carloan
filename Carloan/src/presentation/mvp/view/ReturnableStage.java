@@ -51,7 +51,7 @@ public class ReturnableStage extends Stage {
 		schermata.setStage(stage);
 	}
 	/**
-	 * <p>Serve a settare lo stage in modo tale da non perderlo per fare delle cose sulla finestra, per sempio nel login posso chiudere la finestra dopo l'autenticazione</p>
+	 * <p>Salvo la finestra chiamante in modo tale da poter invocare i suoi metodi</p>
 	 * @param stage
 	 */
 	public void setControllerChiamante(Schermata chiamante){

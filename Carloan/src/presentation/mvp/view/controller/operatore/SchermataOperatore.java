@@ -3,19 +3,20 @@ package presentation.mvp.view.controller.operatore;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import business.entity.Cliente;
-import business.entity.ClienteTab;
+import business.entity.Entity;
 import business.model.Exception.CommonException;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import Errori.AlertView;
 import utility.Finestra;
 import utility.ParametriFXML;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +26,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 
 
@@ -40,7 +40,7 @@ public class SchermataOperatore extends Schermata{
 	@FXML
 	private TableColumn<Cliente,String> cognome;
 	@FXML
-	private TableColumn<Cliente,String> sesso;
+	private TableColumn<Cliente,String> sessoT;
 	@FXML
 	private TableColumn<Cliente,Date> dataNascita;
 	@FXML
@@ -61,6 +61,9 @@ public class SchermataOperatore extends Schermata{
 	private TableColumn<Cliente,String> PatenteGuida;
 	@FXML
 	private TableColumn<Cliente,String> PartitaIva;
+	
+	
+	private boolean tabellaCaricata=false;
 
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
@@ -87,10 +90,22 @@ public class SchermataOperatore extends Schermata{
 			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraLogin",Modality.WINDOW_MODAL);
 		}
 	}
-	
-	public void aggiornaTabellaCliente(List<Cliente> listaClienti){
-		ObservableList<Cliente> clienti= FXCollections.observableArrayList(listaClienti);
+	/**
+	 * <p>Aggiunge il cliente alla tabella già creata</p>
+	 * @param cliente
+	 */
+	public void aggiungiClienteTabella(Cliente cliente){
+		tbCliente.getItems().add(cliente);
+	}
+	/**
+	 * <p>Carica la tabella dei clienti graficamente</p>
+	 * @param listaClienti
+	 * @return
+	 */
+	public boolean caricaTabellaCliente(List<Cliente> listaClienti){
+		ObservableList<Cliente> clienti= FXCollections.observableList(listaClienti);
 		tbCliente.setItems(clienti);
+		return true;
 	}
 	/**
 	 * <p>Effettua il binding con i singoli campi della tabella</p>
@@ -100,13 +115,13 @@ public class SchermataOperatore extends Schermata{
 		
 		cognome.setCellValueFactory(cellData -> cellData.getValue().getCognomeT());
 		
-		sesso.setCellValueFactory(cellData -> cellData.getValue().getSessoT());
+		sessoT.setCellValueFactory(cellData -> cellData.getValue().getSessoT());
 		
 		dataNascita.setCellValueFactory(cellData -> cellData.getValue().getDatanascitaT());
 		
 		Indirizzo.setCellValueFactory(cellData -> cellData.getValue().getIndirizzoT());
 		
-		codFiscale.setCellValueFactory(cellData -> cellData.getValue().getSessoT());
+		codFiscale.setCellValueFactory(cellData -> cellData.getValue().getCodFiscaleT());
 		
 		numCell.setCellValueFactory(cellData -> cellData.getValue().getNumCellT());
 
@@ -123,22 +138,43 @@ public class SchermataOperatore extends Schermata{
 		Email.setCellValueFactory(cellData -> cellData.getValue().getEmailT());
 
 	}
-	@SuppressWarnings("unchecked")
+	
+	/**
+	 * <p> Ascoltatore per il cambio di tab </p>
+	 */
+	private class TabChangeListener implements ChangeListener<Number>{
+	
+		/**
+		 * <p>Inizializza l'ascoltatore a null </p>
+		 */
+		private TabChangeListener() {
+    		changed(null, null, 0);		
+		}
+		/**
+		 * <p>Quando selezioni il tab "Cliente" vengono caricati SOLO 1 VOLTA tutti i clienti</p>
+		 * 
+		 */
+		@SuppressWarnings("unchecked")
+		@Override
+	    public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
+			try {
+				if(tabellaCaricata==false)
+					tabellaCaricata= caricaTabellaCliente((List<Cliente>)presenter.processRequest("getAllClienti",null));
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | NoSuchMethodException
+					| SecurityException | IllegalArgumentException
+					| InvocationTargetException | CommonException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+		
+	} 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
 		bindingValues();
-		try {
-			this.aggiornaTabellaCliente((List<Cliente>)presenter.processRequest("getAllClienti",null));
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
-				| InvocationTargetException | CommonException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		tbCliente.getSelectionModel().selectedIndexProperty().addListener(new TabChangeListener());
 	}
 }

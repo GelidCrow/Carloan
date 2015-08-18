@@ -48,28 +48,30 @@
             </VBox>
             <VBox layoutX="27.0" layoutY="-1.0" prefHeight="469.0" prefWidth="360.0">
                <children>
-                  <Label layoutX="53.0" layoutY="124.0" prefHeight="33.0" prefWidth="101.0" text="Nome" />
-                  <Label layoutX="53.0" layoutY="172.0" prefHeight="29.0" prefWidth="112.0" text="Cognome" />
-                  <Label layoutX="59.0" layoutY="217.0" prefHeight="24.0" prefWidth="113.0" text="Sesso" />
-                  <Label layoutX="59.0" layoutY="262.0" prefHeight="29.0" prefWidth="136.0" text="Data Emissione Patente" />
-                  <Separator prefHeight="10.0" prefWidth="155.0" />
-                  <Label text="Data di nascita" />
-                  <Separator prefHeight="14.0" prefWidth="155.0" />
-                  <Label prefHeight="26.0" prefWidth="125.0" text="Indirizzo" />
-                  <Separator prefHeight="0.0" prefWidth="360.0" />
-                  <Label prefHeight="32.0" prefWidth="91.0" text="Codice FIscale" />
-                  <Separator prefWidth="200.0" />
-                  <Label text="Numero Cellulare" />
-                  <Separator prefHeight="15.0" prefWidth="155.0" />
+                  <Label layoutX="53.0" layoutY="124.0" prefHeight="33.0" prefWidth="101.0" text="Nome *" />
+                  <Label layoutX="53.0" layoutY="172.0" prefHeight="29.0" prefWidth="112.0" text="Cognome *" />
+                  <Label layoutX="59.0" layoutY="217.0" prefHeight="24.0" prefWidth="113.0" text="Sesso *" />
+                  <Label layoutX="59.0" layoutY="262.0" prefHeight="29.0" prefWidth="136.0" text="Data Emissione Patente *" />
+                  <Separator prefHeight="10.0" prefWidth="155.0" visible="false" />
+                  <Label text="Data di nascita *" />
+                  <Separator prefHeight="14.0" prefWidth="155.0" visible="false" />
+                  <Label prefHeight="26.0" prefWidth="125.0" text="Indirizzo *" />
+                  <Separator prefHeight="0.0" prefWidth="360.0" visible="false" />
+                  <Label prefHeight="32.0" prefWidth="91.0" text="Codice FIscale *" />
+                  <Separator prefWidth="200.0" visible="false" />
+                  <Label prefHeight="17.0" prefWidth="144.0" text="Numero Cellulare *" />
+                  <Separator prefHeight="15.0" prefWidth="155.0" visible="false" />
                   <Label text="Numero Telefono " />
-                  <Separator prefHeight="12.0" prefWidth="155.0" />
-                  <Label text="Patente di Guida" />
-                  <Separator prefHeight="17.0" prefWidth="155.0" />
-                  <Label text="Data scadenza patente" />
-                  <Separator prefHeight="14.0" prefWidth="360.0" />
-                  <Label text="Partita Iva" />
-                  <Separator prefHeight="17.0" prefWidth="155.0" />
-                  <Label text="Email" />
+                  <Separator prefHeight="12.0" prefWidth="155.0" visible="false" />
+                  <Label prefHeight="17.0" prefWidth="128.0" text="Patente di Guida *" />
+                  <Separator prefHeight="17.0" prefWidth="155.0" visible="false" />
+                  <Label text="Data scadenza patente *" />
+                  <Separator prefHeight="14.0" prefWidth="360.0" visible="false" />
+                  <Label prefHeight="10.0" prefWidth="53.0" text="Partita Iva" />
+                  <Separator prefHeight="7.0" prefWidth="360.0" visible="false" />
+                  <Label prefHeight="8.0" prefWidth="119.0" text="Email *" />
+                  <Separator prefHeight="37.0" prefWidth="360.0" visible="false" />
+                  <Label text="I campi contrassegnati con * sono obbligatori" />
                </children>
             </VBox>
             <HBox layoutX="529.0" layoutY="435.0" prefHeight="36.0" prefWidth="290.0">

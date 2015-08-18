@@ -13,7 +13,7 @@ public class Cliente extends Entity{
 	
 	private String nome;
 	private String cognome;
-	private String sesso="Maschio";
+	private String sesso;
 	private  Date DataEmissPatente;
 	private  Date datanascita;
 	private String Indirizzo;
@@ -78,6 +78,141 @@ public class Cliente extends Entity{
         this.EmailT = new SimpleStringProperty(Email);
 	 }
 
+	public void setNome(String nome) {
+		this.nome = nome;
+		this.nomeT = new SimpleStringProperty(nome);
+	}
+
+
+	public String getCognome() {
+		return cognome;
+	}
+
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+		this.cognomeT = new SimpleStringProperty(cognome);
+	}
+
+
+	public String getIndirizzo() {
+		return Indirizzo;
+	}
+
+
+	public void setIndirizzo(String indirizzo) {
+		Indirizzo = indirizzo;
+		this.IndirizzoT = new SimpleStringProperty(indirizzo);
+	}
+
+
+	public String getSesso() {
+		return sesso;
+	}
+
+
+	public void setSesso(String sesso) {
+		this.sesso = sesso;
+		this.sessoT= new SimpleStringProperty(sesso);
+	}
+
+
+	public  Date getDatanascita() {
+		return datanascita;
+	}
+
+
+	public void setDatanascita( Date datanascita) {
+		this.datanascita = datanascita;
+		  this.datanascitaT =new SimpleObjectProperty<Date>(datanascita);
+	}
+
+
+	public String getCodFiscale() {
+		return codFiscale;
+	}
+
+
+	public void setCodFiscale(String codFiscale) {
+		this.codFiscale = codFiscale;
+		 this.codFiscaleT = new SimpleStringProperty(codFiscale);
+	}
+
+
+	public String getNumCell() {
+		return numCell;
+	}
+
+
+	public void setNumCell(String numCell) {
+		this.numCell = numCell;
+		 this.numCellT = new SimpleStringProperty(numCell);
+	}
+
+
+	public String getNumTel() {
+		return numTel;
+	}
+
+
+	public void setNumTel(String numTel) {
+		this.numTel = numTel;
+		 this.numTelT = new SimpleStringProperty(numTel);
+	}
+
+
+	public String getPatenteGuida() {
+		return PatenteGuida;
+	}
+
+
+	public void setPatenteGuida(String patenteGuida) {
+		PatenteGuida = patenteGuida;
+		 this.PatenteGuidaT = new SimpleStringProperty(patenteGuida);
+	}
+
+
+	public  Date getDataEmissPatente() {
+		return DataEmissPatente;
+	}
+
+
+	public void setDataEmissPatente( Date dataEmissPatente) {
+		DataEmissPatente = dataEmissPatente;
+		this.DataEmissPatenteT =new SimpleObjectProperty<Date>(dataEmissPatente);
+	}
+
+
+	public  Date getDataScadPatente() {
+		return DataScadPatente;
+	}
+
+
+	public void setDataScadPatente( Date dataScadPatente) {
+		DataScadPatente = dataScadPatente;
+		  this.DataScadPatenteT = new SimpleObjectProperty<Date>(dataScadPatente);
+	}
+
+
+	public String getPartitaIva() {
+		return PartitaIva;
+	}
+
+
+	public void setPartitaIva(String partitaIva) {
+		PartitaIva = partitaIva;
+		this.PartitaIvaT = new SimpleStringProperty(partitaIva);
+	}
+
+	public String getEmail() {
+		return Email;
+	}
+
+
+	public void setEmail(String email) {
+		Email = email;
+		  this.EmailT = new SimpleStringProperty(email);
+	}
 
 	public String getNome() {
 		return nome;
@@ -186,129 +321,5 @@ public class Cliente extends Entity{
 
 	public void setEmailT(StringProperty emailT) {
 		EmailT = emailT;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-
-	public String getCognome() {
-		return cognome;
-	}
-
-
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
-	}
-
-
-	public String getIndirizzo() {
-		return Indirizzo;
-	}
-
-
-	public void setIndirizzo(String indirizzo) {
-		Indirizzo = indirizzo;
-	}
-
-
-	public String getSesso() {
-		return sesso;
-	}
-
-
-	public void setSesso(String sesso) {
-		this.sesso = sesso;
-	}
-
-
-	public  Date getDatanascita() {
-		return datanascita;
-	}
-
-
-	public void setDatanascita( Date datanascita) {
-		this.datanascita = datanascita;
-	}
-
-
-	public String getCodFiscale() {
-		return codFiscale;
-	}
-
-
-	public void setCodFiscale(String codFiscale) {
-		this.codFiscale = codFiscale;
-	}
-
-
-	public String getNumCell() {
-		return numCell;
-	}
-
-
-	public void setNumCell(String numCell) {
-		this.numCell = numCell;
-	}
-
-
-	public String getNumTel() {
-		return numTel;
-	}
-
-
-	public void setNumTel(String numTel) {
-		this.numTel = numTel;
-	}
-
-
-	public String getPatenteGuida() {
-		return PatenteGuida;
-	}
-
-
-	public void setPatenteGuida(String patenteGuida) {
-		PatenteGuida = patenteGuida;
-	}
-
-
-	public  Date getDataEmissPatente() {
-		return DataEmissPatente;
-	}
-
-
-	public void setDataEmissPatente( Date dataEmissPatente) {
-		DataEmissPatente = dataEmissPatente;
-	}
-
-
-	public  Date getDataScadPatente() {
-		return DataScadPatente;
-	}
-
-
-	public void setDataScadPatente( Date dataScadPatente) {
-		DataScadPatente = dataScadPatente;
-	}
-
-
-	public String getPartitaIva() {
-		return PartitaIva;
-	}
-
-
-	public void setPartitaIva(String partitaIva) {
-		PartitaIva = partitaIva;
-	}
-
-	public String getEmail() {
-		return Email;
-	}
-
-
-	public void setEmail(String email) {
-		Email = email;
-	}
-
+	}	
 }
