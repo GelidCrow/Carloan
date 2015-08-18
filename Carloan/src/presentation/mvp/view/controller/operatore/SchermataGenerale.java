@@ -44,7 +44,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 
 	@FXML
 	protected TableView<T> tbCliente;
-	private List<T> listaClienti;
 	private boolean tbClienteCaricata=false;
 
 	
@@ -93,7 +92,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * <p>Modifica un elemento da una tabella</p>
 	 */
 	public void aggiornaElementotabella(int id,T elem,TableView<T> table){
-		table.getItems().add(id, (T) elem);
+		table.getItems().remove(id);
+		table.getItems().add(0,(T) elem);
 	}
 	
 	/**
@@ -102,7 +102,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * @return
 	 */
 	private boolean caricaTabella(List<T> list,TableView<T> table){
-		listaClienti= list;
 		ObservableList<T> obsList= FXCollections.observableList(list);
 		table.setItems(obsList);
 		return true;
@@ -113,7 +112,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	
 	public int getElemSelezionato(){
-		return tbCliente.getSelectionModel().getSelectedIndex()+1;
+		return tbCliente.getSelectionModel().getSelectedIndex();
 	}
 	
 	public T getEntitaElementoSelezionato(){

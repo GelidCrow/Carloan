@@ -13,5 +13,5 @@ public class ClientEditChecker extends ClienteChecker{
         checkNumTel();
         checkPartitaIva();
         checkEmail();
-	}
+	}	
 }
