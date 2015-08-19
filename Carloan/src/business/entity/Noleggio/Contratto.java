@@ -13,9 +13,6 @@ import business.entity.Entity;
 import business.entity.Utente;
 import business.entity.Gestori.Operatore;
 
-
-
-
 public class Contratto extends Entity{
 	
 	private Integer IDContratto;

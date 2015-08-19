@@ -68,6 +68,9 @@
 		<method>check</method>
 	</call>
 	
-	
+	<call id="getAllContratti">
+		<class>business.model.ModelContratto</class>
+		<method>getAll</method>
+	</call>
 
 </calls>

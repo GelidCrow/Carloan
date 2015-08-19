@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -25,6 +26,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -58,7 +60,7 @@ public class NuovoContratto extends Schermata{
 	public void btnConferma(ActionEvent event){
 		Contratto contratto= prendiDatiDaView();
 		try {
-				presenter.processRequest("VerificaContratto", contratto);	
+				//presenter.processRequest("VerificaContratto", contratto);	
 				presenter.processRequest("InserimentoContratto", contratto);
 				//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
 				((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(contratto,tw);
@@ -92,10 +94,42 @@ public class NuovoContratto extends Schermata{
 		return contratto;
 	}
 	
+	
+	private boolean caricaTabella(List<Cliente> list){
+		ObservableList<Cliente> obsList= FXCollections.observableList(list);
+		tbcliente.setItems(obsList);
+		return true;
+	}
+	
+	private void bindingValues(){
+		ObservableList<TableColumn<Cliente,?>> client = tbcliente.getColumns();
+		
+		client.get(0).setCellValueFactory(cellData -> cellData.getValue().getCodFiscaleT());
+		client.get(1).setCellValueFactory(cellData -> cellData.getValue().getNomeT());
+		client.get(2).setCellValueFactory(cellData -> cellData.getValue().getCognomeT());	
+	}
+	
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
+	
 		dCreazione.setValue(LocalDate.now());//setto il valore di default della data di creazione.
+	
+		bindingValues();
+	
+		try {
+			caricaTabella((List<Cliente>)presenter.processRequest("getAllClienti",null));
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	
 }

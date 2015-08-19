@@ -2,14 +2,17 @@ package integration.DAO.entity;
 
 import static utility.QueryStringReplacer.queryReplaceFirst;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 import Errori.AlertView;
+import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Noleggio.Contratto;
 
@@ -108,7 +111,45 @@ public class DAOContratto implements DAO{
 	}
 	
 	public List<Contratto> creaElencoContratti(ResultSet resultset){
+		List<Contratto> risultato = new LinkedList<>();
 		
+        String sParam= null;
+        Date dParam = null;
+        int iParam;
+        
+        try {
+         if(resultset!=null){
+            while (resultset.next()) {
+                Contratto contratto = new Contratto();
+                
+                iParam= resultset.getInt("idContratto");
+                contratto.setIDContratto(iParam);
+                
+                iParam= resultset.getInt("idOperatore");
+                contratto.setIDOperatore(iParam);
+                
+                iParam= resultset.getInt("idSupervisoreAgenzia");
+                contratto.setIDSupervisoreAgenzia(iParam);  
+                
+                iParam= resultset.getInt("idSupervisoreSede");
+                contratto.setIDSupervisoreSede(iParam);
+                
+                iParam= resultset.getInt("idAmministratore");
+                contratto.setIDAmministratore(iParam);
+                
+                iParam= resultset.getInt("idContratto");
+                contratto.setIDContratto(iParam);
+                
+                iParam= resultset.getInt("idContratto");
+                contratto.setIDContratto(iParam);iParam= resultset.getInt("idContratto");
+                contratto.setIDContratto(iParam);
+               
+            }
+         }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } 
 		return null;
 	}
 

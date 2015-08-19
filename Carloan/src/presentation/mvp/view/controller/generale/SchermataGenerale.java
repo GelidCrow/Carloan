@@ -51,7 +51,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	protected TableView<T> tbContratto;
 	
 	private boolean tbClienteCaricata=false;
-
+	private boolean tbContrattoCaricata=false;
 	
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
@@ -155,7 +155,23 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		@Override
 	    public void changed(ObservableValue<? extends Tab> ov, Tab oldValue, Tab newValue) {
 			if( panes.get(0)==newValue){
-				
+				if(tbClienteCaricata==false){
+					try {
+						//serve solo per fargli fare il binding con le colonne
+						TabContrattoController<T> tbContrattoController = new TabContrattoController<T>(tbContratto.getColumns());
+						//carica la prima volta la tabella 
+						tbContrattoCaricata = caricaTabella((List<T>)presenter.processRequest("getAllContratti",null),tbContratto);
+					} catch (InstantiationException
+							| IllegalAccessException
+							| ClassNotFoundException
+							| NoSuchMethodException | SecurityException
+							| IllegalArgumentException
+							| InvocationTargetException
+							| CommonException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 			else if(panes.get(2)==newValue){
 					if(tbClienteCaricata==false){
