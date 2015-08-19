@@ -13,7 +13,6 @@ public class ClienteChecker implements Checker{
     private static final int MIN_COGNOME_VALUE = 3;
     private static final int MAX_COGNOME_VALUE = 20;
     
-    private static final int MIN_SESSO_VALUE=7;
     private static final int MAX_SESSO_VALUE=7;
     
     protected static final int MIN_INDIRIZZO_VALUE=10;
@@ -29,7 +28,6 @@ public class ClienteChecker implements Checker{
     
     protected static final int NUMCELL_VALUE= 10;
 
-    protected static final int MIN_NUMTEL_VALUE= 0;
     protected static final int MAX_NUMTEL_VALUE= 10;
 
     private static final int NUMPATENTE_VALUE= 10;
@@ -86,8 +84,7 @@ public class ClienteChecker implements Checker{
 		
         length = cliente.getSesso().length();
 
-        isValid = (length >= MIN_SESSO_VALUE)
-                && (length <= MAX_SESSO_VALUE);
+        isValid =  (length == MAX_SESSO_VALUE);
 
         if (!isValid) {
         	throw new CommonException("Sesso non valido");
@@ -161,7 +158,7 @@ public class ClienteChecker implements Checker{
 		
         length = cliente.getNumTel().length();
 
-        isValid = (length==MAX_NUMTEL_VALUE) || (length==MIN_NUMTEL_VALUE);
+        isValid = (length==MAX_NUMTEL_VALUE);
 
         if (!isValid) {
         	throw new CommonException("Numero telefono non valido");

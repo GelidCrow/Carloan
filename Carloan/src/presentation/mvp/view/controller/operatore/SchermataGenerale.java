@@ -33,6 +33,7 @@ import javafx.stage.Modality;
 
 
 public class SchermataGenerale<T extends Entity> extends Schermata{
+	
 	@FXML
 	private Button btnNuovoCliente;
 	@FXML
@@ -52,6 +53,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		FXMLParameter.setTitolo("Nuovo Contratto");
 	    FXMLParameter.setRidimensionabile(false);
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataNuovoContratto",Modality.APPLICATION_MODAL);
+		
+		
 	}
 	
 	@FXML
@@ -89,11 +92,15 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		table.getItems().add((T) elem);
 	}
 	/**
-	 * <p>Modifica un elemento da una tabella</p>
+	 * <p>Modifica un elemento da una tabella, lo rimuove e poi lo aggiunge in ultima posizione, oppure nel caso era l'ultimo quello modificato lo aggiunge alla 2 posizione</p>
 	 */
 	public void aggiornaElementotabella(int id,T elem,TableView<T> table){
 		table.getItems().remove(id);
-		table.getItems().add(0,(T) elem);
+		if(id==table.getItems().size()){
+			table.getItems().add(1,(T) elem);
+		}
+		else 
+			table.getItems().add((T) elem);
 	}
 	
 	/**
@@ -106,7 +113,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		table.setItems(obsList);
 		return true;
 	}
-
+	
 	public TableView<T> getTableClienti(){
 		return tbCliente;
 	}
@@ -135,7 +142,9 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			else if(panes.get(2)==newValue){
 					if(tbClienteCaricata==false){
 						try {
+							//serve solo per fargli fare il binding con le colonne
 							TabClientiController<T> tbClientController = new TabClientiController<T>(tbCliente.getColumns());
+							//carica la prima volta la tabella 
 							tbClienteCaricata = caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
 						} catch (InstantiationException
 								| IllegalAccessException

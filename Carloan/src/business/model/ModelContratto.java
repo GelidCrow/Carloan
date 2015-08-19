@@ -11,7 +11,7 @@ public class ModelContratto implements Model{
 	}
 
 	@Override
-	public void aggiorna(Entity parameter) {
+	public void aggiornamento(Entity parameter) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -27,9 +27,5 @@ public class ModelContratto implements Model{
 		// TODO Auto-generated method stub
 		
 	}
-
-	
-
-	
 
 }
