@@ -1,4 +1,4 @@
-package presentation.mvp.view.controller.operatore;
+package presentation.mvp.view.controller.generale;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import business.entity.Cliente;
 import business.entity.Entity;
+import business.entity.Noleggio.Contratto;
 import business.model.Exception.CommonException;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
@@ -45,6 +46,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 
 	@FXML
 	protected TableView<T> tbCliente;
+	
+	@FXML
+	protected TableView<T> tbContratto;
+	
 	private boolean tbClienteCaricata=false;
 
 	
@@ -53,8 +58,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		FXMLParameter.setTitolo("Nuovo Contratto");
 	    FXMLParameter.setRidimensionabile(false);
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataNuovoContratto",Modality.APPLICATION_MODAL);
-		
-		
+	
 	}
 	
 	@FXML
@@ -95,14 +99,17 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * <p>Modifica un elemento da una tabella, lo rimuove e poi lo aggiunge in ultima posizione, oppure nel caso era l'ultimo quello modificato lo aggiunge alla 2 posizione</p>
 	 */
 	public void aggiornaElementotabella(int id,T elem,TableView<T> table){
-		table.getItems().remove(id);
-		if(id==table.getItems().size()){
-			table.getItems().add(1,(T) elem);
+		if(id>=0 && elem!=null && table!=null){
+			table.getItems().remove(id);
+			if(id==table.getItems().size()){
+				table.getItems().add(0,(T) elem);
+			}
+			else 
+				table.getItems().add((T) elem);
 		}
 		else 
-			table.getItems().add((T) elem);
-	}
-	
+			AlertView.getAlertView("Non è possibile aggiornare l'elemnto in tabella", AlertType.ERROR);
+	}	
 	/**
 	 * <p>Carica la tabella dei clienti graficamente</p>
 	 * @param listaClienti
@@ -114,16 +121,27 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		return true;
 	}
 	
-	public TableView<T> getTableClienti(){
-		return tbCliente;
+	public TableView<T> getTable(String table){
+		if(table.equals("Cliente")){
+			return tbCliente;
+		}
+		else if(table.equals("Contratto"))
+			return tbContratto;
+		else 
+			return null;
+	}
+	public int getElemSelezionato(String table){
+		if(table.equals("Cliente")){
+			return tbCliente.getSelectionModel().getSelectedIndex();
+		}
+		return 0;
 	}
 	
-	public int getElemSelezionato(){
-		return tbCliente.getSelectionModel().getSelectedIndex();
-	}
-	
-	public T getEntitaElementoSelezionato(){
-		return tbCliente.getSelectionModel().getSelectedItem();
+	public T getEntitaElementoSelezionato(String table){
+		if(table.equals("Cliente")){
+			return tbCliente.getSelectionModel().getSelectedItem();
+		}
+		return null;
 	}
 	/**
 	 * <p> Ascoltatore per il cambio di tab </p>

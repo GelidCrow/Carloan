@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <calls>
+
+
+
+	/***** LOGIN ****/
+	
 	<call id="login">
 		<class>business.model.ModelLogin</class>
 		<method>autenticazione</method>
 	</call>
+	
+	<call id="VerificaLogin">
+		<class>business.model.checker.LoginChecker</class>
+		<method>check</method>
+	</call>
+	
+	
+	
+	
+	/***** CLIENTE ****/
 	
 	<call id="InserimentoCliente">
 		<class>business.model.ModelCliente</class>
@@ -22,19 +37,37 @@
 	</call>
 
 	<call id="VerificaCliente">
-		<class>business.model.checker.ClienteChecker</class>
+		<class>business.model.checker.cliente.ClienteChecker</class>
 		<method>check</method>
 	</call>
 	<call id="VerificaClienteModificato">
-		<class>business.model.checker.ClienteEditChecker</class>
-		<method>check</method>
-	</call>
-	<call id="VerificaLogin">
-		<class>business.model.checker.LoginChecker</class>
+		<class>business.model.checker.cliente.ClienteEditChecker</class>
 		<method>check</method>
 	</call>
 	
-
+	
+	
+	
+	/**** CONTRATTO******/
+	
+	<call id="InserimentoContratto">
+		<class>business.model.ModelContratto</class>
+		<method>Inserimento</method>
+	</call>
+	<call id="ModificaContratto">
+		<class>business.model.ModelContratto</class>
+		<method>aggiornamento</method>
+	</call>
+	<call id="VerificaContratto">
+		<class>business.model.checker.contratto.ContrattoChecker</class>
+		<method>check</method>
+	</call>
+	
+	<call id="VerificaContrattoModificato">
+		<class>business.model.checker.contratto.ContrattoEditChecker</class>
+		<method>check</method>
+	</call>
+	
 	
 
 </calls>

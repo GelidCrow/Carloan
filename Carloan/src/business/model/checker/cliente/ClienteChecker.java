@@ -1,9 +1,10 @@
-package business.model.checker;
+package business.model.checker.cliente;
 
 
 import business.entity.Cliente;
 import business.entity.Entity;
 import business.model.Exception.CommonException;
+import business.model.checker.Checker;
 
 public class ClienteChecker implements Checker{
 	
@@ -27,7 +28,7 @@ public class ClienteChecker implements Checker{
     protected static final int MAX_EMAIL_VALUE=20;
     
     protected static final int NUMCELL_VALUE= 10;
-
+    protected static final int MIN_NUM_TEL_VALUE=0;
     protected static final int MAX_NUMTEL_VALUE= 10;
 
     private static final int NUMPATENTE_VALUE= 10;
@@ -158,7 +159,7 @@ public class ClienteChecker implements Checker{
 		
         length = cliente.getNumTel().length();
 
-        isValid = (length==MAX_NUMTEL_VALUE);
+        isValid = (length==MAX_NUMTEL_VALUE) || (length==MIN_NUM_TEL_VALUE);
 
         if (!isValid) {
         	throw new CommonException("Numero telefono non valido");

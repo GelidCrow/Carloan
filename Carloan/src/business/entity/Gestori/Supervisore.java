@@ -17,7 +17,7 @@ public abstract class Supervisore extends Utente{
 		super(Nome, Cognome, Sesso, datanascita, Indirizzo, codicefiscale, numcell,
 				numfisso, assunto, Username, Password);
 	}
-Supervisore(String Nome,String Cognome){
-		super(Nome,Cognome);
-	}
+	Supervisore(String Nome,String Cognome){
+			super(Nome,Cognome);
+		}
 }

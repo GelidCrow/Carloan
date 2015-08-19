@@ -1,4 +1,4 @@
-package presentation.mvp.view.controller.operatore.cliente;
+package presentation.mvp.view.controller.generale.cliente;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import presentation.mvp.view.Presenter;
-import presentation.mvp.view.controller.operatore.SchermataGenerale;
+import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
 import Errori.AlertView;
 import business.entity.Cliente;
@@ -25,15 +25,16 @@ public class ModificaCliente extends NuovoCliente{
 	public void btnConfermaModifica(ActionEvent event){
 
 		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
-		cliente= (Cliente)scChiamante.getEntitaElementoSelezionato();//ottengo le info sul cliente selezionato, ma ne cambio alcune
+		cliente= (Cliente)scChiamante.getEntitaElementoSelezionato("Cliente");//ottengo le info sul cliente selezionato, ma ne cambio alcune
+		System.out.println(cliente.getId());
 		Aggiornare=true;
-		cliente= prendiDatiDaView();
+		cliente = prendiDatiDaView();
 		if(Aggiornare==true){
 			try {
 				presenter.processRequest("VerificaClienteModificato", cliente);
 				presenter.processRequest("ModificaCliente", cliente);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
-				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato(),cliente,((SchermataGenerale)this.getChiamante()).getTableClienti());			
+				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato("Cliente"),cliente,((SchermataGenerale)this.getChiamante()).getTable("Cliente"));			
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
 					| SecurityException | IllegalArgumentException

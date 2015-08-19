@@ -1,15 +1,13 @@
-package presentation.mvp.view.controller.operatore.cliente;
+package presentation.mvp.view.controller.generale.cliente;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import business.entity.Cliente;
-import business.entity.ClienteTab;
 import business.model.Exception.CommonException;
 import Errori.AlertView;
 import javafx.event.ActionEvent;
@@ -22,10 +20,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
-import presentation.mvp.view.controller.operatore.SchermataGenerale;
+import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
 
 public class NuovoCliente extends Schermata{
@@ -63,7 +60,7 @@ public class NuovoCliente extends Schermata{
 	protected TextField txtPartIva;
 	@FXML
 	protected TextField txtEmail;
-	
+	private TableView<Cliente> tw;
 	final ToggleGroup group = new ToggleGroup();
 	
 	@FXML
@@ -77,12 +74,13 @@ public class NuovoCliente extends Schermata{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
 	public void btnConferma(ActionEvent event){
+		tw=  ((SchermataGenerale)this.getChiamante()).getTable("Cliente");
 		Cliente cliente= prendiDatiDaView();
 		try {
 				presenter.processRequest("VerificaCliente", cliente);	
 				presenter.processRequest("InserimentoCliente", cliente);
 				//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
-				((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(cliente,((SchermataGenerale)this.getChiamante()).getTableClienti());
+				((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(cliente,tw);
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
@@ -104,6 +102,8 @@ public class NuovoCliente extends Schermata{
 		LocalDate dParam= null;
 		
 		Cliente cliente= new Cliente();
+
+		cliente.setId(tw.getItems().size()+1);//qui setto l'id del cliente.
 		
 		cliente.setNome(txtNome.getText());
 		

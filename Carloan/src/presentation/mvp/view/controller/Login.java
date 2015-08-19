@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 import Errori.AlertView;
 import business.entity.Entity;
+import business.entity.Utente;
 import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
@@ -53,7 +54,7 @@ public class Login extends Schermata{
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
 					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataAmministratore",Modality.APPLICATION_MODAL);
-				
+					Utente.setUtente((Amministratore)x);
 				}
 				else if(x instanceof SupervisoreAgenzia){
 					FXMLParameter.setTitolo("Supervisore Agenzia");
@@ -72,7 +73,8 @@ public class Login extends Schermata{
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
 					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataOperatore",Modality.APPLICATION_MODAL);
-				}	
+					Utente.setUtente((Operatore)x);
+			}
 			}
 			else{
 				AlertView.getAlertView("Autenticazione fallita : Ricontrollare l'Username e la password inserite",AlertType.ERROR);

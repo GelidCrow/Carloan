@@ -1,4 +1,4 @@
-package business.model.checker;
+package business.model.checker.cliente;
 
 import business.entity.Cliente;
 import business.entity.Entity;

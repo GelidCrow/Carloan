@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.operatore.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="20.0" prefWidth="1228.0">
         <menus>
@@ -64,7 +64,15 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView layoutY="115.0" prefHeight="396.0" prefWidth="1228.0" />
+                                    <TableView fx:id="tbContratto" layoutY="115.0" prefHeight="396.0" prefWidth="1228.0">
+                                       <columns>
+                                          <TableColumn fx:id="numContratto" prefWidth="108.0" text="Num. Contratto" />
+                                          <TableColumn prefWidth="75.0" text="Stato" />
+                                          <TableColumn prefWidth="75.0" text="Note" />
+                                          <TableColumn prefWidth="168.0" text="Data Apertura" />
+                                          <TableColumn prefWidth="148.0" text="Data Chiusura" />
+                                          <TableColumn prefWidth="237.0" text="Cliente " />
+                                       </columns></TableView>
                                     <Button fx:id="btnNuovoContratto" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoContratto" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="125.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="241.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Chiudi" />

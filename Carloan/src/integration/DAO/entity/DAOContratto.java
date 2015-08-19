@@ -1,14 +1,76 @@
 package integration.DAO.entity;
 
+import static utility.QueryStringReplacer.queryReplaceFirst;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import javafx.scene.control.Alert.AlertType;
+import integration.DAO.DaoFactory;
+import integration.DAO.connection.Connection;
+import Errori.AlertView;
 import business.entity.Entity;
+import business.entity.Noleggio.Contratto;
 
 
 public class DAOContratto implements DAO{
-  // ulteriore interfaccia
 
+	private  DaoFactory daofactory;
+
+	public DAOContratto(DaoFactory dao){
+		this.daofactory = dao;		
+	}
+	
 	@Override
 	public void creazione(Entity x) {
-		// TODO Auto-generated method stub
+		String INSERT = "INSERT INTO Contratto "
+				+ "(Stato,dataCreazione,note,datachiusura,idsupervisoreSede,idSupervisoreAgenzia,idAmministratore,idOperatore,idcliente) "
+				+ "values('?','?','?','?','?','?','?','?','?');";
+		
+		String insertQuery = INSERT;
+				
+		Contratto contratto= (Contratto)x;
+		
+        insertQuery = queryReplaceFirst(insertQuery, contratto.getStato().toString());
+        
+        insertQuery= queryReplaceFirst(insertQuery,contratto.getDataCreazione().toString());
+
+        insertQuery= queryReplaceFirst(insertQuery,contratto.getNote());
+
+        insertQuery= queryReplaceFirst(insertQuery,contratto.getDataChiusura().toString());
+
+        insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreSede().toString());
+
+        insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreAgenzia().toString());
+        
+        insertQuery= queryReplaceFirst(insertQuery,contratto.getIDAmministratore().toString());
+
+        insertQuery= queryReplaceFirst(insertQuery,contratto.getIDOperatore().toString());
+
+        insertQuery= queryReplaceFirst(insertQuery,contratto.getIDCliente().toString());
+        
+        Connection connection= Connection.getConnection(daofactory);
+        
+        ResultSet idList = null;
+        
+		try {
+			 idList = connection.executeUpdate(insertQuery);
+			 AlertView.getAlertView("contratto inserito con successo",AlertType.INFORMATION);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 AlertView.getAlertView("Non è stato possibile inserire il contratto" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				idList.close();
+				//connection.chiudiConnessione();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
@@ -18,8 +80,40 @@ public class DAOContratto implements DAO{
 		
 	}
 
+	public List<Contratto> getAll(){		
+		 String readQuery = "Select idContratto, Stato , dataCreazione,note,datachiusura idcliente,idoperatore,"
+		 					+ "idSupervisoreAgenzia, idsupervisoresede, idamministratore from contratto";
+
+		 Connection connection= Connection.getConnection(daofactory);
+	        
+	     ResultSet readQueryResultSet = null;
+	     List<Contratto> risultato = null;
+	     try {
+			readQueryResultSet = connection.executeRead(readQuery);	
+			risultato= creaElencoContratti(readQueryResultSet);
+		 } catch (SQLException e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere i contratti" , AlertType.ERROR);
+		 }
+		 finally{
+			try {
+				readQueryResultSet.close();
+				//connection.chiudiConnessione();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+
+	    return risultato;
+	}
+	
+	public List<Contratto> creaElencoContratti(ResultSet resultset){
+		
+		return null;
+	}
+
 	@Override
-	public Entity lettura() {
+	public Entity lettura(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

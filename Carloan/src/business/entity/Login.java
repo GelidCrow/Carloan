@@ -4,6 +4,7 @@ package business.entity;
 
 
 public class Login extends Entity{
+	
 	private String username;
 	private String password; 
 	private String operatore;

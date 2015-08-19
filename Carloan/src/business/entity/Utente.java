@@ -16,6 +16,8 @@ public abstract class Utente extends Entity {
 	private String UserName;
 	private String Password;
 
+	static Entity utente;
+	
 	protected Utente(String Nome,String Cognome,char Sesso,String Username,String Password){
 		this(Nome,Cognome,Sesso,new Date(),"","","","",true,Username,Password);
 	}
@@ -36,70 +38,11 @@ public abstract class Utente extends Entity {
 	protected Utente(String Nome,String Cognome){
 		this(Nome,Cognome,'\0',new Date(),"","","","",true,"","");
 	}
-	public String getNome() {
-		return Nome;
+	
+	public static Entity getUtente(){
+		return utente;
 	}
-	public void setNome(String nome) {
-		Nome = nome;
-	}
-	public String getCognome() {
-		return Cognome;
-	}
-	public void setCognome(String cognome) {
-		Cognome = cognome;
-	}
-	public char getSesso() {
-		return Sesso;
-	}
-	public void setSesso(char sesso) {
-		Sesso = sesso;
-	}
-	public String getIndirizzo() {
-		return Indirizzo;
-	}
-	public void setIndirizzo(String indirizzo) {
-		Indirizzo = indirizzo;
-	}
-	public Date getDataNascita() {
-		return DataNascita;
-	}
-	public void setDataNascita(Date dataNascita) {
-		DataNascita = dataNascita;
-	}
-	public String getCodiceFiscale() {
-		return CodiceFiscale;
-	}
-	public void setCodiceFiscale(String codiceFiscale) {
-		CodiceFiscale = codiceFiscale;
-	}
-	public String getNumCell() {
-		return NumCell;
-	}
-	public void setNumCell(String numCell) {
-		NumCell = numCell;
-	}
-	public String getNumFisso() {
-		return NumFisso;
-	}
-	public void setNumFisso(String numFisso) {
-		NumFisso = numFisso;
-	}
-	public boolean isAssunto() {
-		return Assunto;
-	}
-	public void setAssunto(boolean assunto) {
-		Assunto = assunto;
-	}
-	public String getUserName() {
-		return UserName;
-	}
-	public void setUserName(String userName) {
-		UserName = userName;
-	}
-	public String getPassword() {
-		return Password;
-	}
-	public void setPassword(String password) {
-		Password = password;
+	public static void setUtente(Entity entity){
+		utente= entity;
 	}
 }

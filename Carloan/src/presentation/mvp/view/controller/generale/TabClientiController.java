@@ -1,4 +1,4 @@
-package presentation.mvp.view.controller.operatore;
+package presentation.mvp.view.controller.generale;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;

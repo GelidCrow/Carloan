@@ -1,10 +1,7 @@
 package business.model;
 
-import presentation.controller.FrontController;
 import business.entity.Entity;
 import business.entity.Login;
-import business.model.Exception.CommonException;
-import business.model.checker.LoginChecker;
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOLogin;
 
@@ -55,7 +52,7 @@ public class ModelLogin implements Model {
 	}
 
 	@Override
-	public void aggiorna(Entity parameter) {
+	public void aggiornamento(Entity parameter) {
 		// TODO Auto-generated method stub
 		
 	}
