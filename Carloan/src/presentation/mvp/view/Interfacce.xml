@@ -2,7 +2,7 @@
 
 <interfaces>
 	<interface id="MostraLogin" src ="markup/Login.fxml"></interface>
-	<interface id="MostraSchermataOperatore" src ="markup/generale/SchermataGenerale.fxml"></interface>
+	<interface id="MostraSchermataGenerale" src ="markup/generale/SchermataGenerale.fxml"></interface>
 	<interface id="MostraSchermataNuovoContratto" src ="markup/generale/contratto/NuovoContratto.fxml"></interface>
 	<interface id="MostraSchermataNuovoCliente" src ="markup/generale/cliente/NuovoCliente.fxml"></interface>
 	<interface id="MostraSchermataModificaCliente" src ="markup/generale/cliente/ModificaCliente.fxml"></interface>

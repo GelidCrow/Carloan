@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import business.entity.Cliente;
+import business.entity.Utente;
+import business.entity.Gestori.Operatore;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.StatoContratto;
 import business.model.Exception.CommonException;
@@ -28,6 +30,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
@@ -40,7 +43,7 @@ public class NuovoContratto extends Schermata{
 	@FXML
 	private TableView<Cliente> tbcliente;	
 	@FXML
-	private TextField txtNome;
+	private TextArea textNote;
 	@FXML
 	private Button btnCancella;
 	@FXML
@@ -64,20 +67,28 @@ public class NuovoContratto extends Schermata{
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
-	public void btnConferma(ActionEvent event){
-		Contratto contratto= prendiDatiDaView();
-		try {
-				//presenter.processRequest("VerificaContratto", contratto);	
-				presenter.processRequest("InserimentoContratto", contratto);
-				//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
-				((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(contratto,tw);
-			
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
-				| InvocationTargetException | CommonException e) {
-			//AlertView.getAlertView(e.toString(), AlertType.ERROR);
-		}
+	public void btnConferma(ActionEvent event) throws CommonException{
+		 if(tbcliente.getSelectionModel().getSelectedIndex()< 0){
+	    		throw new CommonException("Nessun cliente selezionato");
+		 }
+		 else{
+			 tw= ((SchermataGenerale)this.getChiamante()).getTable("Contratto");
+			Contratto contratto= prendiDatiDaView();
+			try {
+					//presenter.processRequest("VerificaContratto", contratto);	
+					presenter.processRequest("InserimentoContratto", contratto);
+					
+					//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
+				//	((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(contratto,tw);
+				
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | NoSuchMethodException
+					| SecurityException | IllegalArgumentException
+					| InvocationTargetException | CommonException e) {
+				//AlertView.getAlertView(e.toString(), AlertType.ERROR);
+				e.printStackTrace();
+			}
+		 }
 	}
 	
 	public Contratto prendiDatiDaView(){
@@ -87,7 +98,13 @@ public class NuovoContratto extends Schermata{
 		
 		contratto.setIDContratto(tw.getItems().size()+1);
 		
+		contratto.setIDCliente(tbcliente.getSelectionModel().getSelectedItem().getId());//prende l'id del cliente selezionato
+		
+		contratto.setNote(textNote.getText());
+		
 		contratto.setStato(StatoContratto.Aperto.toString());
+		
+		contratto.setIDOperatore(1);
 		
 		dParam= dCreazione.getValue();
 		contratto.setDataCreazione(Date.valueOf(dParam));

@@ -14,6 +14,11 @@ import integration.DAO.connection.Connection;
 import Errori.AlertView;
 import business.entity.Cliente;
 import business.entity.Entity;
+import business.entity.Utente;
+import business.entity.Gestori.Amministratore;
+import business.entity.Gestori.Operatore;
+import business.entity.Gestori.SupervisoreAgenzia;
+import business.entity.Gestori.SupervisoreSede;
 import business.entity.Noleggio.Contratto;
 
 
@@ -28,28 +33,34 @@ public class DAOContratto implements DAO{
 	@Override
 	public void creazione(Entity x) {
 		String INSERT = "INSERT INTO Contratto "
-				+ "(Stato,dataCreazione,note,dataChiusura,idsupervisoreSede,idSupervisoreAgenzia,idAmministratore,idOperatore,idcliente) "
-				+ "values('?','?','?','?','?','?','?','?','?');";
+				+ "( '?',Stato,dataCreazione,Note,dataChiusura,idcliente) "
+				+ "values ('?','?','?','?','?','?');";
 		
 		String insertQuery = INSERT;
 				
-		Contratto contratto= (Contratto)x;
+		Contratto contratto= (Contratto)x;	
 		
+		if(Utente.getUtente() instanceof Operatore){
+        	insertQuery= queryReplaceFirst(insertQuery,"idOperatore");
+        	insertQuery= queryReplaceFirst(insertQuery,contratto.getIDOperatore().toString());
+        }
+        else if(Utente.getUtente() instanceof Amministratore){
+        	insertQuery= queryReplaceFirst(insertQuery,"idAmministratore");
+        	
+        }
+        else if(Utente.getUtente() instanceof SupervisoreSede){
+        	insertQuery= queryReplaceFirst(insertQuery,"idSupervisoreSede");
+        }
+        else if(Utente.getUtente() instanceof SupervisoreAgenzia){
+        	insertQuery= queryReplaceFirst(insertQuery,"idSupervisoreAgenzia");
+        	
         insertQuery = queryReplaceFirst(insertQuery, contratto.getStato().toString());
         
         insertQuery= queryReplaceFirst(insertQuery,contratto.getDataCreazione().toString());
 
         insertQuery= queryReplaceFirst(insertQuery,contratto.getNote());
-
+  
         insertQuery= queryReplaceFirst(insertQuery,contratto.getDataChiusura().toString());
-
-        insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreSede().toString());
-
-        insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreAgenzia().toString());
-        
-        insertQuery= queryReplaceFirst(insertQuery,contratto.getIDAmministratore().toString());
-
-        insertQuery= queryReplaceFirst(insertQuery,contratto.getIDOperatore().toString());
 
         insertQuery= queryReplaceFirst(insertQuery,contratto.getIDCliente().toString());
         
@@ -68,12 +79,12 @@ public class DAOContratto implements DAO{
 		finally{
 			try {
 				idList.close();
-				//connection.chiudiConnessione();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+        }
 		
 	}
 

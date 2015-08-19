@@ -18,8 +18,8 @@
                   <Separator prefHeight="29.0" prefWidth="260.0" visible="false" />
                   <DatePicker fx:id="dChiusura" editable="false" prefHeight="25.0" prefWidth="268.0" />
                   <Separator prefHeight="23.0" prefWidth="260.0" visible="false" />
-                  <TextField fx:id="txtNote" layoutX="299.0" layoutY="135.0" prefHeight="105.0" prefWidth="271.0" GridPane.rowIndex="4" />
                   <Separator prefHeight="20.0" prefWidth="260.0" visible="false" />
+                  <TextArea fx:id="textNote" prefHeight="200.0" prefWidth="200.0" />
                </children>
             </VBox>
             <Separator layoutX="299.0" layoutY="68.0" prefHeight="14.0" prefWidth="200.0" visible="false" GridPane.rowIndex="2" />

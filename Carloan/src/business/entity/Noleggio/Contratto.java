@@ -17,10 +17,10 @@ public class Contratto extends Entity{
 	
 	private Integer IDContratto;
 	private Integer IDCliente;
-	private Integer IDOperatore;
-	private Integer IDSupervisoreSede;
-	private Integer IDSupervisoreAgenzia;
-	private Integer IDAmministratore;
+	private Integer IDOperatore=null;
+	private Integer IDSupervisoreSede=null;
+	private Integer IDSupervisoreAgenzia=null;
+	private Integer IDAmministratore=null;
 	private String stato; /// questo può esssere enumerativo di regola
 	private Date DataCreazione;
 	private Date dataChiusura;

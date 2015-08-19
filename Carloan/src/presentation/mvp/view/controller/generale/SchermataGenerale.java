@@ -40,15 +40,19 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	private Button btnModificaCliente;
 	@FXML
+	private Button btnModificaContratto;
+	
+	
+	@FXML
 	private TabPane tabPane;
 	
-	private ObservableList<Tab> panes;
-
 	@FXML
 	protected TableView<T> tbCliente;
 	
 	@FXML
 	protected TableView<T> tbContratto;
+	
+	private ObservableList<Tab> panes;
 	
 	private boolean tbClienteCaricata=false;
 	
@@ -58,6 +62,17 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	    FXMLParameter.setRidimensionabile(false);
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataNuovoContratto",Modality.APPLICATION_MODAL);
 	
+	}
+	
+	@FXML
+	public void btnModificaContratto(ActionEvent e) throws CommonException{
+		FXMLParameter.setTitolo("Modifica Contratto");
+	    FXMLParameter.setRidimensionabile(false);
+	    if(tbCliente.getSelectionModel().getSelectedIndex()< 0){
+	    		throw new CommonException("Nessun elemento selezionato");
+	    }
+	    else
+	    	Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataModificaContratto",Modality.APPLICATION_MODAL);	
 	}
 	
 	@FXML
@@ -150,7 +165,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		 * <p>Quando selezioni il tab "Cliente" vengono caricati SOLO 1 VOLTA tutti i clienti</p>
 		 * 
 		 */
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "unchecked", "unused" })
 		@Override
 	    public void changed(ObservableValue<? extends Tab> ov, Tab oldValue, Tab newValue) {
 			if(panes.get(2)==newValue){
@@ -174,6 +189,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			}
 	    }
 	} 
+	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
