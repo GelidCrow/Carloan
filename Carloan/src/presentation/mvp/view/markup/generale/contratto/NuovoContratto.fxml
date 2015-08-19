@@ -40,11 +40,11 @@
                </children>
             </HBox>
             <Label layoutX="539.0" layoutY="36.0" prefHeight="17.0" prefWidth="96.0" text="Cliente" />
-            <TableView fx:id="tbCliente" layoutX="539.0" layoutY="62.0" prefHeight="226.0" prefWidth="323.0">
+            <TableView fx:id="tbcliente" layoutX="539.0" layoutY="62.0" prefHeight="226.0" prefWidth="323.0">
               <columns>
-                  <TableColumn prefWidth="117.0" text="Codice Fiscale" />
-                <TableColumn prefWidth="79.0" text="Nome" />
-                <TableColumn prefWidth="126.0" text="Cognome" />
+                  <TableColumn fx:id="codFiscale" prefWidth="117.0" text="Codice Fiscale" />
+                <TableColumn fx:id="nome" prefWidth="79.0" text="Nome" />
+                <TableColumn fx:id="cognome" prefWidth="126.0" text="Cognome" />
               </columns>
             </TableView>
          </children>

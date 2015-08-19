@@ -21,7 +21,7 @@ public class Contratto extends Entity{
 	private Integer IDSupervisoreSede;
 	private Integer IDSupervisoreAgenzia;
 	private Integer IDAmministratore;
-	private StatoContratto stato; /// questo può esssere enumerativo di regola
+	private String stato; /// questo può esssere enumerativo di regola
 	private Date DataCreazione;
 	private Date dataChiusura;
 	private String Note;
@@ -69,7 +69,7 @@ public class Contratto extends Entity{
 		IDAmministratoreT = new SimpleIntegerProperty(iDAmministratore);
 	}
 
-	public void setStato(StatoContratto stato) {
+	public void setStato(String stato) {
 		this.stato = stato;
 		statoT = new SimpleStringProperty(stato.toString());
 	}
@@ -149,7 +149,7 @@ public class Contratto extends Entity{
 		return IDAmministratore;
 	}
 
-	public StatoContratto getStato() {
+	public String getStato() {
 		return stato;
 	}
 

@@ -47,6 +47,13 @@ public class NuovoContratto extends Schermata{
 	private Button btnConferma;
 	@FXML
 	private TableView<Contratto> tw;
+	@FXML
+	private TableColumn<Cliente,String> codFiscale;
+	@FXML
+	private TableColumn<Cliente,String> nome;
+	@FXML
+	private TableColumn<Cliente,String> cognome;
+	
 	
 	@FXML
 	public void btnCancella(ActionEvent event){
@@ -80,7 +87,7 @@ public class NuovoContratto extends Schermata{
 		
 		contratto.setIDContratto(tw.getItems().size()+1);
 		
-		contratto.setStato(StatoContratto.Aperto);
+		contratto.setStato(StatoContratto.Aperto.toString());
 		
 		dParam= dCreazione.getValue();
 		contratto.setDataCreazione(Date.valueOf(dParam));
@@ -102,11 +109,9 @@ public class NuovoContratto extends Schermata{
 	}
 	
 	private void bindingValues(){
-		ObservableList<TableColumn<Cliente,?>> client = tbcliente.getColumns();
-		
-		client.get(0).setCellValueFactory(cellData -> cellData.getValue().getCodFiscaleT());
-		client.get(1).setCellValueFactory(cellData -> cellData.getValue().getNomeT());
-		client.get(2).setCellValueFactory(cellData -> cellData.getValue().getCognomeT());	
+		codFiscale.setCellValueFactory(cellData -> cellData.getValue().getCodFiscaleT());
+		nome.setCellValueFactory(cellData -> cellData.getValue().getNomeT());
+		cognome.setCellValueFactory(cellData -> cellData.getValue().getCognomeT());	
 	}
 	
 	

@@ -28,7 +28,7 @@ public class DAOContratto implements DAO{
 	@Override
 	public void creazione(Entity x) {
 		String INSERT = "INSERT INTO Contratto "
-				+ "(Stato,dataCreazione,note,datachiusura,idsupervisoreSede,idSupervisoreAgenzia,idAmministratore,idOperatore,idcliente) "
+				+ "(Stato,dataCreazione,note,dataChiusura,idsupervisoreSede,idSupervisoreAgenzia,idAmministratore,idOperatore,idcliente) "
 				+ "values('?','?','?','?','?','?','?','?','?');";
 		
 		String insertQuery = INSERT;
@@ -84,7 +84,7 @@ public class DAOContratto implements DAO{
 	}
 
 	public List<Contratto> getAll(){		
-		 String readQuery = "Select idContratto, Stato , dataCreazione,note,datachiusura idcliente,idoperatore,"
+		 String readQuery = "Select idContratto, Stato , dataCreazione,note,datachiusura,idcliente,idoperatore,"
 		 					+ "idSupervisoreAgenzia, idsupervisoresede, idamministratore from contratto";
 
 		 Connection connection= Connection.getConnection(daofactory);
@@ -137,12 +137,22 @@ public class DAOContratto implements DAO{
                 iParam= resultset.getInt("idAmministratore");
                 contratto.setIDAmministratore(iParam);
                 
-                iParam= resultset.getInt("idContratto");
-                contratto.setIDContratto(iParam);
+                iParam= resultset.getInt("idCliente");
+                contratto.setIDCliente(iParam);
                 
-                iParam= resultset.getInt("idContratto");
-                contratto.setIDContratto(iParam);iParam= resultset.getInt("idContratto");
-                contratto.setIDContratto(iParam);
+                sParam= resultset.getString("stato");
+                contratto.setStato(sParam);
+                
+                sParam= resultset.getString("note");
+                contratto.setNote(sParam);
+                
+                dParam= resultset.getDate("DataCreazione");
+                contratto.setDataCreazione(dParam);
+                
+                dParam= resultset.getDate("DataChiusura");
+                contratto.setDataChiusura(dParam);
+                
+                risultato.add(contratto);
                
             }
          }
@@ -150,7 +160,7 @@ public class DAOContratto implements DAO{
         catch (SQLException e) {
             e.printStackTrace();
         } 
-		return null;
+		return risultato;
 	}
 
 	@Override

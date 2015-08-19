@@ -89,8 +89,6 @@ public class NuovoCliente extends Schermata{
 			//AlertView.getAlertView(e.toString(), AlertType.ERROR);
 		}
 	}
-	
-	
 
 	/**
 	 * 
