@@ -45,8 +45,6 @@ public class ModelContratto implements Model{
 		}	
 	}
 
-	
-	
 	public List<Contratto> getAll(){
 		try {
 			daofactory= DaoFactory.getDaoFactory(1);

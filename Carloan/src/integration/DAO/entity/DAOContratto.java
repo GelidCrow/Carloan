@@ -20,6 +20,7 @@ import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Gestori.SupervisoreSede;
 import business.entity.Noleggio.Contratto;
+import business.entity.Noleggio.StatoContratto;
 
 
 public class DAOContratto implements DAO{
@@ -92,9 +93,44 @@ public class DAOContratto implements DAO{
      }
 
 	@Override
-	public void aggiornamento(Entity x) {
-		// TODO Auto-generated method stub
+	public void aggiornamento(Entity entity) {
+		Contratto contratto= (Contratto) entity;
+		String UPDATE = "UPDATE  Contratto  SET "
+							+ "stato= '?', note = '?',dataChiusura = ? "
+							+ "WHERE IDContratto = '?'";
+		String updateQuery = UPDATE;
 		
+		updateQuery = queryReplaceFirst(updateQuery, contratto.getStato().toString());
+        
+        updateQuery= queryReplaceFirst(updateQuery,contratto.getNote());
+
+        if(contratto.getStato().equals(StatoContratto.Aperto.toString()))
+        	 updateQuery= queryReplaceFirst(updateQuery,null);
+        else 
+        	updateQuery= queryReplaceFirst(updateQuery,contratto.getDataChiusura().toString());
+
+        updateQuery= queryReplaceFirst(updateQuery,contratto.getIDContratto().toString());
+        
+        Connection connection= Connection.getConnection(daofactory);
+        
+        ResultSet idList = null;
+        
+		try {
+			 idList = connection.executeUpdate(updateQuery);
+			 AlertView.getAlertView("Contratto aggiornato con successo",AlertType.INFORMATION);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			 AlertView.getAlertView("Non è stato possibile aggiornare il contratto" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				idList.close();
+				//connection.chiudiConnessione();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public List<Contratto> getAll(){		

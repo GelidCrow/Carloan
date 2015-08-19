@@ -2,6 +2,8 @@ package presentation.mvp.view.controller.generale.contratto;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import Errori.AlertView;
@@ -42,7 +44,6 @@ public class ModificaContratto extends NuovoContratto{
 	public void btnConferma(ActionEvent event){
 		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
 		contratto= (Contratto)scChiamante.getEntitaElementoSelezionato("Contratto");//ottengo le info sul cliente selezionato, ma ne cambio alcune
-		lunghezzaOld= contratto.getNote().length();
 		Aggiornare=true;
 		contratto = prendiDatiDaView();
 		if(Aggiornare==true){
@@ -63,14 +64,21 @@ public class ModificaContratto extends NuovoContratto{
 		else {
 			AlertView.getAlertView("Nessuna modifica da apportare", AlertType.INFORMATION);
 		}	
+	
 	}
 	
 	@Override
 	public Contratto prendiDatiDaView(){
 		contratto.setStato(choiceStato.getSelectionModel().getSelectedItem());
 		contratto.setNote(textNote.getText());
+		
+		
+		if(choiceStato.getSelectionModel().getSelectedItem().equals(StatoContratto.Annullato.toString())){
+			contratto.setDataChiusura(Date.valueOf(LocalDate.now()));//imposto la data di chiusura se il valore scelto è annullato
+		}
+
 		//controllo se bisogna aggiornare
-		if(contratto.getStato()==StatoContratto.Aperto.toString() && contratto.getNote().length()==lunghezzaOld){
+		if(contratto.getStato().equals(StatoContratto.Aperto.toString()) && contratto.getNote().length()==lunghezzaOld){
 			Aggiornare=false;
 		}
 		return contratto;

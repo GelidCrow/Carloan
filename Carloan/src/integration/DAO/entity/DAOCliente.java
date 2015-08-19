@@ -210,6 +210,7 @@ public class DAOCliente implements DAO{
         cliente.setEmail(sParam);
 		return cliente;
 	}
+	
 	@Override
 	public void aggiornamento(Entity parameter) {
 		Cliente cliente= (Cliente) parameter;

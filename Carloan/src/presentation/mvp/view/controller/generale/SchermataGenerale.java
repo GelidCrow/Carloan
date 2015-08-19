@@ -71,8 +71,14 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
-	    else
-	    	Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataModificaContratto",Modality.APPLICATION_MODAL);	
+	    else{
+	    	if(((Contratto)tbContratto.getSelectionModel().getSelectedItem()).getStato().equals("Aperto")){
+	    		Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataModificaContratto",Modality.APPLICATION_MODAL);
+	    	}
+	    	else{
+	    		AlertView.getAlertView("Attenzione, non è più possibile  modificare questo contratto", AlertType.INFORMATION);
+	    	}
+	    }
 	}
 	
 	@FXML
@@ -122,7 +128,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				table.getItems().add((T) elem);
 		}
 		else 
-			AlertView.getAlertView("Non è possibile aggiornare l'elemnto in tabella", AlertType.ERROR);
+			AlertView.getAlertView("Non è possibile aggiornare l'elemento in tabella", AlertType.ERROR);
 	}	
 	/**
 	 * <p>Carica la tabella dei clienti graficamente</p>
@@ -148,12 +154,17 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		if(table.equals("Cliente")){
 			return tbCliente.getSelectionModel().getSelectedIndex();
 		}
+		else if(table.equals("Contratto"))
+			return tbContratto.getSelectionModel().getSelectedIndex();
 		return 0;
 	}
 	
 	public T getEntitaElementoSelezionato(String table){
 		if(table.equals("Cliente")){
 			return tbCliente.getSelectionModel().getSelectedItem();
+		}
+		else if(table.equals("Contratto")){
+			return tbContratto.getSelectionModel().getSelectedItem();
 		}
 		return null;
 	}
