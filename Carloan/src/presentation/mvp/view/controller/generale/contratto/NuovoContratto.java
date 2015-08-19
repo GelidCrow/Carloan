@@ -97,7 +97,7 @@ public class NuovoContratto extends Schermata{
 		
 		contratto.setIDContratto(tw.getItems().size()+1);
 		
-		contratto.setCliente(tbcliente.getSelectionModel().getSelectedItem());//prende il cliente selezionato
+		contratto.setCliente(tbcliente.getSelectionModel().getSelectedItem());//prende l'id del cliente selezionato
 		
 		contratto.setNote(textNote.getText());
 		

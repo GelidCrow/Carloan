@@ -68,7 +68,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	public void btnModificaContratto(ActionEvent e) throws CommonException{
 		FXMLParameter.setTitolo("Modifica Contratto");
 	    FXMLParameter.setRidimensionabile(false);
-	    if(tbCliente.getSelectionModel().getSelectedIndex()< 0){
+	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else

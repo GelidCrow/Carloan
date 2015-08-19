@@ -74,7 +74,7 @@
                                           <TableColumn prefWidth="237.0" text="Cliente " />
                                        </columns></TableView>
                                     <Button fx:id="btnNuovoContratto" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoContratto" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
-                                    <Button layoutX="125.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
+                                    <Button fx:id="btnModificaContratto" layoutX="125.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaContratto" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="241.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Chiudi" />
                                     <Button layoutX="819.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
                                     <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">

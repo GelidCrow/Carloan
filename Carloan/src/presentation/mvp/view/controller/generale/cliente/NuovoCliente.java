@@ -60,6 +60,7 @@ public class NuovoCliente extends Schermata{
 	protected TextField txtPartIva;
 	@FXML
 	protected TextField txtEmail;
+	
 	private TableView<Cliente> tw;
 	final ToggleGroup group = new ToggleGroup();
 	

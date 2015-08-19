@@ -17,16 +17,18 @@ import business.model.Exception.CommonException;
 
 public class ModificaCliente extends NuovoCliente{
 	@FXML
-	private Button btnConfermaModifica;
+	private Button btnConferma;
 	private Cliente cliente;
 	private boolean Aggiornare=true;
+	
+	@Override
 	@SuppressWarnings({ "unchecked","rawtypes" })
-	@FXML
-	public void btnConfermaModifica(ActionEvent event){
+	@FXML 
+	public void btnConferma(ActionEvent event){
 
 		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
 		cliente= (Cliente)scChiamante.getEntitaElementoSelezionato("Cliente");//ottengo le info sul cliente selezionato, ma ne cambio alcune
-		System.out.println(cliente.getId());
+
 		Aggiornare=true;
 		cliente = prendiDatiDaView();
 		if(Aggiornare==true){
