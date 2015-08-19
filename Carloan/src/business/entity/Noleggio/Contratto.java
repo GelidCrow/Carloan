@@ -9,14 +9,17 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Utente;
 import business.entity.Gestori.Operatore;
 
 public class Contratto extends Entity{
 	
+
+
 	private Integer IDContratto;
-	private Integer IDCliente;
+	private Cliente cliente;
 	private Integer IDOperatore=null;
 	private Integer IDSupervisoreSede=null;
 	private Integer IDSupervisoreAgenzia=null;
@@ -27,7 +30,9 @@ public class Contratto extends Entity{
 	private String Note;
 	
 	private SimpleIntegerProperty IDContrattoT;
-	private IntegerProperty IDClienteT;
+	private SimpleStringProperty datiCliente;
+
+
 	private IntegerProperty IDOperatoreT;
 	private IntegerProperty IDSupervisoreSedeT;
 	private IntegerProperty IDSupervisoreAgenziaT;
@@ -44,10 +49,7 @@ public class Contratto extends Entity{
 		IDContrattoT = new SimpleIntegerProperty(iDContratto);
 	}
 
-	public void setIDCliente(Integer iDCliente) {
-		IDCliente = iDCliente;
-		IDClienteT = new SimpleIntegerProperty(iDCliente);
-	}
+
 
 	public void setIDOperatore(Integer iDOperatore) {
 		IDOperatore = iDOperatore;
@@ -93,9 +95,7 @@ public class Contratto extends Entity{
 		IDContrattoT = iDContrattoT;
 	}
 
-	public void setIDClienteT(IntegerProperty iDClienteT) {
-		IDClienteT = iDClienteT;
-	}
+
 
 	public void setIDOperatoreT(IntegerProperty iDOperatoreT) {
 		IDOperatoreT = iDOperatoreT;
@@ -129,9 +129,6 @@ public class Contratto extends Entity{
 		return IDContratto;
 	}
 
-	public Integer getIDCliente() {
-		return IDCliente;
-	}
 
 	public Integer getIDOperatore() {
 		return IDOperatore;
@@ -169,9 +166,6 @@ public class Contratto extends Entity{
 		return IDContrattoT;
 	}
 
-	public IntegerProperty getIDClienteT() {
-		return IDClienteT;
-	}
 
 	public IntegerProperty getIDOperatoreT() {
 		return IDOperatoreT;
@@ -203,6 +197,25 @@ public class Contratto extends Entity{
 
 	public StringProperty getNoteT() {
 		return NoteT;
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public SimpleStringProperty getDatiCliente() {
+		return datiCliente;
+	}
+
+	public void setDatiCliente(SimpleStringProperty datiCliente) {
+		this.datiCliente = datiCliente;
+	}
+
+	public void setIDSupervisoreAgenziaT(IntegerProperty iDSupervisoreAgenziaT) {
+		IDSupervisoreAgenziaT = iDSupervisoreAgenziaT;
 	}
 
 }

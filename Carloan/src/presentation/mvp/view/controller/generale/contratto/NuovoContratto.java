@@ -72,14 +72,13 @@ public class NuovoContratto extends Schermata{
 	    		throw new CommonException("Nessun cliente selezionato");
 		 }
 		 else{
-			 tw= ((SchermataGenerale)this.getChiamante()).getTable("Contratto");
+			tw= ((SchermataGenerale)this.getChiamante()).getTable("Contratto");
 			Contratto contratto= prendiDatiDaView();
 			try {
 					//presenter.processRequest("VerificaContratto", contratto);	
 					presenter.processRequest("InserimentoContratto", contratto);
-					
 					//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
-				//	((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(contratto,tw);
+					((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(contratto,tw);
 				
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
@@ -98,23 +97,18 @@ public class NuovoContratto extends Schermata{
 		
 		contratto.setIDContratto(tw.getItems().size()+1);
 		
-		contratto.setIDCliente(tbcliente.getSelectionModel().getSelectedItem().getId());//prende l'id del cliente selezionato
+		contratto.setCliente(tbcliente.getSelectionModel().getSelectedItem());//prende il cliente selezionato
 		
 		contratto.setNote(textNote.getText());
 		
 		contratto.setStato(StatoContratto.Aperto.toString());
-		
-		contratto.setIDOperatore(1);
+	
+		if(Utente.getUtente() instanceof Operatore)
+			contratto.setIDOperatore(1);
 		
 		dParam= dCreazione.getValue();
 		contratto.setDataCreazione(Date.valueOf(dParam));
-		
-		dParam = dChiusura.getValue();
-		if(dParam!=null){
-			contratto.setDataChiusura(Date.valueOf(dParam));
-		}
-		
-		
+	
 		return contratto;
 	}
 	

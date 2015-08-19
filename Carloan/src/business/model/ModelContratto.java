@@ -68,6 +68,5 @@ public class ModelContratto implements Model{
 	@Override
 	public void ricerca() {
 		// TODO Auto-generated method stub
-		
 	}
 }

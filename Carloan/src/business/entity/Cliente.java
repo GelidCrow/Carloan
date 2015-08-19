@@ -42,6 +42,7 @@ public class Cliente extends Entity{
 	private ObjectProperty<Date>  DataScadPatenteT;
 	private StringProperty PartitaIvaT;
 	private StringProperty EmailT;
+	private StringProperty nomeCognome;
 	
 	public Cliente(){
 		
@@ -238,7 +239,11 @@ public class Cliente extends Entity{
 	public String getNome() {
 		return nome;
 	}
-
+	
+	public StringProperty getNomeCognome(){
+		nomeCognome= new SimpleStringProperty(nome+"  " +cognome);
+		return nomeCognome;
+	}
 
 	public StringProperty getNomeT() {
 		return nomeT;
@@ -343,8 +348,10 @@ public class Cliente extends Entity{
 	public void setEmailT(StringProperty emailT) {
 		EmailT = emailT;
 	}	
+	@Override
 	public String  toString(){
 		return nome+cognome;
 		
 	}
+
 }

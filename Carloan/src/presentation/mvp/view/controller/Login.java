@@ -82,6 +82,7 @@ public class Login extends Schermata{
 		} catch (InstantiationException | IllegalAccessException| ClassNotFoundException | NoSuchMethodException| SecurityException | IllegalArgumentException
 				| InvocationTargetException | NoSuchAlgorithmException | CommonException e1) {
 				//AlertView.getAlertView("C'è stato un problema" + e1.getMessage(), AlertType.ERROR);
+			e1.printStackTrace();
 		}
 	}
 	

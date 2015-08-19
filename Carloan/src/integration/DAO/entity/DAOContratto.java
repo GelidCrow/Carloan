@@ -33,8 +33,8 @@ public class DAOContratto implements DAO{
 	@Override
 	public void creazione(Entity x) {
 		String INSERT = "INSERT INTO Contratto "
-				+ "( '?',Stato,dataCreazione,Note,dataChiusura,idcliente) "
-				+ "values ('?','?','?','?','?','?');";
+				+ "( ?,Stato,dataCreazione,Note,idcliente) "
+				+ "values ('?','?','?','?','?');";
 		
 		String insertQuery = INSERT;
 				
@@ -43,26 +43,31 @@ public class DAOContratto implements DAO{
 		if(Utente.getUtente() instanceof Operatore){
         	insertQuery= queryReplaceFirst(insertQuery,"idOperatore");
         	insertQuery= queryReplaceFirst(insertQuery,contratto.getIDOperatore().toString());
+       
         }
         else if(Utente.getUtente() instanceof Amministratore){
         	insertQuery= queryReplaceFirst(insertQuery,"idAmministratore");
+        	insertQuery= queryReplaceFirst(insertQuery,contratto.getIDAmministratore().toString());
         	
         }
         else if(Utente.getUtente() instanceof SupervisoreSede){
         	insertQuery= queryReplaceFirst(insertQuery,"idSupervisoreSede");
+        	insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreSede().toString());
         }
         else if(Utente.getUtente() instanceof SupervisoreAgenzia){
         	insertQuery= queryReplaceFirst(insertQuery,"idSupervisoreAgenzia");
+			insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreAgenzia().toString());
+		}
         	
         insertQuery = queryReplaceFirst(insertQuery, contratto.getStato().toString());
         
         insertQuery= queryReplaceFirst(insertQuery,contratto.getDataCreazione().toString());
-
+        
         insertQuery= queryReplaceFirst(insertQuery,contratto.getNote());
-  
-        insertQuery= queryReplaceFirst(insertQuery,contratto.getDataChiusura().toString());
 
-        insertQuery= queryReplaceFirst(insertQuery,contratto.getIDCliente().toString());
+        insertQuery= queryReplaceFirst(insertQuery,contratto.getCliente().getId().toString());
+        
+        
         
         Connection connection= Connection.getConnection(daofactory);
         
@@ -84,9 +89,7 @@ public class DAOContratto implements DAO{
 				e.printStackTrace();
 			}
 		}
-        }
-		
-	}
+     }
 
 	@Override
 	public void aggiornamento(Entity x) {
@@ -105,7 +108,7 @@ public class DAOContratto implements DAO{
 	     try {
 			readQueryResultSet = connection.executeRead(readQuery);	
 			risultato= creaElencoContratti(readQueryResultSet);
-		 } catch (SQLException e) {
+		 } catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 			AlertView.getAlertView("Non è stato possibile leggere i contratti" , AlertType.ERROR);
 		 }
@@ -121,7 +124,14 @@ public class DAOContratto implements DAO{
 	    return risultato;
 	}
 	
-	public List<Contratto> creaElencoContratti(ResultSet resultset){
+	public List<Contratto> creaElencoContratti(ResultSet resultset) throws InstantiationException, IllegalAccessException{
+
+        DaoFactory daofactory= DaoFactory.getDaoFactory(1);
+		DAOCliente daoCliente ;
+		
+		daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
+	
+		 
 		List<Contratto> risultato = new LinkedList<>();
 		
         String sParam= null;
@@ -148,9 +158,11 @@ public class DAOContratto implements DAO{
                 iParam= resultset.getInt("idAmministratore");
                 contratto.setIDAmministratore(iParam);
                 
-                iParam= resultset.getInt("idCliente");
-                contratto.setIDCliente(iParam);
+                iParam= resultset.getInt("idCliente");//leggo l'id del cliente e ora prendo la sua istanza.facendo una specie di join
+        		Cliente cliente = (Cliente) daoCliente.lettura(iParam);
+                contratto.setCliente(cliente);
                 
+        		
                 sParam= resultset.getString("stato");
                 contratto.setStato(sParam);
                 
@@ -164,7 +176,7 @@ public class DAOContratto implements DAO{
                 contratto.setDataChiusura(dParam);
                 
                 risultato.add(contratto);
-               
+            	
             }
          }
         }

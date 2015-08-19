@@ -23,7 +23,7 @@ public class TabContrattoController<T> extends SchermataGenerale<Contratto>{
 		
 		contratto.get(4).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getDataChiusuraT());
 	
-		contratto.get(5).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getIDClienteT());
+		contratto.get(5).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getCliente().getNomeCognome());
 
 		/*contratto.get(7).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getIDAmministratore());
 
