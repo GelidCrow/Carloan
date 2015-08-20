@@ -90,7 +90,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	@FXML
 	public void btnNuovaAuto(ActionEvent e){
-		System.out.println("wewe");
+		
 	}
 	
 	@FXML
