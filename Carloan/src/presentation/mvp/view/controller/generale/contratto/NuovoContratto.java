@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import business.entity.Cliente;
 import business.entity.Utente;
+import business.entity.UtenteCorrente;
 import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreSede;
@@ -110,11 +111,11 @@ public class NuovoContratto extends Schermata{
 		contratto.setStato(StatoContratto.Aperto.toString());
 	
 		//qui setto l'id dell'utente del sistema
-		if(Utente.getUtente() instanceof Operatore)
+		if(UtenteCorrente.getUtente() instanceof Operatore)
 			contratto.setIDOperatore(1);
-		else if(Utente.getUtente() instanceof Amministratore)
+		else if(UtenteCorrente.getUtente() instanceof Amministratore)
 			contratto.setIDAmministratore(1);
-		else if(Utente.getUtente() instanceof SupervisoreSede)
+		else if(UtenteCorrente.getUtente() instanceof SupervisoreSede)
 			contratto.setIDSupervisoreSede(1);
 		else 
 			contratto.setIDSupervisoreAgenzia(1);

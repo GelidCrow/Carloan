@@ -173,7 +173,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				if(tbClienteCaricata==false){
 					try {
 						//serve solo per fargli fare il binding con le colonne
-						tbClientController = new TabClientiController((TableView<Cliente>)tbCliente,schermata);
+						tbClientController = new TabClientiController((TableView<Cliente>)tbCliente,SchermataGenerale.this);
 						//carica la prima volta la tabella 
 						tbClienteCaricata = caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
 					} catch (InstantiationException | IllegalAccessException| ClassNotFoundException| NoSuchMethodException | SecurityException
@@ -221,7 +221,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			e.printStackTrace();
 		}
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
-		settaSchermataPerUtente();
+		//settaSchermataPerUtente();
 	}
 	
 	
