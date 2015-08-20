@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <interfaces>
+    /** LOGIN **/
 	<interface id="MostraLogin" src ="markup/Login.fxml"></interface>
 	
+	/** SC GENERALE */
 	<interface id="MostraSchermataGenerale" src ="markup/generale/SchermataGenerale.fxml"></interface>
 	
+	/** CONTRATTO **/
 	<interface id="MostraSchermataNuovoContratto" src ="markup/generale/contratto/NuovoContratto.fxml"></interface>
 	<interface id="MostraSchermataModificaContratto" src ="markup/generale/contratto/ModificaContratto.fxml"></interface>
+	<interface id="MostraSchermataChiudiContratto" src ="markup/generale/contratto/ModificaContratto.fxml"></interface>
 	
+	
+	/** CLIENTE **/
 	<interface id="MostraSchermataNuovoCliente" src ="markup/generale/cliente/NuovoCliente.fxml"></interface>
 	<interface id="MostraSchermataModificaCliente" src ="markup/generale/cliente/ModificaCliente.fxml"></interface>
+	
+	/** NOLEGGIO **/
+	<interface id="MostraSchermataNuovoNoleggio" src ="markup/generale/noleggio/NuovoNoleggio.fxml"></interface>
+	<interface id="MostraSchermataModificaNoleggio" src ="markup/generale/noleggio/ModificaNoleggio.fxml"></interface>
+	
+	
+	
 </interfaces>

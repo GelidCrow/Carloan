@@ -104,7 +104,7 @@ public class DAOLogin implements DAO{
 					String auth="Select IDSupervisoreAgenzia,Nome,Cognome,IDAgenzia from SupervisoreAgenzia where IDSupervisoreAgenzia='"+idList.getString(1)+"'";
 					idList=connection.executeRead(auth);
 					idList.next();
-					result=new SupervisoreAgenzia(idList.getString(2),idList.getString(3),idList.getString(1));
+					result=new SupervisoreAgenzia(idList.getString(2),idList.getString(3),idList.getString(1));//qui bisogna fare daoSuperivsoreAgenzia.lettura(idSuAgenzia);
 				}
 				
 				else if(idList.getString(2)!=null){//è un supervisore sede
