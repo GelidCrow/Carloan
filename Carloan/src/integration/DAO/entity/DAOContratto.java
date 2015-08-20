@@ -103,8 +103,8 @@ public class DAOContratto implements DAO{
 	
 		Contratto contratto= (Contratto) entity;
 		String UPDATE = "UPDATE  Contratto  SET "
-							+ "stato= '?', note = '?'      ? = '?' "
-							+ "WHERE IDContratto = '?'";
+							+ "stato= '?', note = '?' ";
+		String 	WHERE= " WHERE IDContratto = '?'";
 		String updateQuery = UPDATE;
 		
 		//controllo che i noleggi aperti non ce ne siano
@@ -118,19 +118,11 @@ public class DAOContratto implements DAO{
 				
 		        updateQuery= queryReplaceFirst(updateQuery,contratto.getNote());
 		
-		        if(contratto.getStato().equals(StatoContratto.Aperto.toString())){
-		        	 updateQuery= queryReplaceFirst(updateQuery," ");
-		        	 updateQuery= queryReplaceFirst(updateQuery," ");
-		        }
-		        else {
-		    		String x="dataChiusura";
-		    		String attributo = ", ";
-		    		attributo= attributo+x;
-		    		
-		    		updateQuery= queryReplaceFirst(updateQuery,attributo);
+		        if(!contratto.getStato().equals(StatoContratto.Aperto.toString())){
+		    		updateQuery+=", dataChiusura='?'";
 		    		updateQuery= queryReplaceFirst(updateQuery,contratto.getDataChiusura().toString());
 		        }        	
-		
+		        updateQuery+=WHERE;
 		        updateQuery= queryReplaceFirst(updateQuery,contratto.getIDContratto().toString());
 		     
 		        System.out.println(updateQuery);
