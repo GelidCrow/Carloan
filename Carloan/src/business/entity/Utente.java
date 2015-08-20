@@ -16,7 +16,7 @@ public abstract class Utente extends Entity {
 	private String UserName;
 	private String Password;
 
-	static Entity utente;
+
 	
 	protected Utente(String Nome,String Cognome,char Sesso,String Username,String Password){
 		this(Nome,Cognome,Sesso,new Date(),"","","","",true,Username,Password);
@@ -39,10 +39,5 @@ public abstract class Utente extends Entity {
 		this(Nome,Cognome,'\0',new Date(),"","","","",true,"","");
 	}
 	
-	public static Entity getUtente(){
-		return utente;
-	}
-	public static void setUtente(Entity entity){
-		utente= entity;
-	}
+
 }

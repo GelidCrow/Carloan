@@ -55,11 +55,11 @@ public class NuovoCliente extends Schermata{
 	@FXML
 	protected TextField txtPatGuida;
 	@FXML
-	protected DatePicker dScadPatente;
-	@FXML
 	protected TextField txtPartIva;
 	@FXML
 	protected TextField txtEmail;
+
+	private DatePicker dScadPatente = new DatePicker();
 	
 	private TableView<Cliente> tw;
 	final ToggleGroup group = new ToggleGroup();
@@ -87,6 +87,7 @@ public class NuovoCliente extends Schermata{
 				| SecurityException | IllegalArgumentException
 				| InvocationTargetException | CommonException e) {
 			//AlertView.getAlertView(e.toString(), AlertType.ERROR);
+			e.printStackTrace();
 		}
 	}
 
@@ -130,8 +131,9 @@ public class NuovoCliente extends Schermata{
 		cliente.setPatenteGuida(txtPatGuida.getText());
 		
 		//data scadenza patente -> dataEmissione + 10 anni.
-		dParam=  cliente.getDataScadPatente().toLocalDate();
-		dParam.plusYears(10);
+		dParam= dEmissPatente.getValue();
+		dScadPatente.setValue(LocalDate.of(dParam.getYear()+10, dParam.getMonth(),dParam.getDayOfMonth()));
+		dParam=dScadPatente.getValue();
 		cliente.setDataScadPatente(Date.valueOf(dParam));
 		
 		cliente.setPartitaIva(txtPartIva.getText());

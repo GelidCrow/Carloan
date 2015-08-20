@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import Errori.AlertView;
 import business.entity.Entity;
 import business.entity.Utente;
+import business.entity.UtenteCorrente;
 import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
@@ -54,7 +55,7 @@ public class Login extends Schermata{
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
 					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataGenerale",Modality.APPLICATION_MODAL);
-					Utente.setUtente((Amministratore)x);
+					UtenteCorrente.setUtente((Amministratore)x);
 				}
 				else if(x instanceof SupervisoreAgenzia){
 					FXMLParameter.setTitolo("Supervisore Agenzia");
@@ -73,7 +74,7 @@ public class Login extends Schermata{
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
 					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataGenerale",Modality.APPLICATION_MODAL);
-					Utente.setUtente((Operatore)x);
+					UtenteCorrente.setUtente((Operatore)x);
 			}
 			}
 			else{

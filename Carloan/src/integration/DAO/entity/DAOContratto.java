@@ -15,6 +15,7 @@ import Errori.AlertView;
 import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Utente;
+import business.entity.UtenteCorrente;
 import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
@@ -43,21 +44,21 @@ public class DAOContratto implements DAO{
 				
 		Contratto contratto= (Contratto)x;	
 		
-		if(Utente.getUtente() instanceof Operatore){
+		if(UtenteCorrente.getUtente() instanceof Operatore){
         	insertQuery= queryReplaceFirst(insertQuery,"idOperatore");
         	insertQuery= queryReplaceFirst(insertQuery,contratto.getIDOperatore().toString());
        
         }
-        else if(Utente.getUtente() instanceof Amministratore){
+        else if(UtenteCorrente.getUtente() instanceof Amministratore){
         	insertQuery= queryReplaceFirst(insertQuery,"idAmministratore");
         	insertQuery= queryReplaceFirst(insertQuery,contratto.getIDAmministratore().toString());
         	
         }
-        else if(Utente.getUtente() instanceof SupervisoreSede){
+        else if(UtenteCorrente.getUtente() instanceof SupervisoreSede){
         	insertQuery= queryReplaceFirst(insertQuery,"idSupervisoreSede");
         	insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreSede().toString());
         }
-        else if(Utente.getUtente() instanceof SupervisoreAgenzia){
+        else if(UtenteCorrente.getUtente() instanceof SupervisoreAgenzia){
         	insertQuery= queryReplaceFirst(insertQuery,"idSupervisoreAgenzia");
 			insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreAgenzia().toString());
 		}
@@ -143,7 +144,6 @@ public class DAOContratto implements DAO{
 						idList.close();
 						//connection.chiudiConnessione();
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}

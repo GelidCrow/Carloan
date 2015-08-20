@@ -68,8 +68,10 @@ public class ClienteChecker implements Checker{
 	}
 	
 	public void checkDataEmissPatente() throws CommonException {
-		
-		if(cliente.getDataEmissPatente()==null || cliente.getDataEmissPatente().before(cliente.getDatanascita()) || cliente.getDataEmissPatente().(cliente.getDatanascita())){
+		LocalDate date = cliente.getDatanascita().toLocalDate();
+		DatePicker datepicker= new DatePicker(LocalDate.of(date.getYear()+18, date.getMonth(),date.getDayOfMonth()));
+		date= datepicker.getValue();
+		if(cliente.getDataEmissPatente()==null || cliente.getDataEmissPatente().before(Date.valueOf(date))){
         	throw new CommonException("Data emissione patente non valida");
 		}
 	}
