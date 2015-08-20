@@ -69,7 +69,7 @@ public class ClienteChecker implements Checker{
 	
 	public void checkDataEmissPatente() throws CommonException {
 		
-		if(cliente.getDataEmissPatente()==null || cliente.getDataEmissPatente().before(cliente.getDatanascita())){
+		if(cliente.getDataEmissPatente()==null || cliente.getDataEmissPatente().before(cliente.getDatanascita()) || cliente.getDataEmissPatente().(cliente.getDatanascita())){
         	throw new CommonException("Data emissione patente non valida");
 		}
 	}
