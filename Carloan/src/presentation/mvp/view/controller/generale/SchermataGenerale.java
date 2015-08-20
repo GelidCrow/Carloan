@@ -88,6 +88,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	public void btnNuovoCliente(ActionEvent e){
 		tbClientController.NuovoCliente();
 	}
+	@FXML
+	public void btnNuovaAuto(ActionEvent e){
+		System.out.println("wewe");
+	}
 	
 	@FXML
 	public void btnModificaCliente(ActionEvent e) throws CommonException{
@@ -95,7 +99,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	@FXML
 	public void btnLogout(ActionEvent e){
-		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);
+		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.WARNING);
 		 
 		if(result.isPresent() && result.get() == ButtonType.OK){
 			chiudiFinestra();

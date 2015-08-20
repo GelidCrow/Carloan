@@ -53,7 +53,7 @@ public abstract class Schermata implements Initializable{
 		            public void handle(WindowEvent window)
 		            {
 		                try {
-		                	Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);
+		                	Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.WARNING);
 		           		 
 		            		if(result.isPresent() && result.get() == ButtonType.OK){
 		            			chiudiFinestra();
