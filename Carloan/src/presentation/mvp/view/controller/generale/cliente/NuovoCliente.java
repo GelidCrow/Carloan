@@ -82,7 +82,6 @@ public class NuovoCliente extends Schermata{
 				presenter.processRequest("InserimentoCliente", cliente);
 				//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
 				((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(cliente,tw);
-			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
@@ -151,6 +150,7 @@ public class NuovoCliente extends Schermata{
 		rdMaschio.setSelected(true);
 		
 		rdFemmina.setToggleGroup(group);
+		
 		dEmissPatente.setValue(LocalDate.of(1980,1,1));
 		dNascita.setValue(LocalDate.of(1980,1,1));
 	}

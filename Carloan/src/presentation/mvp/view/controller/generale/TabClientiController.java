@@ -43,7 +43,8 @@ public class TabClientiController{
 	 * <p>Effettua il binding con i singoli campi della tabella</p>
 	 */
 	public void bindingValuesCliente(){
-
+		
+		cliente.get(0).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getCodFiscaleT());
 		
 		cliente.get(0).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getCodFiscaleT());
 		

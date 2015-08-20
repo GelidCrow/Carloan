@@ -38,7 +38,7 @@ import javafx.scene.control.TextField;
 
 
 public class NuovoContratto extends Schermata{
-	@FXML
+	
 	private DatePicker dCreazione;	
 	@FXML
 	private DatePicker dChiusura;
@@ -145,7 +145,7 @@ public class NuovoContratto extends Schermata{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
-	
+		dCreazione= new DatePicker();
 		dCreazione.setValue(LocalDate.now());//setto il valore di default della data di creazione.
 	
 		bindingValues();
