@@ -1,7 +1,10 @@
 package presentation.mvp.view.controller.generale;
 
+import integration.DAO.connection.Connection;
+
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -24,6 +27,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -33,6 +37,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
+import javafx.stage.WindowEvent;
 
 
 public class SchermataGenerale<T extends Entity> extends Schermata{
@@ -52,10 +57,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TabContrattoController tbContrattoController;
 	
 	
+	
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
 		tbContrattoController.setSchermata(this);
 		tbContrattoController.NuovoContratto();
+		
 	}	
 	@FXML
 	public void btnModificaContratto(ActionEvent e){
@@ -91,7 +98,13 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);
 		 
 		if(result.isPresent() && result.get() == ButtonType.OK){
-			this.chiudiFinestra();
+			chiudiFinestra();
+			try {
+				Connection.chiudiConnessione();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			FXMLParameter.setTitolo("Login");
 		    FXMLParameter.setRidimensionabile(false);
 			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraLogin",Modality.WINDOW_MODAL);
@@ -157,6 +170,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		return null;
 	}
+	
+	
 	/**
 	 * <p> Ascoltatore per il cambio di tab </p>
 	 */
@@ -187,6 +202,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			}
 	    }
 	} 
+	
 	/**
 	 * <p>Elmina i tab che non possono essere usati dall'utente corrente</p>
 	 */
@@ -205,6 +221,32 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
+	
+		
+		stage.addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>()
+		        {
+		            @Override
+		            public void handle(WindowEvent window)
+		            {
+		                try {
+							Connection.chiudiConnessione();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		            }
+		        });
+		/*getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
+	        @Override
+	        public void handle(final WindowEvent event) {
+	        	try {
+	    			Connection.chiudiConnessione();
+	    		} catch (SQLException e1) {
+	    			// TODO Auto-generated catch block
+	    			e1.printStackTrace();
+	    		}
+	        }
+		});*/
 		
 		panes= tabPane.getTabs();
 		//serve solo per fargli fare il binding con le colonne

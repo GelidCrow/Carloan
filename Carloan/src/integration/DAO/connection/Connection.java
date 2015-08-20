@@ -23,7 +23,7 @@ public class Connection {
 	private  String vendor;
 	private DaoFactory daofactory;
 	private static   Connection con;
-	private  java.sql.Connection connessione_remota;
+	private static  java.sql.Connection connessione_remota;
 	private ConfiguratorReader reader;	
 	
 	private Connection(DaoFactory a){
@@ -82,7 +82,7 @@ public class Connection {
 	 * @throws SQLException 
 	 * 
 	 */
-	public void chiudiConnessione() throws SQLException {
+	public static void chiudiConnessione() throws SQLException {
 		if (connessione_remota != null && !connessione_remota.isClosed())
 			connessione_remota.close();
 	}
