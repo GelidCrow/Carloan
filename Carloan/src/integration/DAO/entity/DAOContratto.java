@@ -20,7 +20,9 @@ import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Gestori.SupervisoreSede;
 import business.entity.Noleggio.Contratto;
+import business.entity.Noleggio.Noleggio;
 import business.entity.Noleggio.StatoContratto;
+import business.model.Exception.CommonException;
 
 
 public class DAOContratto implements DAO{
@@ -93,46 +95,67 @@ public class DAOContratto implements DAO{
      }
 
 	@Override
-	public void aggiornamento(Entity entity) {
+	public void aggiornamento(Entity entity) throws CommonException{
+		DAONoleggio daoNoleggio ;
+		daoNoleggio= (DAONoleggio) daofactory.getDao("DAONoleggio");
+		List<Noleggio> noleggiAperti= null;
+		
+	
 		Contratto contratto= (Contratto) entity;
 		String UPDATE = "UPDATE  Contratto  SET "
-							+ "stato= '?', note = '?',dataChiusura = ? "
+							+ "stato= '?', note = '?' ? = '?' "
 							+ "WHERE IDContratto = '?'";
 		String updateQuery = UPDATE;
 		
-		updateQuery = queryReplaceFirst(updateQuery, contratto.getStato().toString());
-        
-        updateQuery= queryReplaceFirst(updateQuery,contratto.getNote());
+		//controllo che i noleggi aperti non ce ne siano
+		if(contratto.getStato().toString().equals(StatoContratto.Annullato)){
+        	noleggiAperti=  daoNoleggio.getNoleggiAperti(contratto.getIDContratto());
+        }
+		
+		if(noleggiAperti==null){
 
-        if(contratto.getStato().equals(StatoContratto.Aperto.toString()))
-        	 updateQuery= queryReplaceFirst(updateQuery,null);
-        else 
-        	updateQuery= queryReplaceFirst(updateQuery,contratto.getDataChiusura().toString());
-
-        updateQuery= queryReplaceFirst(updateQuery,contratto.getIDContratto().toString());
-        
-        Connection connection= Connection.getConnection(daofactory);
-        
-        ResultSet idList = null;
-        
-		try {
-			 idList = connection.executeUpdate(updateQuery);
-			 AlertView.getAlertView("Contratto aggiornato con successo",AlertType.INFORMATION);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			 AlertView.getAlertView("Non è stato possibile aggiornare il contratto" , AlertType.ERROR);
+				updateQuery = queryReplaceFirst(updateQuery, contratto.getStato().toString());
+		        updateQuery= queryReplaceFirst(updateQuery,contratto.getNote());
+		
+		        if(contratto.getStato().equals(StatoContratto.Aperto.toString()))
+		        	 updateQuery= queryReplaceFirst(updateQuery," ");
+		        else {
+		    		String x="dataChiusura";
+		    		String attributo = ", ";
+		    		attributo= attributo+x;
+		    		
+		    		updateQuery= queryReplaceFirst(updateQuery,attributo);
+		    		updateQuery= queryReplaceFirst(updateQuery,contratto.getDataChiusura().toString());
+		        }        	
+		
+		        updateQuery= queryReplaceFirst(updateQuery,contratto.getIDContratto().toString());
+		        
+		        Connection connection= Connection.getConnection(daofactory);
+		        
+		        ResultSet idList = null;
+		        
+				try {
+					 idList = connection.executeUpdate(updateQuery);
+					 AlertView.getAlertView("Contratto aggiornato con successo",AlertType.INFORMATION);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					 AlertView.getAlertView("Non è stato possibile aggiornare il contratto" , AlertType.ERROR);
+				}
+				finally{
+					try {
+						idList.close();
+						//connection.chiudiConnessione();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 		}
-		finally{
-			try {
-				idList.close();
-				//connection.chiudiConnessione();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		else 
+			throw new CommonException("Ci sono dei noleggi aperti, non è  possibile annullare il contratto!");
 	}
 
+	
 	public List<Contratto> getAll(){		
 		 String readQuery = "Select idContratto, Stato , dataCreazione,note,datachiusura,idcliente,idoperatore,"
 		 					+ "idSupervisoreAgenzia, idsupervisoresede, idamministratore from contratto";
@@ -161,10 +184,7 @@ public class DAOContratto implements DAO{
 	}
 	
 	public List<Contratto> creaElencoContratti(ResultSet resultset) throws InstantiationException, IllegalAccessException{
-
-        DaoFactory daofactory= DaoFactory.getDaoFactory(1);
 		DAOCliente daoCliente ;
-		
 		daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
 	
 		 

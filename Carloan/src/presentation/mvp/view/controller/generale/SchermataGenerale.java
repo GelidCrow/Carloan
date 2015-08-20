@@ -34,21 +34,10 @@ import javafx.stage.Modality;
 
 
 public class SchermataGenerale<T extends Entity> extends Schermata{
-	
 	@FXML
-	private Button btnNuovoCliente;
+	private TabPane tabPane;	
 	@FXML
-	private Button btnModificaCliente;
-	@FXML
-	private Button btnModificaContratto;
-	
-	
-	@FXML
-	private TabPane tabPane;
-	
-	@FXML
-	protected TableView<T> tbCliente;
-	
+	protected TableView<T> tbCliente;	
 	@FXML
 	protected TableView<T> tbContratto;
 	
@@ -56,30 +45,28 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	private boolean tbClienteCaricata=false;
 	
+	private TabClientiController<T> tbClientController;
+
+	private TabContrattoController tbContrattoController;
+	
+	
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
-		FXMLParameter.setTitolo("Nuovo Contratto");
-	    FXMLParameter.setRidimensionabile(false);
-		Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataNuovoContratto",Modality.APPLICATION_MODAL);
-	
-	}
+		tbContrattoController.NuovoContratto();	//passo la schermata chiamante
+	}	
+	@FXML
+	public void btnModificaContratto(ActionEvent e){
+		try {
+			tbContrattoController.ModificaContratto(this);
+		} catch (CommonException e1) {
+			e1.printStackTrace();
+		}
+	}	
 	
 	@FXML
-	public void btnModificaContratto(ActionEvent e) throws CommonException{
-		FXMLParameter.setTitolo("Modifica Contratto");
-	    FXMLParameter.setRidimensionabile(false);
-	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
-	    		throw new CommonException("Nessun elemento selezionato");
-	    }
-	    else{
-	    	if(((Contratto)tbContratto.getSelectionModel().getSelectedItem()).getStato().equals("Aperto")){
-	    		Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataModificaContratto",Modality.APPLICATION_MODAL);
-	    	}
-	    	else{
-	    		AlertView.getAlertView("Attenzione, non è più possibile  modificare questo contratto", AlertType.INFORMATION);
-	    	}
-	    }
-	}
+	public void btnChiudiContratto(ActionEvent e) {
+		tbContrattoController.ChiudiContratto(this);
+	}		
 	
 	@FXML
 	public void btnNuovoCliente(ActionEvent e){
@@ -176,31 +163,29 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		 * <p>Quando selezioni il tab "Cliente" vengono caricati SOLO 1 VOLTA tutti i clienti</p>
 		 * 
 		 */
-		@SuppressWarnings({ "unchecked", "unused" })
+		@SuppressWarnings("unchecked")
 		@Override
 	    public void changed(ObservableValue<? extends Tab> ov, Tab oldValue, Tab newValue) {
 			if(panes.get(2)==newValue){
-					if(tbClienteCaricata==false){
-						try {
-							//serve solo per fargli fare il binding con le colonne
-							TabClientiController<T> tbClientController = new TabClientiController<T>(tbCliente.getColumns());
-							//carica la prima volta la tabella 
-							tbClienteCaricata = caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
-						} catch (InstantiationException
-								| IllegalAccessException
-								| ClassNotFoundException
-								| NoSuchMethodException | SecurityException
-								| IllegalArgumentException
-								| InvocationTargetException
-								| CommonException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+				if(tbClienteCaricata==false){
+					try {
+						//serve solo per fargli fare il binding con le colonne
+						tbClientController = new TabClientiController<T>(tbCliente.getColumns());
+						//carica la prima volta la tabella 
+						tbClienteCaricata = caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
+					} catch (InstantiationException | IllegalAccessException| ClassNotFoundException| NoSuchMethodException | SecurityException
+							| IllegalArgumentException	
+							| InvocationTargetException
+							| CommonException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+
+					}
 				}
 			}
 	    }
 	} 
-	@SuppressWarnings({ "unchecked", "unused" })
+	@SuppressWarnings({ "unchecked"})
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
@@ -208,7 +193,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		
 		panes= tabPane.getTabs();
 		//serve solo per fargli fare il binding con le colonne
-		TabContrattoController<T> tbContrattoController = new TabContrattoController<T>(tbContratto.getColumns());
+		tbContrattoController = new TabContrattoController((TableView<Contratto>) tbContratto);
 		//carica la prima volta la tabella 
 		try {
 			caricaTabella((List<T>)presenter.processRequest("getAllContratti",null),tbContratto);

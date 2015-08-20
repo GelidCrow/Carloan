@@ -63,11 +63,6 @@
 		<method>check</method>
 	</call>
 	
-	<call id="VerificaContrattoModificato">
-		<class>business.model.checker.contratto.ContrattoEditChecker</class>
-		<method>check</method>
-	</call>
-	
 	<call id="getAllContratti">
 		<class>business.model.ModelContratto</class>
 		<method>getAll</method>

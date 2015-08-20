@@ -101,9 +101,13 @@ public class NuovoCliente extends Schermata{
 		LocalDate dParam= null;
 		
 		Cliente cliente= new Cliente();
-
-		cliente.setId(tw.getItems().size()+1);//qui setto l'id del cliente.
 		
+		//nota che nel db l'id non lo setto io , ma va in automatico, qui è solo una questione grafica.
+		if(tw.getItems().size()==0)
+			cliente.setId(1);//qui setto l'id del cliente.
+		else 
+			cliente.setId(tw.getItems().get(tw.getItems().size()-1).getId()+1);//qui setto l'id del cliente.
+	
 		cliente.setNome(txtNome.getText());
 		
 		cliente.setCognome(txtCognome.getText());

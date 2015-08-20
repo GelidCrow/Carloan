@@ -44,14 +44,16 @@ public class ModificaContratto extends NuovoContratto{
 	public void btnConferma(ActionEvent event){
 		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
 		contratto= (Contratto)scChiamante.getEntitaElementoSelezionato("Contratto");//ottengo le info sul cliente selezionato, ma ne cambio alcune
+	
 		Aggiornare=true;
 		contratto = prendiDatiDaView();
+		
 		if(Aggiornare==true){
 			try {
-				//presenter.processRequest("VerificaClienteModificato", cliente);
+				presenter.processRequest("VerificaContrattoModificato", contratto);
 				presenter.processRequest("ModificaContratto", contratto);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
-				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato("Contratto"),contratto,((SchermataGenerale)this.getChiamante()).getTable("Contratto"));			
+				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato("Contratto"),contratto,scChiamante.getTable("Contratto"));			
 			
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException

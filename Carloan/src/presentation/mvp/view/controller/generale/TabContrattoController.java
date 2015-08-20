@@ -1,12 +1,64 @@
 package presentation.mvp.view.controller.generale;
 
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import business.entity.Noleggio.Contratto;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class TabContrattoController<T> extends SchermataGenerale<Contratto>{
+import presentation.mvp.view.Presenter;
+import presentation.mvp.view.controller.Schermata;
+import utility.Finestra;
+import utility.ParametriFXML;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import business.entity.Noleggio.Contratto;
+import business.model.Exception.CommonException;
+
+public class TabContrattoController {
 	
-	private ObservableList<TableColumn<T,?>> contratto;
+	private ObservableList<TableColumn<Contratto,?>> contratto;
+		
+	private TableView<Contratto> tbContratto;
+
+	private Schermata schermata;
+	
+	private ParametriFXML FXMLParameter;
+	
+	private Presenter presenter;
+	
+	private 
+	/**
+	 * 
+	 * @param schermata importante per settare la view
+	 */
+	public void NuovoContratto(){
+		FXMLParameter.setTitolo("Nuovo Contratto");
+	    FXMLParameter.setRidimensionabile(false);
+		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataNuovoContratto",Modality.APPLICATION_MODAL);
+	
+	}		
+	public void ModificaContratto(Schermata schermata) throws CommonException{
+		FXMLParameter.setTitolo("Modifica Contratto");
+	    FXMLParameter.setRidimensionabile(false);
+	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
+	    		throw new CommonException("Nessun elemento selezionato");
+	    }
+	    else{
+	    	if(((Contratto)tbContratto.getSelectionModel().getSelectedItem()).getStato().equals("Aperto")){
+	    		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataModificaContratto",Modality.APPLICATION_MODAL);
+	    	}
+	    	else{
+	    		throw new CommonException("Attenzione, non è più possibile  modificare questo contratto");
+	    	}
+	    }
+	}
+	
+	public void ChiudiContratto(Schermata schermata){
+		
+	}	
 	/**
 	 * <p>Effettua il binding con i singoli campi della tabella</p>
 	 */
@@ -25,23 +77,19 @@ public class TabContrattoController<T> extends SchermataGenerale<Contratto>{
 	
 		contratto.get(5).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getCliente().getNomeCognome());
 
-		/*contratto.get(7).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getIDAmministratore());
 
-		contratto.get(8).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getPatenteGuidaT());
+	}
+
+	TabContrattoController(TableView<Contratto> tbContratto){
+		contratto= tbContratto.getColumns();
 		
-		contratto.get(9).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getNumCellT());
-
-		contratto.get(10).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getNumTelT());
-
-		contratto.get(11).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getPartitaIvaT());
-
-		contratto.get(12).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getEmailT());*/
-
-	}
-
-	TabContrattoController(ObservableList<TableColumn<T, ?>> observableList){
-		contratto= observableList;
+		this.tbContratto=tbContratto;
+		
 		bindingValuesContratto();
+		
+		presenter=new Presenter();
+		FXMLParameter = new ParametriFXML(null,false);
 	}
+	
 	
 }

@@ -10,7 +10,9 @@ import java.util.ResourceBundle;
 
 import business.entity.Cliente;
 import business.entity.Utente;
+import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
+import business.entity.Gestori.SupervisoreSede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.StatoContratto;
 import business.model.Exception.CommonException;
@@ -75,7 +77,7 @@ public class NuovoContratto extends Schermata{
 			tw= ((SchermataGenerale)this.getChiamante()).getTable("Contratto");
 			Contratto contratto= prendiDatiDaView();
 			try {
-					//presenter.processRequest("VerificaContratto", contratto);	
+					presenter.processRequest("VerificaContratto", contratto);	
 					presenter.processRequest("InserimentoContratto", contratto);
 					//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
 					((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(contratto,tw);
@@ -95,7 +97,11 @@ public class NuovoContratto extends Schermata{
 		
 		Contratto contratto = new Contratto();
 		
-		contratto.setIDContratto(tw.getItems().size()+1);
+		//questa è solo una questione grafica..
+		if(tw.getItems().size()==0)
+			contratto.setIDContratto(1);//qui setto l'id del cliente.
+		else
+			contratto.setIDContratto(tw.getItems().get(tw.getItems().size()-1).getIDContratto()+1);//l'id del contratto nuovo sarà dato a partire dall'ultimo id dell'ultimo elemento 
 		
 		contratto.setCliente(tbcliente.getSelectionModel().getSelectedItem());//prende l'id del cliente selezionato
 		
@@ -103,8 +109,16 @@ public class NuovoContratto extends Schermata{
 		
 		contratto.setStato(StatoContratto.Aperto.toString());
 	
+		//qui setto l'id dell'utente del sistema
 		if(Utente.getUtente() instanceof Operatore)
 			contratto.setIDOperatore(1);
+		else if(Utente.getUtente() instanceof Amministratore)
+			contratto.setIDAmministratore(1);
+		else if(Utente.getUtente() instanceof SupervisoreSede)
+			contratto.setIDSupervisoreSede(1);
+		else 
+			contratto.setIDSupervisoreAgenzia(1);
+		//..... ne mancano altri di controlli cosi.
 		
 		dParam= dCreazione.getValue();
 		contratto.setDataCreazione(Date.valueOf(dParam));

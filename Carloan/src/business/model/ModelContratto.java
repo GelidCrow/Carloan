@@ -7,6 +7,7 @@ import integration.DAO.entity.DAOCliente;
 import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Noleggio.Contratto;
+import business.model.Exception.CommonException;
 import integration.DAO.entity.DAOContratto;
 
 public class ModelContratto implements Model{
@@ -30,7 +31,7 @@ public class ModelContratto implements Model{
 	}
 	
 	@Override
-	public void aggiornamento(Entity parameter) {
+	public void aggiornamento(Entity parameter) throws CommonException {
 		try {
 			Contratto contratto = (Contratto) parameter;
 			
