@@ -51,7 +51,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 
 	private TabContrattoController tbContrattoController;
 	
-	private Schermata schermata= this;
 	
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
