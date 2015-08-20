@@ -23,14 +23,12 @@ public class Finestra {
 		ReturnableStage stager;
 		try {
 			stager = (ReturnableStage) presenter.processRequest(schermata,FXMLParameter);
-			stager.setStageToWindow(stager);
 			stager.setControllerChiamante(chiamante);
 			stager.showWindow(modality);
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
 				| InvocationTargetException | CommonException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

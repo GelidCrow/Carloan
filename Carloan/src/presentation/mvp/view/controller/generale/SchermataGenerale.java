@@ -191,7 +191,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * <p>Elmina i tab che non possono essere usati dall'utente corrente</p>
 	 */
 	public void settaSchermataPerUtente(){
-		if(UtenteCorrente.getUtente().getClass().getName().equals("Operatore")){
+		if(UtenteCorrente.getUtente() instanceof Operatore){
 			for(int i=6; i<11;i++){
 				panes.get(i).setDisable(true);
 			}
@@ -220,8 +220,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			e.printStackTrace();
 		}
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
-		//settaSchermataPerUtente();
-	}
-	
-	
+		settaSchermataPerUtente();
+	}	
 }

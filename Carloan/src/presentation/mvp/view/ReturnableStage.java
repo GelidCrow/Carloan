@@ -33,6 +33,7 @@ public class ReturnableStage extends Stage {
 			}
 			this.schermata = loader.getController();
            	
+			schermata.setStage(ReturnableStage.this);
             scene = new Scene(root);
             
 			this.setTitle(param.getTitolo());

@@ -45,7 +45,7 @@ public class Login extends Schermata{
 			//la password viene crittografata e settata
 			credenziali.setPassword(Crittografia.CriptaPassword(credenziali.getPassword()));
 			
-			Entity x=(Entity) presenter.processRequest("login",credenziali);
+			Utente x=(Utente) presenter.processRequest("login",credenziali);
 			
 			
 			if(x!=null){
@@ -76,7 +76,7 @@ public class Login extends Schermata{
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
 					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataGenerale",Modality.APPLICATION_MODAL);
-					UtenteCorrente.setUtente((Operatore)x);
+					UtenteCorrente.setUtente(x);
 			}
 			}
 			else{
