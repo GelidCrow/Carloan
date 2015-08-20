@@ -1,19 +1,14 @@
 package presentation.mvp.view.controller.generale;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import utility.Finestra;
 import utility.ParametriFXML;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 import business.entity.Noleggio.Contratto;
 import business.model.Exception.CommonException;
 
@@ -29,7 +24,6 @@ public class TabContrattoController {
 	
 	private Presenter presenter;
 	
-	private 
 	/**
 	 * 
 	 * @param schermata importante per settare la view
@@ -40,7 +34,7 @@ public class TabContrattoController {
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataNuovoContratto",Modality.APPLICATION_MODAL);
 	
 	}		
-	public void ModificaContratto(Schermata schermata) throws CommonException{
+	public void ModificaContratto() throws CommonException{
 		FXMLParameter.setTitolo("Modifica Contratto");
 	    FXMLParameter.setRidimensionabile(false);
 	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
@@ -51,13 +45,25 @@ public class TabContrattoController {
 	    		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataModificaContratto",Modality.APPLICATION_MODAL);
 	    	}
 	    	else{
-	    		throw new CommonException("Attenzione, non è più possibile  modificare questo contratto");
+	    		throw new CommonException("Operazione non disponibile per questo contratto");
 	    	}
 	    }
 	}
 	
-	public void ChiudiContratto(Schermata schermata){
-		
+	public void ChiudiContratto() throws CommonException{
+		FXMLParameter.setTitolo("Chiudi Contratto");
+	    FXMLParameter.setRidimensionabile(false);
+	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
+	    		throw new CommonException("Nessun elemento selezionato");
+	    }
+	    else{
+	    	if(((Contratto)tbContratto.getSelectionModel().getSelectedItem()).getStato().equals("Aperto")){
+	    		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataChiusuraContratto",Modality.APPLICATION_MODAL);
+	    	}
+	    	else{
+	    		throw new CommonException("Operazione non disponibile per questo contratto");
+	    	}
+	    }
 	}	
 	/**
 	 * <p>Effettua il binding con i singoli campi della tabella</p>
@@ -80,6 +86,11 @@ public class TabContrattoController {
 
 	}
 
+	
+	public void setSchermata(Schermata schermata){
+		this.schermata=schermata;
+	}
+	
 	TabContrattoController(TableView<Contratto> tbContratto){
 		contratto= tbContratto.getColumns();
 		

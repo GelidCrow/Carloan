@@ -114,11 +114,11 @@ public class NuovoCliente extends Schermata{
 		
 		cliente.setSesso(((RadioButton)group.getSelectedToggle()).getText());
 		
-		dParam= dEmissPatente.getValue();
-		cliente.setDataEmissPatente(Date.valueOf(dParam));
-		
 		dParam= dNascita.getValue();
 		cliente.setDatanascita(Date.valueOf(dParam));
+
+		dParam= dEmissPatente.getValue();
+		cliente.setDataEmissPatente(Date.valueOf(dParam));
 		
 		cliente.setIndirizzo(txtIndirizzo.getText());
 		
@@ -130,7 +130,9 @@ public class NuovoCliente extends Schermata{
 		
 		cliente.setPatenteGuida(txtPatGuida.getText());
 		
-		dParam=  dScadPatente.getValue();
+		//data scadenza patente -> dataEmissione + 10 anni.
+		dParam=  cliente.getDataScadPatente().toLocalDate();
+		dParam.plusYears(10);
 		cliente.setDataScadPatente(Date.valueOf(dParam));
 		
 		cliente.setPartitaIva(txtPartIva.getText());
@@ -149,6 +151,7 @@ public class NuovoCliente extends Schermata{
 		rdMaschio.setSelected(true);
 		
 		rdFemmina.setToggleGroup(group);
-		
+		dEmissPatente.setValue(LocalDate.of(1980,1,1));
+		dNascita.setValue(LocalDate.of(1980,1,1));
 	}
 }

@@ -37,27 +37,30 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	private TabPane tabPane;	
 	@FXML
-	protected TableView<T> tbCliente;	
+	private TableView<T> tbCliente;	
 	@FXML
-	protected TableView<T> tbContratto;
+	private TableView<T> tbContratto;
 	
 	private ObservableList<Tab> panes;
 	
 	private boolean tbClienteCaricata=false;
 	
-	private TabClientiController<T> tbClientController;
+	private TabClientiController tbClientController;
 
 	private TabContrattoController tbContrattoController;
 	
+	private Schermata schermata= this;
 	
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
+		tbContrattoController.setSchermata(this);
 		tbContrattoController.NuovoContratto();	//passo la schermata chiamante
 	}	
 	@FXML
 	public void btnModificaContratto(ActionEvent e){
 		try {
-			tbContrattoController.ModificaContratto(this);
+			tbContrattoController.setSchermata(this);
+			tbContrattoController.ModificaContratto();
 		} catch (CommonException e1) {
 			e1.printStackTrace();
 		}
@@ -65,25 +68,22 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	@FXML
 	public void btnChiudiContratto(ActionEvent e) {
-		tbContrattoController.ChiudiContratto(this);
+		try {
+			tbContrattoController.ChiudiContratto();
+		} catch (CommonException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}		
 	
 	@FXML
 	public void btnNuovoCliente(ActionEvent e){
-		FXMLParameter.setTitolo("Nuovo Cliente");
-	    FXMLParameter.setRidimensionabile(false);
-		Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataNuovoCliente",Modality.APPLICATION_MODAL);
+		tbClientController.NuovoCliente();
 	}
 	
 	@FXML
 	public void btnModificaCliente(ActionEvent e) throws CommonException{
-		FXMLParameter.setTitolo("Modifica Cliente");
-	    FXMLParameter.setRidimensionabile(false);
-	    if(tbCliente.getSelectionModel().getSelectedIndex()< 0){
-	    		throw new CommonException("Nessun elemento selezionato");
-	    }
-	    else
-	    	Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataModificaCliente",Modality.APPLICATION_MODAL);	
+		tbClientController.ModificaCliente();
 	}
 	@FXML
 	public void btnLogout(ActionEvent e){
@@ -106,6 +106,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * <p>Modifica un elemento da una tabella, lo rimuove e poi lo aggiunge in ultima posizione, oppure nel caso era l'ultimo quello modificato lo aggiunge alla 2 posizione</p>
 	 */
 	public void aggiornaElementotabella(int id,T elem,TableView<T> table){
+
 		if(id>=0 && elem!=null && table!=null){
 			table.getItems().remove(id);
 			if(id==table.getItems().size()){
@@ -170,7 +171,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				if(tbClienteCaricata==false){
 					try {
 						//serve solo per fargli fare il binding con le colonne
-						tbClientController = new TabClientiController<T>(tbCliente.getColumns());
+						tbClientController = new TabClientiController((TableView<Cliente>)tbCliente,schermata);
 						//carica la prima volta la tabella 
 						tbClienteCaricata = caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
 					} catch (InstantiationException | IllegalAccessException| ClassNotFoundException| NoSuchMethodException | SecurityException

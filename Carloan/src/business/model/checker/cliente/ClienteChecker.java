@@ -1,6 +1,10 @@
 package business.model.checker.cliente;
 
 
+import java.sql.Date;
+import java.time.LocalDate;
+
+import javafx.scene.control.DatePicker;
 import business.entity.Cliente;
 import business.entity.Entity;
 import business.model.Exception.CommonException;
@@ -33,9 +37,12 @@ public class ClienteChecker implements Checker{
 
     private static final int NUMPATENTE_VALUE= 10;
     
-    
+    private static final DatePicker date = new DatePicker(LocalDate.of(1905,1, 1));
+    private static final LocalDate dateLimit= date.getValue();
     protected Cliente cliente;
     protected boolean isValid;
+    
+    
     
 	@Override
 	public void check(Entity entity) throws CommonException {
@@ -43,6 +50,8 @@ public class ClienteChecker implements Checker{
         checkNome();
         checkCognome();
         checkSesso();
+        checkDataNascita();
+        checkDataEmissPatente();
         checkIndirizzo();
         checkCodFiscale();
         checkNumCell();
@@ -52,6 +61,20 @@ public class ClienteChecker implements Checker{
         checkEmail();
 	}
 	
+	public void checkDataNascita() throws CommonException {
+		if(cliente.getDatanascita().before(Date.valueOf(dateLimit))){
+        	throw new CommonException("Data di nascita non valida");
+		}
+	}
+	
+	public void checkDataEmissPatente() throws CommonException {
+		
+		if(cliente.getDataEmissPatente()==null || cliente.getDataEmissPatente().before(cliente.getDatanascita())){
+        	throw new CommonException("Data emissione patente non valida");
+		}
+	}
+	
+
 	
 	public void checkNome() throws CommonException{
 		int length;

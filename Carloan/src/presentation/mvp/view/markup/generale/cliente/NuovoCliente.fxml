@@ -39,7 +39,6 @@
                   <Separator prefWidth="200.0" />
                   <TextField fx:id="txtPatGuida" />
                   <Separator prefWidth="200.0" />
-                  <DatePicker fx:id="dScadPatente" prefHeight="25.0" prefWidth="240.0" />
                   <Separator prefWidth="200.0" />
                   <TextField fx:id="txtPartIva" />
                   <Separator prefWidth="200.0" />
@@ -51,9 +50,9 @@
                   <Label layoutX="53.0" layoutY="124.0" prefHeight="33.0" prefWidth="101.0" text="Nome *" />
                   <Label layoutX="53.0" layoutY="172.0" prefHeight="29.0" prefWidth="112.0" text="Cognome *" />
                   <Label layoutX="59.0" layoutY="217.0" prefHeight="24.0" prefWidth="113.0" text="Sesso *" />
-                  <Label layoutX="59.0" layoutY="262.0" prefHeight="29.0" prefWidth="136.0" text="Data Emissione Patente *" />
                   <Separator prefHeight="10.0" prefWidth="155.0" visible="false" />
-                  <Label text="Data di nascita *" />
+                  <Label prefHeight="26.0" prefWidth="87.0" text="Data di nascita *" />
+                  <Label layoutX="59.0" layoutY="262.0" prefHeight="29.0" prefWidth="136.0" text="Data Emissione Patente *" />
                   <Separator prefHeight="14.0" prefWidth="155.0" visible="false" />
                   <Label prefHeight="26.0" prefWidth="125.0" text="Indirizzo *" />
                   <Separator prefHeight="0.0" prefWidth="360.0" visible="false" />
@@ -63,11 +62,8 @@
                   <Separator prefHeight="15.0" prefWidth="155.0" visible="false" />
                   <Label text="Numero Telefono " />
                   <Separator prefHeight="12.0" prefWidth="155.0" visible="false" />
-                  <Label prefHeight="17.0" prefWidth="128.0" text="Patente di Guida *" />
-                  <Separator prefHeight="17.0" prefWidth="155.0" visible="false" />
-                  <Label text="Data scadenza patente *" />
-                  <Separator prefHeight="14.0" prefWidth="360.0" visible="false" />
-                  <Label prefHeight="10.0" prefWidth="53.0" text="Partita Iva" />
+                  <Label prefHeight="26.0" prefWidth="128.0" text="Patente di Guida *" />
+                  <Label prefHeight="21.0" prefWidth="100.0" text="Partita Iva" />
                   <Separator prefHeight="7.0" prefWidth="360.0" visible="false" />
                   <Label prefHeight="8.0" prefWidth="119.0" text="Email *" />
                   <Separator prefHeight="37.0" prefWidth="360.0" visible="false" />

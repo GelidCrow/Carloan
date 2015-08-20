@@ -50,7 +50,7 @@ public class ModificaContratto extends NuovoContratto{
 		
 		if(Aggiornare==true){
 			try {
-				presenter.processRequest("VerificaContrattoModificato", contratto);
+				presenter.processRequest("VerificaContratto", contratto);
 				presenter.processRequest("ModificaContratto", contratto);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
 				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato("Contratto"),contratto,scChiamante.getTable("Contratto"));			
@@ -59,7 +59,6 @@ public class ModificaContratto extends NuovoContratto{
 					| ClassNotFoundException | NoSuchMethodException
 					| SecurityException | IllegalArgumentException
 					| InvocationTargetException | CommonException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
 		}
