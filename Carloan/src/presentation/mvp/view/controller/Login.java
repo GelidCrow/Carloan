@@ -47,37 +47,31 @@ public class Login extends Schermata{
 			
 			Utente x=(Utente) presenter.processRequest("login",credenziali);
 			
-			
+
+		   
 			if(x!=null){
+				 FXMLParameter.setRidimensionabile(false);
+				 FXMLParameter.setHand(true);
+					this.chiudiFinestra();
+					UtenteCorrente.setUtente(x);
 				/*Esito del log in positivo*/
 				if(x instanceof Amministratore){
 					FXMLParameter.setTitolo("Amministratore");
-				    FXMLParameter.setRidimensionabile(false);
-					this.chiudiFinestra();
 					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataGenerale",Modality.APPLICATION_MODAL);
-					UtenteCorrente.setUtente((Amministratore)x);
 				}
 				else if(x instanceof SupervisoreAgenzia){
 					FXMLParameter.setTitolo("Supervisore Agenzia");
-					FXMLParameter.setRidimensionabile(false);
-					this.chiudiFinestra();
 					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataGenerale",Modality.APPLICATION_MODAL);
-					UtenteCorrente.setUtente((SupervisoreAgenzia)x);
 				}
 				else if(x instanceof SupervisoreSede){
 					FXMLParameter.setTitolo("Supervisore Sede");
-				    FXMLParameter.setRidimensionabile(false);
-					this.chiudiFinestra();
-					Finestra.visualizzaFinestra(this.presenter, FXMLParameter,this,"MostraSchermataGenerale",Modality.APPLICATION_MODAL);
-					UtenteCorrente.setUtente((SupervisoreSede)x);
+				
+					Finestra.visualizzaFinestra(this.presenter, FXMLParameter,this,"MostraSchermataGenerale",Modality.APPLICATION_MODAL);	
 				}
 				else if(x instanceof Operatore){
 				    FXMLParameter.setTitolo("Operatore");
-				    FXMLParameter.setRidimensionabile(false);
-					this.chiudiFinestra();
 					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataGenerale",Modality.APPLICATION_MODAL);
-					UtenteCorrente.setUtente(x);
-			}
+				}
 			}
 			else{
 				AlertView.getAlertView("Autenticazione fallita : Ricontrollare l'Username e la password inserite",AlertType.ERROR);
@@ -88,6 +82,8 @@ public class Login extends Schermata{
 			e1.printStackTrace();
 		}
 	}
+	
+	
 	
 	@FXML
 	public void btnEsci(ActionEvent e){

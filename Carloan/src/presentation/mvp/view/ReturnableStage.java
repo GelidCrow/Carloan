@@ -32,7 +32,7 @@ public class ReturnableStage extends Stage {
 			}
 			this.schermata = loader.getController();
            	
-			schermata.setStage(this);
+			schermata.setStage(this,param.getHandChiusura());
 			
             scene = new Scene(root);
             

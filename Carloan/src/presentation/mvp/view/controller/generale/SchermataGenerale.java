@@ -211,8 +211,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 */
 	public void settaSchermataPerUtente(){
 		if(UtenteCorrente.getUtente() instanceof Operatore){
-			for(int i=6; i<11;i++){
-				panes.get(i).setDisable(true);
+			for(int i=0; i<7;i++){
+				panes.remove(panes.size()-1);
 			}
 		}
 		else 

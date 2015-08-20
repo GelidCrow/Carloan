@@ -4,12 +4,18 @@ import integration.DAO.connection.Connection;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import Errori.AlertView;
 import presentation.mvp.view.Presenter;
+import utility.Finestra;
 import utility.ParametriFXML;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 /**
@@ -38,27 +44,47 @@ public abstract class Schermata implements Initializable{
 		 stage.close();
 	 }
 	
-	public void setStage(Stage stage){
-		stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, new EventHandler<WindowEvent>()
+	public void setStage(Stage stage,boolean hand){
+		this.stage=stage;
+		if(hand==true){
+			stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, new EventHandler<WindowEvent>()
 		        {
 		            @Override
 		            public void handle(WindowEvent window)
 		            {
 		                try {
-							Connection.chiudiConnessione();
-						} catch (SQLException e) {
+		                	Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);
+		           		 
+		            		if(result.isPresent() && result.get() == ButtonType.OK){
+		            			chiudiFinestra();
+		            			try {
+		            				Connection.chiudiConnessione();
+		            			} catch (SQLException e1) {
+		            				// TODO Auto-generated catch block
+		            				e1.printStackTrace();
+		            			}
+		            			FXMLParameter.setTitolo("Login");
+		            		    FXMLParameter.setRidimensionabile(false);
+		            			Finestra.visualizzaFinestra(presenter,FXMLParameter,null,"MostraLogin",Modality.WINDOW_MODAL);
+		            			Connection.chiudiConnessione();
+		            		}
+		                
+						
+		            } catch (SQLException e) {
 							e.printStackTrace();
 						}
 		            }
 		        });
-		this.stage=stage;
+		} 
 	}
 	public Stage getStage(){
 		return stage;
 	}
 	
 	public void setChiamante(Schermata chiamante){
+
 		this.chiamante=chiamante;
+		
 	}
 	public Schermata getChiamante(){
 		return chiamante;
@@ -68,6 +94,6 @@ public abstract class Schermata implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 
-		FXMLParameter = new ParametriFXML(null,false);	
+		FXMLParameter = new ParametriFXML(null,false,false);	
 	}
 }

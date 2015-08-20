@@ -14,7 +14,7 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage stage) {
-		parameter= new ParametriFXML("Login",false);
+		parameter= new ParametriFXML("Login",false,false);
 		presenter= new Presenter();
 		initRootLayout();
 	}
