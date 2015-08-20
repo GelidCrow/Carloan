@@ -215,8 +215,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				panes.remove(panes.size()-1);
 			}
 		}
-		else 
-			System.out.println("Ciao");
 	}
 	
 	@SuppressWarnings({ "unchecked"})
