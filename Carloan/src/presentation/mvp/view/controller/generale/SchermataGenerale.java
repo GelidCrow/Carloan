@@ -190,6 +190,9 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 						tbClientController = new TabClientiController((TableView<Cliente>)tbCliente,SchermataGenerale.this);
 						//carica la prima volta la tabella 
 						tbClienteCaricata = caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
+					
+						
+					
 					} catch (InstantiationException | IllegalAccessException| ClassNotFoundException| NoSuchMethodException | SecurityException
 							| IllegalArgumentException	
 							| InvocationTargetException
@@ -221,32 +224,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
-	
-		
-		stage.addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>()
-		        {
-		            @Override
-		            public void handle(WindowEvent window)
-		            {
-		                try {
-							Connection.chiudiConnessione();
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-		            }
-		        });
-		/*getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
-	        @Override
-	        public void handle(final WindowEvent event) {
-	        	try {
-	    			Connection.chiudiConnessione();
-	    		} catch (SQLException e1) {
-	    			// TODO Auto-generated catch block
-	    			e1.printStackTrace();
-	    		}
-	        }
-		});*/
 		
 		panes= tabPane.getTabs();
 		//serve solo per fargli fare il binding con le colonne
