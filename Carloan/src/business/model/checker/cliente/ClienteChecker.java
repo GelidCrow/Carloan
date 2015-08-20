@@ -28,7 +28,7 @@ public class ClienteChecker implements Checker{
     protected static final int MIN_PARTITAIVA_VALUE=0;
     protected static final int MAX_PARTITAIVA_VALUE=11;
     
-    protected static final int MIN_EMAIL_VALUE=10;
+    protected static final int MIN_EMAIL_VALUE=5;
     protected static final int MAX_EMAIL_VALUE=20;
     
     protected static final int NUMCELL_VALUE= 10;
@@ -163,7 +163,7 @@ public class ClienteChecker implements Checker{
         isValid =    (length >= MIN_EMAIL_VALUE)
                 && (length <= MAX_EMAIL_VALUE);
         if (!isValid) {
-        	throw new CommonException("Email non valido");
+        	throw new CommonException("Email non valida");
         }
 	}
 
