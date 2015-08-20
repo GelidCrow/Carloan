@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 
 import business.entity.Cliente;
 import business.entity.Entity;
+import business.entity.UtenteCorrente;
+import business.entity.Gestori.Operatore;
 import business.entity.Noleggio.Contratto;
 import business.model.Exception.CommonException;
 import presentation.mvp.view.Presenter;
@@ -54,7 +56,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
 		tbContrattoController.setSchermata(this);
-		tbContrattoController.NuovoContratto();	//passo la schermata chiamante
+		tbContrattoController.NuovoContratto();
 	}	
 	@FXML
 	public void btnModificaContratto(ActionEvent e){
@@ -186,6 +188,19 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			}
 	    }
 	} 
+	/**
+	 * <p>Elmina i tab che non possono essere usati dall'utente corrente</p>
+	 */
+	public void settaSchermataPerUtente(){
+		if(UtenteCorrente.getUtente().getClass().getName().equals("Operatore")){
+			for(int i=6; i<11;i++){
+				panes.get(i).setDisable(true);
+			}
+		}
+		else 
+			System.out.println("Ciao");
+	}
+	
 	@SuppressWarnings({ "unchecked"})
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -206,5 +221,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			e.printStackTrace();
 		}
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
+		settaSchermataPerUtente();
 	}
+	
+	
 }

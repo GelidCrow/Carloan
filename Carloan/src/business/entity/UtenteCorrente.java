@@ -1,12 +1,12 @@
 package business.entity;
 
 public class UtenteCorrente {
-	static Entity utente;
+	static Utente utente;
 	
-	public static Entity getUtente(){
+	public static Utente getUtente(){
 		return utente;
 	}
-	public static void setUtente(Entity entity){
+	public static void setUtente(Utente entity){
 		utente= entity;
 	}
 }

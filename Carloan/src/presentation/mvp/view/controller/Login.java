@@ -62,12 +62,14 @@ public class Login extends Schermata{
 					FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
 					Finestra.visualizzaFinestra(this.presenter,FXMLParameter,this,"MostraSchermataGenerale",Modality.APPLICATION_MODAL);
+					UtenteCorrente.setUtente((SupervisoreAgenzia)x);
 				}
 				else if(x instanceof SupervisoreSede){
 					FXMLParameter.setTitolo("Supervisore Sede");
 				    FXMLParameter.setRidimensionabile(false);
 					this.chiudiFinestra();
 					Finestra.visualizzaFinestra(this.presenter, FXMLParameter,this,"MostraSchermataGenerale",Modality.APPLICATION_MODAL);
+					UtenteCorrente.setUtente((SupervisoreSede)x);
 				}
 				else if(x instanceof Operatore){
 				    FXMLParameter.setTitolo("Operatore");
