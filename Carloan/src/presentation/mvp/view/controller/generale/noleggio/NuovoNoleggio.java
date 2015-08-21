@@ -59,7 +59,7 @@ public class NuovoNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	private TableView<T> tbRestituzione;
 	@FXML
-	private TableView<T> tbOptional;	
+	private TableView<T> tbOptionalNoleggio;	
 	@FXML
 	private TableView<T> tbOptionalScelti;
 	@FXML
@@ -189,7 +189,34 @@ public class NuovoNoleggio<T extends Entity> extends Schermata{
 		ObservableList<T> obsList= FXCollections.observableList(list);
 		table.setItems(obsList);
 	}
-	
+	@SuppressWarnings("unchecked")
+	private void inizializzaTabelleOptional(){
+		List<Optional> optional;
+		try {
+			optional = (List<Optional>)presenter.processRequest("getAllOptional",null);
+			Set<Optional> viewOptional = new HashSet<Optional>();
+			viewOptional.addAll(optional); 
+			List<OptionalAuto> optAuto = new ArrayList<OptionalAuto>();
+			List<OptionalNoleggio> optNoleggio = new ArrayList<OptionalNoleggio>();
+			for(Optional op: viewOptional){
+				if(op instanceof OptionalAuto){
+					optAuto.add((OptionalAuto) op);
+				}
+				else 
+					optNoleggio.add((OptionalNoleggio) op);
+			}
+			caricaTabella((List<T>) optAuto, tbOptionalAuto);
+			caricaTabella((List<T>) optAuto, tbOptionalNoleggio);
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -197,47 +224,22 @@ public class NuovoNoleggio<T extends Entity> extends Schermata{
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
 
-		inizializzaToggleButton();
 		bindingValuesRestituzione();
 		bindingValuesOptional();
 		bindingValuesGuidatore();
 		bindingValuesContratto();
 		bindingValuesAutoveicolo();
 		bindingValuesCartaCredito();
-		
+
+		inizializzaToggleButton();
+		inizializzaTabelleOptional();
 		try {
 			caricaTabella((List<T>)presenter.processRequest("getAllSedi",null), tbRestituzione);
-			caricaTabella((List<T>)presenter.processRequest("getAllOptional",null), tbOptional);
 			caricaTabella((List<T>)presenter.processRequest("getAllContratti",null), tbContratto);
 			
-			List<Optional> optional = (List<Optional>)presenter.processRequest("getAllOptional",null);
-			Set<Optional> viewOptional = new HashSet<Optional>();
-			viewOptional.addAll(optional); 
-			for(Optional op: viewOptional){
-				if(op instanceof OptionalAuto){
-					
-				}
-			}
-			caricaTabella()
-			
-			List<OptionalNoleggio> optionalAuto = new ArrayList<OptionalNoleggio>();
-			
-			List<OptionalNoleggio> optionalNoleggio = new ArrayList<OptionalNoleggio>();
-			for(Optional op: optional){
-				if(op instanceof Gps){
-					
-				}
-			}
 			
 
-			caricaTabella((List<T>)presenter.processRequest("getAllOptional",null), tbOptional);
-
-			caricaTabella((List<T>)presenter.processRequest("getAllOptional",null), tbOptional);
-
-			caricaTabella((List<T>)presenter.processRequest("getAllOptional",null), tbOptional);
-			
-
-			caricaTabella((List<T>)presenter.processRequest("getAllOptional",null), tbOptional);
+		
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException

@@ -237,11 +237,9 @@ public class DAOContratto implements DAO{
         } 
 		return risultato;
 	}
-
 	@Override
 	public Entity lettura(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

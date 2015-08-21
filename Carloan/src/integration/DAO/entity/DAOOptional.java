@@ -117,7 +117,8 @@ public class DAOOptional implements DAO{
 	}
 
   	private Optional ottieniOptional(ResultSet resultset){
-
+  		DAOGuidatore daoGuidatore ;
+		daoGuidatore= (DAOGuidatore) daofactory.getDao("DAOGuidatore");
         try {
 			switch (resultset.getString(5)){
 				case "Gps": 

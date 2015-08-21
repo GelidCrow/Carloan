@@ -1,6 +1,9 @@
 package business.model;
 
+import java.util.List;
+
 import integration.DAO.DaoFactory;
+import integration.DAO.entity.DAOCliente;
 import integration.DAO.entity.DAONoleggio;
 import business.entity.Entity;
 import business.entity.Noleggio.Noleggio;
@@ -43,7 +46,21 @@ public class ModelNoleggio implements Model{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	
+	public List<Noleggio> getAll(){
+		try {
+		daofactory= DaoFactory.getDaoFactory(1);
+		
+		daoNoleggio= (DAONoleggio) daofactory.getDao("DAONoleggio");
+		
+		return daoNoleggio.getAll();
+				
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	return null;	
+	}
 
 
 	

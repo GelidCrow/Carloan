@@ -6,23 +6,13 @@ import integration.DAO.connection.Connection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
 import Errori.AlertView;
-import business.entity.Cliente;
 import business.entity.Entity;
-import business.entity.Auto.Autoveicolo;
-import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
-import business.entity.Noleggio.Optional.Assicurazione_KASKO;
-import business.entity.Noleggio.Optional.CateneNeve;
-import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
-import business.entity.Noleggio.Optional.Gps;
-import business.entity.Noleggio.Optional.Guidatore;
-import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
-import business.entity.Noleggio.Optional.Optional;
-import business.entity.Noleggio.Optional.Seggiolino;
 import business.model.Exception.CommonException;
 
 
@@ -34,8 +24,6 @@ public class DAONoleggio implements DAO{
 	public DAONoleggio(DaoFactory dao){
 		this.daofactory = dao;		
 	}
-	
-	@SuppressWarnings("resource")
 	@Override
 	public void creazione(Entity x) {
 		String insert= "INSERT INTO Noleggio"
@@ -116,11 +104,11 @@ public class DAONoleggio implements DAO{
 		Connection connection= Connection.getConnection(daofactory);
 		 
 		ResultSet readQueryResultSet = null;
-		List<Contratto> risultato = null;
+		List<Noleggio> risultato = null;
 		try {
 			readQueryResultSet = connection.executeRead(readQuery);	
 			risultato= creaElencoNoleggi(readQueryResultSet);
-		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			AlertView.getAlertView("Non è stato possibile leggere i contratti" , AlertType.ERROR);
 		}
@@ -133,5 +121,34 @@ public class DAONoleggio implements DAO{
 			}
 		}
 		return risultato;
+	}
+	
+	private List<Noleggio> creaElencoNoleggi(ResultSet resultset){
+		List<Noleggio> noleggi=new LinkedList<Noleggio>();
+        try {
+         if(resultset!=null){
+            while (resultset.next()) {
+            	ottieniNoleggio(resultset);
+                Noleggio noleggio= ottieniNoleggio(resultset);
+                noleggi.add(noleggio);
+            }
+         }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } 
+		return noleggi;
+	}
+	
+	private Noleggio ottieniNoleggio(ResultSet resultset){
+		 Noleggio noleggio = new Noleggio();
+		 try {
+			noleggio.setIDNoleggio(resultset.getInt(1));
+			//domani ripendo da qui
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return noleggio;
 	}
 }
