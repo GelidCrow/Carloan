@@ -119,7 +119,6 @@ public class NuovoContratto extends Schermata{
 			contratto.setIDSupervisoreSede(1);
 		else 
 			contratto.setIDSupervisoreAgenzia(1);
-		//..... ne mancano altri di controlli cosi.
 		
 		dParam= dCreazione.getValue();
 		contratto.setDataCreazione(Date.valueOf(dParam));
