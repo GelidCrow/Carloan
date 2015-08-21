@@ -106,7 +106,7 @@ public class DAOOptional implements DAO{
         try {
          if(resultset!=null){
             while (resultset.next()) {
-                		 risultato.add((Optional)lettura(resultset.getInt(1)));
+                risultato.add(ottieniOptional(resultset));
             }
          }
         }
@@ -116,7 +116,7 @@ public class DAOOptional implements DAO{
 		return risultato;
 	}
 
-  	public Optional ottieniOptional(ResultSet resultset){
+  	private Optional ottieniOptional(ResultSet resultset){
 
         try {
 			switch (resultset.getString(5)){

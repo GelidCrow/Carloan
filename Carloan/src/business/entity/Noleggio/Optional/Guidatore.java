@@ -8,16 +8,29 @@ private String IDGuidatore;
 private String Indirizzo;
 private String CodFiscale;
 private String PatenteGuida;
-public Guidatore(Integer id,String nome, String cognome, String iDGuidatore,
+private int idOptional;
+
+public Guidatore(Integer id,String nome, String cognome,
 		String indirizzo, String codFiscale, String patenteGuida) {
 	super();
 	Nome = nome;
 	Cognome = cognome;
-	IDGuidatore = iDGuidatore;
 	Indirizzo = indirizzo;
 	CodFiscale = codFiscale;
 	PatenteGuida = patenteGuida;
 	this.id=id;
+}
+
+public int getIdOptional() {
+	return idOptional;
+}
+public void setIdOptional(int idOptional) {
+	this.idOptional = idOptional;
+}
+public Guidatore(){
+	
+
+
 }
 public Integer getId() {
 	return id;
@@ -61,5 +74,4 @@ public String getPatenteGuida() {
 public void setPatenteGuida(String patenteGuida) {
 	PatenteGuida = patenteGuida;
 }
-
 }
