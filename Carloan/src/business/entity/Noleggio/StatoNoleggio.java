@@ -1,5 +1,5 @@
 package business.entity.Noleggio;
 
-enum StatoNoleggio {
+public enum StatoNoleggio {
 	Aperto, uscita, rientro, annullato, chiuso;
 }

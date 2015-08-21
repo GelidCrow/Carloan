@@ -3,7 +3,16 @@ package business.entity.Noleggio.Optional;
 public abstract class Optional {
 	private float prezzo;
 	private String descrizione;
+	private Integer id;
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public float getPrezzo() {
 		return prezzo;
 	}
@@ -20,10 +29,11 @@ public abstract class Optional {
 		this.descrizione = descrizione;
 	}
 
-	public Optional(float prezzo, String descrizione) {
+	public Optional(Integer id,float prezzo, String descrizione) {
 		super();
 		this.prezzo = prezzo;
 		this.descrizione = descrizione;
+		this.id = id;
 	}
 	
 	

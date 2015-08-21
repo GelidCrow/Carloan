@@ -39,18 +39,30 @@ public class TabNoleggio {
 	}
 	
 	public void bindingValuesContratto(){
-		noleggio.get(0).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getIDContrattoT());
+		noleggio.get(0).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getIDNoleggioT());
+		noleggio.get(1).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getInizioNoleggioT());
+		noleggio.get(2).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getFineNoleggioT());
+		noleggio.get(3).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getRientroT());
+		noleggio.get(4).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getRientroT());
+		noleggio.get(5).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getKmBaseT());
+		noleggio.get(6).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getKmRientroT());
+		noleggio.get(7).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getStatoT());
+		noleggio.get(8).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getNumeroSettimaneT());
+		noleggio.get(9).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getNumeroGiorniT());
+		noleggio.get(10).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getNumeroChilometriT());
+		noleggio.get(11).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getLuogoRestituzioneT());
+		noleggio.get(12).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getAutoT());
+		noleggio.get(13).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getContrattoT());
+		noleggio.get(14).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getClienteT());
+		noleggio.get(15).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getNoteT());
 	}
 
+	
 	TabNoleggio(TableView<Noleggio> tbNoleggio,Schermata schermata){
 		noleggio= tbNoleggio.getColumns();
-		
 		this.schermata= schermata;
-		
 		this.tbNoleggio=tbNoleggio;
-		
 		bindingValuesContratto();
-		
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
 	}

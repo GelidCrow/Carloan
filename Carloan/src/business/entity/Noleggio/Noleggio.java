@@ -7,9 +7,13 @@ import javafx.beans.property. IntegerProperty;
 import javafx.beans.property. ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import business.entity.Entity;
 import business.entity.Auto.Autoveicolo;
+import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Optional.Optional;
+import business.entity.pagamento.Pagamento;
 /*diocane*/
 public class Noleggio extends Entity{
 	
@@ -22,19 +26,23 @@ public class Noleggio extends Entity{
 	private int KmPercorsi;
 	private int kmBase;
 	private List<Optional> optional;
-	private Integer LuogoRestituzione;
+	private List<Multa> multa;
+	private Sede LuogoRestituzione;
 	private int numeroSettimane;
 	private int numeroGiorni;
 	private int numeroChilometri;
 	private StatoNoleggio stato;
 	private Autoveicolo auto;
 	private Contratto contratto;
+	private String note;
+	private Pagamento pagamento;
+
 
 	private  IntegerProperty IDNoleggioT;
 	private  IntegerProperty kmRientroT;
 	private  IntegerProperty kmPercorsiT;
 	private  IntegerProperty KmBaseT;
-	private  IntegerProperty LuogoRestituzioneT;
+	private  StringProperty LuogoRestituzioneT;
 	private  IntegerProperty numeroSettimaneT;
 	private  IntegerProperty numeroGiorniT;
 	private  IntegerProperty numeroChilometriT;
@@ -42,11 +50,43 @@ public class Noleggio extends Entity{
 	private  ObjectProperty<LocalDate> FineNoleggioT;
 	private  ObjectProperty<LocalDate> rientroT;
 	private  ObjectProperty<LocalDate> ritiroT;
-	private  ObjectProperty<List<Optional>> optionalT;
-	private  ObjectProperty<StatoNoleggio> statoT;
-	private  ObjectProperty<Autoveicolo> autoT;
-	private  ObjectProperty<Contratto> contrattoT;
+	private  StringProperty statoT;
+	private  StringProperty autoT;
+	private  StringProperty contrattoT;
+	private	 StringProperty clienteT;
+	private	 StringProperty noteT;
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
 	
+	public List<Multa> getMulta() {
+		return multa;
+	}
+	public void setMulta(List<Multa> multa) {
+		this.multa = multa;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+	public StringProperty getClienteT() {
+		return clienteT;
+	}
+	public void setClienteT(StringProperty clienteT) {
+		this.clienteT = clienteT;
+	}
+	public StringProperty getNoteT() {
+		return noteT;
+	}
+	public void setNoteT(StringProperty noteT) {
+		this.noteT = noteT;
+	}
 	public void setRitiro(LocalDate ritiro) {
 		this.ritiro = ritiro;
 		this.ritiroT=  new SimpleObjectProperty<LocalDate>(ritiro);
@@ -88,9 +128,8 @@ public class Noleggio extends Entity{
 		this.KmBaseT= new  SimpleIntegerProperty(kmBase);
 	}
 
-	public void setLuogoRestituzione(Integer luogoRestituzione) {
+	public void setLuogoRestituzione(Sede luogoRestituzione) {
 		LuogoRestituzione = luogoRestituzione;
-		this.LuogoRestituzioneT= new  SimpleIntegerProperty(kmRientro);
 	}
 	public void setNumeroSettimane(int numeroSettimane) {
 		this.numeroSettimane = numeroSettimane;
@@ -106,7 +145,6 @@ public class Noleggio extends Entity{
 	}
 	public void setStato(StatoNoleggio stato) {
 		this.stato = stato;
-		this.statoT= new  SimpleObjectProperty<StatoNoleggio>(stato);
 	}
 	public void setAuto(Autoveicolo auto) {
 		this.auto = auto;
@@ -141,7 +179,7 @@ public class Noleggio extends Entity{
 	public List<Optional> getOptional() {
 		return optional;
 	}
-	public Integer getLuogoRestituzione() {
+	public Sede getLuogoRestituzione() {
 		return LuogoRestituzione;
 	}
 	public int getNumeroSettimane() {
@@ -174,7 +212,7 @@ public class Noleggio extends Entity{
 	public IntegerProperty getKmBaseT() {
 		return KmBaseT;
 	}
-	public IntegerProperty getLuogoRestituzioneT() {
+	public StringProperty getLuogoRestituzioneT() {
 		return LuogoRestituzioneT;
 	}
 	public IntegerProperty getNumeroSettimaneT() {
@@ -195,18 +233,60 @@ public class Noleggio extends Entity{
 	public ObjectProperty<LocalDate> getRientroT() {
 		return rientroT;
 	}
-	public ObjectProperty<List<Optional>> getOptionalT() {
-		return optionalT;
+	
+	public void setIDNoleggioT(IntegerProperty iDNoleggioT) {
+		IDNoleggioT = iDNoleggioT;
 	}
-	public ObjectProperty<StatoNoleggio> getStatoT() {
+	public void setKmRientroT(IntegerProperty kmRientroT) {
+		this.kmRientroT = kmRientroT;
+	}
+	public void setKmPercorsiT(IntegerProperty kmPercorsiT) {
+		this.kmPercorsiT = kmPercorsiT;
+	}
+	public void setKmBaseT(IntegerProperty kmBaseT) {
+		KmBaseT = kmBaseT;
+	}
+	public void setLuogoRestituzioneT(StringProperty luogoRestituzioneT) {
+		LuogoRestituzioneT = luogoRestituzioneT;
+	}
+	public void setNumeroSettimaneT(IntegerProperty numeroSettimaneT) {
+		this.numeroSettimaneT = numeroSettimaneT;
+	}
+	public void setNumeroGiorniT(IntegerProperty numeroGiorniT) {
+		this.numeroGiorniT = numeroGiorniT;
+	}
+	public void setNumeroChilometriT(IntegerProperty numeroChilometriT) {
+		this.numeroChilometriT = numeroChilometriT;
+	}
+	public void setInizioNoleggioT(ObjectProperty<LocalDate> inizioNoleggioT) {
+		InizioNoleggioT = inizioNoleggioT;
+	}
+	public void setFineNoleggioT(ObjectProperty<LocalDate> fineNoleggioT) {
+		FineNoleggioT = fineNoleggioT;
+	}
+	public void setRientroT(ObjectProperty<LocalDate> rientroT) {
+		this.rientroT = rientroT;
+	}
+	public void setRitiroT(ObjectProperty<LocalDate> ritiroT) {
+		this.ritiroT = ritiroT;
+	}
+	public StringProperty getStatoT() {
 		return statoT;
 	}
-	public ObjectProperty<Autoveicolo> getAutoT() {
+	public void setStatoT(StringProperty statoT) {
+		this.statoT = statoT;
+	}
+	public StringProperty getAutoT() {
 		return autoT;
 	}
-	public ObjectProperty<Contratto> getContrattoT() {
+	public void setAutoT(StringProperty autoT) {
+		this.autoT = autoT;
+	}
+	public StringProperty getContrattoT() {
 		return contrattoT;
 	}
-	
-	
+	public void setContrattoT(StringProperty contrattoT) {
+		this.contrattoT = contrattoT;
+	}
+
 }

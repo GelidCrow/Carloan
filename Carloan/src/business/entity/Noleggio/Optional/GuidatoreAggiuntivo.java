@@ -6,8 +6,8 @@ import java.util.List;
 public class GuidatoreAggiuntivo extends OptionalNoleggio{
 	private List<Guidatore> guidatori;
 	private int numero_guidatori;
-	public GuidatoreAggiuntivo(float prezzo, String descrizione,List<Guidatore> guidatori) {
-		super(prezzo, descrizione);
+	public GuidatoreAggiuntivo(Integer id,float prezzo, String descrizione,List<Guidatore> guidatori) {
+		super(id,prezzo, descrizione);
 		Collections.copy(this.guidatori, guidatori);
 		this.numero_guidatori=this.guidatori.size();
 	}

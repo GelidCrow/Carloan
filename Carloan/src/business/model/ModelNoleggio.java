@@ -1,10 +1,36 @@
 package business.model;
 
+import integration.DAO.DaoFactory;
+import integration.DAO.entity.DAONoleggio;
+import business.entity.Entity;
 import business.entity.Noleggio.Noleggio;
+import business.model.Exception.CommonException;
 
 public class ModelNoleggio implements Model{
+	private DaoFactory daofactory;
+	private DAONoleggio daoNoleggio;
+	
+	@Override
+	public void Inserimento(Entity parameter) {
+		try {
+			Noleggio noleggio = (Noleggio) parameter;
+			
+			daofactory= DaoFactory.getDaoFactory(1);
+			
+			daoNoleggio= (DAONoleggio) daofactory.getDao("DAONoleggio");
+			
+			daoNoleggio.creazione(noleggio);
+				
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
 
-
+	@Override
+	public void aggiornamento(Entity parameter) throws CommonException {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void lettura() {
@@ -15,23 +41,11 @@ public class ModelNoleggio implements Model{
 	@Override
 	public void ricerca() {
 		// TODO Auto-generated method stub
-		//fai DCSNoleggio.ricerca();
-	}
-
-	public void calcolaPrezzo(Noleggio noleggio){
 		
 	}
 
-	@Override
-	public void Inserimento(Object parameter) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void aggiorna(Object parameter) {
-		// TODO Auto-generated method stub
-		
-	}
+
+	
 		
 }

@@ -126,7 +126,6 @@ public class DAOContratto implements DAO{
 		        updateQuery+=WHERE;
 		        updateQuery= queryReplaceFirst(updateQuery,contratto.getIDContratto().toString());
 		     
-		        System.out.println(updateQuery);
 		     
 		        Connection connection= Connection.getConnection(daofactory);
 		        
