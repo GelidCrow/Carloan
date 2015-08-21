@@ -1,9 +1,10 @@
 package business.entity.Auto;
 
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 
-import javafx.scene.image.Image;
+
 import business.entity.Entity;
 import business.entity.Auto.Fascia.*;
 import business.entity.Auto.manutenzione.Manutenzione;
@@ -26,7 +27,7 @@ public class Autoveicolo extends Entity {
 	private int UltimoKm;
 	private int CapPortaBagnagli;
 	private String Note;
-	private Image Immagine;
+	private InputStream Immagine;
 	private LocalDate DataScadAssic;
 	private Fascia fascia;
 	private Danni danni;
@@ -43,7 +44,7 @@ public class Autoveicolo extends Entity {
 			String colore, String cambio, LocalDate immatricolazione,
 			int cilindrata, int potenza, int nroPosti, String nroTelaio,
 			Disponibilita disponibilita, int ultimoKm, int capPortaBagnagli,
-			String note, Image immagine, LocalDate dataScadAssic, Fascia fascia,
+			String note, InputStream immagine, LocalDate dataScadAssic, Fascia fascia,
 			Danni danni, String codiceSedDisp, String optionalAuto,
 			List<Manutenzione> manutenzioni, float prezzo) 
 	{
@@ -251,12 +252,12 @@ public class Autoveicolo extends Entity {
 	}
 
 
-	public Image getImmagine() {
+	public InputStream getImmagine() {
 		return Immagine;
 	}
 
 
-	public void setImmagine(Image immagine) {
+	public void setImmagine(InputStream immagine) {
 		Immagine = immagine;
 	}
 

@@ -82,11 +82,15 @@ public class NuovoCliente extends Schermata{
 				presenter.processRequest("InserimentoCliente", cliente);
 				//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
 				((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(cliente,tw);
-		} catch (InstantiationException | IllegalAccessException
+		}
+		catch(CommonException e){
+			e.showMessage();
+		}
+		catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
-				| InvocationTargetException | CommonException e) {
-			//AlertView.getAlertView(e.toString(), AlertType.ERROR);
+				| InvocationTargetException e) {
+			
 			e.printStackTrace();
 		}
 	}

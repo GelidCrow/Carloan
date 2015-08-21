@@ -12,6 +12,11 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import Errori.AlertView;
+import business.entity.Cliente;
+import business.entity.UtenteCorrente;
+import business.entity.Auto.Autoveicolo;
+import business.entity.Auto.Danni;
+import business.entity.Auto.Disponibilita;
 import business.entity.Auto.Fascia.Fascia;
 import business.model.Exception.CommonException;
 import javafx.beans.value.ChangeListener;
@@ -22,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -32,6 +38,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
+import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
 
 
@@ -49,7 +56,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 	@FXML
 	protected TextField colore;
 	@FXML
-	protected TextField cambio;
+	protected ChoiceBox<String> cambio;
 	@FXML
 	protected TextField cilindrata;
 	@FXML
@@ -91,7 +98,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 	protected Label descrizione_fascia;
 	
 	private LinkedList<Fascia> fasce;
-	
+	private TableView<Autoveicolo> tw;
 	@SuppressWarnings("unchecked")
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
@@ -105,12 +112,18 @@ public class Nuovo_Autoveicolo extends Schermata{
 		
 		 fasce=(LinkedList<Fascia>) presenter.processRequest("getAllFasce", null);
 		 LinkedList<String> temp=new LinkedList<String>();
+		 
 		 for(Fascia f:fasce)
 			 temp.add(f.getNome());
+		 
 		 fascia.setItems(FXCollections.observableArrayList(temp));
 		 fascia.getSelectionModel().selectedIndexProperty().addListener(new Choiceboxlistener());
 		 fascia.getSelectionModel().selectFirst();
-		
+		cambio.setItems(FXCollections.observableArrayList("Manuale","Automatico"));
+		 cambio.getSelectionModel().selectFirst();
+		 
+		 
+		 
 		 
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
@@ -145,7 +158,110 @@ public class Nuovo_Autoveicolo extends Schermata{
 		vistaimmagine.setImage(new Image(this.immagine));
 	}
 	
+	@FXML
+	public void btnconferma_click(ActionEvent e){
+		tw=  ((SchermataGenerale<Autoveicolo>)this.getChiamante()).getTable("Autoveicolo");
+		
+		try {
+			Autoveicolo auto_da_inserire=prendiDatiDaView();
+			presenter.processRequest("VerificaAutoveicolo", auto_da_inserire);
+			presenter.processRequest("InserimentoAutoveicolo", auto_da_inserire);
+			//agggiustare tabella autossss
+		} 
+		catch(CommonException e1){
+			e1.showMessage();
+		}
+		
+		catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException  e1) {
+			
+			e1.printStackTrace();
+		}
+	}
+
 	
+	
+	
+	private Autoveicolo prendiDatiDaView() throws CommonException {
+	Autoveicolo temp=new Autoveicolo();
+	temp.setTarga(targa.getText());
+	temp.setMarca(marca.getText());
+	temp.setModello(modello.getText());
+	temp.setAlimPrincipale(alimprinc.getText());
+	temp.setAlimSec(alimsec.getText());
+	temp.setColore(colore.getText());
+	temp.setCambio(cambio.getSelectionModel().getSelectedItem());
+	temp.setImmatricolazione(immatricolazione.getValue());
+	try{
+	temp.setCilindrata(Integer.parseInt(cilindrata.getText()));
+	}
+	catch(NumberFormatException e){
+		throw new CommonException("Cilindrata non valida");
+	}
+	try{
+	temp.setPotenza(Integer.parseInt(potenza.getText()));
+	}
+	catch(NumberFormatException e){
+		throw new CommonException("Potenza non valida");
+	}
+	temp.setNroPosti(nposti.getSelectionModel().getSelectedItem());
+	temp.setNroTelaio(numtelaio.getText());
+	String d=Disponibilita.getSelectionModel().getSelectedItem();
+	switch(d){
+	case "Disponibile":
+		temp.setDisponibilita(business.entity.Auto.Disponibilita.Disponibile);
+		break;
+	case "NonDisponibile":
+		temp.setDisponibilita(business.entity.Auto.Disponibilita.NonDisponibile);
+		break;
+	case "ManutenzioneOrdinaria":
+		temp.setDisponibilita(business.entity.Auto.Disponibilita.ManutenzioneOrdinaria);
+		break;
+	case "ManutenzioneStraordinaria":
+		temp.setDisponibilita(business.entity.Auto.Disponibilita.ManutenzioneStraordinaria);
+		break;
+	}
+	try{
+		String s=kmpercorsi.getText();
+		if(s.isEmpty())
+			temp.setUltimoKm(0);
+		else
+			temp.setUltimoKm(Integer.parseInt(s));
+	}
+	catch(NumberFormatException e){
+		throw new CommonException("Kilometri percorsi non validi");
+	}
+	try{
+		String s=capienza.getText();
+		if(s.isEmpty())
+			temp.setCapPortaBagnagli(0);
+		else
+	temp.setCapPortaBagnagli(Integer.parseInt(s));
+	}
+	catch(NumberFormatException e){
+		throw new CommonException("Capienza non valida");
+	}
+	temp.setImmagine(immagine);
+	temp.setDataScadAssic(scadenzaass.getValue());
+	d=fascia.getSelectionModel().getSelectedItem();
+	for(Fascia f : fasce){
+		if(f.getNome().equals(d)){
+			temp.setFascia(f);
+			break;
+		}
+	}
+	temp.setDanni(new Danni(danni_futili.getText(), danni_gravi.getText()));
+	try{
+	temp.setPrezzo(Float.parseFloat(prezzo.getText()));
+	}
+	catch(NumberFormatException e){
+		throw new CommonException("Prezzo non valido");
+	}
+	//temp.setCodiceSedDisp(UtenteCorrente.getUtente().);
+	return temp;
+	}
 	
 	
 }

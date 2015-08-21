@@ -37,11 +37,15 @@ public class ModificaCliente extends NuovoCliente{
 				presenter.processRequest("ModificaCliente", cliente);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
 				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato("Cliente"),cliente,((SchermataGenerale)this.getChiamante()).getTable("Cliente"));			
-			} catch (InstantiationException | IllegalAccessException
+			} 
+			catch(CommonException e){
+				e.showMessage();
+			}
+			catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
 					| SecurityException | IllegalArgumentException
-					| InvocationTargetException | CommonException e) {
-				// TODO Auto-generated catch block
+					| InvocationTargetException  e) {
+				
 				e.printStackTrace();
 			}	
 		}

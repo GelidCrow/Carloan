@@ -9,7 +9,6 @@ public class CommonException extends Exception{
 	private String message;
 	public CommonException(String message){
 		this.message= message;
-		AlertView.getAlertView(message,AlertType.ERROR);
 	}
 	@Override
 	public String getMessage(){

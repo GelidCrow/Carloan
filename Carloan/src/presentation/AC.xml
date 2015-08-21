@@ -68,15 +68,6 @@
 		<method>getAll</method>
 	</call>
 	
-	
-	<!-- Autoveicolo-->
-	
-	<call id="getAllAuto">
-		<class>business.model.ModelAutoveicolo</class>
-		<method>getAll</method>
-	</call>
-	
-	
 	<!--NOLEGGIO-->
 	
 	<call id="InserimentoNoleggio">
@@ -108,5 +99,8 @@
 		<class>business.model.ModelFascia</class>
 		<method>getAll</method>
 	</call>
-
+	<call id="VerificaAutoveicolo">
+		<class>business.model.checker.autoveicolo.AutoveicoloChecker</class>
+		<method>check</method>
+	</call>
 </calls>
