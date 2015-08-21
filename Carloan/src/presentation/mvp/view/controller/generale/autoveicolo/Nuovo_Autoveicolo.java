@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
@@ -18,10 +19,12 @@ import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.Danni;
 import business.entity.Auto.Disponibilita;
 import business.entity.Auto.Fascia.Fascia;
+import business.entity.Luoghi.Sede;
 import business.model.Exception.CommonException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -96,8 +99,13 @@ public class Nuovo_Autoveicolo extends Schermata{
 	protected Button btnannulla;
 	@FXML
 	protected Label descrizione_fascia;
+	@SuppressWarnings("rawtypes")
+	
+	@FXML
+	protected TableView tablesedi;
 	
 	private LinkedList<Fascia> fasce;
+	private ArrayList<Sede> sedi;
 	private TableView<Autoveicolo> tw;
 	@SuppressWarnings("unchecked")
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -119,13 +127,14 @@ public class Nuovo_Autoveicolo extends Schermata{
 		 fascia.setItems(FXCollections.observableArrayList(temp));
 		 fascia.getSelectionModel().selectedIndexProperty().addListener(new Choiceboxlistener());
 		 fascia.getSelectionModel().selectFirst();
-		cambio.setItems(FXCollections.observableArrayList("Manuale","Automatico"));
+		 cambio.setItems(FXCollections.observableArrayList("Manuale","Automatico"));
 		 cambio.getSelectionModel().selectFirst();
-		 
-		 
-		 
-		 
-		} catch (InstantiationException | IllegalAccessException
+		 sedi=(ArrayList<Sede>) presenter.processRequest("getAllSedi", null);
+		 ObservableList<Sede> obsList= FXCollections.observableList(sedi);
+			tablesedi.setItems(obsList);
+			
+		}
+			catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
 				| InvocationTargetException | CommonException e) {

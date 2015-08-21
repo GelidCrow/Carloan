@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import Errori.AlertView;
 import business.entity.Entity;
 import business.entity.Auto.Autoveicolo;
@@ -109,7 +108,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 					a.setNote(readQueryResultSet.getString(17));
 					InputStream i=readQueryResultSet.getBinaryStream(18);
 					if(i!=null)
-						a.setImmagine(new Image(i));
+						a.setImmagine(i);
 					a.setDataScadAssic(readQueryResultSet.getDate(19).toLocalDate());
 					a.setOptionalAuto(readQueryResultSet.getString(20));
 					a.setPrezzo(readQueryResultSet.getFloat(21));

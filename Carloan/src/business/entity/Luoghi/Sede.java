@@ -8,11 +8,12 @@ public class Sede extends Entity{
 	private String Indirizzo;
 	private String NumeroTelefono;
 	private String nome;
-	public Sede(int iDSede, String indirizzo, String numeroTelefono) {
+	public Sede(int iDSede, String indirizzo, String numeroTelefono,String nome) {
 		super();
 		IDSede = iDSede;
 		Indirizzo = indirizzo;
 		NumeroTelefono = numeroTelefono;
+		this.nome=nome;
 	}
 	public int getIDSede() {
 		return IDSede;

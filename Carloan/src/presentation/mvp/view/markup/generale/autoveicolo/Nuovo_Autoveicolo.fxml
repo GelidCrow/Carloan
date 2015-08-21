@@ -63,7 +63,7 @@
       <Label layoutX="738.0" layoutY="516.0" text="€" />
       <ChoiceBox fx:id="cambio" layoutX="74.0" layoutY="299.0" prefHeight="0.0" prefWidth="150.0" />
       <Label layoutX="374.0" layoutY="300.0" text="Sede di appartenenza :" />
-      <TableView layoutX="502.0" layoutY="240.0" prefHeight="119.0" prefWidth="272.0">
+      <TableView fx:id="tablesedi" layoutX="502.0" layoutY="240.0" prefHeight="119.0" prefWidth="272.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Id" />
           <TableColumn prefWidth="75.0" text="Nome" />

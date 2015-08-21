@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 
+
+import javafx.scene.image.Image;
 import business.entity.Entity;
 import business.entity.Auto.Fascia.*;
 import business.entity.Auto.manutenzione.Manutenzione;
@@ -257,8 +259,8 @@ public class Autoveicolo extends Entity {
 	}
 
 
-	public void setImmagine(InputStream immagine) {
-		Immagine = immagine;
+	public void setImmagine(InputStream image) {
+		Immagine = image;
 	}
 
 
