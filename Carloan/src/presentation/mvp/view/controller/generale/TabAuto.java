@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Modality;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.Disponibilita;
 import utility.Finestra;
@@ -23,7 +24,7 @@ public class TabAuto {
 	private Presenter presenter;
 	private ParametriFXML FXMLParameter;
 	public void NuovaAuto(){
-		//Finestra.visualizzaFinestra(presenter, FXMLParameter, chiamante, schermata, modality);
+		Finestra.visualizzaFinestra(presenter, FXMLParameter, schermata, "MostraSchermataNuovaAuto",Modality.APPLICATION_MODAL);
 	}
 	TabAuto(TableView<Autoveicolo> tbAuto2,Schermata schermata){
 		auto=tbAuto2.getColumns();

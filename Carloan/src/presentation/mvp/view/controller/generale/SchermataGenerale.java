@@ -113,10 +113,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	
 	
-	
+	/*Auto*/
 	@FXML
 	public void btnNuovaAuto(ActionEvent e){
-		
+		tbAutoController.NuovaAuto();
 	}
 	
 	@FXML
@@ -131,7 +131,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	@FXML
 	public void btnLogout(ActionEvent e){
-		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.WARNING);
+		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);
 		 
 		if(result.isPresent() && result.get() == ButtonType.OK){
 			chiudiFinestra();

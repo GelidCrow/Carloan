@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import business.model.Exception.CommonException;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.ReturnableStage;
 import presentation.mvp.view.controller.Schermata;

@@ -98,6 +98,15 @@
 		<class>business.model.ModelNoleggio</class>
 		<method>getAll</method>
 	</call>
-	
+
+	<!--Autoveicolo-->
+	<call id="getAllAuto">
+		<class>business.model.ModelAutoveicolo</class>
+		<method>getAll</method>
+	</call>
+	<call id="getAllFasce">
+		<class>business.model.ModelFascia</class>
+		<method>getAll</method>
+	</call>
 
 </calls>

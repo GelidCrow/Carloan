@@ -1,20 +1,21 @@
 package business.entity.Auto.Fascia;
 
 public abstract  class Fascia {
-	private String IDFascia;
+	private int IDFascia;
 	private float prezzo;
-
+	private String nome;
 	private String Descrizione;
-	public Fascia(String iDFascia, float prezzo,  String descrizione) {
+	public Fascia(int iDFascia, float prezzo,  String descrizione,String nome) {
 		super();
 		IDFascia = iDFascia;
 		this.prezzo = prezzo;
 		Descrizione = descrizione;
+		this.setNome(nome);
 	}
-	public String getIDFascia() {
+	public int getIDFascia() {
 		return IDFascia;
 	}
-	public void setIDFascia(String iDFascia) {
+	public void setIDFascia(int iDFascia) {
 		IDFascia = iDFascia;
 	}
 	public float getPrezzo() {
@@ -29,6 +30,12 @@ public abstract  class Fascia {
 	}
 	public void setDescrizione(String descrizione) {
 		Descrizione = descrizione;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 }

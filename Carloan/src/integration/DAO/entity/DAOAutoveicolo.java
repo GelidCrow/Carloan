@@ -3,6 +3,7 @@ package integration.DAO.entity;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -106,7 +107,9 @@ public DAOAutoveicolo(DaoFactory dao) {
 					a.setUltimoKm(readQueryResultSet.getInt(15));
 					a.setCapPortaBagnagli(readQueryResultSet.getInt(16));
 					a.setNote(readQueryResultSet.getString(17));
-					a.setImmagine(new Image(readQueryResultSet.getBinaryStream(18)));
+					InputStream i=readQueryResultSet.getBinaryStream(18);
+					if(i!=null)
+						a.setImmagine(new Image(i));
 					a.setDataScadAssic(readQueryResultSet.getDate(19).toLocalDate());
 					a.setOptionalAuto(readQueryResultSet.getString(20));
 					a.setPrezzo(readQueryResultSet.getFloat(21));

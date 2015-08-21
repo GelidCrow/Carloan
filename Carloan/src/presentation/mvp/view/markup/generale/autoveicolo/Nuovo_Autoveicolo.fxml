@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1015.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.autoveicolo.Nuovo_Autoveicolo">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="794.0" prefWidth="1016.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.autoveicolo.Nuovo_Autoveicolo">
    <children>
       <Label layoutX="16.0" layoutY="14.0" text="Aggiungi Autoveicolo">
          <font>
@@ -40,25 +40,27 @@
       <Label layoutX="26.0" layoutY="464.0" text="Numero Telaio :" />
       <TextField fx:id="numtelaio" layoutX="128.0" layoutY="460.0" />
       <Label layoutX="30.0" layoutY="515.0" text="Disponibilità :" />
-      <ChoiceBox layoutX="118.0" layoutY="511.0" prefWidth="150.0" />
-      <Label layoutX="454.0" layoutY="81.0" text="Kilometri percorsi :" />
-      <TextField fx:id="kmpercorsi" layoutX="563.0" layoutY="77.0" />
-      <Label layoutX="454.0" layoutY="110.0" text="Capienza portabagagli :" />
-      <TextField fx:id="capienza" layoutX="588.0" layoutY="106.0" />
-      <Label layoutX="461.0" layoutY="187.0" text="Immagine :" />
-      <ImageView fitHeight="150.0" fitWidth="249.0" layoutX="627.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="btnchoose" layoutX="553.0" layoutY="183.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="31.0" text="..." />
+      <ChoiceBox fx:id="Disponibilita" layoutX="118.0" layoutY="511.0" prefWidth="150.0" />
+      <Label layoutX="22.0" layoutY="560.0" text="Kilometri percorsi :" />
+      <TextField fx:id="kmpercorsi" layoutX="156.0" layoutY="556.0" />
+      <Label layoutX="22.0" layoutY="589.0" text="Capienza portabagagli :" />
+      <TextField fx:id="capienza" layoutX="156.0" layoutY="585.0" />
+      <Label layoutX="444.0" layoutY="162.0" text="Immagine :" />
+      <ImageView fx:id="vistaimmagine" fitHeight="206.0" fitWidth="321.0" layoutX="579.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnchoose" layoutX="516.0" layoutY="158.0" mnemonicParsing="false" onAction="#btnchooseclick" prefHeight="25.0" prefWidth="31.0" text="..." />
       <Label layoutX="461.0" layoutY="314.0" text="Data scadenza assicurazione :" />
       <DatePicker fx:id="scadenzaass" layoutX="627.0" layoutY="310.0" />
-      <Label layoutX="458.0" layoutY="359.0" prefHeight="17.0" prefWidth="47.0" text="Fascia :" />
-      <ChoiceBox fx:id="fascia" layoutX="513.0" layoutY="355.0" prefWidth="150.0" />
-      <Label layoutX="455.0" layoutY="417.0" prefHeight="17.0" prefWidth="72.0" text="Danni futili :" />
-      <Label layoutX="453.0" layoutY="502.0" prefHeight="17.0" prefWidth="72.0" text="Danni  gravi:" />
-      <TextArea fx:id="danni_futili" layoutX="527.0" layoutY="396.0" prefHeight="59.0" prefWidth="237.0" />
-      <TextArea fx:id="danni_gravi" layoutX="527.0" layoutY="481.0" prefHeight="59.0" prefWidth="237.0" />
-      <Label layoutX="446.0" layoutY="569.0" prefHeight="17.0" prefWidth="72.0" text="Prezzo :" />
-      <TextField fx:id="prezzo" layoutX="514.0" layoutY="565.0" />
-      <Button fx:id="btnconferma" layoutX="726.0" layoutY="637.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="117.0" text="Conferma" />
-      <Button fx:id="btnannulla" layoutX="579.0" layoutY="637.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="117.0" text="Annulla" />
+      <Label layoutX="450.0" layoutY="378.0" prefHeight="17.0" prefWidth="47.0" text="Fascia :" />
+      <ChoiceBox fx:id="fascia" layoutX="504.0" layoutY="373.0" prefWidth="150.0" />
+      <Label layoutX="453.0" layoutY="460.0" prefHeight="17.0" prefWidth="72.0" text="Danni futili :" />
+      <Label layoutX="451.0" layoutY="545.0" prefHeight="17.0" prefWidth="72.0" text="Danni  gravi:" />
+      <TextArea fx:id="danni_futili" layoutX="525.0" layoutY="439.0" prefHeight="59.0" prefWidth="237.0" />
+      <TextArea fx:id="danni_gravi" layoutX="525.0" layoutY="524.0" prefHeight="59.0" prefWidth="237.0" />
+      <Label layoutX="459.0" layoutY="612.0" prefHeight="17.0" prefWidth="49.0" text="Prezzo :" />
+      <TextField fx:id="prezzo" layoutX="525.0" layoutY="608.0" />
+      <Button fx:id="btnconferma" layoutX="679.0" layoutY="701.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="117.0" text="Conferma" />
+      <Button fx:id="btnannulla" layoutX="495.0" layoutY="701.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="117.0" text="Annulla" />
+      <Label fx:id="descrizione_fascia" layoutX="679.0" layoutY="353.0" prefHeight="66.0" prefWidth="186.0" />
+      <Label layoutX="676.0" layoutY="612.0" text="€" />
    </children>
 </AnchorPane>
