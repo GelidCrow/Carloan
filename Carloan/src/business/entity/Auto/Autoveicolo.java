@@ -75,6 +75,11 @@ public class Autoveicolo extends Entity {
 	}
 		
 
+	public Autoveicolo() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public int getIDauto() {
 		return IDauto;
 	}
