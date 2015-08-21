@@ -39,65 +39,29 @@ public class DAONoleggio implements DAO{
 	public void creazione(Entity x) {
 		String insert= "INSERT INTO Noleggio"
 				+ "(InizioNoleggio,FineNoleggio,Ritiro,KmRientro,KmBase,Stato,NumeroSettimane,NumeroGiorni,numero_chilometri,LuogoRestituzione,Note,"
-				+ " idContratto, idAuto, idPagamento  ";
-		String valori= "values('?','?','?','?','?','?','?','?','?','?','?','?','?','?' ";
+				+ " idContratto, idAuto, idPagamento ) values ('?','?','?','?','?','?','?','?','?','?','?','?','?','?'); ";
+	
 		
-		String chiudi= " ) " ;
-		
-		String values =valori;
+		String   insertQuery =insert;
 		Noleggio noleggio= (Noleggio)x;
 		
-	   values = queryReplaceFirst(values, noleggio.getInizioNoleggio().toString());
-	   values = queryReplaceFirst(values, noleggio.getFineNoleggio().toString());
-	   values = queryReplaceFirst(values, noleggio.getRitiro().toString());
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getKmRientro()));
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getKmBase()));
-	   values = queryReplaceFirst(values, noleggio.getStato().toString());
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getNumeroSettimane()));
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getNumeroGiorni()));
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getNumeroChilometri()));
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getNumeroSettimane()));
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getNumeroSettimane()));
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getLuogoRestituzione()));
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getNote()));
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getContratto()));
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getAuto()));
-	   values = queryReplaceFirst(values, String.valueOf(noleggio.getPagamento()));
+	   insertQuery = queryReplaceFirst(insertQuery, noleggio.getInizioNoleggio().toString());
+	   insertQuery = queryReplaceFirst(insertQuery, noleggio.getFineNoleggio().toString());
+	   insertQuery= queryReplaceFirst(insertQuery, noleggio.getRitiro().toString());
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getKmRientro()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getKmBase()));
+	   insertQuery = queryReplaceFirst(insertQuery, noleggio.getStato().toString());
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroSettimane()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroGiorni()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroChilometri()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroSettimane()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroSettimane()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getLuogoRestituzione()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNote()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getContratto()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getAuto()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getPagamento()));
 	    
-	    List<Optional> optional= noleggio.getOptional();
-	    
-	    for(Optional op: optional){
-	    	if(op instanceof Gps){
-	    		insert += ", idGps ";
-	    		values += ", '?' ";
-	    	   values = queryReplaceFirst(values, op.getId().toString());
-	    	}
-	    	else if(op instanceof ChilometraggioIllimitato){
-	    		insert += ", idChilometraggio ";
-	    		values += ", '?' ";
-	    	   values = queryReplaceFirst(values, op.getId().toString());
-	    	}
-	    	else if((op instanceof Assicurazione_KASKO)){
-	    		insert += ", idAssicurazione ";
-	    		values += ", '?' ";
-	    	   values = queryReplaceFirst(values, op.getId().toString());}
-    	    else if((op instanceof CateneNeve)){
-	    	   insert += ", idCatene ";
-	    	   values += ", '?' ";
-	    	   values = queryReplaceFirst(values, op.getId().toString());}
-    	    else if((op instanceof GuidatoreAggiuntivo)){
-	    	   insert += ", idGuidatore ";
-	    	   values += ", '?' ";
-	    	   values = queryReplaceFirst(values, op.getId().toString());}
-    	    else if((op instanceof Seggiolino)){
-	    	   insert += ", idSeggiolino ";
-	    	   values += ", '?' ";
-	    	   values = queryReplaceFirst(values, op.getId().toString());}
-	    }    
-	   insert+=chiudi;
-	   String insertQuery= insert+values+chiudi+';';
-	   
-	   System.out.println(insertQuery);
 	   
 	   Connection connection= Connection.getConnection(daofactory);
        

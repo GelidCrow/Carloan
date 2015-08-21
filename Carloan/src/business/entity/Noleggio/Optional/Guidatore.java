@@ -19,5 +19,47 @@ public Guidatore(Integer id,String nome, String cognome, String iDGuidatore,
 	PatenteGuida = patenteGuida;
 	this.id=id;
 }
+public Integer getId() {
+	return id;
+}
+public void setId(Integer id) {
+	this.id = id;
+}
+public String getNome() {
+	return Nome;
+}
+public void setNome(String nome) {
+	Nome = nome;
+}
+public String getCognome() {
+	return Cognome;
+}
+public void setCognome(String cognome) {
+	Cognome = cognome;
+}
+public String getIDGuidatore() {
+	return IDGuidatore;
+}
+public void setIDGuidatore(String iDGuidatore) {
+	IDGuidatore = iDGuidatore;
+}
+public String getIndirizzo() {
+	return Indirizzo;
+}
+public void setIndirizzo(String indirizzo) {
+	Indirizzo = indirizzo;
+}
+public String getCodFiscale() {
+	return CodFiscale;
+}
+public void setCodFiscale(String codFiscale) {
+	CodFiscale = codFiscale;
+}
+public String getPatenteGuida() {
+	return PatenteGuida;
+}
+public void setPatenteGuida(String patenteGuida) {
+	PatenteGuida = patenteGuida;
+}
 
 }

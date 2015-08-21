@@ -2,13 +2,24 @@ package business.entity.pagamento;
 
 import java.util.Date;
 
+import business.entity.Cliente;
+
 public class CartaDiCredito extends Pagamento{
 	private String IDCliente ; 
 	private Date dataScadenza;
 	private String IBAN;
 	private String NueroCarta;
 	private String Circuito;
+	private Cliente cliente;
 	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	public CartaDiCredito(float depositoCauzinale, float importo,
 			float detrazioneAggiuntiva) {
 			super(depositoCauzinale, importo, detrazioneAggiuntiva);

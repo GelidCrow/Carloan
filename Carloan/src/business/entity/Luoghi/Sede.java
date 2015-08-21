@@ -1,19 +1,23 @@
 package business.entity.Luoghi;
 
-public class Sede {
-	private String IDSede;
+import business.entity.Entity;
+
+public class Sede extends Entity{
+	private int IDSede;
+
 	private String Indirizzo;
 	private String NumeroTelefono;
-	public Sede(String iDSede, String indirizzo, String numeroTelefono) {
+	private String nome;
+	public Sede(int iDSede, String indirizzo, String numeroTelefono) {
 		super();
 		IDSede = iDSede;
 		Indirizzo = indirizzo;
 		NumeroTelefono = numeroTelefono;
 	}
-	public String getIDSede() {
+	public int getIDSede() {
 		return IDSede;
 	}
-	public void setIDSede(String iDSede) {
+	public void setIDSede(int iDSede) {
 		IDSede = iDSede;
 	}
 	public String getIndirizzo() {
@@ -27,5 +31,11 @@ public class Sede {
 	}
 	public void setNumeroTelefono(String numeroTelefono) {
 		NumeroTelefono = numeroTelefono;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String  nome) {
+		this.nome = nome;
 	}
 }
