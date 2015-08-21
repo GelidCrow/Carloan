@@ -44,7 +44,7 @@
             <TextField fx:id="txtNumSettimane" layoutX="162.0" layoutY="142.0" prefHeight="17.0" prefWidth="149.0" />
             <TextField fx:id="txtNumGiorni" layoutX="162.0" layoutY="168.0" />
             <TextField fx:id="txtNumChilometri" layoutX="162.0" layoutY="194.0" />
-            <Label layoutX="26.0" layoutY="352.0" text="Optional *" />
+            <Label layoutX="26.0" layoutY="352.0" text="Optional " />
             <TableView fx:id="tbOptional" layoutX="39.0" layoutY="369.0" prefHeight="91.0" prefWidth="271.0">
                <columns>
                   <TableColumn prefWidth="79.0" text="ID" />
@@ -79,7 +79,6 @@
             <Label layoutX="660.0" layoutY="384.0" prefHeight="17.0" prefWidth="102.0" text="Carta di credito *" />
             <Button fx:id="btnConferma" layoutX="919.0" layoutY="506.0" mnemonicParsing="false" text="Conferma" />
             <Button fx:id="btnCancella" layoutX="822.0" layoutY="505.0" mnemonicParsing="false" text="Cancella" />
-            <Label layoutX="357.0" layoutY="19.0" text="Dati Guidatore" />
             <ChoiceBox fx:id="choiceFascia" layoutX="813.0" layoutY="113.0" prefHeight="25.0" prefWidth="156.0" />
             <Label layoutX="659.0" layoutY="117.0" prefHeight="17.0" prefWidth="89.0" text="Fascia " />
             <TextField fx:id="txtCauzione" layoutX="761.0" layoutY="304.0" prefHeight="25.0" prefWidth="110.0" />
@@ -87,33 +86,35 @@
             <Label layoutX="762.0" layoutY="279.0" text="Cauzione" />
             <TextField fx:id="txtTotale" layoutX="880.0" layoutY="304.0" prefHeight="25.0" prefWidth="104.0" />
             <Label layoutX="890.0" layoutY="279.0" prefHeight="17.0" prefWidth="43.0" text="Totale" />
-            <Button fx:id="btnAggiungi" layoutX="359.0" layoutY="242.0" mnemonicParsing="false" text="Aggiungi" />
-            <TextField fx:id="txtNome" layoutX="435.0" layoutY="43.0" />
-            <TextField fx:id="txtCognome" layoutX="435.0" layoutY="82.0" />
-            <TextField fx:id="txtIndirizzo" layoutX="435.0" layoutY="126.0" />
-            <TextField fx:id="txtCodFiscale" layoutX="435.0" layoutY="168.0" />
-            <TextField fx:id="txtPatente" layoutX="435.0" layoutY="207.0" />
-            <Label layoutX="357.0" layoutY="43.0" text="Nome *" />
-            <Label layoutX="357.0" layoutY="86.0" text="Cognome *" />
-            <Label layoutX="357.0" layoutY="130.0" text="Indirizzo *" />
-            <Label layoutX="357.0" layoutY="172.0" text="Cod Fiscale *" />
-            <Label layoutX="358.0" layoutY="211.0" prefHeight="17.0" prefWidth="75.0" text="Patente *" />
-            <Button fx:id="btnRimuovi" layoutX="435.0" layoutY="242.0" mnemonicParsing="false" text="Rimuovi" />
-            <TableView fx:id="tbGuidatori" layoutX="356.0" layoutY="271.0" prefHeight="91.0" prefWidth="271.0">
-               <columns>
-                  <TableColumn prefWidth="117.0" text="Codice Fiscale" />
-                  <TableColumn prefWidth="170.0" text="Nome Cognome" />
-               </columns>
-            </TableView>
-            <Button layoutX="284.0" layoutY="465.0" mnemonicParsing="false" text="+" />
-            <TableView fx:id="tbOptionalScelti" layoutX="354.0" layoutY="407.0" prefHeight="91.0" prefWidth="271.0">
+            <Button layoutX="455.0" layoutY="144.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Aggiungi" />
+            <TableView fx:id="tbOptionalScelti" layoutX="349.0" layoutY="49.0" prefHeight="91.0" prefWidth="271.0">
                <columns>
                   <TableColumn prefWidth="79.0" text="ID" />
                   <TableColumn prefWidth="103.0" text="Descrizione" />
                   <TableColumn prefWidth="89.0" text="Prezzo" />
                </columns>
             </TableView>
-            <Button fx:id="btnRimuovi1" layoutX="567.0" layoutY="500.0" mnemonicParsing="false" text="Rimuovi" />
+            <Button fx:id="btnRimuovi1" layoutX="558.0" layoutY="144.0" mnemonicParsing="false" text="Rimuovi" />
+            <Label layoutX="356.0" layoutY="23.0" text="Optional  scelti" />
+            <TableView fx:id="tbGuidatori" layoutX="346.0" layoutY="418.0" prefHeight="91.0" prefWidth="271.0">
+               <columns>
+                  <TableColumn prefWidth="117.0" text="Codice Fiscale" />
+                  <TableColumn prefWidth="170.0" text="Nome Cognome" />
+               </columns>
+            </TableView>
+            <Button fx:id="btnRimuovi" layoutX="425.0" layoutY="389.0" mnemonicParsing="false" text="Rimuovi" />
+            <Label layoutX="348.0" layoutY="358.0" prefHeight="17.0" prefWidth="75.0" text="Patente *" />
+            <Label layoutX="347.0" layoutY="319.0" text="Cod Fiscale *" />
+            <Label layoutX="347.0" layoutY="277.0" text="Indirizzo *" />
+            <Label layoutX="347.0" layoutY="233.0" text="Cognome *" />
+            <Label layoutX="347.0" layoutY="190.0" text="Nome *" />
+            <TextField fx:id="txtPatente" layoutX="425.0" layoutY="354.0" />
+            <TextField fx:id="txtCodFiscale" layoutX="425.0" layoutY="315.0" />
+            <TextField fx:id="txtIndirizzo" layoutX="425.0" layoutY="273.0" />
+            <TextField fx:id="txtCognome" layoutX="425.0" layoutY="229.0" />
+            <TextField fx:id="txtNome" layoutX="425.0" layoutY="190.0" />
+            <Button fx:id="btnAggiungi" layoutX="349.0" layoutY="389.0" mnemonicParsing="false" text="Aggiungi" />
+            <Label layoutX="347.0" layoutY="166.0" text="Dati Guidatore" />
          </children>
       </AnchorPane>
       <Label layoutX="49.0" layoutY="42.0" prefHeight="44.0" prefWidth="380.0" style="-fx-background-color: #FFFF;" text="NUOVO NOLEGGIO" textFill="#ff6f00">

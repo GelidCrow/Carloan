@@ -67,9 +67,37 @@
 		<class>business.model.ModelContratto</class>
 		<method>getAll</method>
 	</call>
+	
+	
 	<!-- Autoveicolo-->
+	
 	<call id="getAllAuto">
 		<class>business.model.ModelAutoveicolo</class>
 		<method>getAll</method>
 	</call>
+	
+	
+	<!--NOLEGGIO-->
+	
+	<call id="InserimentoNoleggio">
+		<class>business.model.ModelNoleggio</class>
+		<method>Inserimento</method>
+	</call>
+	<call id="ModificaNoleggio">
+		<class>business.model.ModelNoleggio</class>
+		<method>aggiornamento</method>
+	</call>
+	
+	
+	<call id="VerificaNoleggio">
+		<class>business.model.checker.contratto.NoleggioChecker</class>
+		<method>check</method>
+	</call>
+	
+	<call id="getAllNoleggi">
+		<class>business.model.ModelNoleggio</class>
+		<method>getAll</method>
+	</call>
+	
+
 </calls>
