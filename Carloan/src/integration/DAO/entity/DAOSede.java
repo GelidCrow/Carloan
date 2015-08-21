@@ -17,7 +17,7 @@ public class DAOSede implements DAO {
 
 	private DaoFactory dao;
 	
-	DAOSede(DaoFactory dao){
+	public DAOSede(DaoFactory dao){
 		this.dao=dao;
 	}
 	

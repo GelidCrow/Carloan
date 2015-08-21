@@ -21,6 +21,9 @@ import business.entity.Auto.Disponibilita;
 import business.entity.Auto.Fascia.Fascia;
 import business.entity.Luoghi.Sede;
 import business.model.Exception.CommonException;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,6 +33,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -103,6 +107,13 @@ public class Nuovo_Autoveicolo extends Schermata{
 	
 	@FXML
 	protected TableView tablesedi;
+	@FXML
+	protected  TableColumn<Sede, Integer> identifier;
+	@FXML
+	protected  TableColumn<Sede, String> nome;
+	@FXML
+	protected  TableColumn<Sede, String> indirizzo;
+	
 	
 	private LinkedList<Fascia> fasce;
 	private ArrayList<Sede> sedi;
@@ -130,6 +141,9 @@ public class Nuovo_Autoveicolo extends Schermata{
 		 cambio.setItems(FXCollections.observableArrayList("Manuale","Automatico"));
 		 cambio.getSelectionModel().selectFirst();
 		 sedi=(ArrayList<Sede>) presenter.processRequest("getAllSedi", null);
+		 nome.setCellValueFactory(cellData ->  new  SimpleStringProperty(((Sede) cellData.getValue()).getNome()));
+		 indirizzo.setCellValueFactory(cellData ->  new  SimpleStringProperty(((Sede) cellData.getValue()).getIndirizzo()));
+		 identifier.setCellValueFactory(cellData ->new ReadOnlyObjectWrapper<Integer>(((Sede)cellData.getValue()).getIDSede()));
 		 ObservableList<Sede> obsList= FXCollections.observableList(sedi);
 			tablesedi.setItems(obsList);
 			

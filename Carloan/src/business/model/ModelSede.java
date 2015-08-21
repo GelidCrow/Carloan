@@ -1,8 +1,17 @@
 package business.model;
 
+import java.util.ArrayList;
+
+import integration.DAO.DaoFactory;
+import integration.DAO.entity.DAOSede;
+
+import business.entity.Entity;
+import business.entity.Luoghi.Sede;
+import business.model.Exception.CommonException;
+
 public class ModelSede implements Model{
 
-
+	private DaoFactory daofactory;
 
 	@Override
 	public void lettura() {
@@ -16,16 +25,26 @@ public class ModelSede implements Model{
 		
 	}
 
+
 	@Override
-	public void Inserimento(Object parameter) {
+	public void Inserimento(Entity parameter) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void aggiorna(Object parameter) {
+	public void aggiornamento(Entity parameter) throws CommonException {
 		// TODO Auto-generated method stub
 		
 	}
-
+	public ArrayList<Sede> getAll(){
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			return ((DAOSede)daofactory.getDao("DAOSede")).getAll();
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

@@ -103,4 +103,9 @@
 		<class>business.model.checker.autoveicolo.AutoveicoloChecker</class>
 		<method>check</method>
 	</call>
+	<!--Sede-->
+	<call id="getAllSedi">
+		<class>business.model.ModelSede</class>
+		<method>getAll</method>
+	</call>
 </calls>
