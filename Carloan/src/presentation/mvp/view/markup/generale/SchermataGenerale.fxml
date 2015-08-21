@@ -156,8 +156,8 @@
                                        </image>
                                     </ImageView>
                                     <TextField layoutX="63.0" layoutY="57.0" />
-                                    <Button layoutX="264.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta Di Credito" />
-                                    <Button layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVisualizzaCartaCredito" text="Visualizza Carta di Credito" />
+                                    <Button layoutX="264.0" layoutY="14.0" mnemonicParsing="false" text="Aggiungi Carta Di Credito" />
+                                    <Button layoutX="435.0" layoutY="14.0" mnemonicParsing="false" text="Visualizza Carta di Credito" />
                                  </children>
                               </AnchorPane>
                         </content>

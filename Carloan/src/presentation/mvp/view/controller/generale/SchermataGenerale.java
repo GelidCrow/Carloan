@@ -134,6 +134,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	public void btnVOptional(ActionEvent e){
 		
 	}
+	
 	@FXML
 	public void btnLogout(ActionEvent e){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.WARNING);

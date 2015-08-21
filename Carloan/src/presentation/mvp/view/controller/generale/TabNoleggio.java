@@ -8,6 +8,7 @@ import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import utility.Finestra;
 import utility.ParametriFXML;
+import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
 
 public class TabNoleggio {
@@ -38,7 +39,7 @@ public class TabNoleggio {
 	}
 	
 	public void bindingValuesContratto(){
-		noleggio.get();
+		noleggio.get(0).setCellValueFactory(cellData -> ((Noleggio) cellData.getValue()).getIDContrattoT());
 	}
 
 	TabNoleggio(TableView<Noleggio> tbNoleggio,Schermata schermata){
