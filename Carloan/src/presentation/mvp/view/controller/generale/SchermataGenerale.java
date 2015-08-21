@@ -54,8 +54,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TableView<T> tbNoleggio;
 	
 	
-	private boolean tbClienteCaricata=false;
-	private boolean tbNoleggioCaricata=false;
+	
 	
 	private TabClienti tbClientController;
 
@@ -173,10 +172,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * @param listaClienti
 	 * @return
 	 */
-	private boolean caricaTabella(List<T> list,TableView<T> table){
+	private void caricaTabella(List<T> list,TableView<T> table){
 		ObservableList<T> obsList= FXCollections.observableList(list);
 		table.setItems(obsList);
-		return true;
+		
 	}
 	
 	public TableView<T> getTable(String table){
@@ -229,12 +228,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		@Override
 	    public void changed(ObservableValue<? extends Tab> ov, Tab oldValue, Tab newValue) {
 			if(panes.get(2)==newValue){
-				if(tbClienteCaricata==false){
+				if(tbClientController==null){
 					try {
 						//serve solo per fargli fare il binding con le colonne
 						tbClientController = new TabClienti((TableView<Cliente>)tbCliente,SchermataGenerale.this);
 						//carica la prima volta la tabella 
-						tbClienteCaricata = caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
+						caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
 					} catch (InstantiationException | IllegalAccessException| ClassNotFoundException| NoSuchMethodException | SecurityException
 							| IllegalArgumentException	
 							| InvocationTargetException
@@ -246,12 +245,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				}
 			}
 			else if(panes.get(1)==newValue){
-				if(tbNoleggioCaricata==false){
+				if(tbNoleggioController==null){
 					try {
 						//serve solo per fargli fare il binding con le colonne
 						tbNoleggioController = new TabNoleggio((TableView<Noleggio>)tbNoleggio,SchermataGenerale.this);
 						//carica la prima volta la tabella 
-						tbNoleggioCaricata = caricaTabella((List<T>)presenter.processRequest("getAllNoleggi",null),tbNoleggio);
+						caricaTabella((List<T>)presenter.processRequest("getAllNoleggi",null),tbNoleggio);
 					} catch (InstantiationException | IllegalAccessException| ClassNotFoundException| NoSuchMethodException | SecurityException
 							| IllegalArgumentException	
 							| InvocationTargetException
