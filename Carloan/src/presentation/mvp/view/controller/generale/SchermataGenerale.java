@@ -14,6 +14,7 @@ import business.entity.Entity;
 import business.entity.UtenteCorrente;
 import business.entity.Gestori.Operatore;
 import business.entity.Noleggio.Contratto;
+import business.entity.Noleggio.Noleggio;
 import business.model.Exception.CommonException;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
@@ -42,22 +43,27 @@ import javafx.stage.WindowEvent;
 
 public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
-	private TabPane tabPane;	
+	private TabPane tabPane;
+	private ObservableList<Tab> panes;
+	
 	@FXML
 	private TableView<T> tbCliente;	
 	@FXML
 	private TableView<T> tbContratto;
+	@FXML
+	private TableView<T> tbNoleggio;
 	
-	private ObservableList<Tab> panes;
 	
 	private boolean tbClienteCaricata=false;
+	private boolean tbNoleggioCaricata=false;
 	
-	private TabClientiController tbClientController;
+	private TabClienti tbClientController;
 
-	private TabContrattoController tbContrattoController;
+	private TabContratto tbContrattoController;
+
+	private TabNoleggio tbNoleggioController;
 	
-	
-	
+		/***********  CONTRATTO *************/
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
 		tbContrattoController.setSchermata(this);
@@ -83,19 +89,50 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			e1.printStackTrace();
 		}
 	}		
-	
+			/************ CLIENTE *********/
 	@FXML
 	public void btnNuovoCliente(ActionEvent e){
 		tbClientController.NuovoCliente();
 	}
+
+	
+	@FXML
+	public void btnModificaCliente(ActionEvent e) throws CommonException{
+		tbClientController.ModificaCliente();
+	}
+	
+	
+		/*********** NOLEGGIO ************/ 
+	@FXML
+	public void btnNuovoNoleggio(ActionEvent e) {
+		tbNoleggioController.NuovoNoleggio();
+	}
+	
+	@FXML
+	public void btnModificaNoleggio(ActionEvent e) {
+		
+	}
+	
+	@FXML
+	public void btnChiudiNoleggio(ActionEvent e){
+		
+	}
+	
+	
+	
 	@FXML
 	public void btnNuovaAuto(ActionEvent e){
 		
 	}
 	
 	@FXML
-	public void btnModificaCliente(ActionEvent e) throws CommonException{
-		tbClientController.ModificaCliente();
+	public void btnVPagamento(ActionEvent e){
+		
+	}
+	
+	@FXML
+	public void btnVOptional(ActionEvent e){
+		
 	}
 	@FXML
 	public void btnLogout(ActionEvent e){
@@ -103,12 +140,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		 
 		if(result.isPresent() && result.get() == ButtonType.OK){
 			chiudiFinestra();
-			try {
+			/*try {
 				Connection.chiudiConnessione();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			}*/
 			FXMLParameter.setTitolo("Login");
 		    FXMLParameter.setRidimensionabile(false);
 			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraLogin",Modality.WINDOW_MODAL);
@@ -124,7 +161,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * <p>Modifica un elemento da una tabella, lo rimuove e poi lo aggiunge in ultima posizione, oppure nel caso era l'ultimo quello modificato lo aggiunge alla 2 posizione</p>
 	 */
 	public void aggiornaElementotabella(int id,T elem,TableView<T> table){
-
 		if(id>=0 && elem!=null && table!=null){
 			table.getItems().remove(id);
 			if(id==table.getItems().size()){
@@ -153,6 +189,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		else if(table.equals("Contratto"))
 			return tbContratto;
+		else if(table.equals("Noleggio"))
+			return tbNoleggio;
 		else 
 			return null;
 	}
@@ -161,6 +199,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbCliente.getSelectionModel().getSelectedIndex();
 		}
 		else if(table.equals("Contratto"))
+			return tbContratto.getSelectionModel().getSelectedIndex();
+		else if(table.equals("Noleggio"))
 			return tbContratto.getSelectionModel().getSelectedIndex();
 		return 0;
 	}
@@ -171,6 +211,9 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		else if(table.equals("Contratto")){
 			return tbContratto.getSelectionModel().getSelectedItem();
+		}
+		else if(table.equals("Noleggio")){
+			return tbNoleggio.getSelectionModel().getSelectedItem();
 		}
 		return null;
 	}
@@ -191,12 +234,26 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				if(tbClienteCaricata==false){
 					try {
 						//serve solo per fargli fare il binding con le colonne
-						tbClientController = new TabClientiController((TableView<Cliente>)tbCliente,SchermataGenerale.this);
+						tbClientController = new TabClienti((TableView<Cliente>)tbCliente,SchermataGenerale.this);
 						//carica la prima volta la tabella 
 						tbClienteCaricata = caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
-					
-						
-					
+					} catch (InstantiationException | IllegalAccessException| ClassNotFoundException| NoSuchMethodException | SecurityException
+							| IllegalArgumentException	
+							| InvocationTargetException
+							| CommonException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+
+					}
+				}
+			}
+			else if(panes.get(1)==newValue){
+				if(tbNoleggioCaricata==false){
+					try {
+						//serve solo per fargli fare il binding con le colonne
+						tbNoleggioController = new TabNoleggio((TableView<Noleggio>)tbNoleggio,SchermataGenerale.this);
+						//carica la prima volta la tabella 
+						tbNoleggioCaricata = caricaTabella((List<T>)presenter.processRequest("getAllNoleggi",null),tbNoleggio);
 					} catch (InstantiationException | IllegalAccessException| ClassNotFoundException| NoSuchMethodException | SecurityException
 							| IllegalArgumentException	
 							| InvocationTargetException
@@ -229,7 +286,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		
 		panes= tabPane.getTabs();
 		//serve solo per fargli fare il binding con le colonne
-		tbContrattoController = new TabContrattoController((TableView<Contratto>) tbContratto);
+		tbContrattoController = new TabContratto((TableView<Contratto>) tbContratto);
 		//carica la prima volta la tabella 
 		try {
 			caricaTabella((List<T>)presenter.processRequest("getAllContratti",null),tbContratto);
@@ -241,6 +298,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			e.printStackTrace();
 		}
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
+		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	
 }

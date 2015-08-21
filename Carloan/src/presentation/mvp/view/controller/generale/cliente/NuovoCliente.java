@@ -120,6 +120,12 @@ public class NuovoCliente extends Schermata{
 		dParam= dEmissPatente.getValue();
 		cliente.setDataEmissPatente(Date.valueOf(dParam));
 		
+		//data scadenza patente -> dataEmissione + 10 anni.
+		dParam= dEmissPatente.getValue();
+		dScadPatente.setValue(LocalDate.of(dParam.getYear()+10, dParam.getMonth(),dParam.getDayOfMonth()));
+		dParam=dScadPatente.getValue();
+		cliente.setDataScadPatente(Date.valueOf(dParam));
+		
 		cliente.setIndirizzo(txtIndirizzo.getText());
 		
 		cliente.setCodFiscale(txtCodFisc.getText());
@@ -130,11 +136,7 @@ public class NuovoCliente extends Schermata{
 		
 		cliente.setPatenteGuida(txtPatGuida.getText());
 		
-		//data scadenza patente -> dataEmissione + 10 anni.
-		dParam= dEmissPatente.getValue();
-		dScadPatente.setValue(LocalDate.of(dParam.getYear()+10, dParam.getMonth(),dParam.getDayOfMonth()));
-		dParam=dScadPatente.getValue();
-		cliente.setDataScadPatente(Date.valueOf(dParam));
+		
 		
 		cliente.setPartitaIva(txtPartIva.getText());
 		

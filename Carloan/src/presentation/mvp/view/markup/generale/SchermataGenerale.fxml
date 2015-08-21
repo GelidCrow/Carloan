@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="20.0" prefWidth="1228.0">
         <menus>
@@ -43,7 +43,7 @@
                                     <Image url="@../Immagini/log_in_logo.jpg" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="891.0" layoutY="9.0" prefHeight="36.0" prefWidth="207.0" text="Benvenuto " textFill="WHITE">
+                              <Label fx:id="txtBenvenuto" layoutX="711.0" layoutY="22.0" prefHeight="36.0" prefWidth="148.0" text="Benvenuto " textFill="WHITE">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
@@ -91,10 +91,29 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView layoutY="115.0" prefHeight="373.0" prefWidth="1228.0" />
-                                    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
-                                    <Button layoutX="125.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
-                                    <Button layoutX="241.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Chiudi" />
+                                    <TableView fx:id="tbNoleggio" layoutY="115.0" prefHeight="373.0" prefWidth="1228.0">
+                                       <columns>
+                                          <TableColumn minWidth="0.0" prefWidth="53.0" text="ID" />
+                                          <TableColumn prefWidth="75.0" text="Data Inizio" />
+                                          <TableColumn minWidth="0.0" prefWidth="0.0" text="Column X" />
+                                          <TableColumn minWidth="0.0" prefWidth="77.0" text="Data Fine" />
+                                          <TableColumn prefWidth="91.0" text="Data Rientro" />
+                                          <TableColumn prefWidth="72.0" text="Data Ritiro" />
+                                          <TableColumn prefWidth="75.0" text="KmBase" />
+                                          <TableColumn prefWidth="75.0" text="KmRientro" />
+                                          <TableColumn prefWidth="75.0" text="Stato" />
+                                          <TableColumn prefWidth="75.0" text="N.Settimane" />
+                                          <TableColumn prefWidth="75.0" text="N.Giorni" />
+                                          <TableColumn prefWidth="120.0" text="Chilometri Limite" />
+                                          <TableColumn prefWidth="84.0" text="S. Restituzione" />
+                                          <TableColumn prefWidth="57.0" text="Auto" />
+                                          <TableColumn prefWidth="81.0" text="Contratto" />
+                                          <TableColumn prefWidth="75.0" text="Cliente" />
+                                          <TableColumn prefWidth="75.0" text="Note" />
+                                       </columns></TableView>
+                                    <Button fx:id="btnNoleggio" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoNoleggio" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
+                                    <Button layoutX="125.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaNoleggio" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
+                                    <Button layoutX="241.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnChiudiNoleggio" prefHeight="25.0" prefWidth="78.0" text="Chiudi" />
                                     <Button layoutX="819.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
                                     <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -102,6 +121,8 @@
                                        </image>
                                     </ImageView>
                                     <TextField layoutX="63.0" layoutY="57.0" />
+                                    <Button fx:id="btnVOptional" layoutX="339.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVOptional" text="Visualizza Optional " />
+                                    <Button fx:id="btnVPagamento" layoutX="473.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVPagamento" text="Visualizza Pagamento" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -135,6 +156,8 @@
                                        </image>
                                     </ImageView>
                                     <TextField layoutX="63.0" layoutY="57.0" />
+                                    <Button layoutX="264.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta Di Credito" />
+                                    <Button layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVisualizzaCartaCredito" text="Visualizza Carta di Credito" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -153,6 +176,17 @@
                                        </image>
                                     </ImageView>
                                     <TextField layoutX="63.0" layoutY="57.0" />
+                                    <Button layoutX="291.0" layoutY="2.0" mnemonicParsing="false" text="Aggiungi Multa" />
+                                    <Button layoutX="292.0" layoutY="32.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica Multa" />
+                                    <Button layoutX="290.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="Visualizza Multa" />
+                                    <Button layoutX="427.0" layoutY="2.0" mnemonicParsing="false" text="Aggiungi Manutenzione" />
+                                    <Button layoutX="427.0" layoutY="32.0" mnemonicParsing="false" text="Button" />
+                                    <MenuButton layoutX="499.0" layoutY="32.0" mnemonicParsing="false" text="Manutenzione">
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                                      </items>
+                                    </MenuButton>
                                  </children>
                               </AnchorPane>
                           </content>
@@ -266,24 +300,6 @@
                            </content>
                         </Tab>
                         <Tab text="SupervisoreAgenzia">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
-                                 <children>
-                                    <TableView layoutY="111.0" prefHeight="407.0" prefWidth="1236.0" />
-                                    <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
-                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
-                                    <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
-                                    <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Immagini/ic_search_black_24dp_2x.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField layoutX="63.0" layoutY="57.0" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Operatore">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>

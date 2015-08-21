@@ -52,6 +52,7 @@ public class ClienteChecker implements Checker{
         checkSesso();
         checkDataNascita();
         checkDataEmissPatente();
+        checkDataScadPatente();
         checkIndirizzo();
         checkCodFiscale();
         checkNumCell();
@@ -76,6 +77,11 @@ public class ClienteChecker implements Checker{
 		}
 	}
 	
+	public void checkDataScadPatente() throws CommonException {
+		if(cliente.getDataEmissPatente()==null || cliente.getDataScadPatente().before(Date.valueOf(LocalDate.now()))){
+        	throw new CommonException("Patente Scaduta");
+		}
+	}
 
 	
 	public void checkNome() throws CommonException{

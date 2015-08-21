@@ -12,7 +12,7 @@ import javafx.stage.Modality;
 import business.entity.Noleggio.Contratto;
 import business.model.Exception.CommonException;
 
-public class TabContrattoController {
+public class TabContratto {
 	
 	private ObservableList<TableColumn<Contratto,?>> contratto;
 		
@@ -91,7 +91,7 @@ public class TabContrattoController {
 		this.schermata=schermata;
 	}
 	
-	TabContrattoController(TableView<Contratto> tbContratto){
+	TabContratto(TableView<Contratto> tbContratto){
 		contratto= tbContratto.getColumns();
 		
 		this.tbContratto=tbContratto;

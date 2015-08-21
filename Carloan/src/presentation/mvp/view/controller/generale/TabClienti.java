@@ -11,7 +11,7 @@ import javafx.stage.Modality;
 import business.entity.Cliente;
 import business.model.Exception.CommonException;
 
-public class TabClientiController{
+public class TabClienti{
 	
 	private ObservableList<TableColumn<Cliente, ?>> cliente;
 	
@@ -75,7 +75,7 @@ public class TabClientiController{
 	}
 
 	
-	TabClientiController(TableView<Cliente> tbCliente,Schermata schermata){
+	TabClienti(TableView<Cliente> tbCliente,Schermata schermata){
 		cliente= tbCliente.getColumns();
 		
 		this.schermata= schermata;
