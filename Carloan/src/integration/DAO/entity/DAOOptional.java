@@ -14,8 +14,15 @@ import Errori.AlertView;
 import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Noleggio.Contratto;
+import business.entity.Noleggio.Optional.Assicurazione_KASKO;
+import business.entity.Noleggio.Optional.CateneNeve;
+import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
+import business.entity.Noleggio.Optional.Gps;
+import business.entity.Noleggio.Optional.Guidatore;
+import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
 import business.entity.Noleggio.Optional.Optional;
 import business.entity.Noleggio.Optional.OptionalAuto;
+import business.entity.Noleggio.Optional.Seggiolino;
 import business.model.Exception.CommonException;
 
 public class DAOOptional implements DAO{
@@ -39,16 +46,35 @@ public class DAOOptional implements DAO{
 
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		 String readQuery = "Select Nome,Descrizione,prezzo,LimiteCopertura,numeroSeggiolini,numeroGuidatoriAggiuntivi from Optional where idOptional= '?'";
+
+		Connection connection= Connection.getConnection(daofactory);
+		ResultSet readQueryResultSet = null;
+		Optional optional =null;
+		try {
+				readQueryResultSet = connection.executeRead(readQuery);	
+				optional= ottieniOptional(readQueryResultSet);
+		} catch (SQLException  e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere gli Optional" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				readQueryResultSet.close();
+				//connection.chiudiConnessione();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+		
+		return optional;
+		
 	}
 	
 	public List<Optional> getAll(){
-		 String readQuery = "Select DISTINCT Nome,Descrizione,prezzo from Optional";
+		 String readQuery = "Select Nome,Descrizione,prezzo,LimiteCopertura,numeroSeggiolini,numeroGuidatoriAggiuntivi from Optional";
 		 List<Optional> optional;
-		 
-		 
-		 
+
 		Connection connection= Connection.getConnection(daofactory);
 		 
 		ResultSet readQueryResultSet = null;
@@ -73,52 +99,14 @@ public class DAOOptional implements DAO{
 		return risultato;
 	}
 	
-	public Optional creaElencoOptional(ResultSet resultset) throws InstantiationException, IllegalAccessException{
+	@SuppressWarnings("null")
+	public List<Optional> creaElencoOptional(ResultSet resultset) throws InstantiationException, IllegalAccessException{
 	
-		
-        String sParam= null;
-        Date dParam = null;
-        int iParam;
-        
+		List<Optional> risultato = null;
         try {
          if(resultset!=null){
             while (resultset.next()) {
-                Optional optional = new OptionalAuto();
-                
-                iParam= resultset.getInt("idContratto");
-                contratto.setIDContratto(iParam);
-                
-                iParam= resultset.getInt("idOperatore");
-                contratto.setIDOperatore(iParam);
-                
-                iParam= resultset.getInt("idSupervisoreAgenzia");
-                contratto.setIDSupervisoreAgenzia(iParam);  
-                
-                iParam= resultset.getInt("idSupervisoreSede");
-                contratto.setIDSupervisoreSede(iParam);
-                
-                iParam= resultset.getInt("idAmministratore");
-                contratto.setIDAmministratore(iParam);
-                
-                iParam= resultset.getInt("idCliente");//leggo l'id del cliente e ora prendo la sua istanza.facendo una specie di join
-        		Cliente cliente = (Cliente) daoCliente.lettura(iParam);
-                contratto.setCliente(cliente);
-                
-        		
-                sParam= resultset.getString("stato");
-                contratto.setStato(sParam);
-                
-                sParam= resultset.getString("note");
-                contratto.setNote(sParam);
-                
-                dParam= resultset.getDate("DataCreazione");
-                contratto.setDataCreazione(dParam);
-                
-                dParam= resultset.getDate("DataChiusura");
-                contratto.setDataChiusura(dParam);
-                
-                risultato.add(contratto);
-            	
+                		 risultato.add((Optional)lettura(resultset.getInt(1)));
             }
          }
         }
@@ -128,4 +116,28 @@ public class DAOOptional implements DAO{
 		return risultato;
 	}
 
+  	public Optional ottieniOptional(ResultSet resultset){
+
+        try {
+			switch (resultset.getString(5)){
+				case "Gps": 
+					return new Gps(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5));
+				case "Assicuraziones_Kasko": 	
+					return new Assicurazione_KASKO(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5),resultset.getFloat(4));
+				case "guidatoreAggiuntivo": 
+					List<Guidatore> guidatori = daoGuidatore.getAllByOptional(resultset.getInt(1));
+					return new GuidatoreAggiuntivo(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5),guidatori);
+				case "chilometraggioIllimitato": 
+					return new ChilometraggioIllimitato(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5),resultset.getFloat(4));
+				case "cateneNeve":
+					return new CateneNeve(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5));
+				case "Seggiolino":
+					return new Seggiolino(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5), resultset.getInt(6));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+  	}
 }

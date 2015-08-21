@@ -4,8 +4,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import business.entity.Cliente;
 import business.entity.Entity;
@@ -207,15 +209,26 @@ public class NuovoNoleggio<T extends Entity> extends Schermata{
 			caricaTabella((List<T>)presenter.processRequest("getAllSedi",null), tbRestituzione);
 			caricaTabella((List<T>)presenter.processRequest("getAllOptional",null), tbOptional);
 			caricaTabella((List<T>)presenter.processRequest("getAllContratti",null), tbContratto);
+			
 			List<Optional> optional = (List<Optional>)presenter.processRequest("getAllOptional",null);
-			List<OptionalAuto> optionalAuto = new ArrayList<OptionalNoleggio>() ;
+			Set<Optional> viewOptional = new HashSet<Optional>();
+			viewOptional.addAll(optional); 
+			for(Optional op: viewOptional){
+				if(op instanceof OptionalAuto){
+					
+				}
+			}
+			caricaTabella()
+			
+			List<OptionalNoleggio> optionalAuto = new ArrayList<OptionalNoleggio>();
+			
 			List<OptionalNoleggio> optionalNoleggio = new ArrayList<OptionalNoleggio>();
 			for(Optional op: optional){
 				if(op instanceof Gps){
 					
 				}
 			}
-			caricaTabella();
+			
 
 			caricaTabella((List<T>)presenter.processRequest("getAllOptional",null), tbOptional);
 

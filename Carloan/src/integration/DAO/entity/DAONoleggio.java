@@ -35,6 +35,7 @@ public class DAONoleggio implements DAO{
 		this.daofactory = dao;		
 	}
 	
+	@SuppressWarnings("resource")
 	@Override
 	public void creazione(Entity x) {
 		String insert= "INSERT INTO Noleggio"
@@ -62,6 +63,8 @@ public class DAONoleggio implements DAO{
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getAuto()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getPagamento()));
 	    
+	  
+	   
 	   
 	   Connection connection= Connection.getConnection(daofactory);
        
@@ -69,7 +72,17 @@ public class DAONoleggio implements DAO{
        
 		try {
 			 idList = connection.executeUpdate(insertQuery);
-			 AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
+			 //qui assegno l'optional ad un noleggio
+			 insertQuery= " Insert into NoleggioOptional('?','?');";
+			 insertQuery = queryReplaceFirst(insertQuery, String.valueOf(idList.getInt(1)));
+			 String queryPartenza=insertQuery;
+			 for(int i=0;i< noleggio.getOptional().size();i++){
+				 insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getOptional().get(i).getId()));
+				 idList = connection.executeUpdate(insertQuery);
+				 insertQuery = queryPartenza;
+				 }
+			 
+			   AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -6,7 +6,7 @@ import business.model.Exception.CommonException;
 
 public class LoginChecker implements Checker{
 	
-	private static final int MIN_USER_VALUE = 3;
+	private static final int MIN_USER_VALUE = 2;
 	private static final int MAX_USER_VALUE = 30;
 	private static final int MIN_PASS_VALUE = 2;
 	private static final int MAX_PASS_VALUE =30;

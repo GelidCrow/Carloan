@@ -4,12 +4,18 @@ public class Seggiolino extends OptionalAuto{
 	/**
 	 * Il numero di seggiolini 
 	 */
-	private int numero;
-	public Seggiolino(Integer id,float prezzo, String descrizione,int numero) {
-		super(id,prezzo, descrizione);
-		this.numero=numero;
+	private int numeroSeggiolini;
+
+	public Seggiolino(Integer id, float prezzo, String descrizione, String nome,int numeroSeggiolini) {
+		super(id, prezzo, descrizione, nome);
+		this.numeroSeggiolini=numeroSeggiolini;
+		// TODO Auto-generated constructor stub
 	}
+
+
 	public int getnumero(){
-		return numero;
+		return numeroSeggiolini;
 	}
+
+
 }

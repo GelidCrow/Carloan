@@ -14,7 +14,7 @@ import business.entity.Auto.Autoveicolo;
 import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Optional.Optional;
 import business.entity.pagamento.Pagamento;
-/*diocane*/
+
 public class Noleggio extends Entity{
 	
 	private Integer IDNoleggio; 
