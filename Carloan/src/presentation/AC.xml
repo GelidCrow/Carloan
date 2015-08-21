@@ -4,7 +4,7 @@
 
 
 
-	/***** LOGIN ****/
+	<!-- Login-->
 	
 	<call id="login">
 		<class>business.model.ModelLogin</class>
@@ -19,7 +19,7 @@
 	
 	
 	
-	/***** CLIENTE ****/
+	<!-- CLIENTE -->
 	
 	<call id="InserimentoCliente">
 		<class>business.model.ModelCliente</class>
@@ -48,7 +48,7 @@
 	
 	
 	
-	/**** CONTRATTO******/
+	<!--CONTRATTO-->
 	
 	<call id="InserimentoContratto">
 		<class>business.model.ModelContratto</class>
@@ -67,5 +67,9 @@
 		<class>business.model.ModelContratto</class>
 		<method>getAll</method>
 	</call>
-
+	<!-- Autoveicolo-->
+	<call id="getAllAuto">
+		<class>business.model.ModelAutoveicolo</class>
+		<method>getAll</method>
+	</call>
 </calls>

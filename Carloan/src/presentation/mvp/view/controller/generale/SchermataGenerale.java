@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.UtenteCorrente;
+import business.entity.Auto.Autoveicolo;
 import business.entity.Gestori.Operatore;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
@@ -256,7 +257,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			}
 			else if(panes.get(3)==newValue){
 				if(tbAutoController==null){
-					tbAutoController=new TabAuto();
+					tbAutoController=new TabAuto((TableView<Autoveicolo>)tbAuto,SchermataGenerale.this);
 					try {
 						caricaTabella((List<T>)presenter.processRequest("getAllAuto",null), tbAuto);
 					} catch (InstantiationException | IllegalAccessException

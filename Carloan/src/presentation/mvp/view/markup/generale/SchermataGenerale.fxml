@@ -166,7 +166,22 @@
                           <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView layoutY="111.0" prefHeight="407.0" prefWidth="1236.0" />
+                                    <TableView layoutY="111.0" prefHeight="407.0" prefWidth="1228.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="Targa" />
+                                          <TableColumn prefWidth="75.0" text="Marca" />
+                                          <TableColumn prefWidth="75.0" text="Modello" />
+                                          <TableColumn prefWidth="152.0" text="Alimentazione principale" />
+                                          <TableColumn prefWidth="75.0" text="Colore" />
+                                          <TableColumn prefWidth="75.0" text="Cambio" />
+                                          <TableColumn prefWidth="109.0" text="Immatricolazione" />
+                                          <TableColumn prefWidth="75.0" text="Cilindrata" />
+                                          <TableColumn prefWidth="75.0" text="Fascia" />
+                                          <TableColumn prefWidth="90.0" text="Disponibilità" />
+                                          <TableColumn prefWidth="75.0" text="Prezzo" />
+                                          <TableColumn prefWidth="180.0" text="Data scadenza assicurazione" />
+                                          <TableColumn prefWidth="96.0" text="Kilometri" />
+                                       </columns></TableView>
                                     <Button fx:id="btnNuovaAuto" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovaAuto" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />

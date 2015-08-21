@@ -1,25 +1,15 @@
 package business.entity.Auto;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.image.Image;
+import business.entity.Entity;
 import business.entity.Auto.Fascia.*;
 import business.entity.Auto.manutenzione.Manutenzione;
-public class Autoveicolo {
+public class Autoveicolo extends Entity {
 	
-	private String IDauto;
+	private int IDauto;
 	private String Targa;
 	private String Marca;
 	private String Modello;
@@ -44,36 +34,11 @@ public class Autoveicolo {
 	private String OptionalAuto;
 	private List<Manutenzione> manutenzioni;
 	private float prezzo;
-	
-	private StringProperty IDautoT;
-	private StringProperty TargaT;
-	private StringProperty MarcaT;
-	private StringProperty ModelloT;
-	private StringProperty AlimPrincipaleT;
-	private StringProperty AlimSecT;
-	private StringProperty ColoreT;
-	private StringProperty CambioT;
-	private ObjectProperty<LocalDate> ImmatricolazioneT;
-	private IntegerProperty CilindrataT;
-	private IntegerProperty potenzaT;
-	private IntegerProperty NroPostiT;
-	private StringProperty NroTelaioT;
-	private ObjectProperty<Disponibilita> disponibilitaT;
-	private IntegerProperty UltimoKmT;
-	private IntegerProperty CapPortaBagnagliT;
-	private StringProperty NoteT;
-	private ObjectProperty<Image> ImmagineT;
-	private ObjectProperty<LocalDate> DataScadAssicT;
-	private ObjectProperty<Fascia> fasciaT;
-	private ObjectProperty<Danni> danniT;
-	private StringProperty CodiceSedDispT;
-	private StringProperty OptionalAutoT;
-	private StringProperty manutenzioniT;
-	private FloatProperty prezzoT;
+
 	
 
 	
-	public Autoveicolo(String iDauto, String targa, String marca,
+	public Autoveicolo(int iDauto, String targa, String marca,
 			String modello, String alimPrincipale, String alimSec,
 			String colore, String cambio, LocalDate immatricolazione,
 			int cilindrata, int potenza, int nroPosti, String nroTelaio,
@@ -107,28 +72,15 @@ public class Autoveicolo {
 		OptionalAuto = optionalAuto;
 		this.manutenzioni= manutenzioni;
 		this.prezzo = prezzo;
-		this.IDautoT=new SimpleStringProperty(this.IDauto);
-		this.TargaT=new SimpleStringProperty(this.Targa);
-		this.MarcaT=new SimpleStringProperty(this.Marca);
-		this.ModelloT=new SimpleStringProperty(this.Modello);
-		this.AlimPrincipaleT=new SimpleStringProperty(this.AlimPrincipale);
-		this.AlimSecT=new SimpleStringProperty(this.AlimSec);
-		this.ColoreT=new SimpleStringProperty(this.Colore);
-		this.CambioT=new SimpleStringProperty(this.Cambio);
-		this.ImmatricolazioneT=new SimpleObjectProperty<LocalDate>(this.Immatricolazione);
-		this.CilindrataT=new SimpleIntegerProperty(this.Cilindrata);
-		this.potenzaT=new SimpleIntegerProperty(this.potenza);
-		this.NroPostiT=new SimpleIntegerProperty(this.NroPosti);
-		this.NroTelaioT=new SimpleStringProperty(this.NroTelaio);
-		this.disponibilitaT=new SimpleObjectProperty<Disponibilita>(this.disponibilita);
 	}
+		
 
-	public String getIDauto() {
+	public int getIDauto() {
 		return IDauto;
 	}
 
 
-	public void setIDauto(String iDauto) {
+	public void setIDauto(int iDauto) {
 		IDauto = iDauto;
 	}
 
@@ -140,6 +92,7 @@ public class Autoveicolo {
 
 	public void setTarga(String targa) {
 		Targa = targa;
+		
 	}
 
 
@@ -203,12 +156,12 @@ public class Autoveicolo {
 	}
 
 
-	public Date getImmatricolazione() {
+	public LocalDate getImmatricolazione() {
 		return Immatricolazione;
 	}
 
 
-	public void setImmatricolazione(Date immatricolazione) {
+	public void setImmatricolazione(LocalDate immatricolazione) {
 		Immatricolazione = immatricolazione;
 	}
 
@@ -303,12 +256,12 @@ public class Autoveicolo {
 	}
 
 
-	public Date getDataScadAssic() {
+	public LocalDate getDataScadAssic() {
 		return DataScadAssic;
 	}
 
 
-	public void setDataScadAssic(Date dataScadAssic) {
+	public void setDataScadAssic(LocalDate dataScadAssic) {
 		DataScadAssic = dataScadAssic;
 	}
 
@@ -350,6 +303,7 @@ public class Autoveicolo {
 
 	public void setOptionalAuto(String optionalAuto) {
 		OptionalAuto = optionalAuto;
+		
 	}
 
 
