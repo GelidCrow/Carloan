@@ -141,12 +141,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		 
 		if(result.isPresent() && result.get() == ButtonType.OK){
 			chiudiFinestra();
-			/*try {
-				Connection.chiudiConnessione();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}*/
+		
 			FXMLParameter.setTitolo("Login");
 		    FXMLParameter.setRidimensionabile(false);
 			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraLogin",Modality.WINDOW_MODAL);
