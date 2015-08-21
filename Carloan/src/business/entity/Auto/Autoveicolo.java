@@ -1,8 +1,19 @@
 package business.entity.Auto;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.image.Image;
 import business.entity.Auto.Fascia.*;
 import business.entity.Auto.manutenzione.Manutenzione;
@@ -16,7 +27,7 @@ public class Autoveicolo {
 	private String AlimSec;
 	private String Colore;
 	private String Cambio;
-	private Date Immatricolazione;
+	private LocalDate Immatricolazione;
 	private int Cilindrata;
 	private int potenza;
 	private int NroPosti;
@@ -26,21 +37,48 @@ public class Autoveicolo {
 	private int CapPortaBagnagli;
 	private String Note;
 	private Image Immagine;
-	private Date DataScadAssic;
+	private LocalDate DataScadAssic;
 	private Fascia fascia;
 	private Danni danni;
 	private String CodiceSedDisp;
 	private String OptionalAuto;
 	private List<Manutenzione> manutenzioni;
 	private float prezzo;
+	
+	private StringProperty IDautoT;
+	private StringProperty TargaT;
+	private StringProperty MarcaT;
+	private StringProperty ModelloT;
+	private StringProperty AlimPrincipaleT;
+	private StringProperty AlimSecT;
+	private StringProperty ColoreT;
+	private StringProperty CambioT;
+	private ObjectProperty<LocalDate> ImmatricolazioneT;
+	private IntegerProperty CilindrataT;
+	private IntegerProperty potenzaT;
+	private IntegerProperty NroPostiT;
+	private StringProperty NroTelaioT;
+	private ObjectProperty<Disponibilita> disponibilitaT;
+	private IntegerProperty UltimoKmT;
+	private IntegerProperty CapPortaBagnagliT;
+	private StringProperty NoteT;
+	private ObjectProperty<Image> ImmagineT;
+	private ObjectProperty<LocalDate> DataScadAssicT;
+	private ObjectProperty<Fascia> fasciaT;
+	private ObjectProperty<Danni> danniT;
+	private StringProperty CodiceSedDispT;
+	private StringProperty OptionalAutoT;
+	private StringProperty manutenzioniT;
+	private FloatProperty prezzoT;
+	
 
 	
 	public Autoveicolo(String iDauto, String targa, String marca,
 			String modello, String alimPrincipale, String alimSec,
-			String colore, String cambio, Date immatricolazione,
+			String colore, String cambio, LocalDate immatricolazione,
 			int cilindrata, int potenza, int nroPosti, String nroTelaio,
 			Disponibilita disponibilita, int ultimoKm, int capPortaBagnagli,
-			String note, Image immagine, Date dataScadAssic, Fascia fascia,
+			String note, Image immagine, LocalDate dataScadAssic, Fascia fascia,
 			Danni danni, String codiceSedDisp, String optionalAuto,
 			List<Manutenzione> manutenzioni, float prezzo) 
 	{
@@ -69,6 +107,20 @@ public class Autoveicolo {
 		OptionalAuto = optionalAuto;
 		this.manutenzioni= manutenzioni;
 		this.prezzo = prezzo;
+		this.IDautoT=new SimpleStringProperty(this.IDauto);
+		this.TargaT=new SimpleStringProperty(this.Targa);
+		this.MarcaT=new SimpleStringProperty(this.Marca);
+		this.ModelloT=new SimpleStringProperty(this.Modello);
+		this.AlimPrincipaleT=new SimpleStringProperty(this.AlimPrincipale);
+		this.AlimSecT=new SimpleStringProperty(this.AlimSec);
+		this.ColoreT=new SimpleStringProperty(this.Colore);
+		this.CambioT=new SimpleStringProperty(this.Cambio);
+		this.ImmatricolazioneT=new SimpleObjectProperty<LocalDate>(this.Immatricolazione);
+		this.CilindrataT=new SimpleIntegerProperty(this.Cilindrata);
+		this.potenzaT=new SimpleIntegerProperty(this.potenza);
+		this.NroPostiT=new SimpleIntegerProperty(this.NroPosti);
+		this.NroTelaioT=new SimpleStringProperty(this.NroTelaio);
+		this.disponibilitaT=new SimpleObjectProperty<Disponibilita>(this.disponibilita);
 	}
 
 	public String getIDauto() {

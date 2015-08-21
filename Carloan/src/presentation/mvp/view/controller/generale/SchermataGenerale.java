@@ -45,7 +45,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TableView<T> tbContratto;
 	@FXML
 	private TableView<T> tbNoleggio;
-	
+	@FXML
+	private TableView<T> tbAuto;
 	
 	
 	
@@ -54,7 +55,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TabContratto tbContrattoController;
 
 	private TabNoleggio tbNoleggioController;
-	
+	private TabAuto tbAutoController;
 		/***********  CONTRATTO *************/
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
@@ -253,6 +254,21 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 					}
 				}
 			}
+			else if(panes.get(3)==newValue){
+				if(tbAutoController==null){
+					tbAutoController=new TabAuto();
+					try {
+						caricaTabella((List<T>)presenter.processRequest("getAllAuto",null), tbAuto);
+					} catch (InstantiationException | IllegalAccessException
+							| ClassNotFoundException | NoSuchMethodException
+							| SecurityException | IllegalArgumentException
+							| InvocationTargetException | CommonException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			
 	    }
 	} 
 	
@@ -289,6 +305,5 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
-		System.out.println("claudio");
 	}	
 }
