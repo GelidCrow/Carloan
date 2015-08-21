@@ -210,8 +210,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		else if(table.equals("Noleggio")){
 			return tbNoleggio.getSelectionModel().getSelectedItem();
 		}
-		else if(1==1)
-			;
+		
 		return null;
 	}
 	
