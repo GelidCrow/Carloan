@@ -145,7 +145,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 		 indirizzo.setCellValueFactory(cellData ->  new  SimpleStringProperty(((Sede) cellData.getValue()).getIndirizzo()));
 		 identifier.setCellValueFactory(cellData ->new ReadOnlyObjectWrapper<Integer>(((Sede)cellData.getValue()).getIDSede()));
 		 ObservableList<Sede> obsList= FXCollections.observableList(sedi);
-			tablesedi.setItems(obsList);
+		 tablesedi.setItems(obsList);
 			
 		}
 			catch (InstantiationException | IllegalAccessException
@@ -174,11 +174,13 @@ public class Nuovo_Autoveicolo extends Schermata{
                 new FileChooser.ExtensionFilter("PNG", "*.png")
             );
 		File f=fileChooser.showOpenDialog(stage);
+		if(f!=null){
 		try {
 			this.immagine=new FileInputStream(f);
 		} catch (FileNotFoundException e1) {
 		}
 		vistaimmagine.setImage(new Image(this.immagine));
+		}
 	}
 	
 	@FXML

@@ -69,7 +69,7 @@ public class DAOSede implements DAO {
 		if(r!=null){
 				try {
 					while(r.next()){
-						lesedi.add(new Sede(r.getInt(1),r.getString(2),r.getString(3),r.getString(4)));	
+						lesedi.add(new Sede(r.getInt(1),r.getString(2),r.getString(3),r.getString(4),r.getInt(5)));	
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
