@@ -216,6 +216,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		else if(table.equals("Noleggio")){
 			return tbNoleggio.getSelectionModel().getSelectedItem();
 		}
+		else if(1==1)
+			;
 		return null;
 	}
 	
@@ -301,5 +303,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
+		System.out.println("claudio");
 	}	
 }
