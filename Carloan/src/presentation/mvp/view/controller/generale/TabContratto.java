@@ -11,21 +11,17 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
-import business.entity.Cliente;
-import business.entity.Entity;
 import business.entity.Noleggio.Contratto;
 import business.model.Exception.CommonException;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class TabContratto<T extends Entity> {
+public class TabContratto {
 	
-	private ObservableList<TableColumn<T,?>> contratto;
+	private ObservableList<TableColumn<Contratto,?>> contratto;
 		
-	private TableView<T> tbContratto;
+	private TableView<Contratto> tbContratto;
 
 	private Schermata schermata;
 	
@@ -89,8 +85,7 @@ public class TabContratto<T extends Entity> {
 		contratto.get(3).setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(((Contratto) cellData.getValue()).getDataCreazione()));
 		
 		contratto.get(4).setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(((Contratto) cellData.getValue()).getDataChiusura()));
-		
-		contratto.get(5).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Cliente) cellData.getValue()).getId()));
+	
 	}
 
 	
@@ -99,7 +94,7 @@ public class TabContratto<T extends Entity> {
 	}
 	
 	public 
-	TabContratto(TableView<T> tbContratto){
+	TabContratto(TableView<Contratto> tbContratto){
 		contratto= tbContratto.getColumns();
 		
 		this.tbContratto=tbContratto;

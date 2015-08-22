@@ -26,15 +26,13 @@ public class Noleggio extends Entity{
 	private int Idcontratto;
 	private String note;
 	private int idPagamento;
-	private int idCliente;
 	
 	public Noleggio(int iDNoleggio, LocalDate inizioNoleggio,
 			LocalDate fineNoleggio, LocalDate rientro, LocalDate ritiro,
 			int kmRientro,  int kmBase, List<Integer> optional,
-			List<Integer> multa, int sedeRestituzione, int numeroSettimane,
-			int numeroGiorni, int numeroChilometri, StatoNoleggio stato,
-			int idAuto, int idcontratto, String note, int idPagamento,
-			int idCliente) {
+			List<Integer> multa,StatoNoleggio stato,  int numeroSettimane,
+			int numeroGiorni, int numeroChilometri,int sedeRestituzione,int idcontratto,
+			int idPagamento,int idAuto,  String note) {
 		super();
 		IDNoleggio = iDNoleggio;
 		InizioNoleggio = inizioNoleggio;
@@ -42,6 +40,8 @@ public class Noleggio extends Entity{
 		this.rientro = rientro;
 		this.ritiro = ritiro;
 		this.kmRientro = kmRientro;
+		this.multa= multa;
+		this.optional=optional;
 		this.kmBase = kmBase;
 		this.optional = optional;
 		this.multa = multa;
@@ -54,7 +54,6 @@ public class Noleggio extends Entity{
 		Idcontratto = idcontratto;
 		this.note = note;
 		this.idPagamento = idPagamento;
-		this.idCliente = idCliente;
 	}
 	
 	public int getIDNoleggio() {
@@ -170,11 +169,5 @@ public class Noleggio extends Entity{
 	}
 	public void setIdPagamento(int idPagamento) {
 		this.idPagamento = idPagamento;
-	}
-	public int getIdCliente() {
-		return idCliente;
-	}
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
 	}
 }

@@ -282,7 +282,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 							| ClassNotFoundException | NoSuchMethodException
 							| SecurityException | IllegalArgumentException
 							| InvocationTargetException | CommonException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -318,16 +317,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		
 		panes= tabPane.getTabs();
 		//serve solo per fargli fare il binding con le colonne
-		tbContrattoController = new TabContratto<T>((TableView<T>) tbContratto);
+		tbContrattoController = new TabContratto((TableView<Contratto>) tbContratto);
 		//carica la prima volta la tabella 
 		try {
 			List<Contratto> contratti = (List<Contratto>)presenter.processRequest("getAllContratti",null);
 			caricaTabella((List<T>) contratti,tbContratto);
-			List<Cliente> clienti = new ArrayList<Cliente>();
-			for(Contratto c: contratti){
-			  	clienti.add((Cliente)presenter.processRequest("leggiCliente",c.getIdCliente()));
-			}
-			//cliente.setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getNome()+ ((Cliente) cellData.getValue()).getCognome()));
+		
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

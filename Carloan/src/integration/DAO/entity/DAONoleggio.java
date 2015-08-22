@@ -14,6 +14,7 @@ import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Noleggio.Noleggio;
+import business.entity.Noleggio.StatoNoleggio;
 import business.model.Exception.CommonException;
 
 
@@ -46,11 +47,11 @@ public class DAONoleggio implements DAO{
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroChilometri()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroSettimane()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroSettimane()));
-	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getLuogoRestituzione()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getSedeRestituzione()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNote()));
-	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getContratto()));
-	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getAuto()));
-	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getPagamento()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdcontratto()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdAuto()));
+	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdPagamento()));
 	    
 	  
 	   
@@ -66,7 +67,7 @@ public class DAONoleggio implements DAO{
 			 insertQuery = queryReplaceFirst(insertQuery, String.valueOf(idList.getInt(1)));
 			 String queryPartenza=insertQuery;
 			 for(int i=0;i< noleggio.getOptional().size();i++){
-				 insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getOptional().get(i).getId()));
+				 insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getOptional().get(i)));
 				 idList = connection.executeUpdate(insertQuery);
 				 insertQuery = queryPartenza;
 				 }
@@ -109,7 +110,7 @@ public class DAONoleggio implements DAO{
 		List<Noleggio> risultato = null;
 		try {
 			readQueryResultSet = connection.executeRead(readQuery);	
-			risultato= creaElencoNoleggi(readQueryResultSet);
+			risultato= creaElencoNoleggi(readQueryResultSet,connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			AlertView.getAlertView("Non è stato possibile leggere i contratti" , AlertType.ERROR);
@@ -169,58 +170,79 @@ public class DAONoleggio implements DAO{
 	}
 	
 	private Noleggio ottieniNoleggio(ResultSet resultset,Connection connection) throws SQLException{
-		String readQuery  = "Select idOptional from noleggioContratto where idNoleggio= '?'";
-		ResultSet readQueryResultSet = null;
-		List<Integer> idOptionals;
-		try {
-			readQueryResultSet = connection.executeRead(readQuery);	
-			idOptionals= new ArrayList<Integer>();
-			while(readQueryResultSet.next()){
-				idOptionals.add(resultset.getInt(1));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			AlertView.getAlertView("Non è stato possibile leggere gli optional associati al noleggio" , AlertType.ERROR);
-		}
-		finally{
-			try {
-				readQueryResultSet.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-			}
-		}
-		
-		readQuery  = "Select idMulta from Multa where idNoleggio= '?'";
-		readQueryResultSet = null;
-		List<Integer> idMulta;
-		try {
-			readQueryResultSet = connection.executeRead(readQuery);	
-			idOptionals= new ArrayList<Integer>();
-			while(readQueryResultSet.next()){
-				idOptionals.add(resultset.getInt(1));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			AlertView.getAlertView("Non è stato possibile leggere gli optional associati al noleggio" , AlertType.ERROR);
-		}
-		finally{
-			try {
-				readQueryResultSet.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-			}
-		}
-		
-		
-		
-		daoMulta.leggiMulteByNoleggio(resultset.getInt(1));
-		leggiOptionalByNoleggio()
-		return  new Noleggio(resultset.getInt(1), resultset.getDate(2).toLocalDate(),resultset.getDate(3).toLocalDate(),
-				resultset.getDate(4).toLocalDate(),resultset.getDate(5).toLocalDate(),resultset.getInt(6),resultset.getInt(7),
-				resultset.getString(8),resultset.getInt(9),resultset.getInt(10),resultset.getInt(11),resultset.getInt(12),
-				resultset.getInt(13),resultset.getInt(14),resultset.getInt(15),resultset.getString(16));
+		List<Integer> idOptionals= ottieniIDOptional(resultset,connection);
+		List<Integer> idMulta  = ottieniIDMulte(resultset,connection);
 
+		return  new Noleggio(resultset.getInt(1),
+				resultset.getDate(2).toLocalDate(),
+				resultset.getDate(3).toLocalDate(),
+				resultset.getDate(4).toLocalDate(),
+				resultset.getDate(5).toLocalDate(),
+				resultset.getInt(6),
+				resultset.getInt(7),
+				idOptionals,
+				idMulta,
+				StatoNoleggio.toStatoNoleggio(resultset.getString(8)),
+				resultset.getInt(9),
+				resultset.getInt(10),
+				resultset.getInt(11),
+				resultset.getInt(12),
+				resultset.getInt(13),
+				resultset.getInt(14),
+				resultset.getInt(15),
+				resultset.getString(16));
+	}
+	
+	private List<Integer> ottieniIDOptional(ResultSet resultset,Connection connection) throws SQLException{
+		String readQuery  = "Select idOptional from noleggioContratto where idNoleggio= '?'";
+		readQuery = queryReplaceFirst(readQuery, String.valueOf(resultset.getInt(1)));
+		
+		ResultSet readQueryResultSet = null;
+		List<Integer> idOptionals = null;
+		try {
+			readQueryResultSet = connection.executeRead(readQuery);	
+			idOptionals= new ArrayList<Integer>();
+			while(readQueryResultSet.next()){
+				idOptionals.add(resultset.getInt(1));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere gli optional associati al noleggio" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				readQueryResultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+		return idOptionals;
+	}
+	
+	private List<Integer> ottieniIDMulte(ResultSet resultset,Connection connection) throws SQLException{
+		String readQuery  = "Select idMulta from Multa where idNoleggio= '?'";
+		readQuery = queryReplaceFirst(readQuery, String.valueOf(resultset.getInt(1)));
+		ResultSet readQueryResultSet = null;
+		List<Integer> idMulta=null;
+		try {
+			readQueryResultSet = connection.executeRead(readQuery);	
+			idMulta= new ArrayList<Integer>();
+			while(readQueryResultSet.next()){
+				idMulta.add(resultset.getInt(1));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere le multe associate al noleggio" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				readQueryResultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+		return idMulta;
 	}
 }

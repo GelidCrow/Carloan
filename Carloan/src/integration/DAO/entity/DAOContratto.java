@@ -234,8 +234,8 @@ public class DAOContratto implements DAO{
         contratto.setNote(sParam);
    
         contratto.setDataCreazione(resultset.getDate("DataCreazione").toLocalDate());
-    
-        contratto.setDataChiusura(resultset.getDate("DataChiusura").toLocalDate());
+        if(resultset.getDate("DataChiusura")!=null)
+        	contratto.setDataChiusura(resultset.getDate("DataChiusura").toLocalDate());
         return contratto;
 	}
 }

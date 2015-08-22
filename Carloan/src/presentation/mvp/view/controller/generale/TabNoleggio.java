@@ -56,7 +56,7 @@ public class TabNoleggio {
 		noleggio.get(8).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getNumeroSettimane()));
 		noleggio.get(9).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getNumeroGiorni()));
 		noleggio.get(10).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getNumeroChilometri()));
-		noleggio.get(15).setCellValueFactory(cellData -> new SimpleStringProperty(((Noleggio) cellData.getValue()).getNote()));
+		noleggio.get(11).setCellValueFactory(cellData -> new SimpleStringProperty(((Noleggio) cellData.getValue()).getNote()));
 	}
 
 	
