@@ -83,8 +83,10 @@ public class Connection {
 	 * 
 	 */
 	public static void chiudiConnessione() throws SQLException {
-		if (connessione_remota != null && !connessione_remota.isClosed())
+		if (connessione_remota != null && !connessione_remota.isClosed()){
 			connessione_remota.close();
+			connessione_remota=null;
+		}
 	}
 	
 	
