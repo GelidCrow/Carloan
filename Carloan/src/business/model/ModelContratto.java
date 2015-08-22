@@ -12,19 +12,13 @@ import integration.DAO.entity.DAOContratto;
 
 public class ModelContratto implements Model{
 	private DaoFactory daofactory;
-	private DAOContratto daoContratto;
 	
 	@Override
 	public void Inserimento(Entity parameter) {
 		try {
-			Contratto contratto = (Contratto) parameter;
-			
-			daofactory= DaoFactory.getDaoFactory(1);
-			
-			daoContratto= (DAOContratto) daofactory.getDao("DAOContratto");
-			
-			daoContratto.creazione(contratto);
-				
+		   if(daofactory==null)
+		 	daofactory= DaoFactory.getDaoFactory(1);
+		  ((DAOContratto) daofactory.getDao("DAOContratto")).creazione(parameter);
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}		
@@ -33,14 +27,9 @@ public class ModelContratto implements Model{
 	@Override
 	public void aggiornamento(Entity parameter) throws CommonException {
 		try {
-			Contratto contratto = (Contratto) parameter;
-			
-			daofactory= DaoFactory.getDaoFactory(1);
-			
-			daoContratto= (DAOContratto) daofactory.getDao("DAOContratto");
-			
-			daoContratto.aggiornamento(contratto);
-				
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			((DAOContratto) daofactory.getDao("DAOContratto")).aggiornamento(parameter);;
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}	
@@ -48,12 +37,9 @@ public class ModelContratto implements Model{
 
 	public List<Contratto> getAll(){
 		try {
-			daofactory= DaoFactory.getDaoFactory(1);
-			
-			daoContratto= (DAOContratto) daofactory.getDao("DAOContratto");
-			
-			return daoContratto.getAll();
-				
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			return ((DAOContratto) daofactory.getDao("DAOContratto")).getAll();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}

@@ -54,16 +54,18 @@ public class DAOAgenzia implements DAO{
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public Entity lettura() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException{
 		Agenzia a= new Agenzia("A5","1234567891","SedeOtr","Crln");
 		DAO x = new DAOAgenzia(DaoFactory.getDaoFactory(1));
 		x.creazione(a);
+	}
+
+	@Override
+	public Entity lettura(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

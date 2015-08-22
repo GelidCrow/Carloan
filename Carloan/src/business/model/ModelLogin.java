@@ -6,10 +6,7 @@ import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOLogin;
 
 public class ModelLogin implements Model {
-	
 	private DaoFactory daofactory;
-	private DAOLogin daoLogin;
-
 
 
 	@Override
@@ -28,17 +25,9 @@ public class ModelLogin implements Model {
 	public Entity autenticazione(Entity parameter){
 		Entity ent=null;
 		try {
-			Login login = (Login) parameter;
-					
-			//new LoginChecker().check(login);
-			
-			daofactory= DaoFactory.getDaoFactory(1);
-			
-			daoLogin= (DAOLogin) daofactory.getDao("DAOLogin");
-			
-			
-			ent=daoLogin.autenticazione(login);
-				
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);			
+			return ((DAOLogin) daofactory.getDao("DAOLogin")).autenticazione(parameter);
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}

@@ -20,9 +20,10 @@ public class DAOCartaDiCredito implements DAO{
 	}
 
 	@Override
-	public Entity lettura() {
+	public Entity lettura(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	
 }

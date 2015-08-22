@@ -11,7 +11,6 @@ import business.model.Exception.CommonException;
 
 public class ModelNoleggio implements Model{
 	private DaoFactory daofactory;
-	private DAONoleggio daoNoleggio;
 	
 	@Override
 	public void Inserimento(Entity parameter) {

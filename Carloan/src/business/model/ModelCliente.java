@@ -11,19 +11,13 @@ import business.entity.Entity;
 
 public class ModelCliente implements Model{
 	private DaoFactory daofactory;
-	private DAOCliente daoCliente;
 
 	@Override
 	public void Inserimento(Entity parameter) {
 		try {
-			Cliente cliente = (Cliente) parameter;
-			
-			daofactory= DaoFactory.getDaoFactory(1);
-			
-			daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
-			
-			daoCliente.creazione(cliente);
-				
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			((DAOCliente) daofactory.getDao("DAOCliente")).creazione(parameter);;
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
@@ -32,14 +26,9 @@ public class ModelCliente implements Model{
 	@Override
 	public void aggiornamento(Entity parameter) {
 		try {
-			Cliente cliente = (Cliente) parameter;
-			
-			daofactory= DaoFactory.getDaoFactory(1);
-			
-			daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
-			
-			daoCliente.aggiornamento(cliente);
-				
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			((DAOCliente) daofactory.getDao("DAOCliente")).aggiornamento(parameter);;
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
@@ -59,12 +48,9 @@ public class ModelCliente implements Model{
 	
 	public List<Cliente> getAll(){
 		try {
-			daofactory= DaoFactory.getDaoFactory(1);
-			
-			daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
-			
-			return daoCliente.getAll();
-				
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			return ((DAOCliente) daofactory.getDao("DAOCliente")).getAll();	
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}

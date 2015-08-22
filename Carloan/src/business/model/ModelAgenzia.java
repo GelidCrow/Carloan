@@ -1,21 +1,17 @@
 package business.model;
 
+import integration.DAO.DaoFactory;
 import business.entity.Entity;
+import business.model.Exception.CommonException;
 
 public class ModelAgenzia implements Model{
-    private String sta;
-
+	private DaoFactory daofactory;
 	@Override
 	public void Inserimento(Entity parameter) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void aggiorna(Entity parameter) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void lettura() {
@@ -25,6 +21,13 @@ public class ModelAgenzia implements Model{
 
 	@Override
 	public void ricerca() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void aggiornamento(Entity parameter) throws CommonException {
 		// TODO Auto-generated method stub
 		
 	}

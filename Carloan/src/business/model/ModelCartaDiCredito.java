@@ -1,6 +1,7 @@
 package business.model;
 
 import business.entity.Entity;
+import business.model.Exception.CommonException;
 
 public class ModelCartaDiCredito implements Model{
 
@@ -25,10 +26,11 @@ public class ModelCartaDiCredito implements Model{
 	}
 
 	@Override
-	public void aggiorna(Entity parameter) {
+	public void aggiornamento(Entity parameter) throws CommonException {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	
 

@@ -73,7 +73,6 @@ public class DAOOptional implements DAO{
 	
 	public List<Optional> getAll(){
 		 String readQuery = "Select Nome,Descrizione,prezzo,LimiteCopertura,numeroSeggiolini,numeroGuidatoriAggiuntivi from Optional";
-		 List<Optional> optional;
 
 		Connection connection= Connection.getConnection(daofactory);
 		 

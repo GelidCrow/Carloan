@@ -1,6 +1,8 @@
 package business.entity.Auto.Fascia;
 
-public abstract  class Fascia {
+import business.entity.Entity;
+
+public abstract  class Fascia extends Entity{
 	private int IDFascia;
 	private float prezzo;
 	private String nome;

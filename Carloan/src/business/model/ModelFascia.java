@@ -38,7 +38,6 @@ public class ModelFascia implements Model{
 			daofactory = DaoFactory.getDaoFactory(1);
 			return ((DAOFascia)daofactory.getDao("DAOFascia")).getAll();
 		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
