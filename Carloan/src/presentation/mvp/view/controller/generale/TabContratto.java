@@ -99,7 +99,7 @@ public class TabContratto {
 		
 		this.tbContratto=tbContratto;
 		
-		bindingValuesContratto();
+		//bindingValuesContratto();
 		
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
