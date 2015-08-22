@@ -1,5 +1,8 @@
 package business.model;
 
+import business.entity.Entity;
+import business.model.Exception.CommonException;
+
 public class ModelSupervisoreS implements Model{
 
 
@@ -17,13 +20,13 @@ public class ModelSupervisoreS implements Model{
 	}
 
 	@Override
-	public void Inserimento(Object parameter) {
+	public void Inserimento(Entity parameter) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void aggiorna(Object parameter) {
+	public void aggiornamento(Entity parameter) throws CommonException {
 		// TODO Auto-generated method stub
 		
 	}

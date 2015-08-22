@@ -11,7 +11,6 @@ import business.model.Exception.CommonException;
 
 public class ModelOptional implements Model{
 	private DaoFactory daofactory;
-	private DAOOptional daoOptional;
 	
 	@Override
 	public void Inserimento(Entity parameter) {
@@ -39,12 +38,9 @@ public class ModelOptional implements Model{
 	
 	public List<Optional> getAll(){
 		try {
-			daofactory= DaoFactory.getDaoFactory(1);
-			
-			daoOptional= (DAOOptional) daofactory.getDao("DAOOptional");
-			
-			return daoOptional.getAll();
-				
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			return ((DAOOptional) daofactory.getDao("DAOOptional")).getAll();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}

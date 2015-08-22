@@ -15,14 +15,9 @@ public class ModelNoleggio implements Model{
 	@Override
 	public void Inserimento(Entity parameter) {
 		try {
-			Noleggio noleggio = (Noleggio) parameter;
-			
-			daofactory= DaoFactory.getDaoFactory(1);
-			
-			daoNoleggio= (DAONoleggio) daofactory.getDao("DAONoleggio");
-			
-			daoNoleggio.creazione(noleggio);
-				
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);	
+			((DAONoleggio) daofactory.getDao("DAONoleggio")).creazione(parameter);
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
@@ -49,12 +44,10 @@ public class ModelNoleggio implements Model{
 	
 	public List<Noleggio> getAll(){
 		try {
-		daofactory= DaoFactory.getDaoFactory(1);
-		
-		daoNoleggio= (DAONoleggio) daofactory.getDao("DAONoleggio");
-		
-		return daoNoleggio.getAll();
-				
+		if(daofactory==null)
+			daofactory= DaoFactory.getDaoFactory(1);
+		return 	((DAONoleggio) daofactory.getDao("DAONoleggio")).getAll();
+
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
