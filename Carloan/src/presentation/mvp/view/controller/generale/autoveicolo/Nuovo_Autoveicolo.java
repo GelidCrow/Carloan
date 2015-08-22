@@ -97,7 +97,8 @@ public class Nuovo_Autoveicolo extends Schermata{
 	protected TextArea danni_gravi;
 	@FXML
 	protected TextArea optional_auto;
-	
+	@FXML
+	protected TextArea Note;
 	@FXML
 	protected Button btnchoose;
 	@FXML
@@ -151,6 +152,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 		 identifier.setCellValueFactory(cellData ->new ReadOnlyObjectWrapper<Integer>(((Sede)cellData.getValue()).getIDSede()));
 		 ObservableList<Sede> obsList= FXCollections.observableList(sedi);
 		 tablesedi.setItems(obsList);
+		 tablesedi.getSelectionModel().selectFirst();
 			
 		}
 			catch (InstantiationException | IllegalAccessException
@@ -190,13 +192,15 @@ public class Nuovo_Autoveicolo extends Schermata{
 	
 	@FXML
 	public void btnconferma_click(ActionEvent e){
-		tw=  ((SchermataGenerale<Autoveicolo>)this.getChiamante()).getTable("Autoveicolo");
+		@SuppressWarnings("unchecked")
+		SchermataGenerale<Autoveicolo> schermataGenerale = (SchermataGenerale<Autoveicolo>)this.getChiamante();
+		tw= ((SchermataGenerale)schermataGenerale).getTable("tbAuto");
 		
 		try {
 			Autoveicolo auto_da_inserire=prendiDatiDaView();
 			presenter.processRequest("VerificaAutoveicolo", auto_da_inserire);
 			presenter.processRequest("InserimentoAutoveicolo", auto_da_inserire);
-			//agggiustare tabella autossss
+			schermataGenerale.aggiungiElementoAtabella(auto_da_inserire,tw);
 		} 
 		catch(CommonException e1){
 			e1.showMessage();
@@ -337,6 +341,11 @@ public class Nuovo_Autoveicolo extends Schermata{
 	else
 		temp.setOptionalAuto(s);
 	
+	s=Note.getText();
+	if(s.isEmpty())
+		temp.setNote("");
+	else 
+		temp.setNote(s);
 	return temp;
 	}
 	

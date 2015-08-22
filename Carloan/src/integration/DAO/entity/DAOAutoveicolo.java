@@ -3,6 +3,8 @@ package integration.DAO.entity;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 import static utility.QueryStringReplacer.queryReplaceFirst;
+
+
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +28,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 	public void creazione(Entity x) {
 		String insert="insert into Autoveicolo (Targa,Marca,Modello,AlimPrincipale,Colore,Cambio,Immatricolazione,"
 				+ "Cilindrata,Potenza,NroPosti,NroTelaio,Disponibilita,UltimoKm,CapPortaBagagli,Note,DataScadAssic,OptionalAuto,Prezzo,DanniFutili,DanniGravi,IDSede,IDFascia,Immagine)";
-		String values=" values('?','?','?','?','?','?',?,?,?,?,'?','?',?,?,'?',?,'?',?,'?','?',?,?,?";
+		String values=" values('?','?','?','?','?','?','?',?,?,?,'?','?',?,?,'?','?','?',?,'?','?',?,?,?)";
 		Autoveicolo a=(Autoveicolo)x;
 		values=queryReplaceFirst(values, a.getTarga());
 		values=queryReplaceFirst(values, a.getMarca());
@@ -44,16 +46,30 @@ public DAOAutoveicolo(DaoFactory dao) {
 		values=queryReplaceFirst(values, String.valueOf(a.getCapPortaBagnagli()));
 		values=queryReplaceFirst(values, a.getNote());
 		values=queryReplaceFirst(values, a.getDataScadAssic().toString());
+		values=queryReplaceFirst(values, a.getOptionalAuto());
+		values=queryReplaceFirst(values, String.valueOf(a.getPrezzo()));
+		values=queryReplaceFirst(values, a.getDanni().getDanniFutili());
+		values=queryReplaceFirst(values, a.getDanni().getDanniGravi());
+		values=queryReplaceFirst(values, String.valueOf(a.getCodiceSedDisp()));
+		values=queryReplaceFirst(values, String.valueOf(a.getFascia().getIDFascia()));
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		Connection connection=Connection.getConnection(dao);
+		try {
+			InputStream i=a.getImmagine();
+			ResultSet s=null;
+			if(i==null){
+				values=queryReplaceFirst(values, "null");
+				s=connection.executeUpdate(insert+values);
+			}
+			else
+			s=connection.executeUpdate(insert+values,a.getImmagine());
+			if(s!=null && s.next())
+			AlertView.getAlertView("Autoveicolo inserito con successo",AlertType.INFORMATION);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

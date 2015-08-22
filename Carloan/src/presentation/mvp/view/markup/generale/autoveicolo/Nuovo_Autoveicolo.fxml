@@ -51,10 +51,10 @@
       <DatePicker fx:id="scadenzaass" layoutX="567.0" layoutY="125.0" />
       <Label layoutX="406.0" layoutY="174.0" prefHeight="17.0" prefWidth="47.0" text="Fascia :" />
       <ChoiceBox fx:id="fascia" layoutX="446.0" layoutY="170.0" prefWidth="150.0" />
-      <Label layoutX="841.0" layoutY="440.0" prefHeight="17.0" prefWidth="72.0" text="Danni futili :" />
-      <Label layoutX="841.0" layoutY="536.0" prefHeight="17.0" prefWidth="72.0" text="Danni  gravi:" />
-      <TextArea fx:id="danni_futili" layoutX="933.0" layoutY="419.0" prefHeight="59.0" prefWidth="237.0" />
-      <TextArea fx:id="danni_gravi" layoutX="933.0" layoutY="515.0" prefHeight="59.0" prefWidth="237.0" />
+      <Label layoutX="841.0" layoutY="389.0" prefHeight="17.0" prefWidth="72.0" text="Danni futili :" />
+      <Label layoutX="841.0" layoutY="471.0" prefHeight="17.0" prefWidth="72.0" text="Danni  gravi:" />
+      <TextArea fx:id="danni_futili" layoutX="933.0" layoutY="368.0" prefHeight="59.0" prefWidth="237.0" />
+      <TextArea fx:id="danni_gravi" layoutX="933.0" layoutY="450.0" prefHeight="59.0" prefWidth="237.0" />
       <Label layoutX="446.0" layoutY="462.0" prefHeight="17.0" prefWidth="49.0" text="Prezzo* :" />
       <TextField fx:id="prezzo" layoutX="514.0" layoutY="458.0" />
       <Button fx:id="btnconferma" layoutX="596.0" layoutY="636.0" mnemonicParsing="false" onAction="#btnconferma_click" prefHeight="37.0" prefWidth="117.0" text="Conferma" />
@@ -72,5 +72,7 @@
       </TableView>
       <Label layoutX="413.0" layoutY="533.0" text="Optional Auto :" />
       <TextArea fx:id="optional_auto" layoutX="502.0" layoutY="519.0" prefHeight="59.0" prefWidth="237.0" />
+      <Label layoutX="841.0" layoutY="545.0" text="Note :" />
+      <TextArea fx:id="Note" layoutX="933.0" layoutY="536.0" prefHeight="59.0" prefWidth="237.0" />
    </children>
 </AnchorPane>

@@ -199,7 +199,9 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbContratto;
 		else if(table.equals("Noleggio"))
 			return tbNoleggio;
-		else 
+		else if(table.equals("Autoveicolo"))
+			return tbAuto;
+		else
 			return null;
 	}
 	public int getElemSelezionato(String table){

@@ -1,12 +1,16 @@
 package integration.DAO.connection;
 
-import java.io.FileInputStream;
+
+import java.awt.GraphicsDevice.WindowTranslucency;
+import java.io.InputStream;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javafx.scene.control.Alert.AlertType;
+import MessaggiFinestra.AlertView;
 import integration.DAO.DaoFactory;
 import integration.DAO.DatabaseConnectionException;
 import config.ConfiguratorDBReader;
@@ -105,7 +109,7 @@ public class Connection {
 				result=st.getGeneratedKeys();
 		
 			} catch (SQLException e) {
-				e.printStackTrace();
+				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
 			}
 			finally{
 				return result;
@@ -115,7 +119,7 @@ public class Connection {
 	}
 	
 	@SuppressWarnings("finally")
-	public ResultSet executeUpdate(String query,FileInputStream f) throws SQLException{
+	public ResultSet executeUpdate(String query,InputStream f) throws SQLException{
 		this.connetti();
 		ResultSet result=null;
 		if(query!=null && !query.isEmpty()){
@@ -123,12 +127,13 @@ public class Connection {
 			try {
 				st=connessione_remota.prepareStatement("use "+db+";");
 				st.execute();
-				st.setBinaryStream(1,f,f.available());
 				st=connessione_remota.prepareStatement(query);
-				st.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
+				st.setBinaryStream(1,f,f.available());
+				st.executeUpdate();
 				result=st.getGeneratedKeys();
-			} catch (SQLException e) {
-				e.printStackTrace();
+			}
+			catch (SQLException e) {
+				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
 			}
 			finally{
 				return result;
