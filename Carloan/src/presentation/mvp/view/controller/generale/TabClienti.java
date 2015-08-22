@@ -44,6 +44,16 @@ public class TabClienti{
 	    else
 	    	Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataModificaCliente",Modality.APPLICATION_MODAL);	
 	}
+	public void NuovaCartaCredito(){
+		FXMLParameter.setTitolo("Nuova Carta Di Credito");
+	    FXMLParameter.setRidimensionabile(false);
+		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataInserimentoCarta",Modality.APPLICATION_MODAL);
+	}
+	public void VisualizzaCartaCredito(){
+		FXMLParameter.setTitolo("Carta di credito");
+	    FXMLParameter.setRidimensionabile(false);
+		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataCartaCredito",Modality.APPLICATION_MODAL);
+	}
 	
 	/**
 	 * <p>Effettua il binding con i singoli campi della tabella</p>

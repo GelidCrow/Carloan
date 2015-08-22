@@ -144,6 +144,14 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		
 	}
 	
+	
+	/*Carta di credito*/
+	public void btnAggiungiCartaCredito(ActionEvent e){
+		tbClientController.NuovaCartaCredito();
+	}
+	public void btnVisualizzaCartaCredito(ActionEvent e){
+		tbClientController.VisualizzaCartaCredito();
+	}
 	@FXML
 	public void btnLogout(ActionEvent e){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);

@@ -125,6 +125,7 @@
             <Label layoutX="24.0" layoutY="453.0" text="Chilometrggio" />
             <Label layoutX="158.0" layoutY="458.0" text="Limite" />
             <Button fx:id="btnAggiungiAuto" layoutX="910.0" layoutY="353.0" mnemonicParsing="false" onAction="#btnAggiungiOptional" prefHeight="25.0" prefWidth="71.0" text="Aggiungi" />
+            <Button layoutX="898.0" layoutY="486.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta" />
          </children>
       </AnchorPane>
       <Label layoutX="49.0" layoutY="42.0" prefHeight="44.0" prefWidth="380.0" style="-fx-background-color: #FFFF;" text="NUOVO NOLEGGIO" textFill="#ff6f00">
