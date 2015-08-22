@@ -10,15 +10,18 @@ import java.util.ResourceBundle;
 
 import business.entity.Cliente;
 import business.entity.Entity;
+import business.entity.Utente;
 import business.entity.UtenteCorrente;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Gestori.Operatore;
+import business.entity.Gestori.SupervisoreAgenzia;
+import business.entity.Gestori.SupervisoreSede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
 import business.model.Exception.CommonException;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
-import Errori.AlertView;
+import MessaggiFinestra.AlertView;
 import utility.Finestra;
 import utility.ParametriFXML;
 import javafx.beans.value.ChangeListener;
@@ -29,9 +32,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 
 
@@ -48,7 +53,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TableView<T> tbNoleggio;
 	@FXML
 	private TableView<T> tbAuto;
-	
+	@FXML
+	private Label txtBenvenuto;
 	
 	
 	private TabClienti tbClientController;
@@ -277,11 +283,19 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * <p>Elmina i tab che non possono essere usati dall'utente corrente</p>
 	 */
 	public void settaSchermataPerUtente(){
-		if(UtenteCorrente.getUtente() instanceof Operatore){
-			for(int i=0; i<3;i++){
-				panes.remove(panes.size()-1);
-			}
+		Utente utente= UtenteCorrente.getUtente();
+		String msgBenvenuto = "Benvenuto \n "+ utente.getNome() + " " + utente.getCognome() + "\n  Cod: "+  utente.getIdUtente();
+		txtBenvenuto.setText(msgBenvenuto);
+		if( utente instanceof Operatore){
+			panes.remove(3,panes.size());
 		}
+		else if(utente instanceof SupervisoreSede){
+			panes.remove(4, 9);
+		}
+		else if(utente instanceof SupervisoreAgenzia){
+			panes.remove(4);
+			panes.remove(7);
+		}	
 	}
 	
 	@SuppressWarnings({ "unchecked"})

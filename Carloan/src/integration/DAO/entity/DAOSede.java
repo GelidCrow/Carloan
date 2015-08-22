@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.scene.control.Alert.AlertType;
-import Errori.AlertView;
+import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Luoghi.Sede;
 import business.model.Exception.CommonException;

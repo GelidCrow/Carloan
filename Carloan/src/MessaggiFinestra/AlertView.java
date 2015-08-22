@@ -1,4 +1,4 @@
-package Errori;
+package MessaggiFinestra;
 
 import java.util.Optional;
 

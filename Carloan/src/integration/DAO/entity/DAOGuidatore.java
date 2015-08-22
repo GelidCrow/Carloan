@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
-import Errori.AlertView;
+import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Noleggio.Optional.Guidatore;
 import business.model.Exception.CommonException;

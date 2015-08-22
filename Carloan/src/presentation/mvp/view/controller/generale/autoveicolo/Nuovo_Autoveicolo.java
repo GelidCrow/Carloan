@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
-import Errori.AlertView;
+import MessaggiFinestra.AlertView;
 import business.entity.Cliente;
 import business.entity.UtenteCorrente;
 import business.entity.Auto.Autoveicolo;

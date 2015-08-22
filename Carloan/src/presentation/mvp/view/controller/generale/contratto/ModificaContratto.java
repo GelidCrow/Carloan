@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import Errori.AlertView;
+import MessaggiFinestra.AlertView;
 import business.entity.Cliente;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.StatoContratto;

@@ -5,7 +5,7 @@ package presentation.mvp.view.controller;
 import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
 
-import Errori.AlertView;
+import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Utente;
 import business.entity.UtenteCorrente;

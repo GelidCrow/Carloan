@@ -1,6 +1,6 @@
 package business.model.Exception;
 
-import Errori.AlertView;
+import MessaggiFinestra.AlertView;
 import javafx.scene.control.Alert.AlertType;
 
 

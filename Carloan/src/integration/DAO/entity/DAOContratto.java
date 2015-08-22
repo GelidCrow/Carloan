@@ -11,7 +11,7 @@ import java.util.List;
 import javafx.scene.control.Alert.AlertType;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
-import Errori.AlertView;
+import MessaggiFinestra.AlertView;
 import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Utente;

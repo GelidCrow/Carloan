@@ -17,7 +17,7 @@ import business.entity.Gestori.SupervisoreSede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.StatoContratto;
 import business.model.Exception.CommonException;
-import Errori.AlertView;
+import MessaggiFinestra.AlertView;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;

@@ -101,26 +101,26 @@ public class DAOLogin implements DAO{
 			
 			if(idList.next()){
 				
-				if(idList.getString(4)!=null){//è un supervisoreAgenzia
+				if(idList.getInt(1)>0){//è un supervisoreAgenzia
 					DAOSupervisoreA daoSupervisoreA ;
 					daoSupervisoreA= (DAOSupervisoreA) daofactory.getDao("DAOSupervisoreA");
-					result= daoSupervisoreA.lettura(idList.getInt(4));
+					result= daoSupervisoreA.lettura(idList.getInt(1));
 				}
 				
-				else if(idList.getInt(5)>0){//è un supervisore sede
+				else if(idList.getInt(2)>0){//è un supervisore sede
 					DAOSupervisoreS daoSupervisoreS ;
 					daoSupervisoreS= (DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS");
-					result=daoSupervisoreS.lettura(idList.getInt(5));
+					result=daoSupervisoreS.lettura(idList.getInt(2));
 				}
-				else if(idList.getInt(6)>0){// è un amministratore
+				else if(idList.getInt(3)>0){// è un amministratore
 					DAOAmministratore daoAmministratore ;
 					daoAmministratore= (DAOAmministratore) daofactory.getDao("DAOAmministratore");
-					result=daoAmministratore.lettura(idList.getInt(6));
+					result=daoAmministratore.lettura(idList.getInt(3));
 				}
-				else if(idList.getString(7)!=null){// è un operatore
+				else if(idList.getInt(4)>0){// è un operatore
 					DAOOperatore daoOperatore;
 					daoOperatore= (DAOOperatore) daofactory.getDao("DAOOperatore");
-					result=daoOperatore.lettura(idList.getInt(7));
+					result=daoOperatore.lettura(idList.getInt(4));
 				}	
 			}
 		} catch (SQLException e) {
