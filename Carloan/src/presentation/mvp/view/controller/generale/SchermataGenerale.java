@@ -189,7 +189,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private void caricaTabella(List<T> list,TableView<T> table){
 		ObservableList<T> obsList= FXCollections.observableList(list);
 		table.setItems(obsList);
-		table.getColumns().add
 	}
 	
 	public TableView<T> getTable(String table){
@@ -328,8 +327,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			for(Contratto c: contratti){
 			  	clienti.add((Cliente)presenter.processRequest("leggiCliente",c.getIdCliente()));
 			}
-			cliente.
-			cliente.setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getNome()+ ((Cliente) cellData.getValue()).getCognome()));
+			//cliente.setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getNome()+ ((Cliente) cellData.getValue()).getCognome()));
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

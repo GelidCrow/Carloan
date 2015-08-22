@@ -36,6 +36,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 
 public class NuovoContratto extends Schermata{
@@ -107,7 +112,7 @@ public class NuovoContratto extends Schermata{
 		else
 			contratto.setIDContratto(tw.getItems().get(tw.getItems().size()-1).getIDContratto()+1);//l'id del contratto nuovo sarà dato a partire dall'ultimo id dell'ultimo elemento 
 		
-		contratto.setCliente(tbcliente.getSelectionModel().getSelectedItem());//prende l'id del cliente selezionato
+		contratto.setIdCliente((tbcliente.getSelectionModel().getSelectedItem().getId()));//prende l'id del cliente selezionato
 		
 		contratto.setNote(textNote.getText());
 		
@@ -126,7 +131,7 @@ public class NuovoContratto extends Schermata{
 			contratto.setIDSupervisoreAgenzia(utente.getIdUtente());
 		
 		dParam= dCreazione.getValue();
-		contratto.setDataCreazione(Date.valueOf(dParam));
+		contratto.setDataCreazione(dParam);
 	
 		return contratto;
 	}
@@ -138,9 +143,9 @@ public class NuovoContratto extends Schermata{
 	}
 	
 	private void bindingValues(){
-		codFiscale.setCellValueFactory(cellData -> cellData.getValue().getCodFiscaleT());
-		nome.setCellValueFactory(cellData -> cellData.getValue().getNomeT());
-		cognome.setCellValueFactory(cellData -> cellData.getValue().getCognomeT());	
+		codFiscale.setCellValueFactory(cellData -> new SimpleStringProperty((cellData.getValue()).getCodFiscale()));
+		nome.setCellValueFactory(cellData -> new SimpleStringProperty((cellData.getValue()).getNome()));
+		cognome.setCellValueFactory(cellData -> new SimpleStringProperty((cellData.getValue()).getCognome()));	
 	}
 	
 	

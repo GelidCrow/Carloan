@@ -19,7 +19,7 @@ public class Cliente extends Entity{
 	private LocalDate DataScadPatente;
 	private String PartitaIva;
 	private String Email;
-	
+	public Cliente(){}
 	
 	public Cliente(Integer id, String nome, String cognome, String sesso,
 			LocalDate dataEmissPatente, LocalDate datanascita,

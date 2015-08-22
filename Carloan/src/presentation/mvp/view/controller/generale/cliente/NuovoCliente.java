@@ -24,7 +24,11 @@ import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
-
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 public class NuovoCliente extends Schermata{
 	@FXML
 	protected Button btnCancella;
@@ -119,16 +123,16 @@ public class NuovoCliente extends Schermata{
 		cliente.setSesso(((RadioButton)group.getSelectedToggle()).getText());
 		
 		dParam= dNascita.getValue();
-		cliente.setDatanascita(Date.valueOf(dParam));
+		cliente.setDatanascita(dParam);
 
 		dParam= dEmissPatente.getValue();
-		cliente.setDataEmissPatente(Date.valueOf(dParam));
+		cliente.setDataEmissPatente(dParam);
 		
 		//data scadenza patente -> dataEmissione + 10 anni.
 		dParam= dEmissPatente.getValue();
 		dScadPatente.setValue(LocalDate.of(dParam.getYear()+10, dParam.getMonth(),dParam.getDayOfMonth()));
 		dParam=dScadPatente.getValue();
-		cliente.setDataScadPatente(Date.valueOf(dParam));
+		cliente.setDataScadPatente(dParam);
 		
 		cliente.setIndirizzo(txtIndirizzo.getText());
 		
@@ -139,9 +143,7 @@ public class NuovoCliente extends Schermata{
 		cliente.setNumTel(txtNumTel.getText());
 		
 		cliente.setPatenteGuida(txtPatGuida.getText());
-		
-		
-		
+
 		cliente.setPartitaIva(txtPartIva.getText());
 		
 		cliente.setEmail(txtEmail.getText());
