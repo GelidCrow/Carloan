@@ -10,12 +10,6 @@ public class ModelLogin implements Model {
 
 
 	@Override
-	public void lettura() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void ricerca() {
 		// TODO Auto-generated method stub
 		
@@ -44,5 +38,12 @@ public class ModelLogin implements Model {
 	public void aggiornamento(Entity parameter) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public Entity lettura(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -13,11 +13,7 @@ public class ModelSede implements Model{
 
 	private DaoFactory daofactory;
 
-	@Override
-	public void lettura() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void ricerca() {
@@ -45,6 +41,13 @@ public class ModelSede implements Model{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+
+	@Override
+	public Entity lettura(int id) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

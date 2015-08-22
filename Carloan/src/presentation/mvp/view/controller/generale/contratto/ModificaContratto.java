@@ -54,7 +54,7 @@ public class ModificaContratto extends NuovoContratto{
 				presenter.processRequest("ModificaContratto", contratto);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
 				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato("Contratto"),contratto,scChiamante.getTable("Contratto"));			
-			
+				chiudiFinestra();
 			}
 			catch(CommonException e){
 				e.showMessage();

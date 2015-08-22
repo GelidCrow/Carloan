@@ -117,19 +117,33 @@ public class NuovoContratto extends Schermata{
 		contratto.setNote(textNote.getText());
 		
 		contratto.setStato(StatoContratto.Aperto.toString());
-	
+		
 		
 		Utente utente= UtenteCorrente.getUtente();
 		//qui setto l'id dell'utente del sistema
-		if(utente instanceof Operatore)
+		if(utente instanceof Operatore){
 			contratto.setIDOperatore(utente.getIdUtente());
-		else if(utente instanceof Amministratore)
+			contratto.setIDAmministratore(0);
+			contratto.setIDSupervisoreAgenzia(0);
+			contratto.setIDSupervisoreSede(0);
+		}
+		else if(utente instanceof Amministratore){
 			contratto.setIDAmministratore(utente.getIdUtente());
-		else if(utente instanceof SupervisoreSede)
+			contratto.setIDOperatore(0);
+			contratto.setIDSupervisoreAgenzia(0);
+			contratto.setIDSupervisoreSede(0);
+			}
+		else if(utente instanceof SupervisoreSede){
 			contratto.setIDSupervisoreSede(utente.getIdUtente());
-		else 
+			contratto.setIDAmministratore(0);
+			contratto.setIDOperatore(0);
+			contratto.setIDSupervisoreAgenzia(0);}
+		else {
 			contratto.setIDSupervisoreAgenzia(utente.getIdUtente());
-		
+			contratto.setIDAmministratore(0);
+			contratto.setIDOperatore(0);
+			contratto.setIDSupervisoreSede(0);
+		}
 		dParam= dCreazione.getValue();
 		contratto.setDataCreazione(dParam);
 	
@@ -173,6 +187,4 @@ public class NuovoContratto extends Schermata{
 			e.printStackTrace();
 		}
 	}
-	
-	
 }

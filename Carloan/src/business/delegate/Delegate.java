@@ -34,10 +34,15 @@ public class Delegate {
     			method = model.getClass().getMethod(service_method.get(1), null);
     			result=  method.invoke(model,null);
     		}
-    		else{
+    		else if(parameter instanceof Entity){
     			method = model.getClass().getMethod(service_method.get(1), Entity.class);
     			result=  method.invoke(model, parameter);
     		}
+    		else{//nel caso passi un intero
+    			method = model.getClass().getMethod(service_method.get(1), int.class);
+    			result=  method.invoke(model, parameter);
+    		}
+    			
     	}
     	return result;
     }

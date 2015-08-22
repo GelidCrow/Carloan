@@ -22,11 +22,7 @@ public class ModelFascia implements Model{
 		
 	}
 
-	@Override
-	public void lettura() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void ricerca() {
@@ -40,6 +36,12 @@ public class ModelFascia implements Model{
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public Entity lettura(int id) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

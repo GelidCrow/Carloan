@@ -134,7 +134,6 @@ public class DAOCliente implements DAO{
 		 finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}

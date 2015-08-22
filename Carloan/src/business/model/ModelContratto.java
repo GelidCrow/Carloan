@@ -45,13 +45,15 @@ public class ModelContratto implements Model{
 		}
 		return null;	
 	}
-	
-	@Override
-	public void lettura() {
-		// TODO Auto-generated method stub	
-	}
+
 	@Override
 	public void ricerca() {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public Entity lettura(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

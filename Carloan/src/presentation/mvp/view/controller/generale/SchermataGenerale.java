@@ -63,7 +63,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private Label txtBenvenuto;
 	@FXML
 	private TableColumn<Cliente,String> cliente;
-	
+	private boolean Aggiornando= false;
 	
 	private TabClienti tbClientController;
 
@@ -171,6 +171,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * <p>Modifica un elemento da una tabella, lo rimuove e poi lo aggiunge in ultima posizione, oppure nel caso era l'ultimo quello modificato lo aggiunge alla 2 posizione</p>
 	 */
 	public void aggiornaElementotabella(int id,T elem,TableView<T> table){
+		Aggiornando=true;
 		if(id>=0 && elem!=null && table!=null){
 			table.getItems().remove(id);
 			if(id==table.getItems().size()){
@@ -181,6 +182,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		else 
 			AlertView.getAlertView("Non è possibile aggiornare l'elemento in tabella", AlertType.ERROR);
+		Aggiornando=false;
 	}	
 	/**
 	 * <p>Carica la tabella dei clienti graficamente</p>
@@ -213,7 +215,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbContratto.getSelectionModel().getSelectedIndex();
 		else if(table.equals("Noleggio"))
 			return tbContratto.getSelectionModel().getSelectedIndex();
-		return 0;
+		else if(table.equals("Autoveicolo"))
+			return tbAuto.getSelectionModel().getSelectedIndex();
+		else
+			return 0;
 	}
 	
 	public T getEntitaElementoSelezionato(String table){
@@ -226,8 +231,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		else if(table.equals("Noleggio")){
 			return tbNoleggio.getSelectionModel().getSelectedItem();
 		}
-		
-		return null;
+		else if(table.equals("Autoveicolo"))
+			return tbAuto.getSelectionModel().getSelectedItem();
+		else
+			return null;
 	}
 	
 	
@@ -305,35 +312,42 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private Label lblNomeGestore;
 	@FXML
 	private Label lblCognomeGestore;
+	@FXML
+	private Label lblContratto;
+
 	/**
-	 * <p> Ascoltatore per il cambio di elemento dal COntratto </p>
+	 * <p> Ascoltatore per il cambio di elemento dal COntratto per settare i label per le info aggiuntive </p>
 	 */
+	@SuppressWarnings("rawtypes")
 	private class ItemSelectedContratto implements ChangeListener{
 	
 		@Override
 		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
 			//interroga db
 			try {
-				Cliente cliente = (Cliente)presenter.processRequest("letturaCliente",((Contratto)getEntitaElementoSelezionato("Contratto")).getIdCliente());
-				popolaLabelCliente(cliente);
-				Contratto contratto= (Contratto)getEntitaElementoSelezionato("Contratto");
-				Amministratore amministratore;
-				SupervisoreSede supervisoreSede;
-				SupervisoreAgenzia supervisoreAgenzia;
-				Operatore operatore;
-				if(contratto.getIDAmministratore()>0)
-					utente = (Amministratore)presenter.processRequest("letturaAmministratore",contratto.getIDAmministratore());
-				else if(contratto.getIDSupervisoreAgenzia()>0){
-					supervisoreAgenzia = (SupervisoreAgenzia)presenter.processRequest("letturaSupervisoreAgenzia",contratto.getIDSupervisoreAgenzia());
+				if(Aggiornando!=true){
+					Cliente cliente = (Cliente)presenter.processRequest("letturaCliente",((Contratto)getEntitaElementoSelezionato("Contratto")).getIdCliente());
+					popolaLabelCliente(cliente);
+					Contratto contratto= (Contratto)getEntitaElementoSelezionato("Contratto");
+					Utente gestore= null;
+					if(contratto.getIDAmministratore()>0){
+						gestore = (Amministratore)presenter.processRequest("letturaAmministratore",contratto.getIDAmministratore());
+						lblContratto.setText("Contratto aggiunto dall'amministratore");
+					}
+					else if(contratto.getIDSupervisoreAgenzia()>0){
+						gestore= (SupervisoreAgenzia)presenter.processRequest("letturaSupervisoreAgenzia",contratto.getIDSupervisoreAgenzia());
+						lblContratto.setText("Contratto aggiunto dal Supervisore Agenzia");
+					}
+					else if(contratto.getIDSupervisoreSede()>0){
+						gestore = (SupervisoreSede)presenter.processRequest("letturaSupervisoreSede",contratto.getIDSupervisoreSede());
+						lblContratto.setText("Contratto aggiunto dal Supervisore Sede");
+					}
+					else if(contratto.getIDOperatore()>0){
+						gestore = (Operatore)presenter.processRequest("letturaOperatore",contratto.getIDOperatore());
+						lblContratto.setText("Contratto aggiunto dall'operatore");
+					}
+					popolaLabelGestore(gestore);
 				}
-				else if(contratto.getIDSupervisoreSede()>0){
-					supervisoreSede = (SupervisoreSede)presenter.processRequest("letturaSupervisoreSede",contratto.getIDSupervisoreSede());
-				}
-				else if(contratto.getIDOperatore()>0){
-					supervisoreAgenzia = (SupervisoreAgenzia)presenter.processRequest("letturaOperatore",contratto.getIDOperatore());
-				}
-				popolaLabelGestore();
-			
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
 					| SecurityException | IllegalArgumentException
@@ -342,10 +356,14 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			}
 		}
 		private void popolaLabelCliente(Cliente cliente){
-			
+			 lblCodFiscaleCliente.setText(cliente.getCodFiscale());
+			 lblNomeCliente.setText(cliente.getNome());
+			 lblCognomeCliente.setText(cliente.getCognome());
 		}
 		private void popolaLabelGestore(Utente utente){
-				txtLabel
+			lblCodiceFiscaleGestore.setText(utente.getCodiceFiscale());
+			lblNomeGestore.setText(utente.getNome());
+			lblCognomeGestore.setText(utente.getCognome());
 		}
 	}
 	/**

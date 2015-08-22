@@ -7,11 +7,7 @@ public class ModelMulta implements Model{
 
 
 
-	@Override
-	public void lettura() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void ricerca() {
@@ -29,6 +25,12 @@ public class ModelMulta implements Model{
 	public void aggiornamento(Entity parameter) throws CommonException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Entity lettura(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

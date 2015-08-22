@@ -91,16 +91,16 @@
                                     <Label layoutX="715.0" layoutY="170.0" text="Codice Fiscale" />
                                     <Label layoutX="719.0" layoutY="195.0" text="Nome" />
                                     <Label layoutX="718.0" layoutY="221.0" text="Cognome" />
-                                    <Label layoutX="705.0" layoutY="250.0" text="Contratto aggiunto : " />
+                                    <Label fx:id="lblContratto" layoutX="705.0" layoutY="250.0" text="Contratto aggiunto : " />
                                     <Label layoutX="722.0" layoutY="276.0" text="Codice Fiscale" />
                                     <Label layoutX="722.0" layoutY="305.0" prefHeight="17.0" prefWidth="49.0" text="Nome" />
                                     <Label layoutX="722.0" layoutY="329.0" text="Cognome" />
-                                    <Label fx:id="lblCodFiscaleCliente" layoutX="853.0" layoutY="170.0" prefHeight="17.0" prefWidth="182.0" text="Cod Fiscale" />
-                                    <Label fx:id="lblNomeCliente" layoutX="854.0" layoutY="195.0" prefHeight="17.0" prefWidth="204.0" text="nome" />
-                                    <Label fx:id="lblCognomeCliente" layoutX="854.0" layoutY="221.0" prefHeight="17.0" prefWidth="198.0" text="Cognome" />
-                                    <Label fx:id="lblCodiceFiscaleGestore" layoutX="860.0" layoutY="276.0" prefHeight="17.0" prefWidth="248.0" text="codFiscale" />
-                                    <Label fx:id="lblNomeGestore" layoutX="861.0" layoutY="305.0" prefHeight="17.0" prefWidth="225.0" text="nome" />
-                                    <Label fx:id="lblCognomeGestore" layoutX="860.0" layoutY="329.0" prefHeight="17.0" prefWidth="222.0" text="cognome" />
+                                    <Label fx:id="lblCodFiscaleCliente" layoutX="853.0" layoutY="170.0" prefHeight="17.0" prefWidth="182.0" />
+                                    <Label fx:id="lblNomeCliente" layoutX="854.0" layoutY="195.0" prefHeight="17.0" prefWidth="204.0" />
+                                    <Label fx:id="lblCognomeCliente" layoutX="854.0" layoutY="221.0" prefHeight="17.0" prefWidth="198.0" />
+                                    <Label fx:id="lblCodiceFiscaleGestore" layoutX="860.0" layoutY="276.0" prefHeight="17.0" prefWidth="248.0" />
+                                    <Label fx:id="lblNomeGestore" layoutX="861.0" layoutY="305.0" prefHeight="17.0" prefWidth="225.0" />
+                                    <Label fx:id="lblCognomeGestore" layoutX="860.0" layoutY="329.0" prefHeight="17.0" prefWidth="222.0" />
                                  </children>
                               </AnchorPane>
                            </content>

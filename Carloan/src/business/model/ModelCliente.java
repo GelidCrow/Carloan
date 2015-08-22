@@ -35,8 +35,15 @@ public class ModelCliente implements Model{
 	}
 
 	@Override
-	public void lettura() {
-		
+	public Entity lettura(int id) {
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			return (Cliente) ((DAOCliente) daofactory.getDao("DAOCliente")).lettura(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	
@@ -56,4 +63,6 @@ public class ModelCliente implements Model{
 		}
 		return null;	
 	}
+
+
 }

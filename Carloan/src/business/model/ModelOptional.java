@@ -24,11 +24,6 @@ public class ModelOptional implements Model{
 		
 	}
 
-	@Override
-	public void lettura() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void ricerca() {
@@ -45,6 +40,12 @@ public class ModelOptional implements Model{
 			e.printStackTrace();
 		}
 		return null;	
+	}
+
+	@Override
+	public Entity lettura(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

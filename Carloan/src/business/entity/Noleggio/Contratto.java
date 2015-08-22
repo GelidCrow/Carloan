@@ -7,10 +7,10 @@ import business.entity.Entity;
 public class Contratto extends Entity{
 
 	private Integer IDContratto;
-	private Integer IDOperatore=null;
-	private Integer IDSupervisoreSede=null;
-	private Integer IDSupervisoreAgenzia=null;
-	private Integer IDAmministratore=null;
+	private Integer IDOperatore;
+	private Integer IDSupervisoreSede;
+	private Integer IDSupervisoreAgenzia;
+	private Integer IDAmministratore;
 	private String stato; /// questo può esssere enumerativo di regola
 	private LocalDate DataCreazione;
 	private LocalDate dataChiusura;

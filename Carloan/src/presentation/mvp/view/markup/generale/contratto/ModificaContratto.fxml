@@ -30,7 +30,6 @@
             </VBox>
             <HBox layoutX="132.0" layoutY="270.0" prefHeight="36.0" prefWidth="290.0">
                <children>
-                  <Button mnemonicParsing="false" text="Resetta" />
                   <Separator orientation="VERTICAL" prefHeight="36.0" prefWidth="34.0" visible="false" />
                   <Button fx:id="btnCancella" mnemonicParsing="false" onAction="#btnCancella" prefHeight="25.0" prefWidth="74.0" text="Cancella" />
                   <Separator orientation="VERTICAL" prefHeight="36.0" prefWidth="34.0" visible="false" />

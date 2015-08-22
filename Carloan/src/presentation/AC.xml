@@ -31,6 +31,11 @@
 		<method>aggiornamento</method>
 	</call>
 	
+	<call id="letturaCliente">
+		<class>business.model.ModelCliente</class>
+		<method>lettura</method>
+	</call>
+	
 	<call id="getAllClienti">
 		<class>business.model.ModelCliente</class>
 		<method>getAll</method>
@@ -46,6 +51,29 @@
 	</call>
 	
 	
+	<!--Amministratore-->
+	<call id="letturaAmministratore">
+		<class>business.model.ModelAmministratore</class>
+		<method>lettura</method>
+	</call>
+	
+	<!--SupervisoreSede-->
+	<call id="letturaSupervisoreSede">
+		<class>business.model.ModelSupervisoreS</class>
+		<method>lettura</method>
+	</call>
+	
+	<!--SupervisoreAgenzia-->
+	<call id="letturaSupervisoreAgenzia">
+		<class>business.model.ModelSupervisoreA</class>
+		<method>lettura</method>
+	</call>
+	
+	<!--Operatore-->
+	<call id="letturaOperatore">
+		<class>business.model.ModelOperatore</class>
+		<method>lettura</method>
+	</call>
 	
 	
 	<!--CONTRATTO-->
@@ -68,8 +96,9 @@
 		<method>getAll</method>
 	</call>
 	
-	<!--NOLEGGIO-->
 	
+	
+	<!--NOLEGGIO-->
 	<call id="InserimentoNoleggio">
 		<class>business.model.ModelNoleggio</class>
 		<method>Inserimento</method>
@@ -89,6 +118,8 @@
 		<class>business.model.ModelNoleggio</class>
 		<method>getAll</method>
 	</call>
+
+
 
 	<!--Autoveicolo-->
 	<call id="getAllAuto">
