@@ -140,15 +140,11 @@ public class DAONoleggio implements DAO{
 		return noleggi;
 	}
 	
-	private Noleggio ottieniNoleggio(ResultSet resultset){
+	private Noleggio ottieniNoleggio(ResultSet resultset) throws SQLException{
 		 Noleggio noleggio = new Noleggio();
-		 try {
 			noleggio.setIDNoleggio(resultset.getInt(1));
 			//domani ripendo da qui
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 	    return noleggio;
 	}
 }

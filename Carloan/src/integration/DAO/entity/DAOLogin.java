@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
+
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 import business.entity.Entity;
@@ -77,9 +78,9 @@ public class DAOLogin implements DAO{
 
 
 	
-
-	@SuppressWarnings("resource")
 	public Entity  autenticazione(Entity x){
+		
+		
 		Login login= (Login)x;
 		
 		String Autenticazione = "select IDSupervisoreAgenzia,IDSupervisoreSede,IDAmministratore,IDOperatore from Credenziali where Username='?' and password='?'";
@@ -100,32 +101,27 @@ public class DAOLogin implements DAO{
 			
 			if(idList.next()){
 				
-				if(idList.getString(1)!=null){//è un supervisoreagenzia
-					String auth="Select IDSupervisoreAgenzia,Nome,Cognome,IDAgenzia from SupervisoreAgenzia where IDSupervisoreAgenzia='"+idList.getString(1)+"'";
-					idList=connection.executeRead(auth);
-					idList.next();
-					result=new SupervisoreAgenzia(idList.getString(2),idList.getString(3),idList.getString(1));//qui bisogna fare daoSuperivsoreAgenzia.lettura(idSuAgenzia);
+				if(idList.getString(4)!=null){//è un supervisoreAgenzia
+					DAOSupervisoreA daoSupervisoreA ;
+					daoSupervisoreA= (DAOSupervisoreA) daofactory.getDao("DAOSupervisoreA");
+					result= daoSupervisoreA.lettura(idList.getInt(4));
 				}
 				
-				else if(idList.getString(2)!=null){//è un supervisore sede
-					String auth="Select IDSupervisoreSede,Nome,Cognome,IDSede from SupervisoreSede where IDSupervisoreSede='"+idList.getString(2)+"'";
-					idList=connection.executeRead(auth);
-					idList.next();
-					result=new SupervisoreSede(idList.getString(2),idList.getString(3),idList.getString(1));
+				else if(idList.getInt(5)>0){//è un supervisore sede
+					DAOSupervisoreS daoSupervisoreS ;
+					daoSupervisoreS= (DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS");
+					result=daoSupervisoreS.lettura(idList.getInt(5));
 				}
-				else if(idList.getString(3)!=null){// è un amministratore
-					String auth="Select IDAmministratore,Nome,Cognome,IDDitta from Amministratore where IDAmministratore='"+idList.getString(3)+"'";
-					idList=connection.executeRead(auth);
-					idList.next();
-					result=new Amministratore(idList.getString(2),idList.getString(3),idList.getString(1));
+				else if(idList.getInt(6)>0){// è un amministratore
+					DAOAmministratore daoAmministratore ;
+					daoAmministratore= (DAOAmministratore) daofactory.getDao("DAOAmministratore");
+					result=daoAmministratore.lettura(idList.getInt(6));
 				}
-				else if(idList.getString(4)!=null){// è un operatore
-					String auth="Select IDOperatore,Nome,Cognome,IDSede from Operatore where IDOperatore='"+idList.getString(4)+"'";
-					idList=connection.executeRead(auth);
-					idList.next();
-					result=new Operatore(idList.getString(2),idList.getString(3),idList.getString(1));
-				}
-				
+				else if(idList.getString(7)!=null){// è un operatore
+					DAOOperatore daoOperatore;
+					daoOperatore= (DAOOperatore) daofactory.getDao("DAOOperatore");
+					result=daoOperatore.lettura(idList.getInt(7));
+				}	
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

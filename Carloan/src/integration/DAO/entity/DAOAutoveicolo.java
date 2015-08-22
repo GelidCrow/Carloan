@@ -74,46 +74,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 		if(readQueryResultSet!=null){
 			try {
 				while(readQueryResultSet.next()){
-					Autoveicolo a=new Autoveicolo();
-					a.setIDauto(readQueryResultSet.getInt(1));
-					a.setTarga(readQueryResultSet.getString(2));
-					a.setMarca(readQueryResultSet.getString(3));
-					a.setModello(readQueryResultSet.getString(4));
-					a.setAlimPrincipale(readQueryResultSet.getString(5));
-					a.setAlimSec(readQueryResultSet.getString(6));
-					a.setColore(readQueryResultSet.getString(7));
-					a.setCambio(readQueryResultSet.getString(8));
-					a.setImmatricolazione(readQueryResultSet.getDate(9).toLocalDate());
-					a.setCilindrata(readQueryResultSet.getInt(10));
-					a.setPotenza(readQueryResultSet.getInt(11));
-					a.setNroPosti(readQueryResultSet.getInt(12));
-					a.setNroTelaio(readQueryResultSet.getString(13));
-					String dispon=readQueryResultSet.getString(14);
-					switch(dispon){
-					case "Disponibile":
-						a.setDisponibilita(Disponibilita.Disponibile);
-						break;
-					case "NonDisponibile":
-						a.setDisponibilita(Disponibilita.NonDisponibile);
-						break;
-					case "ManutenzioneOrdinaria":
-						a.setDisponibilita(Disponibilita.ManutenzioneOrdinaria);
-						break;
-					case "ManutenzioneStraordinaria":
-						a.setDisponibilita(Disponibilita.ManutenzioneStraordinaria);
-						break;
-					}
-					a.setUltimoKm(readQueryResultSet.getInt(15));
-					a.setCapPortaBagnagli(readQueryResultSet.getInt(16));
-					a.setNote(readQueryResultSet.getString(17));
-					InputStream i=readQueryResultSet.getBinaryStream(18);
-					if(i!=null)
-						a.setImmagine(i);
-					a.setDataScadAssic(readQueryResultSet.getDate(19).toLocalDate());
-					a.setOptionalAuto(readQueryResultSet.getString(20));
-					a.setPrezzo(readQueryResultSet.getFloat(21));
-					Danni danni=new Danni(readQueryResultSet.getString(22), readQueryResultSet.getString(23));
-					a.setDanni(danni);
+					Autoveicolo a= ottiniAutoveicolo(readQueryResultSet);
 					leauto.add(a);
 				}
 			} catch (SQLException e) {
@@ -122,6 +83,50 @@ public DAOAutoveicolo(DaoFactory dao) {
 			}
 		}
 		return leauto;
+	}
+	
+	private Autoveicolo ottiniAutoveicolo(ResultSet resultset) throws SQLException{
+		Autoveicolo a=new Autoveicolo();
+		a.setIDauto(resultset.getInt(1));
+		a.setTarga(resultset.getString(2));
+		a.setMarca(resultset.getString(3));
+		a.setModello(resultset.getString(4));
+		a.setAlimPrincipale(resultset.getString(5));
+		a.setAlimSec(resultset.getString(6));
+		a.setColore(resultset.getString(7));
+		a.setCambio(resultset.getString(8));
+		a.setImmatricolazione(resultset.getDate(9).toLocalDate());
+		a.setCilindrata(resultset.getInt(10));
+		a.setPotenza(resultset.getInt(11));
+		a.setNroPosti(resultset.getInt(12));
+		a.setNroTelaio(resultset.getString(13));
+		String dispon=resultset.getString(14);
+		switch(dispon){
+		case "Disponibile":
+			a.setDisponibilita(Disponibilita.Disponibile);
+			break;
+		case "NonDisponibile":
+			a.setDisponibilita(Disponibilita.NonDisponibile);
+			break;
+		case "ManutenzioneOrdinaria":
+			a.setDisponibilita(Disponibilita.ManutenzioneOrdinaria);
+			break;
+		case "ManutenzioneStraordinaria":
+			a.setDisponibilita(Disponibilita.ManutenzioneStraordinaria);
+			break;
+		}
+		a.setUltimoKm(resultset.getInt(15));
+		a.setCapPortaBagnagli(resultset.getInt(16));
+		a.setNote(resultset.getString(17));
+		InputStream i=resultset.getBinaryStream(18);
+		if(i!=null)
+			a.setImmagine(i);
+		a.setDataScadAssic(resultset.getDate(19).toLocalDate());
+		a.setOptionalAuto(resultset.getString(20));
+		a.setPrezzo(resultset.getFloat(21));
+		Danni danni=new Danni(resultset.getString(22), resultset.getString(23));
+		a.setDanni(danni);
+		return a;
 	}
 
 }

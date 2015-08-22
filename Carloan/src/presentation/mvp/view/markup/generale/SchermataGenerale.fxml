@@ -206,42 +206,6 @@
                               </AnchorPane>
                           </content>
                         </Tab>
-                        <Tab text="Multa">
-                          <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
-                                 <children>
-                                    <TableView layoutY="111.0" prefHeight="407.0" prefWidth="1236.0" />
-                                    <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
-                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Chiudi" />
-                                    <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
-                                    <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Immagini/ic_search_black_24dp_2x.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField layoutX="63.0" layoutY="57.0" />
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </Tab>
-                        <Tab text="Manutenzione">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
-                                 <children>
-                                    <TableView layoutY="111.0" prefHeight="407.0" prefWidth="1236.0" />
-                                    <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
-                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Chiudi" />
-                                    <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
-                                    <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Immagini/ic_search_black_24dp_2x.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField layoutX="63.0" layoutY="57.0" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
                         <Tab fx:id="paneAgenzia" text="Agenzia">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">

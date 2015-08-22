@@ -3,7 +3,7 @@ package business.entity;
 import java.util.Date;
 
 public abstract class Utente extends Entity {
-	private String idUtente;
+	private int idUtente;
 	private String Nome;
 	private String Cognome;
 	private String Sesso;
@@ -16,7 +16,8 @@ public abstract class Utente extends Entity {
 	
 	
 
-	public Utente(String idUtente, String nome, String cognome, String sesso,
+
+	public Utente(int idUtente, String nome, String cognome, String sesso,
 			Date dataNascita, String indirizzo, String codiceFiscale,
 			String numCell, String numFisso, boolean assunto) {
 		super();
@@ -31,10 +32,10 @@ public abstract class Utente extends Entity {
 		NumFisso = numFisso;
 		Assunto = assunto;
 	}
-	public String getIdUtente() {
+	public int getIdUtente() {
 		return idUtente;
 	}
-	public void setIdUtente(String idUtente) {
+	public void setIdUtente(int idUtente) {
 		this.idUtente = idUtente;
 	}
 	public String getNome() {

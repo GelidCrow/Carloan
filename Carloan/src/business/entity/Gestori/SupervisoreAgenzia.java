@@ -6,13 +6,14 @@ public class SupervisoreAgenzia extends Supervisore {
 
 	private int IDAgenzia;
 
-	public SupervisoreAgenzia(String idUtente, String nome, String cognome,
+	public SupervisoreAgenzia(int idUtente, String nome, String cognome,
 			String sesso, Date dataNascita, String indirizzo,
 			String codiceFiscale, String numCell, String numFisso,
-			boolean assunto) {
+			boolean assunto,int IDAgenzia) {
 		super(idUtente, nome, cognome, sesso, dataNascita, indirizzo, codiceFiscale,
 				numCell, numFisso, assunto);
 		// TODO Auto-generated constructor stub
+		this.IDAgenzia=IDAgenzia;
 	}
 	public int getIDAgenzia() {
 		return IDAgenzia;

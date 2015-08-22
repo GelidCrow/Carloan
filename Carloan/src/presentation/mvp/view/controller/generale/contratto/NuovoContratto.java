@@ -113,23 +113,24 @@ public class NuovoContratto extends Schermata{
 		
 		contratto.setStato(StatoContratto.Aperto.toString());
 	
+		
+		Utente utente= UtenteCorrente.getUtente();
 		//qui setto l'id dell'utente del sistema
-		if(UtenteCorrente.getUtente() instanceof Operatore)
-			contratto.setIDOperatore(1);
-		else if(UtenteCorrente.getUtente() instanceof Amministratore)
-			contratto.setIDAmministratore(1);
-		else if(UtenteCorrente.getUtente() instanceof SupervisoreSede)
-			contratto.setIDSupervisoreSede(1);
+		if(utente instanceof Operatore)
+			contratto.setIDOperatore(utente.getIdUtente());
+		else if(utente instanceof Amministratore)
+			contratto.setIDAmministratore(utente.getIdUtente());
+		else if(utente instanceof SupervisoreSede)
+			contratto.setIDSupervisoreSede(utente.getIdUtente());
 		else 
-			contratto.setIDSupervisoreAgenzia(1);
+			contratto.setIDSupervisoreAgenzia(utente.getIdUtente());
 		
 		dParam= dCreazione.getValue();
 		contratto.setDataCreazione(Date.valueOf(dParam));
 	
 		return contratto;
 	}
-	
-	
+
 	private boolean caricaTabella(List<Cliente> list){
 		ObservableList<Cliente> obsList= FXCollections.observableList(list);
 		tbcliente.setItems(obsList);

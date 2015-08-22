@@ -6,7 +6,7 @@ import business.entity.Utente;
 
 public abstract class Supervisore extends Utente{
 
-	public Supervisore(String idUtente, String nome, String cognome,
+	public Supervisore(int idUtente, String nome, String cognome,
 			String sesso, Date dataNascita, String indirizzo,
 			String codiceFiscale, String numCell, String numFisso,
 			boolean assunto) {
