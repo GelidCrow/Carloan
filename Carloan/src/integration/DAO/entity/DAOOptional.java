@@ -61,7 +61,6 @@ public class DAOOptional implements DAO{
 		finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}

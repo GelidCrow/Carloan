@@ -143,7 +143,7 @@ public class NuovoNoleggio<T extends Entity> extends Schermata{
 	}
 	private void bindingValuesContratto(){
 		contratti.get(0).setCellValueFactory(cellData ->  new SimpleIntegerProperty(((Contratto) cellData.getValue()).getIDContratto()));
-		contract.setCellValueFactory(cellData ->  new SimpleStringProperty(((Cliente) cellData.getValue()).
+		contratti.get(1).setCellValueFactory(cellData ->  new SimpleIntegerProperty(((Contratto) cellData.getValue()).getIdCliente()));
 		contratti.get(2).setCellValueFactory(cellData ->  new SimpleObjectProperty<LocalDate>(((Contratto) cellData.getValue()).getDataCreazione()));
 	}
 	
