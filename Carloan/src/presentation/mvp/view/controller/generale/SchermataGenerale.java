@@ -7,6 +7,7 @@ import integration.DAO.connection.Connection;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -38,10 +39,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
-
+import javafx.beans.property.SimpleStringProperty;
 
 public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
@@ -58,13 +60,16 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TableView<T> tbAuto;
 	@FXML
 	private Label txtBenvenuto;
+	@FXML
+	private TableColumn<Cliente,String> cliente;
 	
 	
 	private TabClienti tbClientController;
 
 	private TabContratto tbContrattoController;
-
+	
 	private TabNoleggio tbNoleggioController;
+	
 	private TabAuto tbAutoController;
 		/***********  CONTRATTO *************/
 	@FXML
@@ -184,7 +189,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private void caricaTabella(List<T> list,TableView<T> table){
 		ObservableList<T> obsList= FXCollections.observableList(list);
 		table.setItems(obsList);
-		
+		table.getColumns().add
 	}
 	
 	public TableView<T> getTable(String table){
@@ -314,10 +319,18 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		
 		panes= tabPane.getTabs();
 		//serve solo per fargli fare il binding con le colonne
-		tbContrattoController = new TabContratto((TableView<Contratto>) tbContratto);
+		tbContrattoController = new TabContratto<T>((TableView<T>) tbContratto);
 		//carica la prima volta la tabella 
 		try {
-			caricaTabella((List<T>)presenter.processRequest("getAllContratti",null),tbContratto);
+			List<Contratto> contratti = (List<Contratto>)presenter.processRequest("getAllContratti",null);
+			caricaTabella((List<T>) contratti,tbContratto);
+			List<Cliente> clienti = new ArrayList<Cliente>();
+			for(Contratto c: contratti){
+			  	clienti.add((Cliente)presenter.processRequest("leggiCliente",c.getIdCliente()));
+			}
+			cliente.
+			cliente.setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getNome()+ ((Cliente) cellData.getValue()).getCognome()));
+			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException

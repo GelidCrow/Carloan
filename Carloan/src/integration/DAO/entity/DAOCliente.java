@@ -146,7 +146,6 @@ public class DAOCliente implements DAO{
 	
 	public List<Cliente> creaElencoClienti(ResultSet resultset){
 		List<Cliente> risultato = new LinkedList<>();
-
         try {
          if(resultset!=null){
             while (resultset.next()) {
@@ -162,53 +161,11 @@ public class DAOCliente implements DAO{
 		return risultato;
 	}
 	public Cliente ottieniCliente(ResultSet resultset) throws SQLException{
-		String sParam= null;
-	     Date dParam = null;
-	     int iParam;
 		
-	    Cliente cliente = new Cliente();
-        iParam = resultset.getInt("IdCliente");
-        cliente.setId(iParam);
-        
-        sParam = resultset.getString("Nome");              
-        cliente.setNome(sParam);
-
-        sParam = resultset.getString("Cognome");
-        cliente.setCognome(sParam);
-        
-        sParam = resultset.getString("Sesso");
-        cliente.setSesso(sParam);
-
-        dParam = resultset.getDate("DataEmissPatente");               
-        cliente.setDataEmissPatente(dParam);
-        
-        dParam = resultset.getDate("DataNascita");             
-        cliente.setDatanascita(dParam);
-        
-        sParam = resultset.getString("Indirizzo");
-        cliente.setIndirizzo(sParam);
-
-        sParam = resultset.getString("CodFiscale");
-        cliente.setCodFiscale(sParam);
-        
-        sParam = resultset.getString("NumCell"); 
-        cliente.setNumCell(sParam);
-
-        sParam = resultset.getString("NumTel");
-        cliente.setNumTel(sParam);
-
-        sParam = resultset.getString("PatenteGuida");
-        cliente.setPatenteGuida(sParam);
-
-        dParam = resultset.getDate("DataScadPatente");
-        cliente.setDataScadPatente(dParam);
-          
-        sParam = resultset.getString("PartitaIva");
-        cliente.setPartitaIva(sParam);
-
-        sParam = resultset.getString("Email");
-        cliente.setEmail(sParam);
-		return cliente;
+	  return  new Cliente(resultset.getInt("IdCliente"),resultset.getString("Nome"),resultset.getString("Cognome"),
+			  resultset.getString("Sesso"),resultset.getDate("DataEmissPatente"),resultset.getDate("DataNascita"),resultset.getString("Indirizzo"),
+			  resultset.getString("CodFiscale"),resultset.getString("NumCell"),resultset.getString("NumTel"),resultset.getString("PatenteGuida"),resultset.getDate("DataScadPatente")
+			 , resultset.getString("PartitaIva"), resultset.getString("Email"));
 	}
 	
 	@Override

@@ -63,22 +63,22 @@ public class ClienteChecker implements Checker{
 	}
 	
 	public void checkDataNascita() throws CommonException {
-		if(cliente.getDatanascita().before(Date.valueOf(dateLimit))){
+		if(cliente.getDatanascita().isBefore(dateLimit)){
         	throw new CommonException("Data di nascita non valida");
 		}
 	}
 	
 	public void checkDataEmissPatente() throws CommonException {
-		LocalDate date = cliente.getDatanascita().toLocalDate();
+		LocalDate date = cliente.getDatanascita();
 		DatePicker datepicker= new DatePicker(LocalDate.of(date.getYear()+18, date.getMonth(),date.getDayOfMonth()));
 		date= datepicker.getValue();
-		if(cliente.getDataEmissPatente()==null || cliente.getDataEmissPatente().before(Date.valueOf(date))){
+		if(cliente.getDataEmissPatente()==null || cliente.getDataEmissPatente().isBefore(date)){
         	throw new CommonException("Data emissione patente non valida");
 		}
 	}
 	
 	public void checkDataScadPatente() throws CommonException {
-		if(cliente.getDataEmissPatente()==null || cliente.getDataScadPatente().before(Date.valueOf(LocalDate.now()))){
+		if(cliente.getDataEmissPatente()==null || cliente.getDataScadPatente().isBefore(LocalDate.now())){
         	throw new CommonException("Patente Scaduta");
 		}
 	}

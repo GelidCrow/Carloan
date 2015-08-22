@@ -56,6 +56,11 @@ public class Noleggio extends Entity{
 	private	 StringProperty clienteT;
 	private	 StringProperty noteT;
 
+	
+	
+	
+	
+	
 	public Pagamento getPagamento() {
 		return pagamento;
 	}

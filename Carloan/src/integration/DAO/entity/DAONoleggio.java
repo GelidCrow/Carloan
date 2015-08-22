@@ -97,9 +97,38 @@ public class DAONoleggio implements DAO{
 		return null;
 	}
 
+	
+	
+	public List<Noleggio> getAll(){
+		 String readQuery = "Select * from noleggio";
+		 
+		Connection connection= Connection.getConnection(daofactory);
+		 
+		ResultSet readQueryResultSet = null;
+		List<Noleggio> risultato = null;
+		try {
+			readQueryResultSet = connection.executeRead(readQuery);	
+			risultato= creaElencoNoleggi(readQueryResultSet);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere i contratti" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				readQueryResultSet.close();
+				//connection.chiudiConnessione();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+		return risultato;
+	}
+	
+	
+	
 	public List<Noleggio> getNoleggiAperti(int idContratto){
 		 String readQuery = "Select * from noleggio where idcontratto='?' and (stato='Aperto' or stato='rientro' or stato='uscita')";
-
+		 readQuery = queryReplaceFirst(readQuery, String.valueOf(idContratto));
 		 
 		Connection connection= Connection.getConnection(daofactory);
 		 
@@ -143,7 +172,6 @@ public class DAONoleggio implements DAO{
 	private Noleggio ottieniNoleggio(ResultSet resultset) throws SQLException{
 		 Noleggio noleggio = new Noleggio();
 			noleggio.setIDNoleggio(resultset.getInt(1));
-			//domani ripendo da qui
 
 	    return noleggio;
 	}

@@ -1,5 +1,7 @@
 package presentation.mvp.view.controller.generale;
 
+import java.time.LocalDate;
+
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import utility.Finestra;
@@ -10,7 +12,11 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import business.entity.Cliente;
 import business.model.Exception.CommonException;
-
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 public class TabClienti{
 	
 	private ObservableList<TableColumn<Cliente, ?>> cliente;
@@ -44,33 +50,33 @@ public class TabClienti{
 	 */
 	public void bindingValuesCliente(){
 		
-		cliente.get(0).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getCodFiscaleT());
+		cliente.get(0).setCellValueFactory(cellData -> new SimpleStringProperty( ((Cliente) cellData.getValue()).getCodFiscale()));
 		
-		cliente.get(0).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getCodFiscaleT());
+		cliente.get(0).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getCodFiscale()));
 		
-		cliente.get(1).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getNomeT());
+		cliente.get(1).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getNome()));
 		
-		cliente.get(2).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getCognomeT());
+		cliente.get(2).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getCognome()));
 		
-		cliente.get(3).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getSessoT());
+		cliente.get(3).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getSesso()));
 		
-		cliente.get(4).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getDatanascitaT());
+		cliente.get(4).setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(((Cliente) cellData.getValue()).getDatanascita()));
 		
-		cliente.get(5).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getIndirizzoT());
+		cliente.get(5).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getIndirizzo()));
 	
-		cliente.get(6).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getDataEmissPatenteT());
+		cliente.get(6).setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(((Cliente) cellData.getValue()).getDataEmissPatente()));
 
-		cliente.get(7).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getDataScadPatenteT());
+		cliente.get(7).setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(((Cliente) cellData.getValue()).getDataScadPatente()));
 
-		cliente.get(8).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getPatenteGuidaT());
+		cliente.get(8).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getPatenteGuida()));
 		
-		cliente.get(9).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getNumCellT());
+		cliente.get(9).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getNumCell()));
 
-		cliente.get(10).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getNumTelT());
+		cliente.get(10).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getNumTel()));
 
-		cliente.get(11).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getPartitaIvaT());
+		cliente.get(11).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getPartitaIva()));
 
-		cliente.get(12).setCellValueFactory(cellData -> ((Cliente) cellData.getValue()).getEmailT());
+		cliente.get(12).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getEmail()));
 
 	}
 

@@ -1,6 +1,8 @@
 package presentation.mvp.view.controller.generale;
 
 
+import java.time.LocalDate;
+
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import utility.Finestra;
@@ -9,14 +11,21 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
+import business.entity.Cliente;
+import business.entity.Entity;
 import business.entity.Noleggio.Contratto;
 import business.model.Exception.CommonException;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
-public class TabContratto {
+public class TabContratto<T extends Entity> {
 	
-	private ObservableList<TableColumn<Contratto,?>> contratto;
+	private ObservableList<TableColumn<T,?>> contratto;
 		
-	private TableView<Contratto> tbContratto;
+	private TableView<T> tbContratto;
 
 	private Schermata schermata;
 	
@@ -71,19 +80,17 @@ public class TabContratto {
 	public void bindingValuesContratto(){
 
 		
-		contratto.get(0).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getIDContrattoT());
+		contratto.get(0).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Contratto) cellData.getValue()).getIDContratto()));
 		
-		contratto.get(1).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getStatoT());
+		contratto.get(1).setCellValueFactory(cellData -> new SimpleStringProperty(((Contratto) cellData.getValue()).getStato()));
 		
-		contratto.get(2).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getNoteT());
+		contratto.get(2).setCellValueFactory(cellData -> new SimpleStringProperty(((Contratto) cellData.getValue()).getNote()));
 		
-		contratto.get(3).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getDataCreazioneT());
+		contratto.get(3).setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(((Contratto) cellData.getValue()).getDataCreazione()));
 		
-		contratto.get(4).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getDataChiusuraT());
-	
-		contratto.get(5).setCellValueFactory(cellData -> ((Contratto) cellData.getValue()).getCliente().getNomeCognome());
-
-
+		contratto.get(4).setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(((Contratto) cellData.getValue()).getDataChiusura()));
+		
+		contratto.get(5).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Cliente) cellData.getValue()).getId()));
 	}
 
 	
@@ -91,7 +98,8 @@ public class TabContratto {
 		this.schermata=schermata;
 	}
 	
-	TabContratto(TableView<Contratto> tbContratto){
+	public 
+	TabContratto(TableView<T> tbContratto){
 		contratto= tbContratto.getColumns();
 		
 		this.tbContratto=tbContratto;
@@ -101,6 +109,7 @@ public class TabContratto {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
 	}
+
 	
 	
 }
