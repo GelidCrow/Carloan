@@ -69,7 +69,7 @@ public class DAOContratto implements DAO{
         
         insertQuery= queryReplaceFirst(insertQuery,contratto.getNote());
 
-        insertQuery= queryReplaceFirst(insertQuery,contratto.getCliente().getId().toString());
+        insertQuery= queryReplaceFirst(insertQuery,String.valueOf(contratto.getIdCliente()));
         
         
         
@@ -180,53 +180,14 @@ public class DAOContratto implements DAO{
 	}
 	
 	public List<Contratto> creaElencoContratti(ResultSet resultset) throws InstantiationException, IllegalAccessException{
-		DAOCliente daoCliente ;
-		daoCliente= (DAOCliente) daofactory.getDao("DAOCliente");
-	
+
 		 
 		List<Contratto> risultato = new LinkedList<>();
-		
-        String sParam= null;
-        Date dParam = null;
-        int iParam;
-        
+
         try {
          if(resultset!=null){
             while (resultset.next()) {
-                Contratto contratto = new Contratto();
-                
-                iParam= resultset.getInt("idContratto");
-                contratto.setIDContratto(iParam);
-                
-                iParam= resultset.getInt("idOperatore");
-                contratto.setIDOperatore(iParam);
-                
-                iParam= resultset.getInt("idSupervisoreAgenzia");
-                contratto.setIDSupervisoreAgenzia(iParam);  
-                
-                iParam= resultset.getInt("idSupervisoreSede");
-                contratto.setIDSupervisoreSede(iParam);
-                
-                iParam= resultset.getInt("idAmministratore");
-                contratto.setIDAmministratore(iParam);
-                
-                iParam= resultset.getInt("idCliente");//leggo l'id del cliente e ora prendo la sua istanza.facendo una specie di join
-        		Cliente cliente = (Cliente) daoCliente.lettura(iParam);
-                contratto.setCliente(cliente);
-                
-        		
-                sParam= resultset.getString("stato");
-                contratto.setStato(sParam);
-                
-                sParam= resultset.getString("note");
-                contratto.setNote(sParam);
-                
-                dParam= resultset.getDate("DataCreazione");
-                contratto.setDataCreazione(dParam);
-                
-                dParam= resultset.getDate("DataChiusura");
-                contratto.setDataChiusura(dParam);
-                
+                Contratto contratto = ottieniContratto(resultset);
                 risultato.add(contratto);
             	
             }
@@ -241,5 +202,40 @@ public class DAOContratto implements DAO{
 	public Entity lettura(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	
+	private Contratto ottieniContratto(ResultSet resultset) throws SQLException{
+		   String sParam= null;
+	        int iParam;
+		Contratto contratto = new Contratto();
+        iParam= resultset.getInt("idContratto");
+        contratto.setIDContratto(iParam);
+        
+        iParam= resultset.getInt("idOperatore");
+        contratto.setIDOperatore(iParam);
+        
+        iParam= resultset.getInt("idSupervisoreAgenzia");
+        contratto.setIDSupervisoreAgenzia(iParam);  
+        
+        iParam= resultset.getInt("idSupervisoreSede");
+        contratto.setIDSupervisoreSede(iParam);
+        
+        iParam= resultset.getInt("idAmministratore");
+        contratto.setIDAmministratore(iParam);
+        
+        iParam= resultset.getInt("idCliente");//leggo l'id del cliente e ora prendo la sua istanza.facendo una specie di join
+        contratto.setIdCliente(iParam);
+       
+        sParam= resultset.getString("stato");
+        contratto.setStato(sParam);
+        
+        sParam= resultset.getString("note");
+        contratto.setNote(sParam);
+   
+        contratto.setDataCreazione(resultset.getDate("DataCreazione").toLocalDate());
+    
+        contratto.setDataChiusura(resultset.getDate("DataChiusura").toLocalDate());
+        return contratto;
 	}
 }

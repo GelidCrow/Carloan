@@ -4,7 +4,6 @@ import static utility.QueryStringReplacer.queryReplaceFirst;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -161,11 +160,10 @@ public class DAOCliente implements DAO{
 		return risultato;
 	}
 	public Cliente ottieniCliente(ResultSet resultset) throws SQLException{
-		
 	  return  new Cliente(resultset.getInt("IdCliente"),resultset.getString("Nome"),resultset.getString("Cognome"),
-			  resultset.getString("Sesso"),resultset.getDate("DataEmissPatente"),resultset.getDate("DataNascita"),resultset.getString("Indirizzo"),
-			  resultset.getString("CodFiscale"),resultset.getString("NumCell"),resultset.getString("NumTel"),resultset.getString("PatenteGuida"),resultset.getDate("DataScadPatente")
-			 , resultset.getString("PartitaIva"), resultset.getString("Email"));
+			  resultset.getString("Sesso"),resultset.getDate("DataEmissPatente").toLocalDate(),resultset.getDate("DataNascita").toLocalDate(),resultset.getString("Indirizzo"),
+			  resultset.getString("CodFiscale"),resultset.getString("NumCell"),resultset.getString("NumTel"),resultset.getString("PatenteGuida"),resultset.getDate("DataScadPatente").toLocalDate(),
+			 resultset.getString("PartitaIva"), resultset.getString("Email"));
 	}
 	
 	@Override
