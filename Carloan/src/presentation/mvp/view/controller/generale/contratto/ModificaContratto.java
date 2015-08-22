@@ -80,7 +80,7 @@ public class ModificaContratto extends NuovoContratto{
 		
 		
 		if(choiceStato.getSelectionModel().getSelectedItem().equals(StatoContratto.Annullato.toString())){
-			contratto.setDataChiusura(Date.valueOf(LocalDate.now()));//imposto la data di chiusura se il valore scelto è annullato
+			contratto.setDataChiusura(LocalDate.now());//imposto la data di chiusura se il valore scelto è annullato
 		}
 
 		//controllo se bisogna aggiornare

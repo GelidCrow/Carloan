@@ -64,14 +64,13 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="1223.0">
                                  <children>
-                                    <TableView fx:id="tbContratto" layoutY="115.0" prefHeight="377.0" prefWidth="1228.0">
+                                    <TableView fx:id="tbContratto" layoutX="14.0" layoutY="118.0" prefHeight="366.0" prefWidth="665.0">
                                        <columns>
                                           <TableColumn fx:id="numContratto" prefWidth="108.0" text="Num. Contratto" />
-                                          <TableColumn prefWidth="75.0" text="Stato" />
-                                          <TableColumn prefWidth="75.0" text="Note" />
-                                          <TableColumn prefWidth="168.0" text="Data Apertura" />
-                                          <TableColumn prefWidth="148.0" text="Data Chiusura" />
-                                          <TableColumn prefWidth="237.0" text="Cliente " />
+                                          <TableColumn prefWidth="99.0" text="Stato" />
+                                          <TableColumn prefWidth="157.0" text="Note" />
+                                          <TableColumn prefWidth="138.0" text="Data Apertura" />
+                                          <TableColumn prefWidth="162.0" text="Data Chiusura" />
                                        </columns></TableView>
                                     <Button fx:id="btnNuovoContratto" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoContratto" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button fx:id="btnModificaContratto" layoutX="125.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaContratto" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
@@ -83,6 +82,14 @@
                                        </image>
                                     </ImageView>
                                     <TextField layoutX="63.0" layoutY="57.0" />
+                                    <TableView fx:id="tbCliente" layoutX="680.0" layoutY="118.0" prefHeight="367.0" prefWidth="546.0">
+                                      <columns>
+                                        <TableColumn fx:id="codFiscale" prefWidth="136.0" text="Codice Fiscale" />
+                                        <TableColumn fx:id="nome" prefWidth="182.0" text="Nome" />
+                                          <TableColumn fx:id="cognome" editable="false" prefWidth="227.0" text="Cognome" />
+                                      </columns>
+                                    </TableView>
+                                    <Label layoutX="694.0" layoutY="90.0" text="Cliente" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -91,7 +98,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="tbNoleggio" layoutY="115.0" prefHeight="373.0" prefWidth="1228.0">
+                                    <TableView fx:id="tbNoleggio" layoutY="115.0" prefHeight="199.0" prefWidth="1228.0">
                                        <columns>
                                           <TableColumn minWidth="0.0" prefWidth="53.0" text="ID" />
                                           <TableColumn prefWidth="75.0" text="Data Inizio" />
@@ -129,6 +136,7 @@
                                         <MenuItem mnemonicParsing="false" text="Visualizza" />
                                       </items>
                                     </MenuButton>
+                                    <Label layoutX="12.0" layoutY="322.0" prefHeight="17.0" prefWidth="146.0" text="Informazioni aggiuntive " />
                                  </children>
                               </AnchorPane>
                         </content>
