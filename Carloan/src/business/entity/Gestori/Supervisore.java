@@ -6,18 +6,14 @@ import business.entity.Utente;
 
 public abstract class Supervisore extends Utente{
 
-	Supervisore(String Nome, String Cognome, char Sesso, String Username,
-			String Password) {
-		super(Nome, Cognome, Sesso, Username, Password);
+	public Supervisore(String idUtente, String nome, String cognome,
+			String sesso, Date dataNascita, String indirizzo,
+			String codiceFiscale, String numCell, String numFisso,
+			boolean assunto) {
+		super(idUtente, nome, cognome, sesso, dataNascita, indirizzo, codiceFiscale,
+				numCell, numFisso, assunto);
+		// TODO Auto-generated constructor stub
 	}
 
-	Supervisore(String Nome, String Cognome, char Sesso, Date datanascita,
-			String Indirizzo, String codicefiscale, String numcell,
-			String numfisso, boolean assunto, String Username, String Password) {
-		super(Nome, Cognome, Sesso, datanascita, Indirizzo, codicefiscale, numcell,
-				numfisso, assunto, Username, Password);
-	}
-	Supervisore(String Nome,String Cognome){
-			super(Nome,Cognome);
-		}
+
 }

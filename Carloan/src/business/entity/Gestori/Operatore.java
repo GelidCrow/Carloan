@@ -5,36 +5,23 @@ import java.util.Date;
 import business.entity.Utente;
 
 public class Operatore extends Utente {
-	
-	private String IDOperatore="";	
-	private String IDSede="";
-		
-	Operatore(String Nome, String Cognome, char Sesso, Date datanascita,String Indirizzo, String codicefiscale, String numcell,String numfisso, boolean assunto, String Username, String Password) {
-			super(Nome, Cognome, Sesso, datanascita, Indirizzo, codicefiscale, numcell,numfisso, assunto, Username, Password);
-			
-		}
-	Operatore(String Nome,String Cognome,char Sesso,String Username,String Password){
-		super(Nome,Cognome,Sesso,new Date(),"","","","",true,Username,Password);
+	private int IDSede;
+	public Operatore(String idUtente, String nome, String cognome,
+			String sesso, Date dataNascita, String indirizzo,
+			String codiceFiscale, String numCell, String numFisso,
+			boolean assunto) {
+		super(idUtente, nome, cognome, sesso, dataNascita, indirizzo, codiceFiscale,
+				numCell, numFisso, assunto);
+		// TODO Auto-generated constructor stub
 	}
-	public Operatore(String Nome,String Cognome,String IDSede){
-		super(Nome,Cognome);
-		this.setIDSede(IDSede);
-	}
-	
-	
-	public String getIDOperatore() {
-		return IDOperatore;
-	}
-	
-	public void setIDOperatore(String iDOperatore) {
-		IDOperatore = iDOperatore;
-	}
-	public String getIDSede() {
+	public int getIDSede() {
 		return IDSede;
 	}
-	public void setIDSede(String iDSede) {
+	public void setIDSede(int iDSede) {
 		IDSede = iDSede;
 	}
+
+
 
 }
 

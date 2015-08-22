@@ -5,33 +5,29 @@ import java.util.Date;
 import business.entity.Utente;
 
 public class Amministratore extends Utente {
-	private String IDAmministratore="";
-	private String IDDitta="";
-	Amministratore(String Nome, String Cognome, char Sesso, Date datanascita,String Indirizzo, String codicefiscale, String numcell,String numfisso, boolean assunto, String Username, String Password) {
-			super(Nome, Cognome, Sesso, datanascita, Indirizzo, codicefiscale, numcell,numfisso, assunto, Username, Password);
-			
-		}
-	Amministratore(String Nome,String Cognome,char Sesso,String Username,String Password){
-		super(Nome,Cognome,Sesso,new Date(),"","","","",true,Username,Password);
+
+
+	public Amministratore(String idUtente, String nome, String cognome,
+			String sesso, Date dataNascita, String indirizzo,
+			String codiceFiscale, String numCell, String numFisso,
+			boolean assunto) {
+		super(idUtente, nome, cognome, sesso, dataNascita, indirizzo, codiceFiscale,
+				numCell, numFisso, assunto);
+		// TODO Auto-generated constructor stub
 	}
-	
-	public Amministratore(String Nome,String Cognome,String IDDitta){
-		super(Nome,Cognome);
-		this.setIDDitta(IDDitta);
-	}
-	
-	public String getIDAmministratore() {
-		return IDAmministratore;
-	}
-	
-	public void setIDAmministratore(String IDAmministratore) {
-		this.IDAmministratore = IDAmministratore;
-	}
-	public String getIDDitta() {
+
+	private int IDDitta;
+
+
+	public int getIDDitta() {
 		return IDDitta;
 	}
-	public void setIDDitta(String iDDitta) {
+
+	public void setIDDitta(int iDDitta) {
 		IDDitta = iDDitta;
 	}
+
+
+
 }
 
