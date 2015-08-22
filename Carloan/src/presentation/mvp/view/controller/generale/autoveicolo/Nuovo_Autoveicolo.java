@@ -4,25 +4,22 @@ package presentation.mvp.view.controller.generale.autoveicolo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import MessaggiFinestra.AlertView;
-import business.entity.Cliente;
-import business.entity.UtenteCorrente;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.Danni;
-import business.entity.Auto.Disponibilita;
 import business.entity.Auto.Fascia.Fascia;
 import business.entity.Luoghi.Sede;
 import business.model.Exception.CommonException;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,6 +28,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -43,6 +41,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
@@ -96,6 +96,9 @@ public class Nuovo_Autoveicolo extends Schermata{
 	@FXML
 	protected TextArea danni_gravi;
 	@FXML
+	protected TextArea optional_auto;
+	
+	@FXML
 	protected Button btnchoose;
 	@FXML
 	protected Button btnconferma;
@@ -119,7 +122,9 @@ public class Nuovo_Autoveicolo extends Schermata{
 	private ArrayList<Sede> sedi;
 	private TableView<Autoveicolo> tw;
 	@SuppressWarnings("unchecked")
+	
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
 		presenter=new Presenter();
 		try {
 		FXMLParameter = new ParametriFXML(null,false);
@@ -201,7 +206,6 @@ public class Nuovo_Autoveicolo extends Schermata{
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
 				| InvocationTargetException  e1) {
-			
 			e1.printStackTrace();
 		}
 	}
@@ -213,31 +217,84 @@ public class Nuovo_Autoveicolo extends Schermata{
 	Autoveicolo temp=new Autoveicolo();
 		if(targa.getText().isEmpty() || modello.getText().isEmpty() || marca.getText().isEmpty() || immatricolazione.getValue()==null || prezzo.getText().isEmpty())
 			throw new CommonException("I campi obbligatori non devono essere vuoti!");
-	
-	temp.setTarga(targa.getText());
-	temp.setMarca(marca.getText());
-	temp.setModello(modello.getText());
-	temp.setAlimPrincipale(alimprinc.getText());
+		String s=targa.getText();
+		if(s.isEmpty())
+			throw new CommonException("La targa è vuota");
+		else
+			temp.setTarga(s);
+		
+		s=marca.getText();
+		if(s.isEmpty())
+			throw new CommonException("La marca è vuota");
+		else
+				temp.setMarca(s);
+		s=modello.getText();
+		if(s.isEmpty())
+		throw new CommonException("Il modello è vuoto");
+		 else
+			temp.setModello(s);
+		s=alimprinc.getText();
+		if(s.isEmpty())
+		throw new CommonException("L'alimentazione principale è vuota");
+		 else
+			temp.setAlimPrincipale(s);
+		LocalDate d=immatricolazione.getValue();
+		if(d==null)
+		throw new CommonException("Data immatricolazione vuota");
+		 else
+			 temp.setImmatricolazione(d);
+		
+		try{
+			temp.setCilindrata(Integer.parseInt(cilindrata.getText()));
+			}
+			catch(NumberFormatException e){
+				throw new CommonException("Cilindrata non valida");
+			}
+		try{
+			 s=kmpercorsi.getText();
+			if(s.isEmpty())
+				temp.setUltimoKm(0);
+			else
+				temp.setUltimoKm(Integer.parseInt(s));
+		}
+		catch(NumberFormatException e){
+			throw new CommonException("Kilometri percorsi non validi");
+		}
+		try{
+			s=potenza.getText();
+			if(s.isEmpty())
+				temp.setPotenza(0);
+			else
+			temp.setPotenza(Integer.parseInt(potenza.getText()));
+			}
+			catch(NumberFormatException e){
+				throw new CommonException("Potenza non valida");
+		}
+		try{
+			 s=capienza.getText();
+			if(s.isEmpty())
+				temp.setCapPortaBagnagli(0);
+			else
+		temp.setCapPortaBagnagli(Integer.parseInt(s));
+		}
+		catch(NumberFormatException e){
+			throw new CommonException("Capienza non valida");
+		}
+		
+			s=numtelaio.getText();
+			if(s.isEmpty())
+				throw new CommonException("Il numero del telaio non può essere vuoto");
+			else
+			temp.setNroTelaio(s);
+		
 	temp.setAlimSec(alimsec.getText());
 	temp.setColore(colore.getText());
 	temp.setCambio(cambio.getSelectionModel().getSelectedItem());
-	temp.setImmatricolazione(immatricolazione.getValue());
-	try{
-	temp.setCilindrata(Integer.parseInt(cilindrata.getText()));
-	}
-	catch(NumberFormatException e){
-		throw new CommonException("Cilindrata non valida");
-	}
-	try{
-	temp.setPotenza(Integer.parseInt(potenza.getText()));
-	}
-	catch(NumberFormatException e){
-		throw new CommonException("Potenza non valida");
-	}
+	
 	temp.setNroPosti(nposti.getSelectionModel().getSelectedItem());
-	temp.setNroTelaio(numtelaio.getText());
-	String d=Disponibilita.getSelectionModel().getSelectedItem();
-	switch(d){
+	
+	String disp=Disponibilita.getSelectionModel().getSelectedItem();
+	switch(disp){
 	case "Disponibile":
 		temp.setDisponibilita(business.entity.Auto.Disponibilita.Disponibile);
 		break;
@@ -251,31 +308,16 @@ public class Nuovo_Autoveicolo extends Schermata{
 		temp.setDisponibilita(business.entity.Auto.Disponibilita.ManutenzioneStraordinaria);
 		break;
 	}
-	try{
-		String s=kmpercorsi.getText();
-		if(s.isEmpty())
-			temp.setUltimoKm(0);
-		else
-			temp.setUltimoKm(Integer.parseInt(s));
-	}
-	catch(NumberFormatException e){
-		throw new CommonException("Kilometri percorsi non validi");
-	}
-	try{
-		String s=capienza.getText();
-		if(s.isEmpty())
-			temp.setCapPortaBagnagli(0);
-		else
-	temp.setCapPortaBagnagli(Integer.parseInt(s));
-	}
-	catch(NumberFormatException e){
-		throw new CommonException("Capienza non valida");
-	}
 	temp.setImmagine(immagine);
-	temp.setDataScadAssic(scadenzaass.getValue());
-	d=fascia.getSelectionModel().getSelectedItem();
+	d=scadenzaass.getValue();
+	if(d==null)
+		throw new CommonException("Data scadenza assicurazione vuota");
+	else
+	temp.setDataScadAssic(d);
+		
+	s=fascia.getSelectionModel().getSelectedItem();
 	for(Fascia f : fasce){
-		if(f.getNome().equals(d)){
+		if(f.getNome().equals(s)){
 			temp.setFascia(f);
 			break;
 		}
@@ -287,9 +329,22 @@ public class Nuovo_Autoveicolo extends Schermata{
 	catch(NumberFormatException e){
 		throw new CommonException("Prezzo non valido");
 	}
-	//temp.setCodiceSedDisp(UtenteCorrente.getUtente().);
+	Sede se=(Sede)tablesedi.getSelectionModel().getSelectedItem();
+	temp.setCodiceSedDisp(se.getIDSede());
+	s=optional_auto.getText();
+	if(s.isEmpty())
+		temp.setOptionalAuto("");
+	else
+		temp.setOptionalAuto(s);
+	
 	return temp;
 	}
 	
 	
+	@FXML
+	public void btnannulla_click(ActionEvent e){
+		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
+		if(result.isPresent() && result.get() == ButtonType.OK)
+			this.chiudiFinestra();
+	}
 }

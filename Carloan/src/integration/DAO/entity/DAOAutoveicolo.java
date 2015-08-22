@@ -2,7 +2,7 @@ package integration.DAO.entity;
 
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
-
+import static utility.QueryStringReplacer.queryReplaceFirst;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +24,35 @@ public DAOAutoveicolo(DaoFactory dao) {
 
 	@Override
 	public void creazione(Entity x) {
-		// TODO Auto-generated method stub
+		String insert="insert into Autoveicolo (Targa,Marca,Modello,AlimPrincipale,Colore,Cambio,Immatricolazione,"
+				+ "Cilindrata,Potenza,NroPosti,NroTelaio,Disponibilita,UltimoKm,CapPortaBagagli,Note,DataScadAssic,OptionalAuto,Prezzo,DanniFutili,DanniGravi,IDSede,IDFascia,Immagine)";
+		String values=" values('?','?','?','?','?','?',?,?,?,?,'?','?',?,?,'?',?,'?',?,'?','?',?,?,?";
+		Autoveicolo a=(Autoveicolo)x;
+		values=queryReplaceFirst(values, a.getTarga());
+		values=queryReplaceFirst(values, a.getMarca());
+		values=queryReplaceFirst(values, a.getModello());
+		values=queryReplaceFirst(values, a.getAlimPrincipale());
+		values=queryReplaceFirst(values, a.getColore());
+		values=queryReplaceFirst(values, a.getCambio());
+		values=queryReplaceFirst(values, a.getImmatricolazione().toString());
+		values=queryReplaceFirst(values, String.valueOf(a.getCilindrata()));
+		values=queryReplaceFirst(values, String.valueOf(a.getPotenza()));
+		values=queryReplaceFirst(values, String.valueOf(a.getNroPosti()));
+		values=queryReplaceFirst(values, a.getNroTelaio());
+		values=queryReplaceFirst(values, a.getDisponibilita().toString());
+		values=queryReplaceFirst(values, String.valueOf(a.getUltimoKm()));
+		values=queryReplaceFirst(values, String.valueOf(a.getCapPortaBagnagli()));
+		values=queryReplaceFirst(values, a.getNote());
+		values=queryReplaceFirst(values, a.getDataScadAssic().toString());
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 

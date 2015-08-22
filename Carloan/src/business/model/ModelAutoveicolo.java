@@ -24,8 +24,12 @@ public class ModelAutoveicolo implements Model{
 
 	@Override
 	public void Inserimento(Entity parameter) {
-		// TODO Auto-generated method stub
-		
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).creazione(parameter);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 

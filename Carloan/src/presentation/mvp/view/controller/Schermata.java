@@ -46,6 +46,17 @@ public abstract class Schermata implements Initializable{
 	
 	public void setStage(Stage stage,boolean hand){
 		this.stage=stage;
+		if(hand==false){
+		stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, 
+                new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent event) {
+						Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
+						if(result.isPresent() && result.get() == ButtonType.OK)
+							chiudiFinestra();
+					}	
+                });
+		}
 		if(hand==true){
 			stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, new EventHandler<WindowEvent>()
 		        {
