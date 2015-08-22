@@ -6,6 +6,7 @@ import integration.DAO.connection.Connection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -173,10 +174,14 @@ public class DAONoleggio implements DAO{
 		List<Integer> idOptionals= ottieniIDOptional(resultset,connection);
 		List<Integer> idMulta  = ottieniIDMulte(resultset,connection);
 
+		LocalDate data=null;
+		if(resultset.getDate(4)!=null){
+			data= resultset.getDate(4).toLocalDate();
+		}
 		return  new Noleggio(resultset.getInt(1),
 				resultset.getDate(2).toLocalDate(),
 				resultset.getDate(3).toLocalDate(),
-				resultset.getDate(4).toLocalDate(),
+				data,
 				resultset.getDate(5).toLocalDate(),
 				resultset.getInt(6),
 				resultset.getInt(7),
@@ -194,7 +199,7 @@ public class DAONoleggio implements DAO{
 	}
 	
 	private List<Integer> ottieniIDOptional(ResultSet resultset,Connection connection) throws SQLException{
-		String readQuery  = "Select idOptional from noleggioContratto where idNoleggio= '?'";
+		String readQuery  = "Select idOptional from noleggioOptional where idNoleggio= '?'";
 		readQuery = queryReplaceFirst(readQuery, String.valueOf(resultset.getInt(1)));
 		
 		ResultSet readQueryResultSet = null;

@@ -17,6 +17,7 @@ import business.entity.Entity;
 import business.entity.Utente;
 import business.entity.UtenteCorrente;
 import business.entity.Auto.Autoveicolo;
+import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Gestori.SupervisoreSede;
@@ -292,7 +293,61 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			
 	    }
 	} 
+	@FXML
+	private Label lblCodFiscaleCliente;
+	@FXML
+	private Label lblNomeCliente;
+	@FXML
+	private Label lblCognomeCliente;
+	@FXML
+	private Label lblCodiceFiscaleGestore;
+	@FXML
+	private Label lblNomeGestore;
+	@FXML
+	private Label lblCognomeGestore;
+	/**
+	 * <p> Ascoltatore per il cambio di elemento dal COntratto </p>
+	 */
+	private class ItemSelectedContratto implements ChangeListener{
 	
+		@Override
+		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+			//interroga db
+			try {
+				Cliente cliente = (Cliente)presenter.processRequest("letturaCliente",((Contratto)getEntitaElementoSelezionato("Contratto")).getIdCliente());
+				popolaLabelCliente(cliente);
+				Contratto contratto= (Contratto)getEntitaElementoSelezionato("Contratto");
+				Amministratore amministratore;
+				SupervisoreSede supervisoreSede;
+				SupervisoreAgenzia supervisoreAgenzia;
+				Operatore operatore;
+				if(contratto.getIDAmministratore()>0)
+					utente = (Amministratore)presenter.processRequest("letturaAmministratore",contratto.getIDAmministratore());
+				else if(contratto.getIDSupervisoreAgenzia()>0){
+					supervisoreAgenzia = (SupervisoreAgenzia)presenter.processRequest("letturaSupervisoreAgenzia",contratto.getIDSupervisoreAgenzia());
+				}
+				else if(contratto.getIDSupervisoreSede()>0){
+					supervisoreSede = (SupervisoreSede)presenter.processRequest("letturaSupervisoreSede",contratto.getIDSupervisoreSede());
+				}
+				else if(contratto.getIDOperatore()>0){
+					supervisoreAgenzia = (SupervisoreAgenzia)presenter.processRequest("letturaOperatore",contratto.getIDOperatore());
+				}
+				popolaLabelGestore();
+			
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | NoSuchMethodException
+					| SecurityException | IllegalArgumentException
+					| InvocationTargetException | CommonException e) {
+				e.printStackTrace();
+			}
+		}
+		private void popolaLabelCliente(Cliente cliente){
+			
+		}
+		private void popolaLabelGestore(Utente utente){
+				txtLabel
+		}
+	}
 	/**
 	 * <p>Elmina i tab che non possono essere usati dall'utente corrente</p>
 	 */
@@ -335,6 +390,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			e.printStackTrace();
 		}
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
+		tbContratto.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedContratto());
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	
