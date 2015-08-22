@@ -47,7 +47,13 @@ public class ModelAutoveicolo implements Model{
 
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).lettura(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 

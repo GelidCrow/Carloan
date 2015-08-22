@@ -5,6 +5,7 @@ import integration.DAO.connection.Connection;
 import static utility.QueryStringReplacer.queryReplaceFirst;
 
 
+
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import business.entity.Entity;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.Disponibilita;
 import business.entity.Auto.Danni;
+import business.model.Exception.CommonException;
 
 public class DAOAutoveicolo implements DAO{
 private DaoFactory dao;
@@ -51,7 +53,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 		values=queryReplaceFirst(values, a.getDanni().getDanniFutili());
 		values=queryReplaceFirst(values, a.getDanni().getDanniGravi());
 		values=queryReplaceFirst(values, String.valueOf(a.getCodiceSedDisp()));
-		values=queryReplaceFirst(values, String.valueOf(a.getFascia().getIDFascia()));
+		values=queryReplaceFirst(values, String.valueOf(a.getFascia()));
 		
 		Connection connection=Connection.getConnection(dao);
 		try {
@@ -80,8 +82,65 @@ public DAOAutoveicolo(DaoFactory dao) {
 
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String query="Select * from Autoveicolo where IDAuto=?";
+		query=queryReplaceFirst(query, String.valueOf(id));
+		Connection conn=Connection.getConnection(dao);
+		Autoveicolo auto=null;
+		try {
+			ResultSet r=conn.executeRead(query);
+			if(r!=null && r.next()){
+				auto=new Autoveicolo();
+				auto.setIDauto(r.getInt(1));
+				auto.setTarga(r.getString(2));
+				auto.setMarca(r.getString(3));
+				auto.setModello(r.getString(4));
+				auto.setAlimPrincipale(r.getString(5));
+				auto.setAlimSec(r.getString(6));
+				auto.setColore(r.getString(7));
+				auto.setCambio(r.getString(8));
+				auto.setImmatricolazione(r.getDate(9).toLocalDate());
+				auto.setCilindrata(r.getInt(10));
+				auto.setPotenza(r.getInt(11));
+				auto.setNroPosti(r.getInt(12));
+				auto.setNroTelaio(r.getString(13));
+				String s=r.getString(14);
+				switch(s){
+				case "Disponibile":
+					auto.setDisponibilita(Disponibilita.Disponibile);
+					break;
+				case "NonDisponibile":
+					auto.setDisponibilita(Disponibilita.NonDisponibile);
+					break;
+				case "ManutenzioneOrdinaria":
+					auto.setDisponibilita(Disponibilita.ManutenzioneOrdinaria);
+					break;
+				case "ManutenzioneStraordinaria":
+					auto.setDisponibilita(Disponibilita.ManutenzioneStraordinaria);
+					break;
+				}
+				auto.setUltimoKm(r.getInt(15));
+				auto.setCapPortaBagnagli(r.getInt(16));
+				auto.setNote(r.getString(17));
+				auto.setImmagine(r.getBinaryStream(18));
+				auto.setDataScadAssic(r.getDate(19).toLocalDate());
+				auto.setOptionalAuto(r.getString(20));
+				auto.setPrezzo(r.getFloat(21));
+				auto.setDanni(new Danni(r.getString(22), r.getString(23)));
+				auto.setCodiceSedDisp(r.getInt(24));
+				auto.setFascia(r.getInt(25));
+			}
+			else
+				throw new CommonException("Non è stato possibile trovare l'auto richiesta");
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere le informazione dell'auto appena selezionata" , AlertType.ERROR);
+		}
+		catch(CommonException e){
+			e.showMessage();
+		}
+		return auto;
 	}
 
 	public List<Autoveicolo> getAll(){

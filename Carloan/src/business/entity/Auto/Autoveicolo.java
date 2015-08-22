@@ -31,7 +31,7 @@ public class Autoveicolo extends Entity {
 	private String Note;
 	private InputStream Immagine;
 	private LocalDate DataScadAssic;
-	private Fascia fascia;
+	private int idfascia;
 	private Danni danni;
 	private int CodiceSedDisp;
 	private String OptionalAuto;
@@ -46,7 +46,7 @@ public class Autoveicolo extends Entity {
 			String colore, String cambio, LocalDate immatricolazione,
 			int cilindrata, int potenza, int nroPosti, String nroTelaio,
 			Disponibilita disponibilita, int ultimoKm, int capPortaBagnagli,
-			String note, InputStream immagine, LocalDate dataScadAssic, Fascia fascia,
+			String note, InputStream immagine, LocalDate dataScadAssic, int idfascia,
 			Danni danni, int codiceSedDisp, String optionalAuto,
 			List<Manutenzione> manutenzioni, float prezzo) 
 	{
@@ -69,7 +69,7 @@ public class Autoveicolo extends Entity {
 		Note = note;
 		Immagine = immagine;
 		DataScadAssic = dataScadAssic;
-		this.fascia = fascia;
+		this.idfascia = idfascia;
 		this.danni = danni;
 		CodiceSedDisp = codiceSedDisp;
 		OptionalAuto = optionalAuto;
@@ -274,13 +274,13 @@ public class Autoveicolo extends Entity {
 	}
 
 
-	public Fascia getFascia() {
-		return fascia;
+	public int getFascia() {
+		return idfascia;
 	}
 
 
-	public void setFascia(Fascia fascia) {
-		this.fascia = fascia;
+	public void setFascia(int fascia) {
+		this.idfascia = fascia;
 	}
 
 

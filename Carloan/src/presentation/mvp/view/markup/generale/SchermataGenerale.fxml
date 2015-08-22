@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="20.0" prefWidth="1024.0">
         <menus>
@@ -226,7 +226,7 @@
                           <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView fx:id="tbAuto" layoutY="111.0" prefHeight="407.0" prefWidth="1228.0">
+                                    <TableView fx:id="tbAuto" layoutY="170.0" prefHeight="348.0" prefWidth="1228.0">
                                        <columns>
                                           <TableColumn prefWidth="75.0" text="Targa" />
                                           <TableColumn prefWidth="75.0" text="Marca" />
@@ -244,13 +244,13 @@
                                        </columns></TableView>
                                     <Button fx:id="btnNuovaAuto" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovaAuto" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
-                                    <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
-                                    <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+                                    <Button layoutX="444.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
+                                    <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../Immagini/ic_search_black_24dp_2x.png" />
                                        </image>
                                     </ImageView>
-                                    <TextField layoutX="63.0" layoutY="57.0" />
+                                    <TextField layoutX="61.0" layoutY="82.0" />
                                     <MenuButton layoutX="272.0" layoutY="14.0" mnemonicParsing="false" text="Manutenzione">
                                       <items>
                                         <MenuItem mnemonicParsing="false" text="Aggiungi" />
@@ -258,6 +258,7 @@
                                           <MenuItem mnemonicParsing="false" text="Visualizza" />
                                       </items>
                                     </MenuButton>
+                                    <ImageView fx:id="auto_image" fitHeight="154.0" fitWidth="249.0" layoutX="846.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </AnchorPane>
                           </content>

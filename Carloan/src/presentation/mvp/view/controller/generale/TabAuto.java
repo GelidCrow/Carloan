@@ -14,7 +14,6 @@ import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.Disponibilita;
 import utility.Finestra;
 import utility.ParametriFXML;
-import business.entity.Auto.Fascia.*;
 
 import java.time.LocalDate;
 public class TabAuto {
@@ -43,7 +42,7 @@ public class TabAuto {
 		auto.get(5).setCellValueFactory(cellData ->  new SimpleStringProperty(((Autoveicolo) cellData.getValue()).getCambio()));
 		auto.get(6).setCellValueFactory(cellData ->  new SimpleObjectProperty<LocalDate>(((Autoveicolo) cellData.getValue()).getImmatricolazione()));
 		auto.get(7).setCellValueFactory(cellData ->  new  SimpleIntegerProperty(((Autoveicolo) cellData.getValue()).getCilindrata()));
-		auto.get(8).setCellValueFactory(cellData ->  new SimpleObjectProperty<Fascia>(((Autoveicolo) cellData.getValue()).getFascia()));
+		auto.get(8).setCellValueFactory(cellData ->  new SimpleIntegerProperty(((Autoveicolo) cellData.getValue()).getFascia()));
 		auto.get(9).setCellValueFactory(cellData ->  new  SimpleObjectProperty<Disponibilita>(((Autoveicolo) cellData.getValue()).getDisponibilita()));
 		auto.get(10).setCellValueFactory(cellData ->  new  SimpleFloatProperty(((Autoveicolo) cellData.getValue()).getPrezzo()));
 		auto.get(11).setCellValueFactory(cellData ->  new SimpleObjectProperty<LocalDate>(((Autoveicolo) cellData.getValue()).getDataScadAssic()));

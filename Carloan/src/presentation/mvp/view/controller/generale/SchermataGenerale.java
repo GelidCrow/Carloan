@@ -4,10 +4,10 @@ package presentation.mvp.view.controller.generale;
 
 import integration.DAO.connection.Connection;
 
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -42,15 +42,16 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
-import javafx.beans.property.SimpleStringProperty;
 
 public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	private TabPane tabPane;
 	private ObservableList<Tab> panes;
-	
+	@FXML
+	private ImageView auto_image;
 	@FXML
 	private TableView<T> tbCliente;	
 	@FXML
@@ -173,7 +174,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * <p>Aggiunge un elemento ad una tabella</p>
 	 */
 	public void aggiungiElementoAtabella(T elem,TableView<T> table){
-		table.getItems().add((T) elem);
+		table.getItems().add(elem);
 	}
 	/**
 	 * <p>Modifica un elemento da una tabella, lo rimuove e poi lo aggiunge in ultima posizione, oppure nel caso era l'ultimo quello modificato lo aggiunge alla 2 posizione</p>
@@ -393,6 +394,34 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}	
 	}
 	
+	
+	@SuppressWarnings({ "rawtypes" })
+	private class ItemSelectedAutoveicolo implements ChangeListener{
+
+		@Override
+		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+			try {
+				Autoveicolo auto=(Autoveicolo)presenter.processRequest("letturaAutoveicolo", ((Autoveicolo)getEntitaElementoSelezionato("Autoveicolo")).getIDauto());
+				InputStream i=auto.getImmagine();
+				if(i!=null)
+				auto_image.setImage(new Image(i));
+			} 
+			catch(CommonException e){
+				e.showMessage();
+			}
+			catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | NoSuchMethodException
+					| SecurityException | IllegalArgumentException
+					| InvocationTargetException  e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
+	
 	@SuppressWarnings({ "unchecked"})
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -417,6 +446,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
 		tbContratto.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedContratto());
+		tbAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAutoveicolo());
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	

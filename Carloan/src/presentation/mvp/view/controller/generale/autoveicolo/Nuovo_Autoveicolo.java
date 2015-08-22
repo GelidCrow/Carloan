@@ -107,10 +107,9 @@ public class Nuovo_Autoveicolo extends Schermata{
 	protected Button btnannulla;
 	@FXML
 	protected Label descrizione_fascia;
-	@SuppressWarnings("rawtypes")
 	
 	@FXML
-	protected TableView tablesedi;
+	protected TableView<Sede> tablesedi;
 	@FXML
 	protected  TableColumn<Sede, Integer> identifier;
 	@FXML
@@ -194,7 +193,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 	public void btnconferma_click(ActionEvent e){
 		@SuppressWarnings("unchecked")
 		SchermataGenerale<Autoveicolo> schermataGenerale = (SchermataGenerale<Autoveicolo>)this.getChiamante();
-		tw= ((SchermataGenerale)schermataGenerale).getTable("tbAuto");
+		tw= ((SchermataGenerale<Autoveicolo>)schermataGenerale).getTable("Autoveicolo");
 		
 		try {
 			Autoveicolo auto_da_inserire=prendiDatiDaView();
@@ -319,13 +318,8 @@ public class Nuovo_Autoveicolo extends Schermata{
 	else
 	temp.setDataScadAssic(d);
 		
-	s=fascia.getSelectionModel().getSelectedItem();
-	for(Fascia f : fasce){
-		if(f.getNome().equals(s)){
-			temp.setFascia(f);
-			break;
-		}
-	}
+	int f=fascia.getSelectionModel().getSelectedIndex();
+	temp.setFascia(fasce.get(f).getIDFascia());
 	temp.setDanni(new Danni(danni_futili.getText(), danni_gravi.getText()));
 	try{
 	temp.setPrezzo(Float.parseFloat(prezzo.getText()));
@@ -333,7 +327,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 	catch(NumberFormatException e){
 		throw new CommonException("Prezzo non valido");
 	}
-	Sede se=(Sede)tablesedi.getSelectionModel().getSelectedItem();
+	Sede se=tablesedi.getSelectionModel().getSelectedItem();
 	temp.setCodiceSedDisp(se.getIDSede());
 	s=optional_auto.getText();
 	if(s.isEmpty())

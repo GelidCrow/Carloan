@@ -134,13 +134,20 @@
 		<class>business.model.checker.autoveicolo.AutoveicoloChecker</class>
 		<method>check</method>
 	</call>
+
+	<call id="InserimentoAutoveicolo">
+		<class>business.model.ModelAutoveicolo</class>
+		<method>Inserimento</method>
+	</call>
+	<call id="letturaAutoveicolo">
+		<class>business.model.ModelAutoveicolo</class>
+		<method>lettura</method>
+	</call>
+
 	<!--Sede-->
 	<call id="getAllSedi">
 		<class>business.model.ModelSede</class>
 		<method>getAll</method>
 	</call>
-	<call id="InserimentoAutoveicolo">
-		<class>business.model.ModelAutoveicolo</class>
-		<method>Inserimento</method>
-	</call>
+	
 </calls>
