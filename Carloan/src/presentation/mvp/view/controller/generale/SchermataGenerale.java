@@ -292,7 +292,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 */
 	public void settaSchermataPerUtente(){
 		Utente utente= UtenteCorrente.getUtente();
-		String msgBenvenuto = "Benvenuto \n "+ utente.getNome() + " " + utente.getCognome() + "\n  Cod: "+  utente.getIdUtente();
+		String msgBenvenuto = "Benvenuto "+ utente.getNome() + " " + utente.getCognome() + "\n  Cod: "+  utente.getIdUtente();
 		txtBenvenuto.setText(msgBenvenuto);
 		if( utente instanceof Operatore){
 			panes.remove(3,panes.size());

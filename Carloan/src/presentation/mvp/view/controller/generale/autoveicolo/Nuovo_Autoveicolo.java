@@ -211,6 +211,9 @@ public class Nuovo_Autoveicolo extends Schermata{
 	
 	private Autoveicolo prendiDatiDaView() throws CommonException {
 	Autoveicolo temp=new Autoveicolo();
+		if(targa.getText().isEmpty() || modello.getText().isEmpty() || marca.getText().isEmpty() || immatricolazione.getValue()==null || prezzo.getText().isEmpty())
+			throw new CommonException("I campi obbligatori non devono essere vuoti!");
+	
 	temp.setTarga(targa.getText());
 	temp.setMarca(marca.getText());
 	temp.setModello(modello.getText());
