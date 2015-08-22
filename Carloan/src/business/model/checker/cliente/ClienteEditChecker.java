@@ -60,8 +60,7 @@ public class ClienteEditChecker extends ClienteChecker{
 		
         length = cliente.getPartitaIva().length();
 
-        isValid = (length==MAX_PARTITAIVA_VALUE) || (length== MIN_PARTITAIVA_VALUE);
-
+        isValid = (length==MAX_PARTITAIVA_VALUE) || (length== MIN_PARTITAIVA_VALUE) ;
         if (!isValid) {
         	throw new CommonException("Partita iva non valido");
         }

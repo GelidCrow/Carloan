@@ -273,6 +273,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 					}
 				}
 			}
+			else if(panes.get(0)==newValue){}
 			else if(panes.get(3)==newValue){
 				if(tbAutoController==null){
 					tbAutoController=new TabAuto((TableView<Autoveicolo>)tbAuto,SchermataGenerale.this);
