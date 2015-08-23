@@ -1,8 +1,10 @@
 package business.entity.Auto;
 
+import java.io.File;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
+
 
 
 
@@ -29,7 +31,8 @@ public class Autoveicolo extends Entity {
 	private int UltimoKm;
 	private int CapPortaBagnagli;
 	private String Note;
-	private InputStream Immagine;
+	private String Immagine;
+	private InputStream immagine_stream;
 	private LocalDate DataScadAssic;
 	private int idfascia;
 	private Danni danni;
@@ -46,7 +49,7 @@ public class Autoveicolo extends Entity {
 			String colore, String cambio, LocalDate immatricolazione,
 			int cilindrata, int potenza, int nroPosti, String nroTelaio,
 			Disponibilita disponibilita, int ultimoKm, int capPortaBagnagli,
-			String note, InputStream immagine, LocalDate dataScadAssic, int idfascia,
+			String note, String immagine, LocalDate dataScadAssic, int idfascia,
 			Danni danni, int codiceSedDisp, String optionalAuto,
 			List<Manutenzione> manutenzioni, float prezzo) 
 	{
@@ -254,13 +257,13 @@ public class Autoveicolo extends Entity {
 	}
 
 
-	public InputStream getImmagine() {
+	public String getImmagine() {
 		return Immagine;
 	}
 
 
-	public void setImmagine(InputStream image) {
-		Immagine = image;
+	public void setImmagine(String image) {
+		Immagine = image.replace('\\', '/');
 	}
 
 
@@ -332,6 +335,16 @@ public class Autoveicolo extends Entity {
 
 	public void setPrezzo(float prezzo) {
 		this.prezzo = prezzo;
+	}
+
+
+	public InputStream getImmagine_stream() {
+		return immagine_stream;
+	}
+
+
+	public void setImmagine_stream(InputStream immagine_stream) {
+		this.immagine_stream = immagine_stream;
 	}
 
 

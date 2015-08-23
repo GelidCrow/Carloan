@@ -16,7 +16,8 @@ public class DAOSupervisoreA implements DAO{
 
 	
 	@Override
-	public void creazione(Entity x) {
+	public ResultSet creazione(Entity x) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

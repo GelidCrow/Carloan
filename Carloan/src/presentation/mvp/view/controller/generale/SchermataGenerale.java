@@ -3,7 +3,6 @@ package presentation.mvp.view.controller.generale;
 
 
 import integration.DAO.connection.Connection;
-
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -86,7 +85,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			tbContrattoController.setSchermata(this);
 			tbContrattoController.ModificaContratto();
 		} catch (CommonException e1) {
-			AlertView.getAlertView(e1.getMessage(), AlertType.ERROR);
+			e1.printStackTrace();
 		}
 	}	
 	
@@ -400,12 +399,15 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 
 		@Override
 		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+			if(!Aggiornando){
 			try {
-				Autoveicolo auto=(Autoveicolo)presenter.processRequest("letturaAutoveicolo", ((Autoveicolo)getEntitaElementoSelezionato("Autoveicolo")).getIDauto());
-				InputStream i=auto.getImmagine();
+				InputStream i=(InputStream) presenter.processRequest("leggiImmagineAutoveicolo", ((Autoveicolo)getEntitaElementoSelezionato("Autoveicolo")).getIDauto());
 				if(i!=null)
 				auto_image.setImage(new Image(i));
-			} 
+				else
+					auto_image.setImage(null);
+				}
+		
 			catch(CommonException e){
 				e.showMessage();
 			}
@@ -415,9 +417,9 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 					| InvocationTargetException  e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			} 
 		}
-		
+		}
 	}
 	
 	
@@ -450,4 +452,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	
+	
+	public void setAggiornando(boolean a){
+		this.Aggiornando=a;
+	}
 }

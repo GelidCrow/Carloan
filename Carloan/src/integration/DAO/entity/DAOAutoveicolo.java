@@ -27,7 +27,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 }
 
 	@Override
-	public void creazione(Entity x) {
+	public ResultSet creazione(Entity x) throws CommonException {
 		String insert="insert into Autoveicolo (Targa,Marca,Modello,AlimPrincipale,Colore,Cambio,Immatricolazione,"
 				+ "Cilindrata,Potenza,NroPosti,NroTelaio,Disponibilita,UltimoKm,CapPortaBagagli,Note,DataScadAssic,OptionalAuto,Prezzo,DanniFutili,DanniGravi,IDSede,IDFascia,Immagine)";
 		String values=" values('?','?','?','?','?','?','?',?,?,?,'?','?',?,?,'?','?','?',?,'?','?',?,?,?)";
@@ -54,24 +54,26 @@ public DAOAutoveicolo(DaoFactory dao) {
 		values=queryReplaceFirst(values, a.getDanni().getDanniGravi());
 		values=queryReplaceFirst(values, String.valueOf(a.getCodiceSedDisp()));
 		values=queryReplaceFirst(values, String.valueOf(a.getFascia()));
-		
+		String image=a.getImmagine();
+		ResultSet s=null;
+		if(image.isEmpty())
+		values=queryReplaceFirst(values, "null");
+		else
+			values=queryReplaceFirst(values, "LOAD_FILE(\""+image+"\")");
 		Connection connection=Connection.getConnection(dao);
 		try {
-			InputStream i=a.getImmagine();
-			ResultSet s=null;
-			if(i==null){
-				values=queryReplaceFirst(values, "null");
-				s=connection.executeUpdate(insert+values);
-			}
-			else
-			s=connection.executeUpdate(insert+values,a.getImmagine());
+			 s=connection.executeUpdate(insert+values);
 			if(s!=null && s.next())
 			AlertView.getAlertView("Autoveicolo inserito con successo",AlertType.INFORMATION);
+			else
+				throw new CommonException("Non e' stato possibile inserire l'autoveicolo");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return s;
 	}
 
 	@Override
@@ -79,9 +81,9 @@ public DAOAutoveicolo(DaoFactory dao) {
 		// TODO Auto-generated method stub
 		
 	}
-
+ 
 	@Override
-	public Entity lettura(int id) {
+	public Entity lettura(int id) throws CommonException {
 		String query="Select * from Autoveicolo where IDAuto=?";
 		query=queryReplaceFirst(query, String.valueOf(id));
 		Connection conn=Connection.getConnection(dao);
@@ -89,45 +91,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 		try {
 			ResultSet r=conn.executeRead(query);
 			if(r!=null && r.next()){
-				auto=new Autoveicolo();
-				auto.setIDauto(r.getInt(1));
-				auto.setTarga(r.getString(2));
-				auto.setMarca(r.getString(3));
-				auto.setModello(r.getString(4));
-				auto.setAlimPrincipale(r.getString(5));
-				auto.setAlimSec(r.getString(6));
-				auto.setColore(r.getString(7));
-				auto.setCambio(r.getString(8));
-				auto.setImmatricolazione(r.getDate(9).toLocalDate());
-				auto.setCilindrata(r.getInt(10));
-				auto.setPotenza(r.getInt(11));
-				auto.setNroPosti(r.getInt(12));
-				auto.setNroTelaio(r.getString(13));
-				String s=r.getString(14);
-				switch(s){
-				case "Disponibile":
-					auto.setDisponibilita(Disponibilita.Disponibile);
-					break;
-				case "NonDisponibile":
-					auto.setDisponibilita(Disponibilita.NonDisponibile);
-					break;
-				case "ManutenzioneOrdinaria":
-					auto.setDisponibilita(Disponibilita.ManutenzioneOrdinaria);
-					break;
-				case "ManutenzioneStraordinaria":
-					auto.setDisponibilita(Disponibilita.ManutenzioneStraordinaria);
-					break;
-				}
-				auto.setUltimoKm(r.getInt(15));
-				auto.setCapPortaBagnagli(r.getInt(16));
-				auto.setNote(r.getString(17));
-				auto.setImmagine(r.getBinaryStream(18));
-				auto.setDataScadAssic(r.getDate(19).toLocalDate());
-				auto.setOptionalAuto(r.getString(20));
-				auto.setPrezzo(r.getFloat(21));
-				auto.setDanni(new Danni(r.getString(22), r.getString(23)));
-				auto.setCodiceSedDisp(r.getInt(24));
-				auto.setFascia(r.getInt(25));
+				auto=ottieniAutoveicolo(r);
 			}
 			else
 				throw new CommonException("Non è stato possibile trovare l'auto richiesta");
@@ -135,11 +99,8 @@ public DAOAutoveicolo(DaoFactory dao) {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			AlertView.getAlertView("Non è stato possibile leggere le informazione dell'auto appena selezionata" , AlertType.ERROR);
-		}
-		catch(CommonException e){
-			e.showMessage();
-		}
+		} 
+		
 		return auto;
 	}
 
@@ -177,18 +138,17 @@ public DAOAutoveicolo(DaoFactory dao) {
 		if(readQueryResultSet!=null){
 			try {
 				while(readQueryResultSet.next()){
-					Autoveicolo a= ottiniAutoveicolo(readQueryResultSet);
+					Autoveicolo a= ottieniAutoveicolo(readQueryResultSet);
 					leauto.add(a);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return leauto;
 	}
 	
-	private Autoveicolo ottiniAutoveicolo(ResultSet resultset) throws SQLException{
+	private Autoveicolo ottieniAutoveicolo(ResultSet resultset) throws SQLException{
 		Autoveicolo a=new Autoveicolo();
 		a.setIDauto(resultset.getInt(1));
 		a.setTarga(resultset.getString(2));
@@ -222,14 +182,46 @@ public DAOAutoveicolo(DaoFactory dao) {
 		a.setCapPortaBagnagli(resultset.getInt(16));
 		a.setNote(resultset.getString(17));
 		InputStream i=resultset.getBinaryStream(18);
-		if(i!=null)
-			a.setImmagine(i);
+		if(i!=null){
+			a.setImmagine_stream(i);
+		}
 		a.setDataScadAssic(resultset.getDate(19).toLocalDate());
 		a.setOptionalAuto(resultset.getString(20));
 		a.setPrezzo(resultset.getFloat(21));
 		Danni danni=new Danni(resultset.getString(22), resultset.getString(23));
 		a.setDanni(danni);
 		return a;
+	}
+/**
+ * Utile per leggere soltanto l'immagine per la tabella
+ * @param id
+ * @return
+ */
+	public InputStream leggi_immagine(int id) {
+		String query="Select immagine from autoveicolo where IDAuto=?";
+		query=queryReplaceFirst(query, String.valueOf(id));
+		Connection connection=Connection.getConnection(dao);
+		InputStream i=null;
+		ResultSet readQueryResultSet=null;
+	     try {
+	    	  readQueryResultSet = connection.executeRead(query);
+	    	  if(readQueryResultSet.next())
+	    	 i=readQueryResultSet.getBinaryStream(1);
+		 } catch (SQLException  e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere l'auto" , AlertType.ERROR);
+		 }
+		 finally{
+			try {
+				if(readQueryResultSet!=null)
+				readQueryResultSet.close();
+				//connection.chiudiConnessione();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+
+		return i;
 	}
 
 }

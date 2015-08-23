@@ -1,7 +1,6 @@
 package business.model.checker.cliente;
 
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import javafx.scene.control.DatePicker;

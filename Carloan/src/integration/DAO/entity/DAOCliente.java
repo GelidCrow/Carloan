@@ -23,7 +23,7 @@ public class DAOCliente implements DAO{
 	}
 	
 	@Override
-	public void creazione(Entity x) {
+	public ResultSet creazione(Entity x) {
 		String INSERT = "INSERT INTO Cliente"
 				+ "(Nome,Cognome,Sesso,DataEmissPatente,DataNascita,"
 				+ "Indirizzo,CodFiscale,NumCell,NumTel,PatenteGuida,DataScadPatente,PartitaIva,Email) "
@@ -80,7 +80,7 @@ public class DAOCliente implements DAO{
 				e.printStackTrace();
 			}
 		}
-		
+		return idList;
 	}
 	
 	@Override

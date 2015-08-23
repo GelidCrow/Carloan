@@ -3,17 +3,13 @@ package integration.DAO.entity;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
-import business.entity.Cliente;
 import business.entity.Entity;
-import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Optional.Assicurazione_KASKO;
 import business.entity.Noleggio.Optional.CateneNeve;
 import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
@@ -21,7 +17,6 @@ import business.entity.Noleggio.Optional.Gps;
 import business.entity.Noleggio.Optional.Guidatore;
 import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
 import business.entity.Noleggio.Optional.Optional;
-import business.entity.Noleggio.Optional.OptionalAuto;
 import business.entity.Noleggio.Optional.Seggiolino;
 import business.model.Exception.CommonException;
 
@@ -33,7 +28,8 @@ public class DAOOptional implements DAO{
 	}
 	
 	@Override
-	public void creazione(Entity x) {
+	public ResultSet creazione(Entity x) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

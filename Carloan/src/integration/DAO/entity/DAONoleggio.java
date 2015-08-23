@@ -28,7 +28,7 @@ public class DAONoleggio implements DAO{
 		this.daofactory = dao;		
 	}
 	@Override
-	public void creazione(Entity x) {
+	public ResultSet creazione(Entity x) {
 		String insert= "INSERT INTO Noleggio"
 				+ "(InizioNoleggio,FineNoleggio,Ritiro,KmRientro,KmBase,Stato,NumeroSettimane,NumeroGiorni,numero_chilometri,LuogoRestituzione,Note,"
 				+ " idContratto, idAuto, idPagamento ) values ('?','?','?','?','?','?','?','?','?','?','?','?','?','?'); ";
@@ -86,6 +86,7 @@ public class DAONoleggio implements DAO{
 				e.printStackTrace();
 			}
 		}
+		return idList;
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class DAOContratto implements DAO{
 	}
 	
 	@Override
-	public void creazione(Entity x) {
+	public ResultSet creazione(Entity x) {
 		String INSERT = "INSERT INTO Contratto "
 				+ "( ?,Stato,dataCreazione,Note,idcliente) "
 				+ "values ('?','?','?','?','?');";
@@ -93,6 +93,7 @@ public class DAOContratto implements DAO{
 				e.printStackTrace();
 			}
 		}
+		return idList;
      }
 
 	@Override

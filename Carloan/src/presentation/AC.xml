@@ -143,7 +143,10 @@
 		<class>business.model.ModelAutoveicolo</class>
 		<method>lettura</method>
 	</call>
-
+	<call id="leggiImmagineAutoveicolo">
+		<class>business.model.ModelAutoveicolo</class>
+		<method>leggi_immagine</method>
+	</call>
 	<!--Sede-->
 	<call id="getAllSedi">
 		<class>business.model.ModelSede</class>

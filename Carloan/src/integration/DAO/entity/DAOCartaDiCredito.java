@@ -1,5 +1,7 @@
 package integration.DAO.entity;
 
+import java.sql.ResultSet;
+
 import business.entity.Entity;
 
 
@@ -8,7 +10,8 @@ public class DAOCartaDiCredito implements DAO{
 
 
 	@Override
-	public void creazione(Entity x) {
+	public ResultSet creazione(Entity x) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

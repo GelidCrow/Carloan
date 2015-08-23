@@ -30,7 +30,7 @@ public class DAOLogin implements DAO{
 	
 	
 	@Override
-	public void creazione(Entity x){
+	public ResultSet creazione(Entity x){
 		String INSERT = "INSERT INTO Credenziali values('?','?','?','?','?','?');";
 		
 		String insertQuery = INSERT;
@@ -67,6 +67,7 @@ public class DAOLogin implements DAO{
 				e.printStackTrace();
 			}
 		}
+		return idList;
 	}
 
 	@Override

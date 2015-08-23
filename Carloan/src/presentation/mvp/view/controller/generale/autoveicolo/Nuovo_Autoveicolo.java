@@ -10,6 +10,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -41,8 +42,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
@@ -86,7 +85,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 	@FXML
 	protected ImageView vistaimmagine;
 	
-	protected InputStream immagine;//dal bottone [...]
+	protected String immagine_path;//dal bottone [...]
 	@FXML
 	protected DatePicker scadenzaass;
 	@FXML
@@ -181,17 +180,21 @@ public class Nuovo_Autoveicolo extends Schermata{
             );
 		File f=fileChooser.showOpenDialog(stage);
 		if(f!=null){
-		try {
-			this.immagine=new FileInputStream(f);
-		} catch (FileNotFoundException e1) {
+			try{
+			InputStream i=new FileInputStream(f);
+			vistaimmagine.setImage(new Image(i));
+			this.immagine_path=f.getAbsolutePath();
+			
+			}
+			catch (FileNotFoundException e1) {
+			AlertView.getAlertView("Il file selezionato non e' stato trovato", AlertType.WARNING);
 		}
-		vistaimmagine.setImage(new Image(this.immagine));
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@FXML
 	public void btnconferma_click(ActionEvent e){
-		@SuppressWarnings("unchecked")
 		SchermataGenerale<Autoveicolo> schermataGenerale = (SchermataGenerale<Autoveicolo>)this.getChiamante();
 		tw= ((SchermataGenerale<Autoveicolo>)schermataGenerale).getTable("Autoveicolo");
 		
@@ -199,21 +202,28 @@ public class Nuovo_Autoveicolo extends Schermata{
 			Autoveicolo auto_da_inserire=prendiDatiDaView();
 			presenter.processRequest("VerificaAutoveicolo", auto_da_inserire);
 			presenter.processRequest("InserimentoAutoveicolo", auto_da_inserire);
-			schermataGenerale.aggiungiElementoAtabella(auto_da_inserire,tw);
+			schermataGenerale.setAggiornando(true);
+			caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null));
+			schermataGenerale.setAggiornando(false);
+			chiudiFinestra();
 		} 
 		catch(CommonException e1){
 			e1.showMessage();
 		}
-		
+		catch(InvocationTargetException e1){
+			new CommonException(e1.getTargetException().getMessage()).showMessage();
+		}
 		catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
-				| InvocationTargetException  e1) {
+				| SecurityException | IllegalArgumentException e1) {
 			e1.printStackTrace();
 		}
 	}
 
-	
+	private void caricaTabella(List<Autoveicolo> list){
+		ObservableList<Autoveicolo> obsList= FXCollections.observableList(list);
+		tw.setItems(obsList);
+	}
 	
 	
 	private Autoveicolo prendiDatiDaView() throws CommonException {
@@ -311,7 +321,10 @@ public class Nuovo_Autoveicolo extends Schermata{
 		temp.setDisponibilita(business.entity.Auto.Disponibilita.ManutenzioneStraordinaria);
 		break;
 	}
-	temp.setImmagine(immagine);
+	if(immagine_path==null)
+		temp.setImmagine("");
+	else
+	temp.setImmagine(immagine_path);
 	d=scadenzaass.getValue();
 	if(d==null)
 		throw new CommonException("Data scadenza assicurazione vuota");

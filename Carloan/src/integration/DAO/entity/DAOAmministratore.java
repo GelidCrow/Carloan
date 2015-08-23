@@ -24,8 +24,8 @@ public class DAOAmministratore implements DAO{
 	
 
 	@Override
-	public void creazione(Entity x) {
-		// TODO Auto-generated method stub
+	public ResultSet creazione(Entity x) {
+		return null;
 		
 	}
 

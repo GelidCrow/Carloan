@@ -1,5 +1,6 @@
 package business.model;
 
+import java.io.InputStream;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -17,12 +18,13 @@ public class ModelAutoveicolo implements Model{
 		// TODO Auto-generated method stub
 		
 	}
-
+ 
 	@Override
-	public void Inserimento(Entity parameter) {
+	public void Inserimento(Entity parameter) throws CommonException {
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
 			((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).creazione(parameter);
+			
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
@@ -50,11 +52,22 @@ public class ModelAutoveicolo implements Model{
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
 			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).lettura(id);
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (InstantiationException | IllegalAccessException | CommonException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
+	public InputStream leggi_immagine(int id){
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).leggi_immagine(id);
+		} catch (InstantiationException | IllegalAccessException  e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 
 }

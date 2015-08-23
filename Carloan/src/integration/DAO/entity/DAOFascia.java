@@ -5,7 +5,6 @@ import integration.DAO.DaoFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
-import java.util.List;
 
 
 
@@ -22,7 +21,8 @@ public class DAOFascia implements DAO {
 		this.daofactory = dao;		
 	}
 	@Override
-	public void creazione(Entity x) {
+	public ResultSet creazione(Entity x) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

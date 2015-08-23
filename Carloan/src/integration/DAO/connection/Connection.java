@@ -1,8 +1,6 @@
 package integration.DAO.connection;
 
 
-import java.awt.GraphicsDevice.WindowTranslucency;
-import java.io.InputStream;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -96,6 +94,7 @@ public class Connection {
 	
 	@SuppressWarnings("finally")
 	public ResultSet executeUpdate(String query) throws SQLException{
+		
 		this.connetti();
 		ResultSet result=null;
 		if(query!=null && !query.isEmpty()){
@@ -109,30 +108,6 @@ public class Connection {
 				result=st.getGeneratedKeys();
 		
 			} catch (SQLException e) {
-				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
-			}
-			finally{
-				return result;
-			}
-		}
-	return result;
-	}
-	
-	@SuppressWarnings("finally")
-	public ResultSet executeUpdate(String query,InputStream f) throws SQLException{
-		this.connetti();
-		ResultSet result=null;
-		if(query!=null && !query.isEmpty()){
-			PreparedStatement st;
-			try {
-				st=connessione_remota.prepareStatement("use "+db+";");
-				st.execute();
-				st=connessione_remota.prepareStatement(query);
-				st.setBinaryStream(1,f,f.available());
-				st.executeUpdate();
-				result=st.getGeneratedKeys();
-			}
-			catch (SQLException e) {
 				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
 			}
 			finally{

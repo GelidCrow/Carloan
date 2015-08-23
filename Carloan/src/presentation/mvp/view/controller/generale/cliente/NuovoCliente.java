@@ -2,7 +2,6 @@ package presentation.mvp.view.controller.generale.cliente;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -24,11 +23,6 @@ import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 public class NuovoCliente extends Schermata{
 	@FXML
 	protected Button btnCancella;
@@ -86,14 +80,19 @@ public class NuovoCliente extends Schermata{
 				presenter.processRequest("InserimentoCliente", cliente);
 				//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
 				((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(cliente,tw);
+				chiudiFinestra();
+				
 		}
 		catch(CommonException e){
 			e.showMessage();
 		}
+		catch(InvocationTargetException e){
+			new CommonException(e.getTargetException().getMessage()).showMessage();
+		}
 		catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
-				| InvocationTargetException e) {
+				 e) {
 			
 			e.printStackTrace();
 		}

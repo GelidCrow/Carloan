@@ -2,7 +2,6 @@ package presentation.mvp.view.controller.generale.contratto;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -29,17 +28,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 
@@ -87,7 +79,7 @@ public class NuovoContratto extends Schermata{
 					presenter.processRequest("InserimentoContratto", contratto);
 					//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
 					((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(contratto,tw);
-				
+				chiudiFinestra();
 			}
 			catch(CommonException e){
 				e.showMessage();
