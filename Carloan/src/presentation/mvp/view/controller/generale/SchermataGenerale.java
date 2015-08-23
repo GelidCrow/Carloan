@@ -86,7 +86,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			tbContrattoController.setSchermata(this);
 			tbContrattoController.ModificaContratto();
 		} catch (CommonException e1) {
-			e1.printStackTrace();
+			AlertView.getAlertView(e1.getMessage(), AlertType.ERROR);
 		}
 	}	
 	
