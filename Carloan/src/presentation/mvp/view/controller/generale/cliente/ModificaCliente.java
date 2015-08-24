@@ -29,7 +29,6 @@ public class ModificaCliente extends NuovoCliente{
 	@FXML
 	private Button btnConferma;
 	private Cliente cliente;
-	private boolean Aggiornare=true;
 	
 	
 	@SuppressWarnings("rawtypes")
@@ -51,9 +50,7 @@ public class ModificaCliente extends NuovoCliente{
 
 		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
 		cliente= (Cliente)scChiamante.getEntitaElementoSelezionato("Cliente");//ottengo le info sul cliente selezionato, ma ne cambio alcune
-		
-		Aggiornare=true;
-		if(Aggiornare==true){
+	
 			try {
 
 				cliente = prendiDatiDaView();
@@ -74,10 +71,7 @@ public class ModificaCliente extends NuovoCliente{
 					| SecurityException | IllegalArgumentException  e) {
 				e.printStackTrace();
 			}	
-		}
-		else {
-			AlertView.getAlertView("Nessuna modifica da apportare", AlertType.INFORMATION);
-		}
+	
 	}
 
 	@Override
@@ -90,12 +84,11 @@ public class ModificaCliente extends NuovoCliente{
 		txtEmail.setText(cliente.getEmail());
 		txtNome.setText(cliente.getNome());
 		txtCognome.setText(cliente.getCognome());
-		if(cliente.getSesso()=="maschio"){
+		if(cliente.getSesso().equals("Maschio")){
 			group.selectToggle(rdMaschio);
 		}
 		else 
 			group.selectToggle(rdFemmina);
-		
 		dEmissPatente.setValue(cliente.getDataEmissPatente());
 		dNascita.setValue(cliente.getDatanascita());
 		txtCodFisc.setText(cliente.getCodFiscale());

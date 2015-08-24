@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="20.0" prefWidth="1024.0">
         <menus>
@@ -206,6 +206,7 @@
                                           <TableColumn fx:id="numTel" prefWidth="85.0" text="Num. Tel" />
                                           <TableColumn fx:id="PartitaIva" minWidth="0.0" prefWidth="64.0" text="P. Iva" />
                                           <TableColumn fx:id="Email" prefWidth="90.0" text="Email" />
+                                          <TableColumn prefWidth="75.0" text="ID" visible="false" />
                                        </columns></TableView>
                                     <Button fx:id="btnNuovoCliente" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoCliente" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button fx:id="btnModificaCliente" layoutX="147.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaCliente" prefHeight="25.0" prefWidth="97.0" text="Modifica" />

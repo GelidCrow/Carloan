@@ -16,6 +16,8 @@ import business.entity.Cliente;
 import business.model.Exception.CommonException;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import javafx.beans.property.SimpleIntegerProperty;
 public class TabClienti{
 	
 	private ObservableList<TableColumn<Cliente, ?>> cliente;
@@ -110,6 +112,8 @@ public class TabClienti{
 		cliente.get(11).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getPartitaIva()));
 
 		cliente.get(12).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getEmail()));
+		
+		cliente.get(13).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Cliente) cellData.getValue()).getId()));
 
 	}
 
