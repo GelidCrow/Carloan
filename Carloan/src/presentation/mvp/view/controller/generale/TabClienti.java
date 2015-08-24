@@ -7,9 +7,11 @@ import presentation.mvp.view.controller.Schermata;
 import utility.Finestra;
 import utility.ParametriFXML;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
+import MessaggiFinestra.AlertView;
 import business.entity.Cliente;
 import business.model.Exception.CommonException;
 import javafx.beans.property.SimpleObjectProperty;
@@ -46,14 +48,34 @@ public class TabClienti{
 	    }
 	}
 	public void NuovaCartaCredito(){
-		FXMLParameter.setTitolo("Nuova Carta Di Credito");
-	    FXMLParameter.setRidimensionabile(false);
-		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataInserimentoCartaCredito",Modality.APPLICATION_MODAL);
+		if(tbCliente.getSelectionModel().getSelectedIndex()< 0){
+	    		try {
+					throw new CommonException("Nessun elemento selezionato");
+				} catch (CommonException e) {
+					AlertView.getAlertView("nessun elemento selezionato", AlertType.ERROR);
+				}
+	    }
+		else {
+			FXMLParameter.setTitolo("Nuova Carta Di Credito");
+		    FXMLParameter.setRidimensionabile(false);
+			Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataInserimentoCartaCredito",Modality.APPLICATION_MODAL);
+		}
 	}
+	@SuppressWarnings("rawtypes")
 	public void VisualizzaCartaCredito(){
-		FXMLParameter.setTitolo("Carta di credito");
-	    FXMLParameter.setRidimensionabile(false);
-		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataCartaCredito",Modality.APPLICATION_MODAL);
+		if(tbCliente.getSelectionModel().getSelectedIndex()< 0){
+    		try {
+				throw new CommonException("Nessun elemento selezionato");
+			} catch (CommonException e) {
+				AlertView.getAlertView("nessun elemento selezionato", AlertType.ERROR);
+			}
+		}
+		else{
+			FXMLParameter.setTitolo("Visualizza Carte di credito");
+			FXMLParameter.setRidimensionabile(false);
+			FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Cliente"));
+			Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaCartaCredito",Modality.APPLICATION_MODAL);
+		}
 	}
 	
 	/**

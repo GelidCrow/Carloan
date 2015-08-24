@@ -158,9 +158,13 @@
 		<class>business.model.ModelCartaDiCredito</class>
 		<method>Inserimento</method>
 	</call>
-		<call id="VerificaCarta">
+	<call id="VerificaCarta">
 		<class>business.model.checker.cartaCredito.CartaCreditoChecker</class>
 		<method>check</method>
+	</call>
+	<call id="getCarteByCliente">
+		<class>business.model.ModelCartaDiCredito</class>
+		<method>getAllByCliente</method>
 	</call>
 	
 </calls>

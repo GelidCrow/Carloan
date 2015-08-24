@@ -73,6 +73,17 @@ public class CartaDiCredito extends Pagamento{
 	}
 
 	public CartaDiCredito(){}
+
+
+	public CartaDiCredito( String IBAN, String NumeroC,
+			LocalDate dataSca, String Circuito) {
+		// TODO Auto-generated constructor stub
+		this.IBAN=IBAN;
+		this.NumeroCarta=NumeroC;
+		this.dataScadenza=dataSca;
+		this.Circuito=Circuito;
+		
+	}
 	
 		
 }
