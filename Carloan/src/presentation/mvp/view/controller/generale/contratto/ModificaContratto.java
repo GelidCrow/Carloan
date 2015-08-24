@@ -11,6 +11,7 @@ import MessaggiFinestra.AlertView;
 import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Noleggio.Contratto;
+import business.entity.Noleggio.Noleggio;
 import business.entity.Noleggio.StatoContratto;
 import business.model.Exception.CommonException;
 import presentation.mvp.view.Presenter;
@@ -46,7 +47,7 @@ public class ModificaContratto extends NuovoContratto{
 	public void btnConferma(ActionEvent event){
 		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
 		contratto= (Contratto)scChiamante.getEntitaElementoSelezionato("Contratto");//ottengo le info sul cliente selezionato, ma ne cambio alcune
-	
+		lunghezzaOld= contratto.getNote().length();
 		Aggiornare=true;
 		
 		if(Aggiornare==true){
@@ -75,6 +76,7 @@ public class ModificaContratto extends NuovoContratto{
 	
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Contratto prendiDatiDaView() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		contratto.setStato(choiceStato.getSelectionModel().getSelectedItem());
@@ -82,9 +84,12 @@ public class ModificaContratto extends NuovoContratto{
 		
 		
 		if(choiceStato.getSelectionModel().getSelectedItem().equals(StatoContratto.Annullato.toString())){
-			presenter.processRequest("checkAnnullabileChiudibile", contratto);
-			contratto.setDataChiusura(LocalDate.now());//imposto la data di chiusura se il valore scelto è annullato
-			
+			List<Noleggio> contrattiAperti= (List<Noleggio>)presenter.processRequest("getNoleggiAperti", contratto.getIDContratto());
+			if(contrattiAperti.size()>0){
+				throw new CommonException("Ci sono dei contratti aperti , non è possibile fare questa scelta");
+			}
+			else 
+				contratto.setDataChiusura(LocalDate.now());//imposto la data di chiusura se il valore scelto è annullato	
 		}
 
 		//controllo se bisogna aggiornare

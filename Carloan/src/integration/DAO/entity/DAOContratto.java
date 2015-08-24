@@ -99,59 +99,47 @@ public class DAOContratto implements DAO{
 
 	@Override
 	public void aggiornamento(Entity entity) throws CommonException{
-		DAONoleggio daoNoleggio ;
-		daoNoleggio= (DAONoleggio) daofactory.getDao("DAONoleggio");
-		List<Noleggio> noleggiAperti= null;
-		
+
 	
 		Contratto contratto= (Contratto) entity;
 		String UPDATE = "UPDATE  Contratto  SET "
 							+ "stato= '?', note = '?' ";
 		String 	WHERE= " WHERE IDContratto = '?'";
 		String updateQuery = UPDATE;
+	
+	
+		updateQuery = queryReplaceFirst(updateQuery, contratto.getStato().toString());
 		
-		//controllo che i noleggi aperti non ce ne siano
-		if(contratto.getStato().toString().equals(StatoContratto.Annullato)){
-        	noleggiAperti=  daoNoleggio.getNoleggiAperti(contratto.getIDContratto());
-        }
-		
-		if(noleggiAperti==null){
+        updateQuery= queryReplaceFirst(updateQuery,contratto.getNote());
 
-				updateQuery = queryReplaceFirst(updateQuery, contratto.getStato().toString());
-				
-		        updateQuery= queryReplaceFirst(updateQuery,contratto.getNote());
-		
-		        if(!contratto.getStato().equals(StatoContratto.Aperto.toString())){
-		    		updateQuery+=", dataChiusura='?'";
-		    		updateQuery= queryReplaceFirst(updateQuery,contratto.getDataChiusura().toString());
-		        }        	
-		        updateQuery+=WHERE;
-		        updateQuery= queryReplaceFirst(updateQuery,contratto.getIDContratto().toString());
-		     
-		     
-		        Connection connection= Connection.getConnection(daofactory);
-		        
-		        ResultSet idList = null;
-		        
-				try {
-					 idList = connection.executeUpdate(updateQuery);
-					 if(idList!=null)
-						 AlertView.getAlertView("Contratto aggiornato con successo",AlertType.INFORMATION);
-				} catch (SQLException e) {
-					e.printStackTrace();
-					 AlertView.getAlertView("Non è stato possibile aggiornare il contratto" , AlertType.ERROR);
-				}
-				finally{
-					try {
-						idList.close();
-						//connection.chiudiConnessione();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
+        if(!contratto.getStato().equals(StatoContratto.Aperto.toString())){
+    		updateQuery+=", dataChiusura='?'";
+    		updateQuery= queryReplaceFirst(updateQuery,contratto.getDataChiusura().toString());
+        }        	
+        updateQuery+=WHERE;
+        updateQuery= queryReplaceFirst(updateQuery,contratto.getIDContratto().toString());
+     
+     
+        Connection connection= Connection.getConnection(daofactory);
+        
+        ResultSet idList = null;
+        
+		try {
+			 idList = connection.executeUpdate(updateQuery);
+			 if(idList!=null)
+				 AlertView.getAlertView("Contratto aggiornato con successo",AlertType.INFORMATION);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			 AlertView.getAlertView("Non è stato possibile aggiornare il contratto" , AlertType.ERROR);
 		}
-		else 
-			throw new CommonException("Ci sono dei noleggi aperti, non è  possibile annullare il contratto!");
+		finally{
+			try {
+				idList.close();
+				//connection.chiudiConnessione();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	
