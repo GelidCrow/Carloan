@@ -31,8 +31,6 @@ public class NuovoCliente extends Schermata{
 	@FXML
 	protected Button btnConferma;
 	@FXML
-	protected Button btnConfermaModifica;
-	@FXML
 	protected TextField txtNome;
 	@FXML
 	protected TextField txtCognome;
@@ -62,7 +60,7 @@ public class NuovoCliente extends Schermata{
 	private DatePicker dScadPatente = new DatePicker();
 	
 	private TableView<Cliente> tw;
-	final ToggleGroup group = new ToggleGroup();
+	protected final ToggleGroup group = new ToggleGroup();
 	
 	@FXML
 	public void btnCancella(ActionEvent event){
