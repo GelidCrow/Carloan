@@ -79,7 +79,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 	@Override
 	public void aggiornamento(Entity x) throws CommonException {
 		String update="UPDATE Autoveicolo SET Targa='?',Marca='?',Modello='?',AlimPrincipale='?',Colore='?',Cambio='?',Immatricolazione='?',"
-				+ "Cilindrata=?,Potenza=?,NroPosti=?,NroTelaio='?',Disponibilita='?',UltimoKm=?,CapPortaBagagli=?,Note='?',DataScadAssic='?',OptionalAuto='?',Prezzo?,DanniFutili='?',DanniGravi='?',IDSede=?,IDFascia=?";
+				+ "Cilindrata=?,Potenza=?,NroPosti=?,NroTelaio='?',Disponibilita='?',UltimoKm=?,CapPortaBagagli=?,Note='?',DataScadAssic='?',OptionalAuto='?',Prezzo=?,DanniFutili='?',DanniGravi='?',IDSede=?,IDFascia=?";
 		String where=" where IDAuto=?";
 		Autoveicolo a=(Autoveicolo)x;
 		update=queryReplaceFirst(update, a.getTarga());
@@ -106,11 +106,11 @@ public DAOAutoveicolo(DaoFactory dao) {
 		update=queryReplaceFirst(update, String.valueOf(a.getFascia()));
 		where=queryReplaceFirst(where, String.valueOf(a.getIDauto()));
 		ResultSet s=null;
-		/**/
 		Connection connection=Connection.getConnection(dao);
 		try {
 			 s=connection.executeUpdate(update+where);
-			if(s!=null && s.next()){
+			 System.out.print(s);
+			if(s!=null){
 			
 			/*Faccio due update: 1 per tutti i campi tranne l'immagine e 1 per l'immagine(è più comodo)*/
 			String image=a.getImmagine();
@@ -119,7 +119,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 				update=queryReplaceFirst(update, "LOAD_FILE(\""+image+"\")");
 				update=queryReplaceFirst(update, String.valueOf(a.getIDauto()));
 				s=connection.executeUpdate(update);
-				if(s!=null && s.next()){
+				if(s!=null){
 					AlertView.getAlertView("Autoveicolo aggiornato con successo",AlertType.INFORMATION);
 					}
 				else
