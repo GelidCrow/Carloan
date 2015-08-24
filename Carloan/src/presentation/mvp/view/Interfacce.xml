@@ -23,7 +23,7 @@
 	
 	<!-- Autoveicolo -->
 	<interface id="MostraSchermataNuovaAuto" src ="markup/generale/autoveicolo/Nuovo_Autoveicolo.fxml"></interface>
-	
+	<interface id="MostraSchermataModificaAutoveicolo" src="markup/generale/autoveicolo/ModificaAutoveicolo.fxml"></interface>
 	<!-- Carta di credito -->
 	<interface id="MostraSchermataInserimentoCartaCredito" src ="markup/generale/cartaCredito/NuovaCarta.fxml"></interface>
 	<interface id="MostraSchermataVisualizzaCartaCredito" src ="markup/generale/cartaCredito/VisualizzaCarta.fxml"></interface>
