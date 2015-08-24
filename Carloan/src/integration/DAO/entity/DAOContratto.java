@@ -79,7 +79,8 @@ public class DAOContratto implements DAO{
         
 		try {
 			 idList = connection.executeUpdate(insertQuery);
-			 AlertView.getAlertView("contratto inserito con successo",AlertType.INFORMATION);
+			 if(idList!=null)
+				 AlertView.getAlertView("contratto inserito con successo",AlertType.INFORMATION);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,7 +135,8 @@ public class DAOContratto implements DAO{
 		        
 				try {
 					 idList = connection.executeUpdate(updateQuery);
-					 AlertView.getAlertView("Contratto aggiornato con successo",AlertType.INFORMATION);
+					 if(idList!=null)
+						 AlertView.getAlertView("Contratto aggiornato con successo",AlertType.INFORMATION);
 				} catch (SQLException e) {
 					e.printStackTrace();
 					 AlertView.getAlertView("Non è stato possibile aggiornare il contratto" , AlertType.ERROR);

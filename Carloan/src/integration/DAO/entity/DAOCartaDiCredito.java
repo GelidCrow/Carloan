@@ -48,7 +48,8 @@ public class DAOCartaDiCredito implements DAO{
 	        
 			try {
 				 idList = connection.executeUpdate(insertQuery);
-				 AlertView.getAlertView("Carta di credito inserita con successo",AlertType.INFORMATION);
+				 if(idList!=null)
+					 AlertView.getAlertView("Carta di credito inserita con successo",AlertType.INFORMATION);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -79,7 +80,7 @@ public class DAOCartaDiCredito implements DAO{
 	
 	
 	public List<CartaDiCredito> getAllByCliente(int id){
-		String read = "select idiban,IBan,numerocarta,datascadenza,circuito from cartadicredito where idcliente='?'";
+		String read = "select idiban,IBan,numerocarta,datascadenza,circuito,idCliente from cartadicredito where idcliente='?'";
 		String readQuery = read;
 		readQuery = queryReplaceFirst(readQuery,String.valueOf(id));
 	
@@ -103,10 +104,6 @@ public class DAOCartaDiCredito implements DAO{
 		}
 
 	    return risultato;
-
-		
-		
-		
 	}
 	
 	

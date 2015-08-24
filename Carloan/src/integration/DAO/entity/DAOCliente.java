@@ -65,7 +65,8 @@ public class DAOCliente implements DAO{
         
 		try {
 			 idList = connection.executeUpdate(insertQuery);
-			 AlertView.getAlertView("Cliente inserito con successo",AlertType.INFORMATION);
+			 if(idList!=null)
+				 AlertView.getAlertView("Cliente inserito con successo",AlertType.INFORMATION);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -209,8 +210,8 @@ public class DAOCliente implements DAO{
         
 		try {
 			 idList = connection.executeUpdate(updateQuery);
-			
-			 AlertView.getAlertView("Cliente aggiornato con successo",AlertType.INFORMATION);
+			 if(idList!=null)
+				 AlertView.getAlertView("Cliente aggiornato con successo",AlertType.INFORMATION);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			 AlertView.getAlertView("Non è stato possibile aggiornare il cliente" , AlertType.ERROR);
