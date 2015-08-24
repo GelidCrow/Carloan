@@ -44,12 +44,14 @@ public class NuovaCarta extends Schermata {
 				chiudiFinestra();
 		}
 		catch(CommonException e1){
-			e1.showMessage();
+			AlertView.getAlertView(e1.getMessage(), AlertType.ERROR);
+		}
+		catch(InvocationTargetException e1){
+			new CommonException(e1.getTargetException().getMessage()).showMessage();
 		}
 		catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
-				| InvocationTargetException e1) {
+				| SecurityException | IllegalArgumentException e1) {
 			e1.printStackTrace();
 		}
 	 }
@@ -57,7 +59,7 @@ public class NuovaCarta extends Schermata {
 
 	public CartaDiCredito prendiDatiDaView() throws CommonException{
 		CartaDiCredito carta= new CartaDiCredito();
-		if(txtIban.getText().isEmpty() || txtNumCarta.getText().isEmpty() || dScadenza==null ){
+		if(txtIban.getText().isEmpty() || txtNumCarta.getText().isEmpty() || dScadenza.getValue()==null){
 			throw new CommonException("Prima di procedere, setta i campi obbligatori");
 		}
 		carta.setCircuito(choiceCircuito.getSelectionModel().getSelectedItem());

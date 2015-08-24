@@ -82,12 +82,15 @@ public class NuovoContratto extends Schermata{
 				chiudiFinestra();
 			}
 			catch(CommonException e){
-				e.showMessage();
+				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
+			}
+			catch(InvocationTargetException e){
+
+				new CommonException(((InvocationTargetException) e).getTargetException().getMessage()).showMessage();
 			}
 			catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
-					| SecurityException | IllegalArgumentException
-					| InvocationTargetException e) {
+					| SecurityException | IllegalArgumentException e) {
 				e.printStackTrace();
 			}
 		 }
