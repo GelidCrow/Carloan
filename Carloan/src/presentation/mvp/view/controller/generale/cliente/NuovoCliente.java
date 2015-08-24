@@ -61,7 +61,7 @@ public class NuovoCliente extends Schermata{
 	
 	private TableView<Cliente> tw;
 	protected final ToggleGroup group = new ToggleGroup();
-	
+	protected Cliente cliente;
 	@FXML
 	public void btnCancella(ActionEvent event){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
@@ -114,8 +114,6 @@ public class NuovoCliente extends Schermata{
 			throw new CommonException("Prima di procedere è necessario compilare tutti i campi obbligatori");
 		}
 		else {
-			
-			Cliente cliente= new Cliente();
 			
 			cliente.setNome(txtNome.getText());
 			

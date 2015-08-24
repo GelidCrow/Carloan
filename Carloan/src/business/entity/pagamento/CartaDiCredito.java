@@ -11,6 +11,7 @@ public class CartaDiCredito extends Pagamento{
 	private String IBAN;
 	private String NumeroCarta;
 	private String Circuito;
+	private int idCarta;
 	
 
 	public int getIDCliente() {
@@ -40,8 +41,9 @@ public class CartaDiCredito extends Pagamento{
 
 	
 	public CartaDiCredito( int iDCliente,LocalDate dataScadenza,
-			String iBAN, String numeroCarta, String circuito) {
+			String iBAN, String numeroCarta, String circuito,int idCarta) {
 		super();
+		this.idCarta=idCarta;
 		IDCliente = iDCliente;
 		this.dataScadenza = dataScadenza;
 		IBAN = iBAN;

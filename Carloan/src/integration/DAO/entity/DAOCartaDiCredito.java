@@ -79,7 +79,7 @@ public class DAOCartaDiCredito implements DAO{
 	
 	
 	public List<CartaDiCredito> getAllByCliente(int id){
-		String read = "select IBan,numerocarta,datascadenza,circuito from cartadicredito where idcliente='?'";
+		String read = "select idiban,IBan,numerocarta,datascadenza,circuito from cartadicredito where idcliente='?'";
 		String readQuery = read;
 		readQuery = queryReplaceFirst(readQuery,String.valueOf(id));
 	
@@ -121,8 +121,8 @@ public class DAOCartaDiCredito implements DAO{
 	
 	
 	private CartaDiCredito ottieniCarta(ResultSet resultset) throws SQLException{
-		return  new CartaDiCredito(resultset.getString(1),
-					resultset.getString(2),resultset.getDate(3).toLocalDate(),resultset.getString(4));
+		return  new CartaDiCredito(resultset.getInt(6),resultset.getDate(4).toLocalDate(),
+					resultset.getString(2),resultset.getString(3),resultset.getString(5),resultset.getInt(1));
 		
 	}
 }
