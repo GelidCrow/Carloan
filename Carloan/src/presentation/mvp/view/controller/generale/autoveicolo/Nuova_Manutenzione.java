@@ -62,7 +62,7 @@ public void btnannulla(ActionEvent e){
 		this.chiudiFinestra();
 }
 
- 
+  
 @FXML
 public void btnconferma(ActionEvent e){
 	try {
