@@ -27,4 +27,6 @@
 	<!-- Carta di credito -->
 	<interface id="MostraSchermataInserimentoCartaCredito" src ="markup/generale/cartaCredito/NuovaCarta.fxml"></interface>
 	<interface id="MostraSchermataVisualizzaCartaCredito" src ="markup/generale/cartaCredito/VisualizzaCarta.fxml"></interface>
+	<!-- Manutenzione-->
+	<interface id="MostraSchermataNuovaManutenzione" src="markup/generale/autoveicolo/Nuova_Manutenzione.fxml"></interface>
 </interfaces>

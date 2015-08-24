@@ -1,18 +1,17 @@
 package business.entity.Auto.manutenzione;
 
-import java.util.Date;
-
+import java.time.LocalDate;
 public abstract class Manutenzione{
 	
 	private String IDManutenzione;
-	private Date Datainizio;
-	private Date DataFine;
+	private LocalDate Datainizio;
+	private LocalDate DataFine;
 	private String note;
 	
-	public Manutenzione(String iDManutenzione, Date datainizio, Date dataFine,
+	public Manutenzione(String iDManutenzione, LocalDate localDate, LocalDate dataFine,
 			String note) {
 		IDManutenzione = iDManutenzione;
-		Datainizio = datainizio;
+		Datainizio = localDate;
 		DataFine = dataFine;
 		this.note = note;
 	}
@@ -22,16 +21,16 @@ public abstract class Manutenzione{
 	public void setIDManutenzione(String iDManutenzione) {
 		IDManutenzione = iDManutenzione;
 	}
-	public Date getDatainizio() {
+	public LocalDate getDatainizio() {
 		return Datainizio;
 	}
-	public void setDatainizio(Date datainizio) {
+	public void setDatainizio(LocalDate datainizio) {
 		Datainizio = datainizio;
 	}
-	public Date getDataFine() {
+	public LocalDate getDataFine() {
 		return DataFine;
 	}
-	public void setDataFine(Date dataFine) {
+	public void setDataFine(LocalDate dataFine) {
 		DataFine = dataFine;
 	}
 	public String getNote() {

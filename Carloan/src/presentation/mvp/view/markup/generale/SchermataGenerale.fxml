@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="20.0" prefWidth="1024.0">
         <menus>
@@ -254,9 +254,9 @@
                                     <TextField layoutX="61.0" layoutY="82.0" />
                                     <MenuButton fx:id="btnManutenzione" layoutX="272.0" layoutY="14.0" mnemonicParsing="false" text="Manutenzione">
                                       <items>
-                                        <MenuItem mnemonicParsing="false" text="Aggiungi" />
-                                        <MenuItem mnemonicParsing="false" text="Modifica" />
-                                          <MenuItem mnemonicParsing="false" text="Visualizza" />
+                                        <MenuItem fx:id="aggiungi_item" mnemonicParsing="false" text="Aggiungi" />
+                                        <MenuItem fx:id="modifica_item" mnemonicParsing="false" text="Chiudi" />
+                                          <MenuItem fx:id="visualizza_item" mnemonicParsing="false" text="Visualizza" />
                                       </items>
                                     </MenuButton>
                                     <ImageView fx:id="auto_image" fitHeight="154.0" fitWidth="249.0" layoutX="846.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />

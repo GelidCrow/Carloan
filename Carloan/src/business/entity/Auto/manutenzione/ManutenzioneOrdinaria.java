@@ -1,10 +1,10 @@
 package business.entity.Auto.manutenzione;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ManutenzioneOrdinaria extends Manutenzione{
-	public ManutenzioneOrdinaria(String iDManutenzione, Date datainizio,
-			Date dataFine, String note) {
-		super(iDManutenzione, datainizio, dataFine, note);
+	public ManutenzioneOrdinaria(String iDManutenzione, LocalDate localDate,
+			LocalDate dataFine, String note) {
+		super(iDManutenzione, localDate, dataFine, note);
 	}
 }

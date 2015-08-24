@@ -34,11 +34,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -69,6 +71,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	@FXML
 	private MenuButton btnManutenzione;
+	
 	private TabClienti tbClientController;
 
 	private TabContratto tbContrattoController;
@@ -316,7 +319,45 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			else if(panes.get(3)==newValue){
 				if(tbAutoController==null){
 					tbAutoController=new TabAuto((TableView<Autoveicolo>)tbAuto,SchermataGenerale.this);
-					
+					ObservableList<MenuItem> items=btnManutenzione.getItems();
+					for(MenuItem m:items){
+						switch(m.getText()){
+						case "Aggiungi":
+							m.setOnAction(new EventHandler<ActionEvent>() {
+					            public void handle(ActionEvent t) {
+					            	try {
+					        			tbAutoController.NuovaManutenzione();
+					        		} catch (CommonException e1) {
+					        			e1.showMessage();
+					        		}
+					            }
+					        });   
+							break;
+						case "Chiudi":
+							m.setOnAction(new EventHandler<ActionEvent>() {
+					            public void handle(ActionEvent t) {
+					            	try {
+					        			tbAutoController.ModificaManutenzione();
+					        		} catch (CommonException e1) {
+					        			e1.showMessage();
+					        		}
+					            }
+					        });
+							break;
+						case "Visualizza":
+							m.setOnAction(new EventHandler<ActionEvent>() {
+					            public void handle(ActionEvent t) {
+					            	try {
+					        			tbAutoController.VisualizzaManutenzione();
+					        		} catch (CommonException e1) {
+					        			e1.showMessage();
+					        		}
+					            }
+					        });
+							break;
+							
+						}
+					}
 					try {
 						caricaTabella((List<T>)presenter.processRequest("getAllAuto",null), tbAuto);
 					} catch (InstantiationException | IllegalAccessException
