@@ -58,14 +58,16 @@ public class TabContratto {
 	    }
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void ChiudiContratto() throws CommonException{
-		FXMLParameter.setTitolo("Chiudi Contratto");
-	    FXMLParameter.setRidimensionabile(false);
 	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{
 	    	if(((Contratto)tbContratto.getSelectionModel().getSelectedItem()).getStato().equals("Aperto")){
+	    		FXMLParameter.setTitolo("Chiudi Contratto");
+	    	    FXMLParameter.setRidimensionabile(false);
+	    	    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Contratto"));
 	    		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataChiusuraContratto",Modality.APPLICATION_MODAL);
 	    	}
 	    	else{
@@ -92,14 +94,12 @@ public class TabContratto {
 	}
 
 	
-	public void setSchermata(Schermata schermata){
-		this.schermata=schermata;
-	}
 	
 	public 
-	TabContratto(TableView<Contratto> tbContratto){
+	TabContratto(TableView<Contratto> tbContratto,Schermata schermata){
 		contratto= tbContratto.getColumns();
 		
+		this.schermata=schermata;
 		this.tbContratto=tbContratto;
 		
 		//

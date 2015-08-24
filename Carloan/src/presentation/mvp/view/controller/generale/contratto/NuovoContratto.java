@@ -43,7 +43,7 @@ public class NuovoContratto extends Schermata{
 	@FXML
 	private TableView<Cliente> tbcliente;	
 	@FXML
-	private TextArea textNote;
+	protected TextArea textNote;
 	@FXML
 	private Button btnCancella;
 	@FXML
@@ -57,7 +57,7 @@ public class NuovoContratto extends Schermata{
 	@FXML
 	private TableColumn<Cliente,String> cognome;
 	
-	
+	protected Contratto contratto;
 	@FXML
 	public void btnCancella(ActionEvent event){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
@@ -75,7 +75,7 @@ public class NuovoContratto extends Schermata{
 			tw= ((SchermataGenerale)this.getChiamante()).getTable("Contratto");
 			
 			try {
-				Contratto contratto= prendiDatiDaView();
+					contratto= prendiDatiDaView();
 					presenter.processRequest("VerificaContratto", contratto);	
 					presenter.processRequest("InserimentoContratto", contratto);
 					//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
@@ -98,16 +98,8 @@ public class NuovoContratto extends Schermata{
 	}
 	
 	public Contratto prendiDatiDaView() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
-		LocalDate dParam= null;
-		
+
 		Contratto contratto = new Contratto();
-		
-		//questa è solo una questione grafica..
-		if(tw.getItems().size()==0)
-			contratto.setIDContratto(1);//qui setto l'id del cliente.
-		else
-			contratto.setIDContratto(tw.getItems().get(tw.getItems().size()-1).getIDContratto()+1);//l'id del contratto nuovo sarà dato a partire dall'ultimo id dell'ultimo elemento 
-		
 		contratto.setIdCliente((tbcliente.getSelectionModel().getSelectedItem().getId()));//prende l'id del cliente selezionato
 		
 		contratto.setNote(textNote.getText());
@@ -140,8 +132,7 @@ public class NuovoContratto extends Schermata{
 			contratto.setIDOperatore(0);
 			contratto.setIDSupervisoreSede(0);
 		}
-		dParam= dCreazione.getValue();
-		contratto.setDataCreazione(dParam);
+		contratto.setDataCreazione(dCreazione.getValue());
 	
 		return contratto;
 	}

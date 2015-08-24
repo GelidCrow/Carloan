@@ -10,7 +10,7 @@
 	<!-- CONTRATTO -->
 	<interface id="MostraSchermataNuovoContratto" src ="markup/generale/contratto/NuovoContratto.fxml"></interface>
 	<interface id="MostraSchermataModificaContratto" src ="markup/generale/contratto/ModificaContratto.fxml"></interface>
-	<interface id="MostraSchermataChiudiContratto" src ="markup/generale/contratto/ModificaContratto.fxml"></interface>
+	<interface id="MostraSchermataChiusuraContratto" src ="markup/generale/contratto/ChiudiContratto.fxml"></interface>
 	
 	
 	<!-- CLIENTE -->

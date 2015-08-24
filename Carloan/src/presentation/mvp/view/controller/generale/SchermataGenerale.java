@@ -81,17 +81,15 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		/***********  CONTRATTO *************/
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
-		tbContrattoController.setSchermata(this);
 		tbContrattoController.NuovoContratto();
 		
 	}	
 	@FXML
 	public void btnModificaContratto(ActionEvent e){
 		try {
-			tbContrattoController.setSchermata(this);
 			tbContrattoController.ModificaContratto();
 		} catch (CommonException e1) {
-			AlertView.getAlertView(e1.getMessage(), AlertType.ERROR);
+			e1.showMessage();
 		}
 	}	
 	
@@ -100,7 +98,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		try {
 			tbContrattoController.ChiudiContratto();
 		} catch (CommonException e1) {
-			AlertView.getAlertView(e1.getMessage(), AlertType.ERROR);
+			e1.showMessage();
 		}
 	}		
 			/************ CLIENTE *********/
@@ -115,7 +113,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		try {
 			tbClientController.ModificaCliente();
 		} catch (CommonException e1) {
-			AlertView.getAlertView(e1.getMessage(), AlertType.ERROR);
+			e1.showMessage();
 		}
 	}
 	
@@ -475,7 +473,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		
 		panes= tabPane.getTabs();
 		//serve solo per fargli fare il binding con le colonne
-		tbContrattoController = new TabContratto((TableView<Contratto>) tbContratto);
+		tbContrattoController = new TabContratto((TableView<Contratto>) tbContratto,SchermataGenerale.this);
 		//carica la prima volta la tabella 
 		try {
 			List<Contratto> contratti = (List<Contratto>)presenter.processRequest("getAllContratti",null);
