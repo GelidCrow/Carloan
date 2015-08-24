@@ -129,9 +129,7 @@ public class Modifica_Autoveicolo extends Nuovo_Autoveicolo{
 			auto_da_aggiornare.setIDauto(auto_coinvolta.getIDauto());
 			presenter.processRequest("VerificaAutoveicolo", auto_da_aggiornare);
 			presenter.processRequest("AggiornamentoAutoveicolo", auto_da_aggiornare);
-			schermataGenerale.setAggiornando(true);
 			caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null));
-			schermataGenerale.setAggiornando(false);
 			chiudiFinestra();
 		} 
 		catch(CommonException e1){

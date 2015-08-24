@@ -1,19 +1,22 @@
 package business.entity.Auto.manutenzione;
 
 import java.time.LocalDate;
-public abstract class Manutenzione{
+
+import business.entity.Entity;
+public abstract class Manutenzione extends Entity{
 	
 	private String IDManutenzione;
 	private LocalDate Datainizio;
 	private LocalDate DataFine;
 	private String note;
-	
+	private int IDAuto;
 	public Manutenzione(String iDManutenzione, LocalDate localDate, LocalDate dataFine,
-			String note) {
+			String note,int i) {
 		IDManutenzione = iDManutenzione;
 		Datainizio = localDate;
 		DataFine = dataFine;
 		this.note = note;
+		i=this.IDAuto;
 	}
 	public String getIDManutenzione() {
 		return IDManutenzione;
@@ -38,5 +41,11 @@ public abstract class Manutenzione{
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public int getIDAuto() {
+		return IDAuto;
+	}
+	public void setIDAuto(int iDAuto) {
+		IDAuto = iDAuto;
 	}
 }

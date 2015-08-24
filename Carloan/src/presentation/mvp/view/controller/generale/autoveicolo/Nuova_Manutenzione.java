@@ -1,5 +1,6 @@
 package presentation.mvp.view.controller.generale.autoveicolo;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
@@ -65,13 +66,30 @@ public void btnannulla(ActionEvent e){
   
 @FXML
 public void btnconferma(ActionEvent e){
-	try {
-		this.man=prendiDatiDaView();
+
 		
-	} catch (CommonException e1) {
-		// TODO Auto-generated catch block
-		e1.showMessage();
-	}
+		try {
+			this.man=prendiDatiDaView();
+			presenter.processRequest("VerificaManutenzine", this.man);
+			presenter.processRequest("InserimentoManutenzione",this.man);
+			chiudiFinestra();
+		}
+		
+		 catch (CommonException e1) {
+			// TODO Auto-generated catch block
+			e1.showMessage();
+		}
+		catch(InvocationTargetException e1){
+			new CommonException(e1.getTargetException().getMessage()).showMessage();
+		}
+		catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
 	
 	
 }
@@ -79,12 +97,9 @@ private Manutenzione prendiDatiDaView() throws CommonException{
 	LocalDate d=data_inizio.getValue();
 	if(d==null)
 		throw new CommonException("La data d'inizio è vuota");
-	else if(d.isBefore(LocalDate.now()))
-		throw new CommonException("La data d'inizio è passata");
-	
 	if(radio_ord.isSelected())
-		return new ManutenzioneOrdinaria(null,d , null, motivo.getText());
+		return new ManutenzioneOrdinaria(null,d , null, motivo.getText(),this.a.getIDauto());
 	else
-		return new ManutenzioneStraordinaria(null, d, null, motivo.getText());
+		return new ManutenzioneStraordinaria(null, d, null, motivo.getText(),a.getIDauto());
 }
 }

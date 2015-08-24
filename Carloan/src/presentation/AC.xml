@@ -151,7 +151,11 @@
 		<class>business.model.ModelAutoveicolo</class>
 		<method>aggiornamento</method>
 	</call>
-
+	<!--Manutenzione-->
+	<call id="VerificaManutenzine">
+		<class>business.model.ManutenzioneChecker</class>
+		<method>check</method>
+	</call>
 	<!--Sede-->
 	<call id="getAllSedi">
 		<class>business.model.ModelSede</class>

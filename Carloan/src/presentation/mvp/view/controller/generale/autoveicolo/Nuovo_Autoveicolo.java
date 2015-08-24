@@ -201,9 +201,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 			Autoveicolo auto_da_inserire=prendiDatiDaView();
 			presenter.processRequest("VerificaAutoveicolo", auto_da_inserire);
 			presenter.processRequest("InserimentoAutoveicolo", auto_da_inserire);
-			schermataGenerale.setAggiornando(true);
 			caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null));
-			schermataGenerale.setAggiornando(false);
 			chiudiFinestra();
 		} 
 		catch(CommonException e1){
