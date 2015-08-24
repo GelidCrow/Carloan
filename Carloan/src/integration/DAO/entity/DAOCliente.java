@@ -168,25 +168,48 @@ public class DAOCliente implements DAO{
 	@Override
 	public void aggiornamento(Entity parameter) {
 		Cliente cliente= (Cliente) parameter;
-		String UPDATE = "UPDATE  Cliente  SET "
-				+ "Indirizzo='?',NumCell='?',NumTel='?',PartitaIva='?',Email='?'"
-				+ "WHERE IDCliente = ?";
+		String UPDATE = "Update  Cliente SET"
+				+ " Nome ='?',Cognome='?',Sesso='?',DataEmissPatente='?',DataNascita='?',"
+				+ "Indirizzo='?',CodFiscale='?',NumCell='?',NumTel='?',PatenteGuida='?',DataScadPatente='?',PartitaIva='?',Email='?' "
+				+ "where idCliente= '?';";
 		
 		String updateQuery = UPDATE;
 		
-		updateQuery= queryReplaceFirst(updateQuery,cliente.getIndirizzo());
-		updateQuery= queryReplaceFirst(updateQuery,cliente.getNumCell());      
-	    updateQuery= queryReplaceFirst(updateQuery,cliente.getNumTel());
-	    updateQuery= queryReplaceFirst(updateQuery,cliente.getPartitaIva());
-        updateQuery= queryReplaceFirst(updateQuery,cliente.getEmail());
-        updateQuery= queryReplaceFirst(updateQuery,cliente.getId().toString());   
+		updateQuery = queryReplaceFirst(updateQuery, cliente.getNome());
         
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getCognome());
+
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getSesso());
+
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getDataEmissPatente().toString());
+
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getDatanascita().toString());
+
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getIndirizzo());
+        
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getCodFiscale());
+
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getNumCell());
+      
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getNumTel());
+
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getPatenteGuida());
+        
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getDataScadPatente().toString());
+
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getPartitaIva());
+        
+		updateQuery= queryReplaceFirst(updateQuery,cliente.getEmail());
+
+		updateQuery= queryReplaceFirst(updateQuery,String.valueOf(cliente.getId()));
+		
         Connection connection= Connection.getConnection(daofactory);
         
         ResultSet idList = null;
         
 		try {
 			 idList = connection.executeUpdate(updateQuery);
+			
 			 AlertView.getAlertView("Cliente aggiornato con successo",AlertType.INFORMATION);
 		} catch (SQLException e) {
 			e.printStackTrace();
