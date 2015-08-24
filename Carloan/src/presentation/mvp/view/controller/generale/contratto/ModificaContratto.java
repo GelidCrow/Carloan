@@ -48,10 +48,10 @@ public class ModificaContratto extends NuovoContratto{
 		contratto= (Contratto)scChiamante.getEntitaElementoSelezionato("Contratto");//ottengo le info sul cliente selezionato, ma ne cambio alcune
 	
 		Aggiornare=true;
-		contratto = prendiDatiDaView();
 		
 		if(Aggiornare==true){
 			try {
+				contratto = prendiDatiDaView();
 				presenter.processRequest("VerificaContratto", contratto);
 				presenter.processRequest("ModificaContratto", contratto);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
@@ -76,13 +76,15 @@ public class ModificaContratto extends NuovoContratto{
 	}
 	
 	@Override
-	public Contratto prendiDatiDaView(){
+	public Contratto prendiDatiDaView() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		contratto.setStato(choiceStato.getSelectionModel().getSelectedItem());
 		contratto.setNote(textNote.getText());
 		
 		
 		if(choiceStato.getSelectionModel().getSelectedItem().equals(StatoContratto.Annullato.toString())){
+			presenter.processRequest("checkAnnullabileChiudibile", contratto);
 			contratto.setDataChiusura(LocalDate.now());//imposto la data di chiusura se il valore scelto è annullato
+			
 		}
 
 		//controllo se bisogna aggiornare

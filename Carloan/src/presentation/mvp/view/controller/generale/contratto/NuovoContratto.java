@@ -73,8 +73,9 @@ public class NuovoContratto extends Schermata{
 		 }
 		 else{
 			tw= ((SchermataGenerale)this.getChiamante()).getTable("Contratto");
-			Contratto contratto= prendiDatiDaView();
+			
 			try {
+				Contratto contratto= prendiDatiDaView();
 					presenter.processRequest("VerificaContratto", contratto);	
 					presenter.processRequest("InserimentoContratto", contratto);
 					//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
@@ -96,7 +97,7 @@ public class NuovoContratto extends Schermata{
 		 }
 	}
 	
-	public Contratto prendiDatiDaView(){
+	public Contratto prendiDatiDaView() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		LocalDate dParam= null;
 		
 		Contratto contratto = new Contratto();
