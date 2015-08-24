@@ -77,9 +77,64 @@ public DAOAutoveicolo(DaoFactory dao) {
 	}
 
 	@Override
-	public void aggiornamento(Entity x) {
-		// TODO Auto-generated method stub
-		
+	public ResultSet aggiornamento(Entity x) throws CommonException {
+		String update="insert into Autoveicolo (Targa,Marca,Modello,AlimPrincipale,Colore,Cambio,Immatricolazione,"
+				+ "Cilindrata,Potenza,NroPosti,NroTelaio,Disponibilita,UltimoKm,CapPortaBagagli,Note,DataScadAssic,OptionalAuto,Prezzo,DanniFutili,DanniGravi,IDSede,IDFascia)";
+		String values=" values('?','?','?','?','?','?','?',?,?,?,'?','?',?,?,'?','?','?',?,'?','?',?,?)";
+		Autoveicolo a=(Autoveicolo)x;
+		values=queryReplaceFirst(values, a.getTarga());
+		values=queryReplaceFirst(values, a.getMarca());
+		values=queryReplaceFirst(values, a.getModello());
+		values=queryReplaceFirst(values, a.getAlimPrincipale());
+		values=queryReplaceFirst(values, a.getColore());
+		values=queryReplaceFirst(values, a.getCambio());
+		values=queryReplaceFirst(values, a.getImmatricolazione().toString());
+		values=queryReplaceFirst(values, String.valueOf(a.getCilindrata()));
+		values=queryReplaceFirst(values, String.valueOf(a.getPotenza()));
+		values=queryReplaceFirst(values, String.valueOf(a.getNroPosti()));
+		values=queryReplaceFirst(values, a.getNroTelaio());
+		values=queryReplaceFirst(values, a.getDisponibilita().toString());
+		values=queryReplaceFirst(values, String.valueOf(a.getUltimoKm()));
+		values=queryReplaceFirst(values, String.valueOf(a.getCapPortaBagnagli()));
+		values=queryReplaceFirst(values, a.getNote());
+		values=queryReplaceFirst(values, a.getDataScadAssic().toString());
+		values=queryReplaceFirst(values, a.getOptionalAuto());
+		values=queryReplaceFirst(values, String.valueOf(a.getPrezzo()));
+		values=queryReplaceFirst(values, a.getDanni().getDanniFutili());
+		values=queryReplaceFirst(values, a.getDanni().getDanniGravi());
+		values=queryReplaceFirst(values, String.valueOf(a.getCodiceSedDisp()));
+		values=queryReplaceFirst(values, String.valueOf(a.getFascia()));
+		ResultSet s=null;
+		/**/
+		Connection connection=Connection.getConnection(dao);
+		try {
+			 s=connection.executeUpdate(update+values);
+			if(s!=null && s.next()){
+			
+			/*Faccio due update: 1 per tutti i campi tranne l'immagine e 1 per l'immagine(è più comodo)*/
+			String image=a.getImmagine();
+			if(!image.isEmpty()){//<-- Ha scelto una nuova immagine, quindi bisogna aggiornare
+				update="";
+				values="";
+				values=queryReplaceFirst(values, "LOAD_FILE(\""+image+"\")");
+				s=connection.executeUpdate(update+values);
+				if(s!=null && s.next()){
+					AlertView.getAlertView("Autoveicolo aggiornato con successo",AlertType.INFORMATION);
+					}
+				else
+					throw new CommonException("Non e' stato possibile aggiornare l'autoveicolo");
+				}
+			else
+				AlertView.getAlertView("Autoveicolo aggiornato con successo",AlertType.INFORMATION);
+			}
+			else
+				throw new CommonException("Non e' stato possibile aggiornare l'autoveicolo");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return s;
 	}
  
 	@Override
@@ -190,6 +245,8 @@ public DAOAutoveicolo(DaoFactory dao) {
 		a.setPrezzo(resultset.getFloat(21));
 		Danni danni=new Danni(resultset.getString(22), resultset.getString(23));
 		a.setDanni(danni);
+		a.setCodiceSedDisp(resultset.getInt(24));
+		a.setFascia(resultset.getInt(25));
 		return a;
 	}
 /**

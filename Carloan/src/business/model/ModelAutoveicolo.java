@@ -33,7 +33,13 @@ public class ModelAutoveicolo implements Model{
 
 	@Override
 	public void aggiornamento(Entity parameter) throws CommonException {
-		// TODO Auto-generated method stub
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).aggiornamento(parameter);
+			
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	public List<Autoveicolo> getAll() {

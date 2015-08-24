@@ -4,12 +4,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -26,6 +30,7 @@ import business.entity.Auto.Fascia.Fascia;
 import business.entity.Luoghi.Sede;
 import business.model.Exception.CommonException;
 import presentation.mvp.view.Presenter;
+import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
 
 public class Modifica_Autoveicolo extends Nuovo_Autoveicolo{
@@ -97,36 +102,38 @@ public class Modifica_Autoveicolo extends Nuovo_Autoveicolo{
 	public void initData(Entity entity){
 		Autoveicolo a=(Autoveicolo)entity;
 		try {
-		btnchoose.setTooltip(new Tooltip("Clicca e scegli l'immagine"));
+		this.btnchoose.setTooltip(new Tooltip("Clicca e scegli l'immagine"));
 		/*Numero posti*/
 		ObservableList<Integer> list=FXCollections.observableArrayList(3,5,6,7,9);
-		nposti.setItems(list);
-		nposti.getSelectionModel().select(list.indexOf(a.getNroPosti()));
+		this.nposti.setItems(list);
+		this.nposti.getSelectionModel().select(list.indexOf(a.getNroPosti()));
 		//Disponibilita
 		ObservableList<String> lista=FXCollections.observableArrayList("Disponibile","NonDisponibile","ManutenzioneOrdinaria","ManutenzioneStraordinaria");
-		Disponibilita.setItems(lista);
-		Disponibilita.getSelectionModel().select(lista.indexOf(a.getDisponibilita().toString()));
+		this.Disponibilita.setItems(lista);
+		this.Disponibilita.getSelectionModel().select(lista.indexOf(a.getDisponibilita().toString()));
 		//Fasce
-		fasce=(LinkedList<Fascia>) presenter.processRequest("getAllFasce", null);
+		this.fasce=(LinkedList<Fascia>) presenter.processRequest("getAllFasce", null);
 		 LinkedList<String> temp=new LinkedList<String>();
 		 int i=0;
-		 for(int j=0;j<fasce.size();j++){
-			 temp.add(fasce.get(j).getNome());
-			 if(fasce.get(j).getIDFascia()==a.getFascia())
+		 for(int j=0;j<this.fasce.size();j++){
+			 temp.add(this.fasce.get(j).getNome());
+			 int elimina=a.getFascia();
+			 Fascia f=this.fasce.get(j);
+			 if(f.getIDFascia()==elimina)
 				 i=j;
 				 
 		 }
 		 lista=FXCollections.observableArrayList(temp);
-		 fascia.setItems(lista);
-		 fascia.getSelectionModel().selectedIndexProperty().addListener(new Choiceboxlistener());
-		 fascia.getSelectionModel().select(i);
+		 this.fascia.setItems(lista);
+		 this.fascia.getSelectionModel().selectedIndexProperty().addListener(new Choiceboxlistener());
+		 this.fascia.getSelectionModel().select(i);
 		 //Cambio
-		 cambio.setItems(FXCollections.observableArrayList("Manuale","Automatico"));
+		 this.cambio.setItems(FXCollections.observableArrayList("Manuale","Automatico"));
 		 String s=a.getCambio();
 		 if(s.equals("Manuale"))
-			 cambio.getSelectionModel().select(0);
+			 this.cambio.getSelectionModel().select(0);
 		 else
-			 cambio.getSelectionModel().select(1);
+			 this.cambio.getSelectionModel().select(1);
 		 //Sedi
 		 sedi=(ArrayList<Sede>) presenter.processRequest("getAllSedi", null);
 		 nome.setCellValueFactory(cellData ->  new  SimpleStringProperty(((Sede) cellData.getValue()).getNome()));
@@ -160,12 +167,6 @@ public class Modifica_Autoveicolo extends Nuovo_Autoveicolo{
 		 Note.setText(a.getNote());
 		 vistaimmagine.setImage(new Image(a.getImmagine_stream()));
 		 
-		 
-		 
-		 
-		 
-		 
-		 
 		} 
 		 catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
@@ -175,4 +176,40 @@ public class Modifica_Autoveicolo extends Nuovo_Autoveicolo{
 				e.printStackTrace();
 			}
  }
+	
+	class Choiceboxlistener implements ChangeListener<Number> {
+		@Override
+		public void changed(ObservableValue<? extends Number> observable,Number oldValue, Number newValue) {
+		descrizione_fascia.setText(fasce.get((int)newValue).getDescrizione());
+		}
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@FXML
+	public void btnconferma_click(ActionEvent e){
+		SchermataGenerale<Autoveicolo> schermataGenerale = (SchermataGenerale<Autoveicolo>)this.getChiamante();
+		tw= ((SchermataGenerale<Autoveicolo>)schermataGenerale).getTable("Autoveicolo");
+		try {
+			Autoveicolo auto_da_aggiornare=prendiDatiDaView();
+			presenter.processRequest("VerificaAutoveicolo", auto_da_aggiornare);
+			presenter.processRequest("AggiornamentoAutoveicolo", auto_da_aggiornare);
+			schermataGenerale.setAggiornando(true);
+			caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null));
+			schermataGenerale.setAggiornando(false);
+			chiudiFinestra();
+		} 
+		catch(CommonException e1){
+			e1.showMessage();
+		}
+		catch(InvocationTargetException e1){
+			new CommonException(e1.getTargetException().getMessage()).showMessage();
+		}
+		catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
 }

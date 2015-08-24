@@ -119,7 +119,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 	
 	private LinkedList<Fascia> fasce;
 	private ArrayList<Sede> sedi;
-	private TableView<Autoveicolo> tw;
+	protected TableView<Autoveicolo> tw;
 	@SuppressWarnings("unchecked")
 	
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -181,7 +181,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 		if(f!=null){
 			try{
 			InputStream i=new FileInputStream(f);
-			vistaimmagine.setImage(new Image(i));
+			this.vistaimmagine.setImage(new Image(i));
 			this.immagine_path=f.getAbsolutePath();
 			
 			}
@@ -219,13 +219,13 @@ public class Nuovo_Autoveicolo extends Schermata{
 		}
 	}
 
-	private void caricaTabella(List<Autoveicolo> list){
+	protected void caricaTabella(List<Autoveicolo> list){
 		ObservableList<Autoveicolo> obsList= FXCollections.observableList(list);
-		tw.setItems(obsList);
+		this.tw.setItems(obsList);
 	}
 	
 	
-	private Autoveicolo prendiDatiDaView() throws CommonException {
+	protected Autoveicolo prendiDatiDaView() throws CommonException {
 	Autoveicolo temp=new Autoveicolo();
 		if(targa.getText().isEmpty() || modello.getText().isEmpty() || marca.getText().isEmpty() || immatricolazione.getValue()==null || prezzo.getText().isEmpty())
 			throw new CommonException("I campi obbligatori non devono essere vuoti!");
