@@ -95,7 +95,8 @@
 		<class>business.model.ModelContratto</class>
 		<method>getAll</method>
 	</call>
-	
+		
+
 	
 	
 	<!--NOLEGGIO-->
@@ -118,7 +119,10 @@
 		<class>business.model.ModelNoleggio</class>
 		<method>getAll</method>
 	</call>
-
+	<call id="getNoleggiAperti">
+		<class>business.model.ModelNoleggio</class>
+		<method>getNoleggiAperti</method>
+	</call>
 
 
 	<!--Autoveicolo-->
@@ -152,15 +156,10 @@
 		<method>aggiornamento</method>
 	</call>
 	<!--Manutenzione-->
-	<call id="VerificaManutenzione">
-		<class>business.model.checker.autoveicolo.ManutenzioneChecker</class>
+	<call id="VerificaManutenzine">
+		<class>business.model.ManutenzioneChecker</class>
 		<method>check</method>
 	</call>
-	<call id="InserimentoManutenzione">
-		<class>business.model.ModelManutenzione</class>
-		<method>Inserimento</method>
-	</call>
-
 	<!--Sede-->
 	<call id="getAllSedi">
 		<class>business.model.ModelSede</class>
