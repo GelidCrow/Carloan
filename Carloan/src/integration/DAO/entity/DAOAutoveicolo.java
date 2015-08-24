@@ -77,47 +77,48 @@ public DAOAutoveicolo(DaoFactory dao) {
 	}
 
 	@Override
-	public ResultSet aggiornamento(Entity x) throws CommonException {
-		String update="insert into Autoveicolo (Targa,Marca,Modello,AlimPrincipale,Colore,Cambio,Immatricolazione,"
-				+ "Cilindrata,Potenza,NroPosti,NroTelaio,Disponibilita,UltimoKm,CapPortaBagagli,Note,DataScadAssic,OptionalAuto,Prezzo,DanniFutili,DanniGravi,IDSede,IDFascia)";
-		String values=" values('?','?','?','?','?','?','?',?,?,?,'?','?',?,?,'?','?','?',?,'?','?',?,?)";
+	public void aggiornamento(Entity x) throws CommonException {
+		String update="UPDATE Autoveicolo SET Targa='?',Marca='?',Modello='?',AlimPrincipale='?',Colore='?',Cambio='?',Immatricolazione='?',"
+				+ "Cilindrata=?,Potenza=?,NroPosti=?,NroTelaio='?',Disponibilita='?',UltimoKm=?,CapPortaBagagli=?,Note='?',DataScadAssic='?',OptionalAuto='?',Prezzo?,DanniFutili='?',DanniGravi='?',IDSede=?,IDFascia=?";
+		String where=" where IDAuto=?";
 		Autoveicolo a=(Autoveicolo)x;
-		values=queryReplaceFirst(values, a.getTarga());
-		values=queryReplaceFirst(values, a.getMarca());
-		values=queryReplaceFirst(values, a.getModello());
-		values=queryReplaceFirst(values, a.getAlimPrincipale());
-		values=queryReplaceFirst(values, a.getColore());
-		values=queryReplaceFirst(values, a.getCambio());
-		values=queryReplaceFirst(values, a.getImmatricolazione().toString());
-		values=queryReplaceFirst(values, String.valueOf(a.getCilindrata()));
-		values=queryReplaceFirst(values, String.valueOf(a.getPotenza()));
-		values=queryReplaceFirst(values, String.valueOf(a.getNroPosti()));
-		values=queryReplaceFirst(values, a.getNroTelaio());
-		values=queryReplaceFirst(values, a.getDisponibilita().toString());
-		values=queryReplaceFirst(values, String.valueOf(a.getUltimoKm()));
-		values=queryReplaceFirst(values, String.valueOf(a.getCapPortaBagnagli()));
-		values=queryReplaceFirst(values, a.getNote());
-		values=queryReplaceFirst(values, a.getDataScadAssic().toString());
-		values=queryReplaceFirst(values, a.getOptionalAuto());
-		values=queryReplaceFirst(values, String.valueOf(a.getPrezzo()));
-		values=queryReplaceFirst(values, a.getDanni().getDanniFutili());
-		values=queryReplaceFirst(values, a.getDanni().getDanniGravi());
-		values=queryReplaceFirst(values, String.valueOf(a.getCodiceSedDisp()));
-		values=queryReplaceFirst(values, String.valueOf(a.getFascia()));
+		update=queryReplaceFirst(update, a.getTarga());
+		update=queryReplaceFirst(update, a.getMarca());
+		update=queryReplaceFirst(update, a.getModello());
+		update=queryReplaceFirst(update, a.getAlimPrincipale());
+		update=queryReplaceFirst(update, a.getColore());
+		update=queryReplaceFirst(update, a.getCambio());
+		update=queryReplaceFirst(update, a.getImmatricolazione().toString());
+		update=queryReplaceFirst(update, String.valueOf(a.getCilindrata()));
+		update=queryReplaceFirst(update, String.valueOf(a.getPotenza()));
+		update=queryReplaceFirst(update, String.valueOf(a.getNroPosti()));
+		update=queryReplaceFirst(update, a.getNroTelaio());
+		update=queryReplaceFirst(update, a.getDisponibilita().toString());
+		update=queryReplaceFirst(update, String.valueOf(a.getUltimoKm()));
+		update=queryReplaceFirst(update, String.valueOf(a.getCapPortaBagnagli()));
+		update=queryReplaceFirst(update, a.getNote());
+		update=queryReplaceFirst(update, a.getDataScadAssic().toString());
+		update=queryReplaceFirst(update, a.getOptionalAuto());
+		update=queryReplaceFirst(update, String.valueOf(a.getPrezzo()));
+		update=queryReplaceFirst(update, a.getDanni().getDanniFutili());
+		update=queryReplaceFirst(update, a.getDanni().getDanniGravi());
+		update=queryReplaceFirst(update, String.valueOf(a.getCodiceSedDisp()));
+		update=queryReplaceFirst(update, String.valueOf(a.getFascia()));
+		where=queryReplaceFirst(where, String.valueOf(a.getIDauto()));
 		ResultSet s=null;
 		/**/
 		Connection connection=Connection.getConnection(dao);
 		try {
-			 s=connection.executeUpdate(update+values);
+			 s=connection.executeUpdate(update+where);
 			if(s!=null && s.next()){
 			
 			/*Faccio due update: 1 per tutti i campi tranne l'immagine e 1 per l'immagine(è più comodo)*/
 			String image=a.getImmagine();
 			if(!image.isEmpty()){//<-- Ha scelto una nuova immagine, quindi bisogna aggiornare
-				update="";
-				values="";
-				values=queryReplaceFirst(values, "LOAD_FILE(\""+image+"\")");
-				s=connection.executeUpdate(update+values);
+				update="UPDATE Autoveicolo SET Immagine=? WHERE IDAuto=?";
+				update=queryReplaceFirst(update, "LOAD_FILE(\""+image+"\")");
+				update=queryReplaceFirst(update, String.valueOf(a.getIDauto()));
+				s=connection.executeUpdate(update);
 				if(s!=null && s.next()){
 					AlertView.getAlertView("Autoveicolo aggiornato con successo",AlertType.INFORMATION);
 					}
@@ -134,7 +135,6 @@ public DAOAutoveicolo(DaoFactory dao) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	return s;
 	}
  
 	@Override

@@ -7,6 +7,6 @@ import business.model.Exception.CommonException;
 
 public interface DAO {
 		public abstract ResultSet creazione(Entity x ) throws CommonException;
-		public abstract ResultSet aggiornamento(Entity entity) throws CommonException;
+		public abstract void aggiornamento(Entity entity) throws CommonException;
 		public abstract Entity lettura(int id) throws CommonException;
 }

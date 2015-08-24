@@ -117,8 +117,8 @@ public class Nuovo_Autoveicolo extends Schermata{
 	protected  TableColumn<Sede, String> indirizzo;
 	
 	
-	private LinkedList<Fascia> fasce;
-	private ArrayList<Sede> sedi;
+	protected LinkedList<Fascia> fasce;
+	protected ArrayList<Sede> sedi;
 	protected TableView<Autoveicolo> tw;
 	@SuppressWarnings("unchecked")
 	
@@ -227,43 +227,43 @@ public class Nuovo_Autoveicolo extends Schermata{
 	
 	protected Autoveicolo prendiDatiDaView() throws CommonException {
 	Autoveicolo temp=new Autoveicolo();
-		if(targa.getText().isEmpty() || modello.getText().isEmpty() || marca.getText().isEmpty() || immatricolazione.getValue()==null || prezzo.getText().isEmpty())
+		if(this.targa.getText().isEmpty() || this.modello.getText().isEmpty() || this.marca.getText().isEmpty() || this.immatricolazione.getValue()==null || this.prezzo.getText().isEmpty())
 			throw new CommonException("I campi obbligatori non devono essere vuoti!");
-		String s=targa.getText();
+		String s=this.targa.getText();
 		if(s.isEmpty())
 			throw new CommonException("La targa è vuota");
 		else
 			temp.setTarga(s);
 		
-		s=marca.getText();
+		s=this.marca.getText();
 		if(s.isEmpty())
 			throw new CommonException("La marca è vuota");
 		else
 				temp.setMarca(s);
-		s=modello.getText();
+		s=this.modello.getText();
 		if(s.isEmpty())
 		throw new CommonException("Il modello è vuoto");
 		 else
 			temp.setModello(s);
-		s=alimprinc.getText();
+		s=this.alimprinc.getText();
 		if(s.isEmpty())
 		throw new CommonException("L'alimentazione principale è vuota");
 		 else
 			temp.setAlimPrincipale(s);
-		LocalDate d=immatricolazione.getValue();
+		LocalDate d=this.immatricolazione.getValue();
 		if(d==null)
 		throw new CommonException("Data immatricolazione vuota");
 		 else
 			 temp.setImmatricolazione(d);
 		
 		try{
-			temp.setCilindrata(Integer.parseInt(cilindrata.getText()));
+			temp.setCilindrata(Integer.parseInt(this.cilindrata.getText()));
 			}
 			catch(NumberFormatException e){
 				throw new CommonException("Cilindrata non valida");
 			}
 		try{
-			 s=kmpercorsi.getText();
+			 s=this.kmpercorsi.getText();
 			if(s.isEmpty())
 				temp.setUltimoKm(0);
 			else
@@ -273,17 +273,17 @@ public class Nuovo_Autoveicolo extends Schermata{
 			throw new CommonException("Kilometri percorsi non validi");
 		}
 		try{
-			s=potenza.getText();
+			s=this.potenza.getText();
 			if(s.isEmpty())
 				temp.setPotenza(0);
 			else
-			temp.setPotenza(Integer.parseInt(potenza.getText()));
+			temp.setPotenza(Integer.parseInt(this.potenza.getText()));
 			}
 			catch(NumberFormatException e){
 				throw new CommonException("Potenza non valida");
 		}
 		try{
-			 s=capienza.getText();
+			 s=this.capienza.getText();
 			if(s.isEmpty())
 				temp.setCapPortaBagnagli(0);
 			else
@@ -293,19 +293,19 @@ public class Nuovo_Autoveicolo extends Schermata{
 			throw new CommonException("Capienza non valida");
 		}
 		
-			s=numtelaio.getText();
+			s=this.numtelaio.getText();
 			if(s.isEmpty())
 				throw new CommonException("Il numero del telaio non può essere vuoto");
 			else
 			temp.setNroTelaio(s);
 		
-	temp.setAlimSec(alimsec.getText());
-	temp.setColore(colore.getText());
-	temp.setCambio(cambio.getSelectionModel().getSelectedItem());
+	temp.setAlimSec(this.alimsec.getText());
+	temp.setColore(this.colore.getText());
+	temp.setCambio(this.cambio.getSelectionModel().getSelectedItem());
 	
-	temp.setNroPosti(nposti.getSelectionModel().getSelectedItem());
+	temp.setNroPosti(this.nposti.getSelectionModel().getSelectedItem());
 	
-	String disp=Disponibilita.getSelectionModel().getSelectedItem();
+	String disp=this.Disponibilita.getSelectionModel().getSelectedItem();
 	switch(disp){
 	case "Disponibile":
 		temp.setDisponibilita(business.entity.Auto.Disponibilita.Disponibile);
@@ -320,34 +320,34 @@ public class Nuovo_Autoveicolo extends Schermata{
 		temp.setDisponibilita(business.entity.Auto.Disponibilita.ManutenzioneStraordinaria);
 		break;
 	}
-	if(immagine_path==null)
+	if(this.immagine_path==null)
 		temp.setImmagine("");
 	else
-	temp.setImmagine(immagine_path);
+	temp.setImmagine(this.immagine_path);
 	d=scadenzaass.getValue();
 	if(d==null)
 		throw new CommonException("Data scadenza assicurazione vuota");
 	else
 	temp.setDataScadAssic(d);
 		
-	int f=fascia.getSelectionModel().getSelectedIndex();
-	temp.setFascia(fasce.get(f).getIDFascia());
-	temp.setDanni(new Danni(danni_futili.getText(), danni_gravi.getText()));
+	int f=this.fascia.getSelectionModel().getSelectedIndex();
+	temp.setFascia(this.fasce.get(f).getIDFascia());
+	temp.setDanni(new Danni(this.danni_futili.getText(), this.danni_gravi.getText()));
 	try{
-	temp.setPrezzo(Float.parseFloat(prezzo.getText()));
+	temp.setPrezzo(Float.parseFloat(this.prezzo.getText()));
 	}
 	catch(NumberFormatException e){
 		throw new CommonException("Prezzo non valido");
 	}
-	Sede se=tablesedi.getSelectionModel().getSelectedItem();
+	Sede se=this.tablesedi.getSelectionModel().getSelectedItem();
 	temp.setCodiceSedDisp(se.getIDSede());
-	s=optional_auto.getText();
+	s=this.optional_auto.getText();
 	if(s.isEmpty())
 		temp.setOptionalAuto("");
 	else
 		temp.setOptionalAuto(s);
 	
-	s=Note.getText();
+	s=this.Note.getText();
 	if(s.isEmpty())
 		temp.setNote("");
 	else 
