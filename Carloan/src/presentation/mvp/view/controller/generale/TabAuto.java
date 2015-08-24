@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.Disponibilita;
+import business.model.Exception.CommonException;
 import utility.Finestra;
 import utility.ParametriFXML;
 
@@ -22,9 +23,7 @@ public class TabAuto {
 	private TableView<Autoveicolo> tbAuto;
 	private Presenter presenter;
 	private ParametriFXML FXMLParameter;
-	public void NuovaAuto(){
-		Finestra.visualizzaFinestra(presenter, FXMLParameter, schermata, "MostraSchermataNuovaAuto",Modality.APPLICATION_MODAL);
-	}
+	
 	TabAuto(TableView<Autoveicolo> tbAuto2,Schermata schermata){
 		auto=tbAuto2.getColumns();
 		this.schermata=schermata;
@@ -49,4 +48,22 @@ public class TabAuto {
 		auto.get(12).setCellValueFactory(cellData ->  new SimpleIntegerProperty(((Autoveicolo) cellData.getValue()).getUltimoKm()));
 		
 	}
-}
+	
+	
+	public void NuovaAuto(){
+		FXMLParameter.setTitolo("Inserimento nuovo autoveicolo");
+		Finestra.visualizzaFinestra(presenter, FXMLParameter, schermata, "MostraSchermataNuovaAuto",Modality.APPLICATION_MODAL);
+	}
+	
+	public void ModificaAuto() throws CommonException{
+		 if(tbAuto.getSelectionModel().getSelectedIndex()< 0){
+	    		throw new CommonException("Nessun elemento selezionato");
+	    }
+	    else{
+	    	FXMLParameter.setTitolo("Modifica autoveicolo");
+	    	FXMLParameter.setEntity(((SchermataGenerale<?>) schermata).getEntitaElementoSelezionato("Autoveicolo"));
+	    	Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataModificaAutoveicolo",Modality.APPLICATION_MODAL);
+	    }
+	    }
+	}
+

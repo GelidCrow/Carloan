@@ -136,7 +136,13 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	public void btnNuovaAuto(ActionEvent e){
 		tbAutoController.NuovaAuto();
 	}
-	
+	public void btnModificaAuto(ActionEvent e){
+		try {
+			tbAutoController.ModificaAuto();
+		} catch (CommonException e1) {
+			e1.showMessage();
+		}
+	}
 	
 	
 	@FXML

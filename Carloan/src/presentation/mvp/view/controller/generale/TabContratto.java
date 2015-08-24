@@ -41,13 +41,14 @@ public class TabContratto {
 	}		
 	@SuppressWarnings("rawtypes")
 	public void ModificaContratto() throws CommonException{
-		FXMLParameter.setTitolo("Modifica Contratto");
-	    FXMLParameter.setRidimensionabile(false);
-	    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Contratto"));
+		
 	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{
+	    	FXMLParameter.setTitolo("Modifica Contratto");
+		    FXMLParameter.setRidimensionabile(false);
+		    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Contratto"));
 	    	if(((Contratto)tbContratto.getSelectionModel().getSelectedItem()).getStato().equals("Aperto")){
 	    		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataModificaContratto",Modality.APPLICATION_MODAL);
 	    	}

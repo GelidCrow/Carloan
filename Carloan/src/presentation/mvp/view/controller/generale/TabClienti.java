@@ -12,9 +12,6 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import business.entity.Cliente;
 import business.model.Exception.CommonException;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 public class TabClienti{
@@ -37,14 +34,16 @@ public class TabClienti{
 	
 	@SuppressWarnings("rawtypes")
 	public void ModificaCliente() throws CommonException{
-		FXMLParameter.setTitolo("Modifica Cliente");
-	    FXMLParameter.setRidimensionabile(false);
-	    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Cliente"));
+		
 	    if(tbCliente.getSelectionModel().getSelectedIndex()< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
-	    else
+	    else{
+	    	FXMLParameter.setTitolo("Modifica Cliente");
+		    FXMLParameter.setRidimensionabile(false);
+		    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Cliente"));
 	    	Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataModificaCliente",Modality.APPLICATION_MODAL);	
+	    }
 	}
 	public void NuovaCartaCredito(){
 		FXMLParameter.setTitolo("Nuova Carta Di Credito");
