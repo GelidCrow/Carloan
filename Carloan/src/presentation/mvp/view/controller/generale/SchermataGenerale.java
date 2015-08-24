@@ -85,7 +85,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			tbContrattoController.setSchermata(this);
 			tbContrattoController.ModificaContratto();
 		} catch (CommonException e1) {
-			e1.printStackTrace();
+			AlertView.getAlertView(e1.getMessage(), AlertType.ERROR);
 		}
 	}	
 	
@@ -94,8 +94,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		try {
 			tbContrattoController.ChiudiContratto();
 		} catch (CommonException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			AlertView.getAlertView(e1.getMessage(), AlertType.ERROR);
 		}
 	}		
 			/************ CLIENTE *********/
@@ -106,8 +105,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 
 	
 	@FXML
-	public void btnModificaCliente(ActionEvent e) throws CommonException{
-		tbClientController.ModificaCliente();
+	public void btnModificaCliente(ActionEvent e) {
+		try {
+			tbClientController.ModificaCliente();
+		} catch (CommonException e1) {
+			AlertView.getAlertView(e1.getMessage(), AlertType.ERROR);
+		}
 	}
 	
 	
@@ -134,6 +137,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tbAutoController.NuovaAuto();
 	}
 	
+	
+	
 	@FXML
 	public void btnVPagamento(ActionEvent e){
 		
@@ -152,6 +157,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	public void btnVisualizzaCartaCredito(ActionEvent e){
 		tbClientController.VisualizzaCartaCredito();
 	}
+	
+	
 	@FXML
 	public void btnLogout(ActionEvent e){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);

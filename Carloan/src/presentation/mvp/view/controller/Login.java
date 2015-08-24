@@ -89,4 +89,12 @@ public class Login extends Schermata{
 	public void btnEsci(ActionEvent e){
 		this.chiudiFinestra();
 	}
+
+
+
+	@Override
+	public void initData(Entity x) {
+		// TODO Auto-generated method stub
+		
+	}
 }

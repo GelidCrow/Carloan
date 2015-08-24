@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import presentation.mvp.view.controller.Schermata;
 import business.entity.Entity;
 import business.model.Model;
 import business.model.Exception.CommonException;
@@ -14,6 +15,7 @@ public class Delegate {
     private ReaderXML reader;
     private Model  model;
     private Checker checker;
+    private Schermata schermata;
     private ArrayList<String> service_method;
     private Method method;
 	private Object result;
@@ -28,7 +30,7 @@ public class Delegate {
     		method = checker.getClass().getMethod(service_method.get(1),Entity.class);
     		result=  method.invoke(checker, parameter); 		
     	}
-    	else {
+    	else if(Class.forName(service_method.get(0)).newInstance() instanceof Model){
     		model = (Model) Class.forName(service_method.get(0)).newInstance();
     		if(parameter==null){
     			method = model.getClass().getMethod(service_method.get(1), null);
@@ -43,6 +45,13 @@ public class Delegate {
     			result=  method.invoke(model, parameter);
     		}
     			
+    	}
+    	else {
+    		schermata= (Schermata) Class.forName(service_method.get(0)).newInstance();
+    		if(parameter instanceof Schermata){
+    			method = schermata.getClass().getMethod(service_method.get(1), Schermata.class);
+    			result=  method.invoke(schermata,parameter);
+    		}
     	}
     	return result;
     }

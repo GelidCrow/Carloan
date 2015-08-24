@@ -2,6 +2,7 @@ package presentation.mvp.view;
 
 import java.io.IOException;
 
+import business.entity.Cliente;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,11 +27,14 @@ public class ReturnableStage extends Stage {
 			
 			try {
 				root= loader.load();
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			this.schermata = loader.getController();
+			
+           	schermata.initData(param.getEntity());
            	
 			schermata.setStage(this,param.getHandChiusura());
 			
@@ -41,8 +45,6 @@ public class ReturnableStage extends Stage {
 			this.setResizable(param.isRidimensionabile());
 			
 			setScene(scene);	
-			
-			//this.schermata.setStage(this); <=cosi non funziona, da null pointer. 
     }
 	
 	

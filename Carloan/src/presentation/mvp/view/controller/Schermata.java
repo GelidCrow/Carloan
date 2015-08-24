@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import business.entity.Entity;
 import MessaggiFinestra.AlertView;
 import presentation.mvp.view.Presenter;
 import utility.Finestra;
@@ -79,6 +80,9 @@ public abstract class Schermata implements Initializable{
 		            			Finestra.visualizzaFinestra(presenter,FXMLParameter,null,"MostraLogin",Modality.WINDOW_MODAL);
 		            			Connection.chiudiConnessione();
 		            		}
+		            		else if(result.isPresent() && result.get() == ButtonType.CANCEL){
+		            			
+		            		}
 		                
 						
 		            } catch (SQLException e) {
@@ -100,11 +104,13 @@ public abstract class Schermata implements Initializable{
 	public Schermata getChiamante(){
 		return chiamante;
 	}
-	
+	public void initData(Entity x){
+		
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
-
 		FXMLParameter = new ParametriFXML(null,false,false);	
+		
 	}
 }

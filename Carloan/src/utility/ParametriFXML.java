@@ -1,19 +1,35 @@
 package utility;
 
+import business.entity.Entity;
+
 public class ParametriFXML {
 	private String titolo;
 	private boolean ridimensionabile;
 	private boolean handChiusura;
+	private Entity entity;
 	
+	public Entity getEntity() {
+		return entity;
+	}
+
+
+	public void setEntity(Entity entity) {
+		this.entity = entity;
+	}
+
+
 	public ParametriFXML(String titolo, boolean ridimensionabile) {
 		this.titolo = titolo;
 		this.ridimensionabile = ridimensionabile;
 	}
+
+
 	public ParametriFXML(String titolo, boolean ridimensionabile,boolean handChiusura) {
 		this.titolo = titolo;
 		this.ridimensionabile = ridimensionabile;
 		this.handChiusura= handChiusura;
 	}
+	
 	public String getTitolo() {
 		return titolo;
 	}

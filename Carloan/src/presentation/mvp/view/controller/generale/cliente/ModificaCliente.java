@@ -8,11 +8,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import presentation.mvp.view.Presenter;
+import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
 import MessaggiFinestra.AlertView;
 import business.entity.Cliente;
+import business.entity.Entity;
 import business.model.Exception.CommonException;
 
 public class ModificaCliente extends NuovoCliente{
@@ -20,6 +27,32 @@ public class ModificaCliente extends NuovoCliente{
 	private Button btnConferma;
 	private Cliente cliente;
 	private boolean Aggiornare=true;
+	
+	@FXML
+	private  TextField txtIndirizzo;
+	@FXML
+	private  TextField txtNumCel;
+	@FXML
+	private  TextField txtNumTel;
+	@FXML
+	private  TextField txtPartIva;
+	@FXML
+	private  TextField txtEmail;
+	
+	  @FXML private VBox vCampi;
+	  @FXML private AnchorPane anchCampi;
+	
+	@SuppressWarnings("rawtypes")
+	public void impostaView(Schermata chiamante){
+		SchermataGenerale scChiamante= (SchermataGenerale)chiamante;
+		Cliente cliente =  (Cliente)scChiamante.getEntitaElementoSelezionato("Cliente");
+		txtIndirizzo.setText(cliente.getIndirizzo());
+		txtNumCel.setText(cliente.getNumCell());
+		txtNumTel.setText(cliente.getNumTel());
+		txtPartIva.setText(cliente.getPartitaIva());
+		txtEmail.setText(cliente.getEmail());
+		
+	}
 	
 	@Override
 	@SuppressWarnings({ "unchecked","rawtypes" })
@@ -39,13 +72,14 @@ public class ModificaCliente extends NuovoCliente{
 				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato("Cliente"),cliente,((SchermataGenerale)this.getChiamante()).getTable("Cliente"));			
 			} 
 			catch(CommonException e){
-				e.showMessage();
+				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
+			}
+			catch(InvocationTargetException e){
+				new CommonException(((InvocationTargetException) e).getTargetException().getMessage()).showMessage();
 			}
 			catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
-					| SecurityException | IllegalArgumentException
-					| InvocationTargetException  e) {
-				
+					| SecurityException | IllegalArgumentException  e) {
 				e.printStackTrace();
 			}	
 		}
@@ -79,9 +113,18 @@ public class ModificaCliente extends NuovoCliente{
 		return cliente;
 	}
 	@Override
+	public void initData(Entity entity){
+		Cliente cliente =  (Cliente)entity;
+		txtIndirizzo.setText(cliente.getIndirizzo());
+		txtNumCel.setText(cliente.getNumCell());
+		txtNumTel.setText(cliente.getNumTel());
+		txtPartIva.setText(cliente.getPartitaIva());
+		txtEmail.setText(cliente.getEmail());
+	}
+
+	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
 	}
-
 }

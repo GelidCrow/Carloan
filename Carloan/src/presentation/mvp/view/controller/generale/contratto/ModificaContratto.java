@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import MessaggiFinestra.AlertView;
 import business.entity.Cliente;
+import business.entity.Entity;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.StatoContratto;
 import business.model.Exception.CommonException;
@@ -95,7 +96,11 @@ public class ModificaContratto extends NuovoContratto{
 		FXMLParameter = new ParametriFXML(null,false);
 		settaChoiceBox();	
 	}
-	
+	 
+	@Override
+	public void initData(Entity x){
+		textNote.setText(((Contratto)x).getNote());
+	}
 	public void settaChoiceBox(){
 		ObservableList<String> choice = FXCollections.observableArrayList(StatoContratto.getAllStates());
 		choice.remove(1); 

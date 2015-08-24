@@ -9,9 +9,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="680.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.cliente.ModificaCliente">
    <children>
-      <AnchorPane layoutY="107.0" prefHeight="371.0" prefWidth="680.0">
+      <AnchorPane fx:id="anchCampi" layoutY="107.0" prefHeight="371.0" prefWidth="680.0">
          <children>
-            <VBox layoutX="406.0" layoutY="12.0" prefHeight="184.0" prefWidth="217.0">
+            <VBox fx:id="vCampi" layoutX="406.0" layoutY="12.0" prefHeight="184.0" prefWidth="217.0">
                <children>
                   <TextField fx:id="txtIndirizzo" />
                   <Separator prefWidth="200.0" />

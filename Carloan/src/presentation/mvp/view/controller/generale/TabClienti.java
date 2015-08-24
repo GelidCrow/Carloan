@@ -35,9 +35,11 @@ public class TabClienti{
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataNuovoCliente",Modality.APPLICATION_MODAL);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void ModificaCliente() throws CommonException{
 		FXMLParameter.setTitolo("Modifica Cliente");
 	    FXMLParameter.setRidimensionabile(false);
+	    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Cliente"));
 	    if(tbCliente.getSelectionModel().getSelectedIndex()< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
@@ -47,7 +49,7 @@ public class TabClienti{
 	public void NuovaCartaCredito(){
 		FXMLParameter.setTitolo("Nuova Carta Di Credito");
 	    FXMLParameter.setRidimensionabile(false);
-		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataInserimentoCarta",Modality.APPLICATION_MODAL);
+		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataInserimentoCartaCredito",Modality.APPLICATION_MODAL);
 	}
 	public void VisualizzaCartaCredito(){
 		FXMLParameter.setTitolo("Carta di credito");

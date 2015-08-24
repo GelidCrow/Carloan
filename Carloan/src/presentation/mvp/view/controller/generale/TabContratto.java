@@ -39,9 +39,11 @@ public class TabContratto {
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataNuovoContratto",Modality.APPLICATION_MODAL);
 	
 	}		
+	@SuppressWarnings("rawtypes")
 	public void ModificaContratto() throws CommonException{
 		FXMLParameter.setTitolo("Modifica Contratto");
 	    FXMLParameter.setRidimensionabile(false);
+	    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Contratto"));
 	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
