@@ -306,10 +306,36 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 										tbAutoController.NuovaManutenzione();
 									} catch (CommonException e) {
 										// TODO Auto-generated catch block
-										e.printStackTrace();
+										e.showMessage();
 									}
 					            }
-					        });        
+					        });  
+							break;
+						case "Chiudi":
+							m.setOnAction(new EventHandler<ActionEvent>() {
+					            public void handle(ActionEvent t) {
+					            	try {
+										tbAutoController.NuovaManutenzione();
+									} catch (CommonException e) {
+										// TODO Auto-generated catch block
+										e.showMessage();
+									}
+					            }
+					        });  
+							break;
+						case "Visualizza":
+							m.setOnAction(new EventHandler<ActionEvent>() {
+					            public void handle(ActionEvent t) {
+					            	try {
+										tbAutoController.NuovaManutenzione();
+									} catch (CommonException e) {
+										// TODO Auto-generated catch block
+										e.showMessage();
+									}
+					            }
+					        });  
+							break;
+							
 						}
 					}
 					try {
@@ -416,7 +442,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 
 		@Override
 		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
-			if((Contratto)getEntitaElementoSelezionato("Autoveicolo")!=null){
+			if((Autoveicolo)getEntitaElementoSelezionato("Autoveicolo")!=null){
 			try {
 				InputStream i=(InputStream) presenter.processRequest("leggiImmagineAutoveicolo", ((Autoveicolo)getEntitaElementoSelezionato("Autoveicolo")).getIDauto());
 				if(i!=null)

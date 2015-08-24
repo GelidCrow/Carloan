@@ -1,5 +1,6 @@
 package presentation.mvp.view.controller.generale.autoveicolo;
 
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -51,7 +52,10 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 }
 public void initData(Entity x){
 	this.a=(Autoveicolo)x;
-	immagine.setImage(new Image(a.getImmagine_stream()));
+	InputStream i=a.getImmagine_stream();
+	if(i!=null)
+	immagine.setImage(new Image(i));
+	
 	targa.setText(a.getTarga());
 	modello.setText(a.getModello());
 }
@@ -70,7 +74,7 @@ public void btnconferma(ActionEvent e){
 		
 		try {
 			this.man=prendiDatiDaView();
-			presenter.processRequest("VerificaManutenzine", this.man);
+			presenter.processRequest("VerificaManutenzione", this.man);
 			presenter.processRequest("InserimentoManutenzione",this.man);
 			chiudiFinestra();
 		}
@@ -82,8 +86,11 @@ public void btnconferma(ActionEvent e){
 		catch(InvocationTargetException e1){
 			new CommonException(e1.getTargetException().getMessage()).showMessage();
 		}
+		catch( ClassNotFoundException e1){
+			new CommonException("File AC.xml corrotto");
+		}
 		catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | NoSuchMethodException
+				| NoSuchMethodException
 				| SecurityException | IllegalArgumentException
 				e1) {
 			// TODO Auto-generated catch block

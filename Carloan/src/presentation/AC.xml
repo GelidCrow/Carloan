@@ -152,10 +152,15 @@
 		<method>aggiornamento</method>
 	</call>
 	<!--Manutenzione-->
-	<call id="VerificaManutenzine">
-		<class>business.model.ManutenzioneChecker</class>
+	<call id="VerificaManutenzione">
+		<class>business.model.checker.autoveicolo.ManutenzioneChecker</class>
 		<method>check</method>
 	</call>
+	<call id="InserimentoManutenzione">
+		<class>business.model.ModelManutenzione</class>
+		<method>Inserimento</method>
+	</call>
+
 	<!--Sede-->
 	<call id="getAllSedi">
 		<class>business.model.ModelSede</class>
