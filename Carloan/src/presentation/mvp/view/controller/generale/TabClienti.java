@@ -113,7 +113,6 @@ public class TabClienti{
 
 		cliente.get(12).setCellValueFactory(cellData -> new SimpleStringProperty(((Cliente) cellData.getValue()).getEmail()));
 		
-		cliente.get(13).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Cliente) cellData.getValue()).getId()));
 
 	}
 

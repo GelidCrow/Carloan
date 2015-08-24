@@ -26,11 +26,7 @@ import business.entity.Entity;
 import business.model.Exception.CommonException;
 
 public class ModificaCliente extends NuovoCliente{
-	@FXML
-	private Button btnConferma;
-	private Cliente cliente;
-	
-	
+
 	@SuppressWarnings("rawtypes")
 	public void impostaView(Schermata chiamante){
 		SchermataGenerale scChiamante= (SchermataGenerale)chiamante;
@@ -58,6 +54,7 @@ public class ModificaCliente extends NuovoCliente{
 				presenter.processRequest("ModificaCliente", cliente);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
 				((SchermataGenerale)this.getChiamante()).caricaTabella((List<Cliente>)presenter.processRequest("getAllClienti",null), scChiamante.getTable("Cliente"));
+				chiudiFinestra();
 			} 
 			catch(CommonException e){
 				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
@@ -76,7 +73,7 @@ public class ModificaCliente extends NuovoCliente{
 
 	@Override
 	public void initData(Entity entity){
-		Cliente cliente =  (Cliente)entity;
+		cliente =  (Cliente)entity;
 		txtIndirizzo.setText(cliente.getIndirizzo());
 		txtNumCel.setText(cliente.getNumCell());
 		txtNumTel.setText(cliente.getNumTel());
