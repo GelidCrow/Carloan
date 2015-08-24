@@ -3,6 +3,7 @@ package presentation.mvp.view.controller.generale;
 
 
 import integration.DAO.connection.Connection;
+
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -37,6 +38,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -65,6 +67,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TableColumn<Cliente,String> cliente;
 	private boolean Aggiornando= false;
 	
+	@FXML
+	private MenuButton btnManutenzione;
 	private TabClienti tbClientController;
 
 	private TabContratto tbContrattoController;
@@ -270,6 +274,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		@SuppressWarnings("unchecked")
 		@Override
 	    public void changed(ObservableValue<? extends Tab> ov, Tab oldValue, Tab newValue) {
+			//cliente
 			if(panes.get(2)==newValue){
 				if(tbClientController==null){
 					try {
@@ -287,6 +292,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 					}
 				}
 			}
+			//noleggio
 			else if(panes.get(1)==newValue){
 				if(tbNoleggioController==null){
 					try {
@@ -305,9 +311,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				}
 			}
 			else if(panes.get(0)==newValue){}
+			
+			//Auto
 			else if(panes.get(3)==newValue){
 				if(tbAutoController==null){
 					tbAutoController=new TabAuto((TableView<Autoveicolo>)tbAuto,SchermataGenerale.this);
+					
 					try {
 						caricaTabella((List<T>)presenter.processRequest("getAllAuto",null), tbAuto);
 					} catch (InstantiationException | IllegalAccessException
@@ -462,6 +471,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
 		tbContratto.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedContratto());
 		tbAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAutoveicolo());
+		
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	

@@ -251,7 +251,7 @@
                                        </image>
                                     </ImageView>
                                     <TextField layoutX="61.0" layoutY="82.0" />
-                                    <MenuButton layoutX="272.0" layoutY="14.0" mnemonicParsing="false" text="Manutenzione">
+                                    <MenuButton fx:id="btnManutenzione" layoutX="272.0" layoutY="14.0" mnemonicParsing="false" text="Manutenzione">
                                       <items>
                                         <MenuItem mnemonicParsing="false" text="Aggiungi" />
                                         <MenuItem mnemonicParsing="false" text="Modifica" />
