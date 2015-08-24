@@ -135,7 +135,6 @@ public class Nuovo_Autoveicolo extends Schermata{
 		
 		 fasce=(LinkedList<Fascia>) presenter.processRequest("getAllFasce", null);
 		 LinkedList<String> temp=new LinkedList<String>();
-		 
 		 for(Fascia f:fasce)
 			 temp.add(f.getNome());
 		 

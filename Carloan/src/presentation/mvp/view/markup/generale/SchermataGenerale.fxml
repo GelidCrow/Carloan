@@ -243,7 +243,7 @@
                                           <TableColumn prefWidth="96.0" text="Kilometri" />
                                        </columns></TableView>
                                     <Button fx:id="btnNuovaAuto" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovaAuto" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
-                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
+                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaAuto" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="444.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
                                     <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
