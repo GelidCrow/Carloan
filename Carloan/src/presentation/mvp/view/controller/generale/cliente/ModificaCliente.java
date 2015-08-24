@@ -2,6 +2,7 @@ package presentation.mvp.view.controller.generale.cliente;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -69,7 +70,7 @@ public class ModificaCliente extends NuovoCliente{
 				presenter.processRequest("VerificaClienteModificato", cliente);
 				presenter.processRequest("ModificaCliente", cliente);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
-				((SchermataGenerale)this.getChiamante()).aggiornaElementotabella(scChiamante.getElemSelezionato("Cliente"),cliente,((SchermataGenerale)this.getChiamante()).getTable("Cliente"));			
+				((SchermataGenerale)this.getChiamante()).caricaTabella((List<Cliente>)presenter.processRequest("getAllClienti",null), scChiamante.getTable("Cliente"));
 			} 
 			catch(CommonException e){
 				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);

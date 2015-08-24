@@ -3,10 +3,12 @@ package presentation.mvp.view.controller.generale.cliente;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import business.entity.Cliente;
+import business.entity.Entity;
 import business.model.Exception.CommonException;
 import MessaggiFinestra.AlertView;
 import javafx.event.ActionEvent;
@@ -74,12 +76,12 @@ public class NuovoCliente extends Schermata{
 	@FXML
 	public void btnConferma(ActionEvent event){
 		tw=  ((SchermataGenerale)this.getChiamante()).getTable("Cliente");
-		Cliente cliente= prendiDatiDaView();
 		try {
+				Cliente cliente= prendiDatiDaView();
 				presenter.processRequest("VerificaCliente", cliente);	
 				presenter.processRequest("InserimentoCliente", cliente);
 				//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
-				((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(cliente,tw);
+				((SchermataGenerale)this.getChiamante()).caricaTabella((List<Cliente>)presenter.processRequest("getAllClienti",null), tw);
 				chiudiFinestra();
 				
 		}
@@ -104,50 +106,50 @@ public class NuovoCliente extends Schermata{
 	 * @return
 	 */
 	
-	public Cliente prendiDatiDaView(){
+	public Cliente prendiDatiDaView() throws CommonException{
 		LocalDate dParam= null;
 		
-		Cliente cliente= new Cliente();
+		if(txtNome.getText().isEmpty() || txtCognome.getText().isEmpty() || dNascita.getValue()==null ||  dEmissPatente.getValue() ==null ||
+				txtIndirizzo.getText().isEmpty() ||txtCodFisc.getText().isEmpty() ||  txtNumCel.getText().isEmpty() ||  txtPatGuida.getText().isEmpty() || txtEmail.getText().isEmpty())
 		
-		//nota che nel db l'id non lo setto io , ma va in automatico, qui è solo una questione grafica.
-		if(tw.getItems().size()==0)
-			cliente.setId(1);//qui setto l'id del cliente.
-		else 
-			cliente.setId(tw.getItems().get(tw.getItems().size()-1).getId()+1);//qui setto l'id del cliente.
+		{
+			throw new CommonException("Prima di procedere è necessario compilare tutti i campi obbligatori");
+		}
+		else {
+			
+			Cliente cliente= new Cliente();
+			
+			cliente.setNome(txtNome.getText());
+			
+			cliente.setCognome(txtCognome.getText());
+			
+			cliente.setSesso(((RadioButton)group.getSelectedToggle()).getText());
+		
+			cliente.setDatanascita(dNascita.getValue());
+
+			cliente.setDataEmissPatente(dEmissPatente.getValue());
+			
+			//data scadenza patente -> dataEmissione + 10 anni.
+			dParam= dEmissPatente.getValue();
+			dScadPatente.setValue(LocalDate.of(dParam.getYear()+10, dParam.getMonth(),dParam.getDayOfMonth()));
+			cliente.setDataScadPatente(dScadPatente.getValue());
+			
+			cliente.setIndirizzo(txtIndirizzo.getText());
+			
+			cliente.setCodFiscale(txtCodFisc.getText());
+			
+			cliente.setNumCell(txtNumCel.getText());
+			
+			cliente.setNumTel(txtNumTel.getText());
+			
+			cliente.setPatenteGuida(txtPatGuida.getText());
 	
-		cliente.setNome(txtNome.getText());
-		
-		cliente.setCognome(txtCognome.getText());
-		
-		cliente.setSesso(((RadioButton)group.getSelectedToggle()).getText());
-		
-		dParam= dNascita.getValue();
-		cliente.setDatanascita(dParam);
-
-		dParam= dEmissPatente.getValue();
-		cliente.setDataEmissPatente(dParam);
-		
-		//data scadenza patente -> dataEmissione + 10 anni.
-		dParam= dEmissPatente.getValue();
-		dScadPatente.setValue(LocalDate.of(dParam.getYear()+10, dParam.getMonth(),dParam.getDayOfMonth()));
-		dParam=dScadPatente.getValue();
-		cliente.setDataScadPatente(dParam);
-		
-		cliente.setIndirizzo(txtIndirizzo.getText());
-		
-		cliente.setCodFiscale(txtCodFisc.getText());
-		
-		cliente.setNumCell(txtNumCel.getText());
-		
-		cliente.setNumTel(txtNumTel.getText());
-		
-		cliente.setPatenteGuida(txtPatGuida.getText());
-
-		cliente.setPartitaIva(txtPartIva.getText());
-		
-		cliente.setEmail(txtEmail.getText());
-		
-		return cliente;
+			cliente.setPartitaIva(txtPartIva.getText());
+			
+			cliente.setEmail(txtEmail.getText());
+			
+			return cliente;
+		}
 	}
 	
 	@Override

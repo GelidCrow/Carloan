@@ -210,7 +210,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * @param listaClienti
 	 * @return
 	 */
-	private void caricaTabella(List<T> list,TableView<T> table){
+	public  void caricaTabella(List<T> list,TableView<T> table){
 		ObservableList<T> obsList= FXCollections.observableList(list);
 		table.setItems(obsList);
 	}

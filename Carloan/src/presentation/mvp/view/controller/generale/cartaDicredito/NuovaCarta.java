@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import business.entity.Cliente;
-import business.entity.Noleggio.Contratto;
 import business.entity.pagamento.CartaDiCredito;
 import business.entity.pagamento.tipiCircuiti;
 import business.model.Exception.CommonException;
