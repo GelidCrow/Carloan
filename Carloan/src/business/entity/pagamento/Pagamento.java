@@ -1,6 +1,8 @@
 package business.entity.pagamento;
 
-public abstract class Pagamento {
+import business.entity.Entity;
+
+public abstract class Pagamento extends Entity{
    private float depositoCauzinale;
    private float importo;
    private float detrazioneAggiuntiva;
@@ -30,4 +32,10 @@ public abstract class Pagamento {
 			this.importo = importo;
 			this.detrazioneAggiuntiva = detrazioneAggiuntiva;
 		}
+		public Pagamento(float depositoCauzinale, float detrazioneAggiuntiva) {
+			super();
+			this.depositoCauzinale = depositoCauzinale;
+			this.detrazioneAggiuntiva = detrazioneAggiuntiva;
+		}
+		public Pagamento(){}
 }

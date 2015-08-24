@@ -1,11 +1,15 @@
 package business.model;
 
+import integration.DAO.DaoFactory;
+import integration.DAO.entity.DAOAutoveicolo;
+import integration.DAO.entity.DAOCartaDiCredito;
 import business.entity.Entity;
 import business.model.Exception.CommonException;
 
 public class ModelCartaDiCredito implements Model{
 
-	
+	private DaoFactory daofactory;
+
 
 
 	@Override
@@ -16,8 +20,12 @@ public class ModelCartaDiCredito implements Model{
 
 	@Override
 	public void Inserimento(Entity parameter) {
-		// TODO Auto-generated method stub
-		
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			((DAOCartaDiCredito)daofactory.getDao("DAOCartaDiCredito")).creazione(parameter);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

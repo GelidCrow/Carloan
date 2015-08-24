@@ -1,10 +1,15 @@
 package presentation.mvp.view.controller.generale.cartaDicredito;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import business.entity.Cliente;
+import business.entity.Noleggio.Contratto;
+import business.entity.pagamento.CartaDiCredito;
 import business.entity.pagamento.tipiCircuiti;
+import business.model.Exception.CommonException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +22,7 @@ import javafx.scene.control.TextField;
 import MessaggiFinestra.AlertView;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
+import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
 
 public class NuovaCarta extends Schermata {
@@ -24,14 +30,43 @@ public class NuovaCarta extends Schermata {
 	@FXML private TextField txtNumCarta;
 	@FXML private DatePicker dScadenza;
 	@FXML private ChoiceBox<String> choiceCircuito;
-	
+	private Cliente cliente;
+	@SuppressWarnings("rawtypes")
 	@FXML
 	public void btnConferma(ActionEvent e){
-		if(txtIban.getText().isEmpty() || txtNumCarta.getText().isEmpty() || dScadenza.getValue()==null){
-			
+		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
+		cliente= (Cliente)scChiamante.getEntitaElementoSelezionato("Cliente");
+		try {
+
+				CartaDiCredito carta= prendiDatiDaView();
+				presenter.processRequest("VerificaCarta", carta);	
+				presenter.processRequest("InserimentoCarta", carta);
+				chiudiFinestra();
 		}
-	}
+		catch(CommonException e1){
+			e1.showMessage();
+		}
+		catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException e1) {
+			e1.printStackTrace();
+		}
+	 }
 	
+
+	public CartaDiCredito prendiDatiDaView() throws CommonException{
+		CartaDiCredito carta= new CartaDiCredito();
+		if(txtIban.getText().isEmpty() || txtNumCarta.getText().isEmpty() || dScadenza==null ){
+			throw new CommonException("Prima di procedere, setta i campi obbligatori");
+		}
+		carta.setCircuito(choiceCircuito.getSelectionModel().getSelectedItem());
+		carta.setIBAN(txtIban.getText());
+		carta.setDataScadenza(dScadenza.getValue());
+		carta.setNumeroCarta(txtNumCarta.getText());
+		carta.setIDCliente(cliente.getId());
+		return carta;
+	}
 
 	@FXML
 	public void btnCancella(ActionEvent event){

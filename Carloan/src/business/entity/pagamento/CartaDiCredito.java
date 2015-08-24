@@ -1,40 +1,59 @@
 package business.entity.pagamento;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import business.entity.Cliente;
 
 public class CartaDiCredito extends Pagamento{
-	private String IDCliente ; 
-	private Date dataScadenza;
+	private int IDCliente ; 
+	private LocalDate dataScadenza;
 	private String IBAN;
-	private String NueroCarta;
+	private String NumeroCarta;
 	private String Circuito;
-	private Cliente cliente;
 	
-	public Cliente getCliente() {
-		return cliente;
+
+	public int getIDCliente() {
+		return IDCliente;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+
+	public void setIDCliente(int iDCliente) {
+		IDCliente = iDCliente;
 	}
+
+
+	public String getNumeroCarta() {
+		return NumeroCarta;
+	}
+
+
+	public void setNumeroCarta(String numeroCarta) {
+		NumeroCarta = numeroCarta;
+	}
+
 
 	public CartaDiCredito(float depositoCauzinale, float importo,
 			float detrazioneAggiuntiva) {
 			super(depositoCauzinale, importo, detrazioneAggiuntiva);
 	}
+
 	
-	public String getIDCliente() {
-		return IDCliente;
-	}
-	public void setIDCliente(String iDCliente) {
+	public CartaDiCredito( int iDCliente,LocalDate dataScadenza,
+			String iBAN, String numeroCarta, String circuito) {
+		super();
 		IDCliente = iDCliente;
+		this.dataScadenza = dataScadenza;
+		IBAN = iBAN;
+		NumeroCarta = numeroCarta;
+		Circuito = circuito;
 	}
-	public Date getDataScadenza() {
+
+
+	public LocalDate getDataScadenza() {
 		return dataScadenza;
 	}
-	public void setDataScadenza(Date dataScadenza) {
+	public void setDataScadenza(LocalDate dataScadenza) {
 		this.dataScadenza = dataScadenza;
 	}
 	public String getIBAN() {
@@ -45,14 +64,6 @@ public class CartaDiCredito extends Pagamento{
 		IBAN = iBAN;
 	}
 
-	public String getNueroCarta() {
-		return NueroCarta;
-	}
-
-	public void setNueroCarta(String nueroCarta) {
-		NueroCarta = nueroCarta;
-	}
-
 	public String getCircuito() {
 		return Circuito;
 	}
@@ -61,7 +72,7 @@ public class CartaDiCredito extends Pagamento{
 		Circuito = circuito;
 	}
 
-	
+	public CartaDiCredito(){}
 	
 		
 }
