@@ -34,13 +34,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -67,11 +65,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private Label txtBenvenuto;
 	@FXML
 	private TableColumn<Cliente,String> cliente;
-	private boolean Aggiornando= false;
+
 	
 	@FXML
 	private MenuButton btnManutenzione;
-	
 	private TabClienti tbClientController;
 
 	private TabContratto tbContrattoController;
@@ -189,29 +186,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraLogin",Modality.WINDOW_MODAL);
 		}
 	}
-	/**
-	 * <p>Aggiunge un elemento ad una tabella</p>
-	 */
-	public void aggiungiElementoAtabella(T elem,TableView<T> table){
-		table.getItems().add(elem);
-	}
-	/**
-	 * <p>Modifica un elemento da una tabella, lo rimuove e poi lo aggiunge in ultima posizione, oppure nel caso era l'ultimo quello modificato lo aggiunge alla 2 posizione</p>
-	 */
-	public void aggiornaElementotabella(int id,T elem,TableView<T> table){
-		Aggiornando=true;
-		if(id>=0 && elem!=null && table!=null){
-			table.getItems().remove(id);
-			if(id==table.getItems().size()){
-				table.getItems().add(0,(T) elem);
-			}
-			else 
-				table.getItems().add((T) elem);
-		}
-		else 
-			AlertView.getAlertView("Non è possibile aggiornare l'elemento in tabella", AlertType.ERROR);
-		Aggiornando=false;
-	}	
+	
 	/**
 	 * <p>Carica la tabella dei clienti graficamente</p>
 	 * @param listaClienti
@@ -319,45 +294,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			else if(panes.get(3)==newValue){
 				if(tbAutoController==null){
 					tbAutoController=new TabAuto((TableView<Autoveicolo>)tbAuto,SchermataGenerale.this);
-					ObservableList<MenuItem> items=btnManutenzione.getItems();
-					for(MenuItem m:items){
-						switch(m.getText()){
-						case "Aggiungi":
-							m.setOnAction(new EventHandler<ActionEvent>() {
-					            public void handle(ActionEvent t) {
-					            	try {
-					        			tbAutoController.NuovaManutenzione();
-					        		} catch (CommonException e1) {
-					        			e1.showMessage();
-					        		}
-					            }
-					        });   
-							break;
-						case "Chiudi":
-							m.setOnAction(new EventHandler<ActionEvent>() {
-					            public void handle(ActionEvent t) {
-					            	try {
-					        			tbAutoController.ModificaManutenzione();
-					        		} catch (CommonException e1) {
-					        			e1.showMessage();
-					        		}
-					            }
-					        });
-							break;
-						case "Visualizza":
-							m.setOnAction(new EventHandler<ActionEvent>() {
-					            public void handle(ActionEvent t) {
-					            	try {
-					        			tbAutoController.VisualizzaManutenzione();
-					        		} catch (CommonException e1) {
-					        			e1.showMessage();
-					        		}
-					            }
-					        });
-							break;
-							
-						}
-					}
+					
 					try {
 						caricaTabella((List<T>)presenter.processRequest("getAllAuto",null), tbAuto);
 					} catch (InstantiationException | IllegalAccessException
@@ -396,7 +333,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
 			//interroga db
 			try {
-				if(Aggiornando!=true){
+				if((Contratto)getEntitaElementoSelezionato("Contratto")!=null){
 					Cliente cliente = (Cliente)presenter.processRequest("letturaCliente",((Contratto)getEntitaElementoSelezionato("Contratto")).getIdCliente());
 					popolaLabelCliente(cliente);
 					Contratto contratto= (Contratto)getEntitaElementoSelezionato("Contratto");
@@ -455,7 +392,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			panes.remove(7);
 		}	
 	}
-	
+
 	
 	@SuppressWarnings({ "rawtypes" })
 	private class ItemSelectedAutoveicolo implements ChangeListener{

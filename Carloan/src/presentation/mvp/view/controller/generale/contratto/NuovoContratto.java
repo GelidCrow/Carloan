@@ -78,7 +78,7 @@ public class NuovoContratto extends Schermata{
 					presenter.processRequest("VerificaContratto", contratto);	
 					presenter.processRequest("InserimentoContratto", contratto);
 					//Chiama il metodo della schermata che ha chiamato questa schermata per settare nella tabella dei clienti i clienti ricavati
-					((SchermataGenerale)this.getChiamante()).aggiungiElementoAtabella(contratto,tw);
+					((SchermataGenerale)this.getChiamante()).caricaTabella((List<Contratto>)presenter.processRequest("getAllContratti",null), tw);
 				chiudiFinestra();
 			}
 			catch(CommonException e){
