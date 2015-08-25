@@ -47,11 +47,12 @@ public abstract class Optional extends Entity {
 		this.id = id;
 		this.nome=nome;
 	}
-	
+	@Override
 	public int hashCode(){
 		return id;
 	}
 	 
+	@Override
     public boolean equals(Object x){
     	if((this.id==((Optional)x).getId())){
     		return true;

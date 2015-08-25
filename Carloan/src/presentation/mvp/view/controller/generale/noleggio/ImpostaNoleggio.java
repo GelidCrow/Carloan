@@ -32,6 +32,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -117,14 +119,9 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	private RadioButton rdDenaro;
 	@FXML
 	private RadioButton rdCartaCredito;
-	@FXML
-	private RadioButton rdIllimitato;
-	@FXML
-	private RadioButton rdLimitato;
 	
 	final ToggleGroup group = new ToggleGroup();
 
-	final ToggleGroup group2 = new ToggleGroup();
 	
 	
 	private ObservableList<TableColumn<Sede,?>> restituzione;
@@ -144,10 +141,19 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	private ObservableList<TableColumn<Contratto,?>> contratti;
 
 	
+	
+	/******* TABELLA CARTA DI CREDITO ***/
+	@FXML
+	private TableColumn<CartaDiCredito,String> iban;
+	@FXML
+	private TableColumn<CartaDiCredito,LocalDate> dScadenza;
+	@FXML
+	private TableColumn<CartaDiCredito,String> circuito;
+	
 	private void bindingValuesCartaCredito(){
-		carteDiCredito.get(0).setCellValueFactory(cellData ->  new SimpleStringProperty(((CartaDiCredito) cellData.getValue()).getIBAN()));
-		carteDiCredito.get(1).setCellValueFactory(cellData ->  new SimpleObjectProperty<LocalDate>(((CartaDiCredito) cellData.getValue()).getDataScadenza()));
-		carteDiCredito.get(2).setCellValueFactory(cellData ->  new SimpleStringProperty(((CartaDiCredito) cellData.getValue()).getCircuito()));
+		iban.setCellValueFactory(cellData ->  new SimpleStringProperty(((CartaDiCredito) cellData.getValue()).getIBAN()));
+		dScadenza.setCellValueFactory(cellData ->  new SimpleObjectProperty<LocalDate>(((CartaDiCredito) cellData.getValue()).getDataScadenza()));
+		circuito.setCellValueFactory(cellData ->  new SimpleStringProperty(((CartaDiCredito) cellData.getValue()).getCircuito()));
 	}
 	
 	/******* TABELLA AUTOVEICOLO ***/
@@ -166,9 +172,15 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		modello.setCellValueFactory(cellData ->  new SimpleStringProperty(((Autoveicolo) cellData.getValue()).getModello()));
 		prezzoAuto.setCellValueFactory(cellData ->  new SimpleFloatProperty(((Autoveicolo) cellData.getValue()).getPrezzo()));
 	}
+	
+	/******* TABELLA CONTRATTO ***/
+	@FXML
+	private TableColumn<Contratto,?> IDContratto;
+	@FXML
+	private TableColumn<Contratto,LocalDate> dScadenzaContratto;
 	private void bindingValuesContratto(){
-		contratti.get(0).setCellValueFactory(cellData ->  new SimpleIntegerProperty(((Contratto) cellData.getValue()).getIDContratto()));
-		contratti.get(1).setCellValueFactory(cellData ->  new SimpleObjectProperty<LocalDate>(((Contratto) cellData.getValue()).getDataCreazione()));
+		IDContratto.setCellValueFactory(cellData ->  new SimpleIntegerProperty(((Contratto) cellData.getValue()).getIDContratto()));
+		dScadenzaContratto.setCellValueFactory(cellData ->  new SimpleObjectProperty<LocalDate>(((Contratto) cellData.getValue()).getDataCreazione()));
 	}
 	
 	private void bindingValuesGuidatore(){
@@ -176,19 +188,32 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		guidatori.get(1).setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getNome()+((Guidatore) cellData.getValue()).getCognome()));
 	}
 	
+	/** OPTIONAL **/
+	@FXML
+	private TableColumn<Optional,String> nomeOptNoleggio;
+	@FXML
+	private TableColumn<Optional,String> DescOptNoleggio;
+	
+	@FXML
+	private TableColumn<Optional,String> nomeOptAuto;
+	@FXML
+	private TableColumn<Optional,String> descOptAuto;
+	
+	@FXML
+	private TableColumn<Optional,String> nomeOptScelti;
+	@FXML
+	private TableColumn<Optional,String> descOptScelti;
+	
+	
 	private void bindingValuesOptional(){
-		optionalNoleggio.get(0).setCellValueFactory(cellData ->  new SimpleIntegerProperty(((Optional) cellData.getValue()).getId()));
-		optionalNoleggio.get(1).setCellValueFactory(cellData ->  new SimpleStringProperty(((Optional) cellData.getValue()).getDescrizione()));
-		optionalNoleggio.get(2).setCellValueFactory(cellData ->  new SimpleFloatProperty(((Optional) cellData.getValue()).getPrezzo()));
-		
+		nomeOptNoleggio.setCellValueFactory(cellData ->  new SimpleStringProperty(((Optional) cellData.getValue()).getNome()));
+		DescOptNoleggio.setCellValueFactory(cellData ->  new SimpleStringProperty(((Optional) cellData.getValue()).getDescrizione()));
 
-		optionalAuto.get(0).setCellValueFactory(cellData ->  new SimpleIntegerProperty(((Optional) cellData.getValue()).getId()));
-		optionalAuto.get(1).setCellValueFactory(cellData ->  new SimpleStringProperty(((Optional) cellData.getValue()).getDescrizione()));
-		optionalAuto.get(2).setCellValueFactory(cellData ->  new SimpleFloatProperty(((Optional) cellData.getValue()).getPrezzo()));
+		nomeOptAuto.setCellValueFactory(cellData ->  new SimpleStringProperty(((Optional) cellData.getValue()).getNome()));
+		descOptAuto.setCellValueFactory(cellData ->  new SimpleStringProperty(((Optional) cellData.getValue()).getDescrizione()));
 		
-		optionalScelti.get(0).setCellValueFactory(cellData ->  new SimpleIntegerProperty(((Optional) cellData.getValue()).getId()));
-		optionalScelti.get(1).setCellValueFactory(cellData ->  new SimpleStringProperty(((Optional) cellData.getValue()).getDescrizione()));
-		optionalScelti.get(2).setCellValueFactory(cellData ->  new SimpleFloatProperty(((Optional) cellData.getValue()).getPrezzo()));
+		nomeOptScelti.setCellValueFactory(cellData ->  new SimpleStringProperty(((Optional) cellData.getValue()).getNome()));
+		descOptScelti.setCellValueFactory(cellData ->  new SimpleStringProperty(((Optional) cellData.getValue()).getDescrizione()));
 	}
 	
 	
@@ -212,8 +237,6 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	private void inizializzaToggleButton(){
 		rdDenaro.setToggleGroup(group);
 		rdCartaCredito.setToggleGroup(group);
-		rdIllimitato.setToggleGroup(group2);
-		rdLimitato.setToggleGroup(group2);
 	}
 	
 	/**
@@ -234,6 +257,11 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			optional = (List<Optional>)presenter.processRequest("getAllOptional",null);
 			Set<Optional> viewOptional = new HashSet<Optional>();
 			viewOptional.addAll(optional); 
+			for(Optional op: optional){
+				System.out.println(op);
+			}
+			for(Optional c : viewOptional){
+			}
 			List<OptionalAuto> optAuto = new ArrayList<OptionalAuto>();
 			List<OptionalNoleggio> optNoleggio = new ArrayList<OptionalNoleggio>();
 			for(Optional op: viewOptional){
@@ -294,6 +322,36 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		}
 	}
 	
+	/**
+	 * <p> Ascoltatore per il cambio di elemento dal COntratto per settare i label per le info aggiuntive </p>
+	 */
+	@SuppressWarnings("rawtypes")
+	private class ItemSelectedContratto implements ChangeListener{
+	
+		@SuppressWarnings("unchecked")
+		@Override
+		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+			//interroga db
+			try {
+					Contratto contratto= (Contratto)tbContratto.getSelectionModel().getSelectedItem();
+					Cliente cliente = (Cliente)presenter.processRequest("letturaCliente",contratto.getIdCliente());
+					popolaLabelCliente(cliente);
+					caricaTabella((List<T>)presenter.processRequest("getCarteByCliente",contratto.getIdCliente()), tbCartaCredito);
+					
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | NoSuchMethodException
+					| SecurityException | IllegalArgumentException
+					| InvocationTargetException | CommonException e) {
+				e.printStackTrace();
+			}
+		}
+		private void popolaLabelCliente(Cliente cliente){
+			 lblCodFiscale.setText(cliente.getCodFiscale());
+			 lblNome.setText(cliente.getNome());
+			 lblCognome.setText(cliente.getCognome());
+		}
+	
+	}
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -301,19 +359,20 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		FXMLParameter = new ParametriFXML(null,false);
 
 		bindingValuesRestituzione();
+		bindingValuesOptional();
 		bindingValuesAutoveicolo();
-		//bindingValuesOptional();
+		bindingValuesContratto();
+		bindingValuesCartaCredito();
 		//bindingValuesGuidatore();
-		//bindingValuesContratto();
-		//bindingValuesCartaCredito();
 
 		inizializzaToggleButton();
-	//	inizializzaTabelleOptional();
+		inizializzaTabelleOptional();
 		try {
 
 			caricaTabella((List<T>)presenter.processRequest("getAllSedi",null), tbRestituzione);
 			inizializzaTabellaAutoveicolo();
-			
+			caricaTabella((List<T>)presenter.processRequest("getAllContratti",null), tbContratto);
+			tbContratto.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedContratto());
 		
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

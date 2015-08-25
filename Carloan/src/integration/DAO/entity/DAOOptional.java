@@ -5,6 +5,7 @@ import integration.DAO.connection.Connection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
@@ -67,7 +68,7 @@ public class DAOOptional implements DAO{
 	}
 	
 	public List<Optional> getAll(){
-		 String readQuery = "Select Nome,Descrizione,prezzo,LimiteCopertura,numeroSeggiolini,numeroGuidatoriAggiuntivi from Optional";
+		 String readQuery = "Select * from Optional";
 
 		Connection connection= Connection.getConnection(daofactory);
 		 
@@ -93,10 +94,9 @@ public class DAOOptional implements DAO{
 		return risultato;
 	}
 	
-	@SuppressWarnings("null")
 	public List<Optional> creaElencoOptional(ResultSet resultset) throws InstantiationException, IllegalAccessException{
 	
-		List<Optional> risultato = null;
+		List<Optional> risultato = new ArrayList<Optional>();
         try {
          if(resultset!=null){
             while (resultset.next()) {
@@ -111,22 +111,19 @@ public class DAOOptional implements DAO{
 	}
 
   	private Optional ottieniOptional(ResultSet resultset){
-  		DAOGuidatore daoGuidatore ;
-		daoGuidatore= (DAOGuidatore) daofactory.getDao("DAOGuidatore");
         try {
 			switch (resultset.getString(5)){
 				case "Gps": 
 					return new Gps(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5));
-				case "Assicuraziones_Kasko": 	
+				case "assicurazionekasko": 	
 					return new Assicurazione_KASKO(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5),resultset.getFloat(4));
 				case "guidatoreAggiuntivo": 
-					List<Guidatore> guidatori = daoGuidatore.getAllByOptional(resultset.getInt(1));
-					return new GuidatoreAggiuntivo(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5),guidatori);
+					return new GuidatoreAggiuntivo(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5));
 				case "chilometraggioIllimitato": 
 					return new ChilometraggioIllimitato(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5),resultset.getFloat(4));
 				case "cateneNeve":
 					return new CateneNeve(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5));
-				case "Seggiolino":
+				case "seggiolino":
 					return new Seggiolino(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5), resultset.getInt(6));
 			}
 		} catch (SQLException e) {

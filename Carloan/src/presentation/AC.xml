@@ -190,4 +190,10 @@
 		<method>getAllByCliente</method>
 	</call>
 	
+	<!-- OPTIONAL  -->
+	<call id="getAllOptional">
+		<class>business.model.ModelOptional</class>
+		<method>getAll</method>
+	</call>
+	
 </calls>
