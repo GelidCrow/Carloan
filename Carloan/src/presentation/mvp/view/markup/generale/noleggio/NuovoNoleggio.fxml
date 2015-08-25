@@ -78,7 +78,7 @@
             <Label layoutX="881.0" layoutY="422.0" text="Cauzione" />
             <TextField fx:id="txtTotale" layoutX="999.0" layoutY="447.0" prefHeight="25.0" prefWidth="104.0" />
             <Label layoutX="1009.0" layoutY="422.0" prefHeight="17.0" prefWidth="43.0" text="Totale" />
-            <Button fx:id="btnAggiungi" layoutX="228.0" layoutY="573.0" mnemonicParsing="false" onAction="#btnAggiungiOptional" prefHeight="25.0" prefWidth="89.0" text="Aggiungi" />
+            <Button fx:id="btnAggiungi" layoutX="228.0" layoutY="573.0" mnemonicParsing="false" onAction="#btnAggiungiOptionalNoleggio" prefHeight="25.0" prefWidth="89.0" text="Aggiungi" />
             <ChoiceBox fx:id="choiceLimite" layoutX="31.0" layoutY="690.0" prefHeight="25.0" prefWidth="133.0" />
             <TableView fx:id="tbOptionalAuto" layoutX="411.0" layoutY="580.0" prefHeight="102.0" prefWidth="316.0">
                <columns>
@@ -91,16 +91,16 @@
             <Label layoutX="407.0" layoutY="561.0" text="Optional Auto" />
             <Label layoutX="31.0" layoutY="640.0" text="Chilometraggio Limitato*" />
             <Label layoutX="33.0" layoutY="665.0" text="Limite" />
-            <Button fx:id="btnAggiungiAuto" layoutX="652.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnAggiungiOptional" prefHeight="25.0" prefWidth="71.0" text="Aggiungi" />
+            <Button fx:id="btnAggiungiAuto" layoutX="652.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnAggiungiOptionalAuto" prefHeight="25.0" prefWidth="71.0" text="Aggiungi" />
             <Button layoutX="1016.0" layoutY="533.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta" />
-            <TableView fx:id="tbOptionalScelti" layoutX="758.0" layoutY="42.0" prefHeight="91.0" prefWidth="271.0">
+            <TableView fx:id="tbOptionalScelti" layoutX="757.0" layoutY="28.0" prefHeight="112.0" prefWidth="426.0">
                <columns>
-                  <TableColumn fx:id="nomeOptScelti" prefWidth="127.0" text="Nome" />
-                  <TableColumn fx:id="descOptScelti" prefWidth="141.0" text="Descrizione" />
+                  <TableColumn fx:id="nomeOptScelti" prefWidth="188.0" text="Nome" />
+                  <TableColumn fx:id="descOptScelti" prefWidth="237.0" text="Descrizione" />
                </columns>
             </TableView>
-            <Button fx:id="btnRimuovi1" layoutX="1030.0" layoutY="109.0" mnemonicParsing="false" onAction="#btnRimuoviOptional" text="Rimuovi" />
-            <Label layoutX="758.0" layoutY="15.0" text="Optional  scelti" />
+            <Button fx:id="btnRimuovi1" layoutX="1122.0" layoutY="155.0" mnemonicParsing="false" onAction="#btnRimuoviOptional" text="Rimuovi" />
+            <Label layoutX="761.0" layoutY="6.0" text="Optional  scelti" />
             <Label layoutX="431.0" layoutY="34.0" text="Dati Guidatore" />
             <Label layoutX="437.0" layoutY="62.0" text="Nome *" />
             <TextField fx:id="txtNome" layoutX="515.0" layoutY="62.0" />

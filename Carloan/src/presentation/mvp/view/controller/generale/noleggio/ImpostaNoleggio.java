@@ -69,13 +69,13 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	private TableView<T> tbRestituzione;
 	@FXML
-	private TableView<T> tbOptionalNoleggio;	
+	protected TableView<T> tbOptionalNoleggio;	
 	@FXML
-	private TableView<T> tbOptionalScelti;
+	protected  TableView<T> tbOptionalScelti;
 	@FXML
 	private ChoiceBox<Integer> choiceSeggiolini;
 	@FXML
-	private ChoiceBox<Integer> choiceLimite;
+	protected ChoiceBox<Integer> choiceLimite;
 	/***
 	 * Cliente
 	 */
@@ -107,7 +107,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	private TableView<T> tbContratto;
 	@FXML
-	private TableView<T> tbOptionalAuto;
+	protected TableView<T> tbOptionalAuto;
 	@FXML
 	private ChoiceBox<Fascia> choiceFascia;
 	@FXML
@@ -235,11 +235,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	
 	
 	
-	private void inizializzaToggleButton(){
-		rdDenaro.setToggleGroup(group);
-		rdCartaCredito.setToggleGroup(group);
-	}
-	
+
 	/**
 	 * <p>Carica la tabella dei clienti graficamente</p>
 	 * @param listaClienti
@@ -321,6 +317,8 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	private Label lblprezzoOptNoleggio;
 	@FXML
 	private Label lblLimiteCopertura;
+	@FXML
+	private Label lblprezzoOptAuto;
 	/**
 	 * <p> Ascoltatore per il cambio di elemento dal COntratto per settare i label per le info aggiuntive </p>
 	 */
@@ -338,8 +336,11 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 					popolaLabelCliente(cliente);
 					caricaTabella((List<T>)presenter.processRequest("getCarteByCliente",contratto.getIdCliente()), tbCartaCredito);
 				}
-				else if(newValue instanceof Optional){
-					popolaLabelOptional(newValue);
+				else if(newValue instanceof OptionalAuto){
+					popolaLabelOptionalAuto(newValue);
+				}
+				else {
+					popolaLabelOptionalNoleggio(newValue);
 				}
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
@@ -355,7 +356,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		}
 		
 		
-		private void popolaLabelOptional(Object optional){
+		private void popolaLabelOptionalNoleggio(Object optional){
 			Optional option = (Optional) optional;
 			lblLimiteCopertura.setText("");
 			if(option instanceof Assicurazione_KASKO){
@@ -363,7 +364,22 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			}
 			lblprezzoOptNoleggio.setText(String.valueOf(option.getPrezzo())+  " €");
 		}
+		
+		private void popolaLabelOptionalAuto(Object optional){
+			Optional option = (Optional) optional;
+			lblprezzoOptAuto.setText(String.valueOf(option.getPrezzo())+  " €");
+		}
 	
+	}
+	
+	
+	
+	private void inizializzaToggleButton(){
+		rdDenaro.setToggleGroup(group);
+		rdCartaCredito.setToggleGroup(group);
+	}
+	private void inizializzaChoiceBox(){
+		
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -379,14 +395,16 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		//bindingValuesGuidatore();
 
 		inizializzaToggleButton();
+		inizializzaChoiceBox();
 		inizializzaTabelleOptional();
 		try {
-
+			
 			caricaTabella((List<T>)presenter.processRequest("getAllSedi",null), tbRestituzione);
 			inizializzaTabellaAutoveicolo();
 			caricaTabella((List<T>)presenter.processRequest("getAllContratti",null), tbContratto);
 			tbContratto.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalNoleggio.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
+			tbOptionalScelti.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
@@ -394,4 +412,6 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			e.printStackTrace();
 		}
 	}
+	
+	
 }
