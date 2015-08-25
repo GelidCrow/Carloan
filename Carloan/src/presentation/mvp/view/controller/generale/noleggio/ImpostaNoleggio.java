@@ -21,6 +21,7 @@ import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Gestori.SupervisoreSede;
 import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Contratto;
+import business.entity.Noleggio.Optional.Assicurazione_KASKO;
 import business.entity.Noleggio.Optional.Guidatore;
 import business.entity.Noleggio.Optional.Optional;
 import business.entity.Noleggio.Optional.OptionalAuto;
@@ -255,13 +256,9 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		List<Optional> optional;
 		try {
 			optional = (List<Optional>)presenter.processRequest("getAllOptional",null);
+			//metto nel set cosi toglie i doppioni
 			Set<Optional> viewOptional = new HashSet<Optional>();
 			viewOptional.addAll(optional); 
-			for(Optional op: optional){
-				System.out.println(op);
-			}
-			for(Optional c : viewOptional){
-			}
 			List<OptionalAuto> optAuto = new ArrayList<OptionalAuto>();
 			List<OptionalNoleggio> optNoleggio = new ArrayList<OptionalNoleggio>();
 			for(Optional op: viewOptional){
@@ -272,12 +269,11 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 					optNoleggio.add((OptionalNoleggio) op);
 			}
 			caricaTabella((List<T>) optAuto, tbOptionalAuto);
-			caricaTabella((List<T>) optAuto, tbOptionalNoleggio);
+			caricaTabella((List<T>) optNoleggio, tbOptionalNoleggio);
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
 				| InvocationTargetException | CommonException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -285,7 +281,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	}
 	
 	/**
-	 * <p>Fa visualizzare solo le auto opportune in base all'utente corrente</p>
+	 * <p>Fa visualizzare solo le auto opportune in base all'utente corrente e in base alla fascia</p>
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
@@ -321,23 +317,30 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			caricaTabella((List<T>)autoveicoli, tbAutoveicolo);
 		}
 	}
-	
+	@FXML
+	private Label lblprezzoOptNoleggio;
+	@FXML
+	private Label lblLimiteCopertura;
 	/**
 	 * <p> Ascoltatore per il cambio di elemento dal COntratto per settare i label per le info aggiuntive </p>
 	 */
 	@SuppressWarnings("rawtypes")
-	private class ItemSelectedContratto implements ChangeListener{
+	private class ItemSelected implements ChangeListener{
 	
 		@SuppressWarnings("unchecked")
 		@Override
 		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
 			//interroga db
 			try {
-					Contratto contratto= (Contratto)tbContratto.getSelectionModel().getSelectedItem();
+				if(newValue instanceof Contratto){
+					Contratto contratto= (Contratto)newValue;
 					Cliente cliente = (Cliente)presenter.processRequest("letturaCliente",contratto.getIdCliente());
 					popolaLabelCliente(cliente);
 					caricaTabella((List<T>)presenter.processRequest("getCarteByCliente",contratto.getIdCliente()), tbCartaCredito);
-					
+				}
+				else if(newValue instanceof Optional){
+					popolaLabelOptional(newValue);
+				}
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
 					| SecurityException | IllegalArgumentException
@@ -349,6 +352,16 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			 lblCodFiscale.setText(cliente.getCodFiscale());
 			 lblNome.setText(cliente.getNome());
 			 lblCognome.setText(cliente.getCognome());
+		}
+		
+		
+		private void popolaLabelOptional(Object optional){
+			Optional option = (Optional) optional;
+			lblLimiteCopertura.setText("");
+			if(option instanceof Assicurazione_KASKO){
+				lblLimiteCopertura.setText(String.valueOf(((Assicurazione_KASKO)option).getCopertura())+ " €");	
+			}
+			lblprezzoOptNoleggio.setText(String.valueOf(option.getPrezzo())+  " €");
 		}
 	
 	}
@@ -372,8 +385,8 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			caricaTabella((List<T>)presenter.processRequest("getAllSedi",null), tbRestituzione);
 			inizializzaTabellaAutoveicolo();
 			caricaTabella((List<T>)presenter.processRequest("getAllContratti",null), tbContratto);
-			tbContratto.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedContratto());
-		
+			tbContratto.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
+			tbOptionalNoleggio.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException

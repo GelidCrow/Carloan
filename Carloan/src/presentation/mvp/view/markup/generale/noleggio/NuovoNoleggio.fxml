@@ -42,7 +42,7 @@
             <TextField fx:id="txtNumSettimane" layoutX="162.0" layoutY="142.0" prefHeight="17.0" prefWidth="149.0" />
             <TextField fx:id="txtNumGiorni" layoutX="162.0" layoutY="168.0" />
             <Label layoutX="18.0" layoutY="434.0" text="Optional Noleggio " />
-            <TableView fx:id="tbOptionalNoleggio" layoutX="22.0" layoutY="465.0" prefHeight="91.0" prefWidth="296.0">
+            <TableView fx:id="tbOptionalNoleggio" layoutX="22.0" layoutY="454.0" prefHeight="119.0" prefWidth="296.0">
                <columns>
                   <TableColumn fx:id="nomeOptNoleggio" prefWidth="143.0" text="Nome" />
                   <TableColumn fx:id="DescOptNoleggio" prefWidth="152.0" text="Descrizione" />
@@ -78,7 +78,7 @@
             <Label layoutX="881.0" layoutY="422.0" text="Cauzione" />
             <TextField fx:id="txtTotale" layoutX="999.0" layoutY="447.0" prefHeight="25.0" prefWidth="104.0" />
             <Label layoutX="1009.0" layoutY="422.0" prefHeight="17.0" prefWidth="43.0" text="Totale" />
-            <Button fx:id="btnAggiungi" layoutX="229.0" layoutY="566.0" mnemonicParsing="false" onAction="#btnAggiungiOptional" prefHeight="25.0" prefWidth="89.0" text="Aggiungi" />
+            <Button fx:id="btnAggiungi" layoutX="228.0" layoutY="573.0" mnemonicParsing="false" onAction="#btnAggiungiOptional" prefHeight="25.0" prefWidth="89.0" text="Aggiungi" />
             <ChoiceBox fx:id="choiceLimite" layoutX="31.0" layoutY="690.0" prefHeight="25.0" prefWidth="133.0" />
             <TableView fx:id="tbOptionalAuto" layoutX="411.0" layoutY="580.0" prefHeight="102.0" prefWidth="316.0">
                <columns>
@@ -135,8 +135,8 @@
             <Label fx:id="lblLimiteCopertura" layoutX="168.0" layoutY="605.0" prefHeight="17.0" prefWidth="149.0" />
             <Label layoutX="413.0" layoutY="689.0" text="Prezzo" />
             <Label fx:id="lblprezzoOptAuto" layoutX="481.0" layoutY="694.0" prefHeight="17.0" prefWidth="127.0" />
-            <Label fx:id="lblprezzoOptNoleggio" layoutX="90.0" layoutY="570.0" prefHeight="17.0" prefWidth="127.0" />
-            <Label layoutX="23.0" layoutY="570.0" text="Prezzo" />
+            <Label fx:id="lblprezzoOptNoleggio" layoutX="87.0" layoutY="585.0" prefHeight="17.0" prefWidth="127.0" />
+            <Label layoutX="22.0" layoutY="585.0" text="Prezzo" />
             <Label fx:id="lblprezzoOptScelti" layoutX="843.0" layoutY="140.0" prefHeight="17.0" prefWidth="127.0" />
             <Label layoutX="768.0" layoutY="140.0" text="Prezzo" />
             <Label layoutX="771.0" layoutY="160.0" text="Chilometraggio" />
