@@ -41,21 +41,23 @@ public class DAOFascia implements DAO {
 	public LinkedList<Fascia> getAll(){
 		String query="Select * from Fascia";
 		Connection c=Connection.getConnection(daofactory);
-		LinkedList<Fascia> fasce = null;
+		LinkedList<Fascia> fasce =new LinkedList<Fascia>();
 		try {
 			ResultSet r=c.executeRead(query);
 			if(r!=null){
+				
 				while(r.next()){
-					fasce=new LinkedList<Fascia>();
-					switch(r.getString(4)){
-					case "Suv":
-						fasce.add(new Suv(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4)));
+					
+					switch(r.getString(4).toLowerCase()){
+					case "suv":
+						fasce.add(new Suv(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4),r.getFloat(5)));
 						break;
-					case "Lusso":
-						fasce.add(new Lusso(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4)));
+					case "lusso":
+						fasce.add(new Lusso(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4),r.getFloat(5)));
 						break;
-					case "Utilitaria":
-						fasce.add(new Utlitaria(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4)));
+					case "utilitaria":
+						fasce.add(new Utlitaria(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4),r.getFloat(5)));
+						break;
 					}
 				}
 			}

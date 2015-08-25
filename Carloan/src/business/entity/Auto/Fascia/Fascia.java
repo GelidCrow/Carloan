@@ -7,12 +7,14 @@ public abstract  class Fascia extends Entity{
 	private float prezzo;
 	private String nome;
 	private String Descrizione;
-	public Fascia(int iDFascia, float prezzo,  String descrizione,String nome) {
+	private float costo_kilometrico;
+	public Fascia(int iDFascia, float prezzo,  String descrizione,String nome,float f) {
 		super();
 		IDFascia = iDFascia;
 		this.prezzo = prezzo;
 		Descrizione = descrizione;
 		this.setNome(nome);
+		this.costo_kilometrico=f;
 	}
 	public int getIDFascia() {
 		return IDFascia;
@@ -38,6 +40,12 @@ public abstract  class Fascia extends Entity{
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public float getCosto_kilometrico() {
+		return costo_kilometrico;
+	}
+	public void setCosto_kilometrico(float costo_kilometrico) {
+		this.costo_kilometrico = costo_kilometrico;
 	}
 	
 }
