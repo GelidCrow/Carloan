@@ -49,7 +49,7 @@ public abstract class Optional extends Entity {
 	}
 	@Override
 	public int hashCode(){
-		return id;
+		return nome.hashCode();
 	}
 	 
 	@Override

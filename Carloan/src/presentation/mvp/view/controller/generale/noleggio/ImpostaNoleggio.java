@@ -38,11 +38,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -112,7 +115,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	private ChoiceBox<String> choiceFascia;
 	@FXML
-	private TextField txtImporto;
+	private TextField txtAcconto;
 	@FXML
 	private TextField txtCauzione;
 	@FXML
@@ -232,10 +235,6 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		NomeSede.setCellValueFactory(cellData ->  new SimpleStringProperty(((Sede) cellData.getValue()).getNome()));
 		IndirizzoSede.setCellValueFactory(cellData ->  new SimpleStringProperty(((Sede) cellData.getValue()).getIndirizzo()));
 	}
-	
-	
-	
-	
 
 	/**
 	 * <p>Carica la tabella dei clienti graficamente</p>
@@ -247,16 +246,25 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		table.setItems(obsList);
 	}
 	
-	
+
+	private List<Optional> optional=null;
+	private List<Seggiolino> seggiolini=null;
 	@SuppressWarnings("unchecked")
 	private void inizializzaTabelleOptional(){
-		List<Optional> optional;
 		try {
 			optional = (List<Optional>)presenter.processRequest("getAllOptional",null);
+			seggiolini= new ArrayList<Seggiolino>();
+			//imposto gli optional senza eliminarli
+			for(Optional e : optional){
+				if(e instanceof Seggiolino){
+					seggiolini.add((Seggiolino) e);
+				}
+			}
 			//metto nel set cosi toglie i doppioni
 			Set<Optional> viewOptional = new HashSet<Optional>();
-			viewOptional.addAll(optional); 
+			viewOptional.addAll(optional);
 			List<OptionalAuto> optAuto = new ArrayList<OptionalAuto>();
+		
 			List<OptionalNoleggio> optNoleggio = new ArrayList<OptionalNoleggio>();
 			for(Optional op: viewOptional){
 				if(op instanceof OptionalAuto){
@@ -265,6 +273,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 				else 
 					optNoleggio.add((OptionalNoleggio) op);
 			}
+			
 			caricaTabella((List<T>) optAuto, tbOptionalAuto);
 			caricaTabella((List<T>) optNoleggio, tbOptionalNoleggio);
 		} catch (InstantiationException | IllegalAccessException
@@ -396,12 +405,34 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		 
 		 //NUMERO SEGGIOLINI
 		 LinkedList<Integer> temp2=new LinkedList<Integer>();
-		 temp2.add(1);
-		 temp2.add(2);
-		 temp2.add(3);
+		 for(int i=1;i<=seggiolini.size();i++){
+			 temp2.add(i);
+		 }
 		 choiceSeggiolini.setItems(FXCollections.observableArrayList(temp2));
 		 choiceSeggiolini.getSelectionModel().select(0);
 		 choiceSeggiolini.setDisable(true);
+		 
+		 //LIMITE CHILOMETRAGGIO
+		 LinkedList<Integer> temp3=new LinkedList<Integer>();
+		 temp3.add(10000);
+		 temp3.add(20000);
+		 temp3.add(30000);
+		 choiceLimite.setItems(FXCollections.observableArrayList(temp3));
+		 choiceLimite.getSelectionModel().select(0);
+	}
+	
+	/**
+	 * <p>Prende il seggiolino in posizione 2 e mette i lsuo prezzo.</p>
+	 * @author francesco
+	 *
+	 */
+	private class ItemChoiceSelected implements ChangeListener<Integer>{
+
+		@Override
+		public void changed(ObservableValue<? extends Integer> observable,
+				Integer oldValue, Integer newValue) {
+			lblprezzoOptAuto.setText(seggiolini.get(newValue-1).getPrezzo() + " €");
+		}
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -427,6 +458,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			tbOptionalNoleggio.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalScelti.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
+			choiceSeggiolini.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelected());
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException

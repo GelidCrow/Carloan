@@ -6,6 +6,7 @@ public abstract class Pagamento extends Entity{
    private float depositoCauzinale;
    private float importo;
    private float detrazioneAggiuntiva;
+
    
 	public float getDepositoCauzinale() {
 		return depositoCauzinale;
