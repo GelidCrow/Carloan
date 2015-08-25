@@ -1,11 +1,13 @@
 package integration.DAO.entity;
 
+import static utility.QueryStringReplacer.queryReplaceFirst;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
@@ -79,4 +81,32 @@ public class DAOSede implements DAO {
 		}
 		return lesedi;
 	}
+	
+	
+	public List<Sede> 	getAllSediByAgenzia(int id){
+		String readQuery = "Select * from Sede where idAgenzia='?'";
+		 readQuery = queryReplaceFirst(readQuery, String.valueOf(id));
+
+		 Connection connection= Connection.getConnection(dao);
+	        
+	     ResultSet readQueryResultSet = null;
+	     List<Sede> risultato = null;
+	     try {
+			readQueryResultSet = connection.executeRead(readQuery);	
+			risultato= creaElencoSedi(readQueryResultSet);
+		 } catch (SQLException  e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere le sedi" , AlertType.ERROR);
+		 }
+		 finally{
+			try {
+				readQueryResultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+
+	    return risultato;
+	}
+
 }

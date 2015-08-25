@@ -130,6 +130,10 @@
 		<class>business.model.ModelAutoveicolo</class>
 		<method>getAll</method>
 	</call>
+	<call id="getAllAutoDisponibiliBySede">
+		<class>business.model.ModelAutoveicolo</class>
+		<method>getAllAutoDisponibiliBySede</method>
+	</call>
 	<call id="getAllFasce">
 		<class>business.model.ModelFascia</class>
 		<method>getAll</method>
@@ -160,12 +164,18 @@
 		<class>business.model.ManutenzioneChecker</class>
 		<method>check</method>
 	</call>
+	
 	<!--Sede-->
 	<call id="getAllSedi">
 		<class>business.model.ModelSede</class>
 		<method>getAll</method>
 	</call>
 	
+	<call id="getAllSediByAgenzia">
+		<class>business.model.ModelSede</class>
+		<method>getAllSediByAgenzia</method>
+	</call>
+
 	<!-- CartaDiCredito -->
 	<call id="InserimentoCarta">
 		<class>business.model.ModelCartaDiCredito</class>

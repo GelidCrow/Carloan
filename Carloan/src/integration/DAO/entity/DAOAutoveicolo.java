@@ -280,5 +280,30 @@ public DAOAutoveicolo(DaoFactory dao) {
 
 		return i;
 	}
-
+	
+	
+	public List<Autoveicolo> getAllAutoDisponibiliBySede(int id){
+		 String readQuery = "Select * from Autoveicolo where idSede='?' and disponibilita='Disponibile'";
+		 readQuery=queryReplaceFirst(readQuery,String.valueOf(id));
+		 
+		 Connection connection= Connection.getConnection(dao);
+	        
+	     ResultSet readQueryResultSet = null;
+	     List<Autoveicolo> risultato = null;
+	     try {
+			readQueryResultSet = connection.executeRead(readQuery);	
+			risultato= creaElencoAuto(readQueryResultSet);
+		 } catch (SQLException  e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere le auto" , AlertType.ERROR);
+		 }
+		 finally{
+			try {
+				readQueryResultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+	    return risultato;
+	}
 }

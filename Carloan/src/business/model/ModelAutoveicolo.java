@@ -52,7 +52,19 @@ public class ModelAutoveicolo implements Model{
 		}
 		return null;
 	}
-
+	
+	
+	public List<Autoveicolo> getAllAutoDisponibiliBySede(int id) {
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoDisponibiliBySede(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	@Override
 	public Entity lettura(int id) {
 		try {
@@ -64,6 +76,7 @@ public class ModelAutoveicolo implements Model{
 		}
 		return null;
 	}
+	
 	public InputStream leggi_immagine(int id){
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
@@ -75,5 +88,6 @@ public class ModelAutoveicolo implements Model{
 		return null;
 	}
 	
+
 
 }

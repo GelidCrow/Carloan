@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="20.0" prefWidth="1024.0">
         <menus>
@@ -227,7 +227,7 @@
                           <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView fx:id="tbAuto" layoutY="170.0" prefHeight="348.0" prefWidth="1228.0">
+                                    <TableView fx:id="tbAuto" layoutY="116.0" prefHeight="242.0" prefWidth="1133.0">
                                        <columns>
                                           <TableColumn prefWidth="75.0" text="Targa" />
                                           <TableColumn prefWidth="75.0" text="Marca" />
@@ -260,6 +260,8 @@
                                       </items>
                                     </MenuButton>
                                     <ImageView fx:id="auto_image" fitHeight="154.0" fitWidth="249.0" layoutX="846.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Label layoutX="26.0" layoutY="370.0" prefHeight="17.0" prefWidth="149.0" text="Sede di Appartenenza" />
+                                    <Label layoutX="327.0" layoutY="370.0" />
                                  </children>
                               </AnchorPane>
                           </content>
@@ -286,7 +288,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView layoutY="111.0" prefHeight="407.0" prefWidth="1236.0" />
+                                    <TableView layoutX="-1.0" layoutY="110.0" prefHeight="235.0" prefWidth="1244.0" />
                                     <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
@@ -296,6 +298,7 @@
                                        </image>
                                     </ImageView>
                                     <TextField layoutX="63.0" layoutY="57.0" />
+                                    <Label layoutX="13.0" layoutY="347.0" prefHeight="17.0" prefWidth="143.0" text="Agenzia di Appartenenza" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -304,7 +307,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView layoutY="111.0" prefHeight="407.0" prefWidth="1236.0" />
+                                    <TableView layoutY="111.0" prefHeight="402.0" prefWidth="1236.0" />
                                     <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
@@ -322,7 +325,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView layoutY="111.0" prefHeight="407.0" prefWidth="1236.0" />
+                                    <TableView layoutY="111.0" prefHeight="237.0" prefWidth="1236.0" />
                                     <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
@@ -332,6 +335,7 @@
                                        </image>
                                     </ImageView>
                                     <TextField layoutX="63.0" layoutY="57.0" />
+                                    <Label layoutX="26.0" layoutY="379.0" text="Sede di Appartenenza" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -340,7 +344,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView layoutY="111.0" prefHeight="407.0" prefWidth="1236.0" />
+                                    <TableView layoutY="111.0" prefHeight="194.0" prefWidth="1236.0" />
                                     <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
@@ -350,6 +354,7 @@
                                        </image>
                                     </ImageView>
                                     <TextField layoutX="63.0" layoutY="57.0" />
+                                    <Label layoutX="13.0" layoutY="313.0" text="Agenzia Di appartenenza" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -358,7 +363,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView layoutY="111.0" prefHeight="407.0" prefWidth="1236.0" />
+                                    <TableView layoutY="111.0" prefHeight="161.0" prefWidth="1236.0" />
                                     <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
@@ -368,6 +373,7 @@
                                        </image>
                                     </ImageView>
                                     <TextField layoutX="63.0" layoutY="57.0" />
+                                    <Label layoutX="13.0" layoutY="283.0" text="Sede Di Appartenenza" />
                                  </children>
                               </AnchorPane>
                            </content>
