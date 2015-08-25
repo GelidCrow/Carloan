@@ -1,6 +1,7 @@
 package integration.DAO.connection;
 
 
+import java.io.InputStream;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -138,5 +139,32 @@ public class Connection {
 		}
 	return result;
 	}
-	
+	/**
+	 * Used to insert/update non text values such as binary
+	 * @param query
+	 * @param i
+	 * @return
+	 * @throws SQLException 
+	 */
+	public ResultSet executeUpdate_binary(String query,InputStream i) throws SQLException{
+		this.connetti();
+		ResultSet r=null;
+		
+		try{
+		if(query!=null && !query.isEmpty() && i!=null){
+			PreparedStatement st;
+			st=connessione_remota.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			st.setBinaryStream(1, i);
+			st.executeUpdate();
+			r=st.getResultSet();
+		}
+		
+		
+		}
+		 catch (SQLException e) {
+				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
+			}
+		return r;
+		
+	}
 }

@@ -6,6 +6,12 @@ import static utility.QueryStringReplacer.queryReplaceFirst;
 
 
 
+
+
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,8 +35,8 @@ public DAOAutoveicolo(DaoFactory dao) {
 	@Override
 	public ResultSet creazione(Entity x) throws CommonException {
 		String insert="insert into Autoveicolo (Targa,Marca,Modello,AlimPrincipale,Colore,Cambio,Immatricolazione,"
-				+ "Cilindrata,Potenza,NroPosti,NroTelaio,Disponibilita,UltimoKm,CapPortaBagagli,Note,DataScadAssic,OptionalAuto,Prezzo,DanniFutili,DanniGravi,IDSede,IDFascia,Immagine)";
-		String values=" values('?','?','?','?','?','?','?',?,?,?,'?','?',?,?,'?','?','?',?,'?','?',?,?,?)";
+				+ "Cilindrata,Potenza,NroPosti,NroTelaio,Disponibilita,UltimoKm,CapPortaBagagli,Note,DataScadAssic,OptionalAuto,Prezzo,DanniFutili,DanniGravi,IDSede,IDFascia)";
+		String values=" values('?','?','?','?','?','?','?',?,?,?,'?','?',?,?,'?','?','?',?,'?','?',?,?)";
 		Autoveicolo a=(Autoveicolo)x;
 		values=queryReplaceFirst(values, a.getTarga());
 		values=queryReplaceFirst(values, a.getMarca());
@@ -54,23 +60,33 @@ public DAOAutoveicolo(DaoFactory dao) {
 		values=queryReplaceFirst(values, a.getDanni().getDanniGravi());
 		values=queryReplaceFirst(values, String.valueOf(a.getCodiceSedDisp()));
 		values=queryReplaceFirst(values, String.valueOf(a.getFascia()));
-		String image=a.getImmagine();
+		
 		ResultSet s=null;
-		if(image.isEmpty())
-		values=queryReplaceFirst(values, "null");
-		else
-			values=queryReplaceFirst(values, "LOAD_FILE(\""+image+"\")");
 		Connection connection=Connection.getConnection(dao);
 		try {
 			 s=connection.executeUpdate(insert+values);
-			if(s!=null && s.next())
+			if(s!=null && s.next()){
 			AlertView.getAlertView("Autoveicolo inserito con successo",AlertType.INFORMATION);
+			
+			String image=a.getImmagine();
+			if(!image.isEmpty()){
+				InputStream i=new FileInputStream(new File(image));
+				String query="update Autoveicolo Set Immagine=? Where IDAuto="+s.getInt(1);
+				s=null;
+				s=connection.executeUpdate_binary(query, i);
+				if(s!=null)
+					throw new CommonException("Non e' stato possibile inserire l'immagine dell'auto :|. \n Probabilmente qualche errore nei permessi in cui esso risiede");
+			}
+			}
 			else
 				throw new CommonException("Non e' stato possibile inserire l'autoveicolo");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			throw new CommonException("Il file selezionato non e' stato trovato");
 		}
 		
 		return s;

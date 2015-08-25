@@ -208,7 +208,8 @@ public class Nuovo_Autoveicolo extends Schermata{
 			e1.showMessage();
 		}
 		catch(InvocationTargetException e1){
-			new CommonException(e1.getTargetException().getMessage()).showMessage();
+			//new CommonException(e1.getTargetException().getMessage()).showMessage();
+			e1.printStackTrace();
 		}
 		catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
