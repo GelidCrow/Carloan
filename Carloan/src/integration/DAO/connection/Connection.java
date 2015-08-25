@@ -95,7 +95,7 @@ public class Connection {
 	
 	@SuppressWarnings("finally")
 	public ResultSet executeUpdate(String query) throws SQLException{
-		
+		  
 		this.connetti();
 		ResultSet result=null;
 		if(query!=null && !query.isEmpty()){
@@ -106,7 +106,7 @@ public class Connection {
 				st.execute();
 				st=connessione_remota.prepareStatement(query);
 				st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-				result=st.getResultSet();
+				result=st.getGeneratedKeys();
 		
 			} catch (SQLException e) {
 				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
