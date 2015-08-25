@@ -24,6 +24,7 @@ import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Optional.Assicurazione_KASKO;
 import business.entity.Noleggio.Optional.Guidatore;
+import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
 import business.entity.Noleggio.Optional.Optional;
 import business.entity.Noleggio.Optional.OptionalAuto;
 import business.entity.Noleggio.Optional.OptionalNoleggio;
@@ -90,17 +91,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	private Label lblCognome;
 	
-	/*****  GUIDATORE **/
-	@FXML
-	private TextField txtNome;
-	@FXML
-	private TextField txtCognome;
-	@FXML
-	private TextField txtIndirizzo;
-	@FXML
-	private TextField txtCodFiscale;
-	@FXML
-	private TextField txtPatente;
+
 
 	@FXML
 	private TableView<T> tbGuidatori;
@@ -340,18 +331,20 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
 			//interroga db
 			try {
-				if(newValue instanceof Contratto){
-					Contratto contratto= (Contratto)newValue;
-					Cliente cliente = (Cliente)presenter.processRequest("letturaCliente",contratto.getIdCliente());
-					popolaLabelCliente(cliente);
-					caricaTabella((List<T>)presenter.processRequest("getCarteByCliente",contratto.getIdCliente()), tbCartaCredito);
-				}
-				else if(newValue instanceof OptionalNoleggio){
-					popolaLabelOptionalNoleggio(newValue);
-					
-				}
-				else {
-					popolaLabelOptionalAuto(newValue);
+				if(newValue!=null){
+					if(newValue instanceof Contratto){
+						Contratto contratto= (Contratto)newValue;
+						Cliente cliente = (Cliente)presenter.processRequest("letturaCliente",contratto.getIdCliente());
+						popolaLabelCliente(cliente);
+						caricaTabella((List<T>)presenter.processRequest("getCarteByCliente",contratto.getIdCliente()), tbCartaCredito);
+					}
+					else if(newValue instanceof OptionalNoleggio){
+						popolaLabelOptionalNoleggio(newValue);
+						
+					}
+					else {
+						popolaLabelOptionalAuto(newValue);
+					}
 				}
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
@@ -434,6 +427,27 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			lblprezzoOptAuto.setText(seggiolini.get(newValue-1).getPrezzo() + " €");
 		}
 	}
+	/*****  GUIDATORE **/
+	@FXML
+	protected  TextField txtNome;
+	@FXML
+	protected TextField txtCognome;
+	@FXML
+	protected TextField txtIndirizzo;
+	@FXML
+	protected TextField txtCodFiscale;
+	@FXML
+	protected TextField txtPatente;
+	
+	protected void impostaFalsoTxtGuidatore(){
+			txtNome.setDisable(true);
+			txtCognome.setDisable(true);
+			txtIndirizzo.setDisable(true);
+			txtCodFiscale.setDisable(true);
+			txtPatente.setDisable(true);
+		}
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -459,6 +473,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			tbOptionalAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalScelti.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			choiceSeggiolini.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelected());
+			impostaFalsoTxtGuidatore();
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
