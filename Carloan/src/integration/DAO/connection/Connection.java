@@ -106,7 +106,7 @@ public class Connection {
 				st.execute();
 				st=connessione_remota.prepareStatement(query);
 				st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-				result=st.getGeneratedKeys();
+				result=st.getResultSet();
 		
 			} catch (SQLException e) {
 				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);

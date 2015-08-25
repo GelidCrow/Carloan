@@ -124,32 +124,33 @@ public DAOAutoveicolo(DaoFactory dao) {
 		ResultSet s=null;
 		Connection connection=Connection.getConnection(dao);
 		try {
+			boolean updated=false;
 			 s=connection.executeUpdate(update+where);
-			 System.out.print(s);
-			if(s!=null){
+			if(s==null)
+				updated=false;
+			else
+				updated=true;
 			
 			/*Faccio due update: 1 per tutti i campi tranne l'immagine e 1 per l'immagine(è più comodo)*/
 			String image=a.getImmagine();
 			if(!image.isEmpty()){//<-- Ha scelto una nuova immagine, quindi bisogna aggiornare
-				update="UPDATE Autoveicolo SET Immagine=? WHERE IDAuto=?";
-				update=queryReplaceFirst(update, "LOAD_FILE(\""+image+"\")");
-				update=queryReplaceFirst(update, String.valueOf(a.getIDauto()));
-				s=connection.executeUpdate(update);
-				if(s!=null){
-					AlertView.getAlertView("Autoveicolo aggiornato con successo",AlertType.INFORMATION);
-					}
-				else
-					throw new CommonException("Non e' stato possibile aggiornare l'autoveicolo");
+				update="UPDATE Autoveicolo SET Immagine=? WHERE IDAuto="+a.getIDauto();
+				s=null;
+				InputStream i=new FileInputStream(new File(image));
+				s=connection.executeUpdate_binary(update,i);
+				updated=true;
 				}
+			if(updated)
+				AlertView.getAlertView("Autoveicolo aggiornato con successo", AlertType.INFORMATION);
 			else
-				AlertView.getAlertView("Autoveicolo aggiornato con successo",AlertType.INFORMATION);
-			}
-			else
-				throw new CommonException("Non e' stato possibile aggiornare l'autoveicolo");
-			
-		} catch (SQLException e) {
+				AlertView.getAlertView("Autoveicolo non aggiornato", AlertType.INFORMATION);
+	}
+		 catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			throw new CommonException("Il file selezionato non e' stato trovato");
 		}
 	}
  
