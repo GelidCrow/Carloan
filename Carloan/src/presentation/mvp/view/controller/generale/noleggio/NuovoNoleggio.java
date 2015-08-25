@@ -8,7 +8,6 @@ import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
 import business.entity.Noleggio.Optional.Optional;
-import business.entity.Noleggio.Optional.Seggiolino;
 
 public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		

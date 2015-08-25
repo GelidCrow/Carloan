@@ -5,6 +5,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -109,7 +110,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected TableView<T> tbOptionalAuto;
 	@FXML
-	private ChoiceBox<Fascia> choiceFascia;
+	private ChoiceBox<String> choiceFascia;
 	@FXML
 	private TextField txtImporto;
 	@FXML
@@ -336,11 +337,12 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 					popolaLabelCliente(cliente);
 					caricaTabella((List<T>)presenter.processRequest("getCarteByCliente",contratto.getIdCliente()), tbCartaCredito);
 				}
-				else if(newValue instanceof OptionalAuto){
-					popolaLabelOptionalAuto(newValue);
+				else if(newValue instanceof OptionalNoleggio){
+					popolaLabelOptionalNoleggio(newValue);
+					
 				}
 				else {
-					popolaLabelOptionalNoleggio(newValue);
+					popolaLabelOptionalAuto(newValue);
 				}
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
@@ -368,6 +370,10 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		private void popolaLabelOptionalAuto(Object optional){
 			Optional option = (Optional) optional;
 			lblprezzoOptAuto.setText(String.valueOf(option.getPrezzo())+  " €");
+			choiceSeggiolini.setDisable(true);
+		   if(option instanceof Seggiolino){
+			   choiceSeggiolini.setDisable(false);
+		   }
 		}
 	
 	}
@@ -378,8 +384,24 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		rdDenaro.setToggleGroup(group);
 		rdCartaCredito.setToggleGroup(group);
 	}
-	private void inizializzaChoiceBox(){
-		
+	private void inizializzaChoiceBox() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
+		 @SuppressWarnings("unchecked")
+		 //FASCE
+		 List<Fascia> fasce=(LinkedList<Fascia>) presenter.processRequest("getAllFasce", null);
+		 LinkedList<String> temp=new LinkedList<String>();
+		 for(Fascia f:fasce)
+			 temp.add(f.getNome());
+		 choiceFascia.setItems(FXCollections.observableArrayList(temp));
+		 choiceFascia.getSelectionModel().select(0);
+		 
+		 //NUMERO SEGGIOLINI
+		 LinkedList<Integer> temp2=new LinkedList<Integer>();
+		 temp2.add(1);
+		 temp2.add(2);
+		 temp2.add(3);
+		 choiceSeggiolini.setItems(FXCollections.observableArrayList(temp2));
+		 choiceSeggiolini.getSelectionModel().select(0);
+		 choiceSeggiolini.setDisable(true);
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -395,15 +417,15 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		//bindingValuesGuidatore();
 
 		inizializzaToggleButton();
-		inizializzaChoiceBox();
 		inizializzaTabelleOptional();
 		try {
-			
+			inizializzaChoiceBox();
 			caricaTabella((List<T>)presenter.processRequest("getAllSedi",null), tbRestituzione);
 			inizializzaTabellaAutoveicolo();
 			caricaTabella((List<T>)presenter.processRequest("getAllContratti",null), tbContratto);
 			tbContratto.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalNoleggio.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
+			tbOptionalAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalScelti.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
