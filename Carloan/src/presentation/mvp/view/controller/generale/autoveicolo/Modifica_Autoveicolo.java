@@ -1,5 +1,6 @@
 package presentation.mvp.view.controller.generale.autoveicolo;
 
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class Modifica_Autoveicolo extends Nuovo_Autoveicolo{
 		try {
 		this.btnchoose.setTooltip(new Tooltip("Clicca e scegli l'immagine"));
 		/*Numero posti*/
-		ObservableList<Integer> list=FXCollections.observableArrayList(3,5,6,7,9);
+		ObservableList<Integer> list=FXCollections.observableArrayList(1,2,3,4,5,6,7,9);
 		this.nposti.setItems(list);
 		this.nposti.getSelectionModel().select(list.indexOf(this.auto_coinvolta.getNroPosti()));
 		//Disponibilita
@@ -99,7 +100,9 @@ public class Modifica_Autoveicolo extends Nuovo_Autoveicolo{
 		 danni_futili.setText(this.auto_coinvolta.getDanni().getDanniFutili());
 		 danni_gravi.setText(this.auto_coinvolta.getDanni().getDanniGravi());
 		 Note.setText(this.auto_coinvolta.getNote());
-		 vistaimmagine.setImage(new Image(this.auto_coinvolta.getImmagine_stream()));
+		 InputStream in=this.auto_coinvolta.getImmagine_stream();
+		 if(in!=null)
+		 vistaimmagine.setImage(new Image(in));
 		 
 		} 
 		 catch (InstantiationException | IllegalAccessException

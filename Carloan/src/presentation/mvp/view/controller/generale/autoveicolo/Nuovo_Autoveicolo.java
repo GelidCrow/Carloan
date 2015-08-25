@@ -128,7 +128,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 		try {
 		FXMLParameter = new ParametriFXML(null,false);
 		btnchoose.setTooltip(new Tooltip("Clicca e scegli l'immagine"));
-		nposti.setItems(FXCollections.observableArrayList(3,5,6,7,9));
+		nposti.setItems(FXCollections.observableArrayList(1,2,3,4,5,6,7,9));
 		nposti.getSelectionModel().selectFirst();
 		Disponibilita.setItems(FXCollections.observableArrayList("Disponibile","NonDisponibile","ManutenzioneOrdinaria","ManutenzioneStraordinaria"));
 		Disponibilita.getSelectionModel().selectFirst();
@@ -228,23 +228,23 @@ public class Nuovo_Autoveicolo extends Schermata{
 		if(this.targa.getText().isEmpty() || this.modello.getText().isEmpty() || this.marca.getText().isEmpty() || this.immatricolazione.getValue()==null || this.prezzo.getText().isEmpty())
 			throw new CommonException("I campi obbligatori non devono essere vuoti!");
 		String s=this.targa.getText();
-		if(s.isEmpty())
+		if(s.isEmpty() ||s==null)
 			throw new CommonException("La targa è vuota");
 		else
 			temp.setTarga(s);
 		
 		s=this.marca.getText();
-		if(s.isEmpty())
+		if(s.isEmpty()||s==null)
 			throw new CommonException("La marca è vuota");
 		else
 				temp.setMarca(s);
 		s=this.modello.getText();
-		if(s.isEmpty())
+		if(s.isEmpty()||s==null)
 		throw new CommonException("Il modello è vuoto");
 		 else
 			temp.setModello(s);
 		s=this.alimprinc.getText();
-		if(s.isEmpty())
+		if(s.isEmpty()||s==null)
 		throw new CommonException("L'alimentazione principale è vuota");
 		 else
 			temp.setAlimPrincipale(s);
@@ -262,7 +262,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 			}
 		try{
 			 s=this.kmpercorsi.getText();
-			if(s.isEmpty())
+			if(s.isEmpty()||s==null)
 				temp.setUltimoKm(0);
 			else
 				temp.setUltimoKm(Integer.parseInt(s));
@@ -272,7 +272,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 		}
 		try{
 			s=this.potenza.getText();
-			if(s.isEmpty())
+			if(s.isEmpty()||s==null)
 				temp.setPotenza(0);
 			else
 			temp.setPotenza(Integer.parseInt(this.potenza.getText()));
@@ -282,7 +282,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 		}
 		try{
 			 s=this.capienza.getText();
-			if(s.isEmpty())
+			if(s.isEmpty()||s==null)
 				temp.setCapPortaBagnagli(0);
 			else
 		temp.setCapPortaBagnagli(Integer.parseInt(s));
@@ -292,7 +292,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 		}
 		
 			s=this.numtelaio.getText();
-			if(s.isEmpty())
+			if(s.isEmpty()||s==null)
 				throw new CommonException("Il numero del telaio non può essere vuoto");
 			else
 			temp.setNroTelaio(s);
@@ -330,7 +330,14 @@ public class Nuovo_Autoveicolo extends Schermata{
 		
 	int f=this.fascia.getSelectionModel().getSelectedIndex();
 	temp.setFascia(this.fasce.get(f).getIDFascia());
-	temp.setDanni(new Danni(this.danni_futili.getText(), this.danni_gravi.getText()));
+	String d1,d2;
+	d1=this.danni_futili.getText();
+	if(d1==null)
+		d1="";
+	d2=this.danni_gravi.getText();
+	if(d2==null)
+		d2="";
+	temp.setDanni(new Danni(d1,d2));
 	try{
 	temp.setPrezzo(Float.parseFloat(this.prezzo.getText()));
 	}
@@ -340,13 +347,13 @@ public class Nuovo_Autoveicolo extends Schermata{
 	Sede se=this.tablesedi.getSelectionModel().getSelectedItem();
 	temp.setCodiceSedDisp(se.getIDSede());
 	s=this.optional_auto.getText();
-	if(s.isEmpty())
+	if(s==null)
 		temp.setOptionalAuto("");
 	else
 		temp.setOptionalAuto(s);
 	
 	s=this.Note.getText();
-	if(s.isEmpty())
+	if(s==null)
 		temp.setNote("");
 	else 
 		temp.setNote(s);
