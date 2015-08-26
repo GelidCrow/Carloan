@@ -91,7 +91,7 @@ public int hashCode(){
 @Override
 public boolean equals(Object x){
 	if(x!=null){
-		if(this.getCodFiscale().equals(((Guidatore)x).getCodFiscale()) && this.getPatenteGuida()!=((Guidatore)x).getPatenteGuida()){
+		if(this.getCodFiscale().equals(((Guidatore)x).getCodFiscale()) && this.getPatenteGuida().equals(((Guidatore)x).getPatenteGuida())){
     		return true;
     	}
 	}

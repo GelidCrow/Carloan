@@ -18,6 +18,7 @@ import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
 import business.entity.Noleggio.Optional.Guidatore;
 import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
 import business.entity.Noleggio.Optional.Optional;
+import business.entity.Noleggio.Optional.Seggiolino;
 import business.model.Exception.CommonException;
 
 public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
@@ -41,13 +42,16 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		ObservableList<Entity> listItem= tbOptionalScelti.getItems();
 		Optional itemSelected = (Optional) tbOptionalAuto.getSelectionModel().getSelectedItem();
 		int numScelto = choiceSeggiolini.getSelectionModel().getSelectedItem();
-		if(!listItem.contains(itemSelected)){
+		if(itemSelected instanceof Seggiolino  && !listItem.contains(itemSelected)){
 			for(int i=0;i<seggiolini.size();i++){
 				if(seggiolini.get(i).getnumero()==numScelto){
 					tbOptionalScelti.getItems().add(seggiolini.get(i));//metto nell'altra tabella quello con l'elemento scelto.
 					break;
 				}
 			 }
+		}
+		else if(!listItem.contains(itemSelected)){
+			tbOptionalScelti.getItems().add(itemSelected);
 		}
 		else 
 			AlertView.getAlertView("Hai già aggiunto quest'optional", AlertType.WARNING);
@@ -61,6 +65,8 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		txtIndirizzo.setDisable(false);
 		txtCodFiscale.setDisable(false);
 		txtPatente.setDisable(false);
+		btnRimuovi.setVisible(true);
+		tbGuidatori.setVisible(true);
 		campiDisattivi=false;
 	}
 	
@@ -148,17 +154,13 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	}
 	@FXML
 	public void	btnRimuoviGuidatore(ActionEvent e){
-		if(tbGuidatori.getSelectionModel().getSelectedIndex()<0){
+		if(tbGuidatori.getSelectionModel().getSelectedIndex()<0 ){
 			AlertView.getAlertView("Nessun elemento selezionato", AlertType.WARNING);
 		}
 		else{
 			guidatori.remove(tbGuidatori.getSelectionModel().getSelectedItem());
-			for(Guidatore g: guidatori){
-				System.out.println(arg0);
-				
-			}
-			tbGuidatori.getItems().remove( tbGuidatori.getSelectionModel().getSelectedItem());
-		//	controllaGuidatoreAggiuntivo();
+			tbGuidatori.getItems().remove(tbGuidatori.getSelectionModel().getSelectedItem());
+			controllaGuidatoreAggiuntivo();
 			}
 	}
 	@FXML
@@ -171,8 +173,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			AlertView.getAlertView("Nessun elemento selezionato", AlertType.WARNING);
 		}
 		else{
-			tbOptionalScelti.getItems().remove( tbOptionalScelti.getSelectionModel().getSelectedItem());
-			
+			tbOptionalScelti.getItems().remove(tbOptionalScelti.getSelectionModel().getSelectedItem());
 			controllaGuidatoreAggiuntivo();
 			}
 	}

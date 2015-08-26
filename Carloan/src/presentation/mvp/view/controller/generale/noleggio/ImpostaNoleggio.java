@@ -375,11 +375,14 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		
 		private void popolaLabelOptionalAuto(Object optional){
 			Optional option = (Optional) optional;
-			lblprezzoOptAuto.setText(String.valueOf(option.getPrezzo())+  " €");
-			choiceSeggiolini.setDisable(true);
-		   if(option instanceof Seggiolino){
-			   choiceSeggiolini.setDisable(false);
-		   }
+			 if(option instanceof Seggiolino){
+				   choiceSeggiolini.setDisable(false);
+				   impostaPrezzoSeggiolino(choiceSeggiolini.getSelectionModel().getSelectedItem());
+			   }
+			 else {
+				lblprezzoOptAuto.setText(String.valueOf(option.getPrezzo())+  " €");
+				choiceSeggiolini.setDisable(true);
+			 }
 		}
 	
 	}
@@ -390,15 +393,20 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		rdDenaro.setToggleGroup(group);
 		rdCartaCredito.setToggleGroup(group);
 	}
+	
+	@FXML
+	private Label lblCostoKm;
+	List<Fascia> fasce;
 	private void inizializzaChoiceBox() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		 @SuppressWarnings("unchecked")
 		 //FASCE
-		 List<Fascia> fasce=(LinkedList<Fascia>) presenter.processRequest("getAllFasce", null);
+		 fasce=presenter.processRequest("getAllFasce", null);
 		 LinkedList<String> temp=new LinkedList<String>();
 		 for(Fascia f:fasce)
 			 temp.add(f.getNome());
 		 choiceFascia.setItems(FXCollections.observableArrayList(temp));
 		 choiceFascia.getSelectionModel().select(0);
+		 lblCostoKm.setText(String.valueOf(fasce.get(0).getCosto_kilometrico()));
 		 
 		 //NUMERO SEGGIOLINI
 		 LinkedList<Integer> temp2=new LinkedList<Integer>();
@@ -423,15 +431,41 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	 * @author francesco
 	 *
 	 */
-	private class ItemChoiceSelected implements ChangeListener<Integer>{
+	class ItemChoiceSelectedSeggiolino implements ChangeListener<Integer>{
 
 		@Override
 		public void changed(ObservableValue<? extends Integer> observable,
 				Integer oldValue, Integer newValue) {
-			for(int i=0;i<seggiolini.size();i++){
-				if(seggiolini.get(i).getnumero()==newValue){
-					lblprezzoOptAuto.setText(seggiolini.get(i).getPrezzo() + " €");
-				}
+				impostaPrezzoSeggiolino(newValue);
+		}
+	}
+	/**
+	 * <p>Prende il seggiolino in posizione 2 e mette i lsuo prezzo.</p>
+	 * @author francesco
+	 *
+	 */
+	class ItemChoiceSelectedFasce implements ChangeListener<Integer>{
+
+		@Override
+		public void changed(ObservableValue<? extends Integer> observable,
+				Integer oldValue, Integer newValue) {
+				impostaCosto_km(newValue);
+		}
+	}
+	
+	private void impostaCosto_km(int newValue){
+		for(int i=0;i<fasce.size();i++){
+			if(fasce.get(i).getIDFascia()==newValue){
+				lblCostoKm.setText(fasce.get(i).getCosto_kilometrico() + " €");
+				break;
+			}
+		}
+	}
+	private void impostaPrezzoSeggiolino(int newValue){
+		for(int i=0;i<seggiolini.size();i++){
+			if(seggiolini.get(i).getnumero()==newValue){
+				lblprezzoOptAuto.setText(seggiolini.get(i).getPrezzo() + " €");
+				break;
 			}
 		}
 	}
@@ -446,6 +480,10 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	protected TextField txtCodFiscale;
 	@FXML
 	protected TextField txtPatente;
+	@FXML
+	protected Button btnAggiungi;
+	@FXML
+	protected Button btnRimuovi;
 	protected boolean campiDisattivi;
 	
 	protected void impostaFalsoTxtGuidatore(){
@@ -454,6 +492,8 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			txtIndirizzo.setDisable(true);
 			txtCodFiscale.setDisable(true);
 			txtPatente.setDisable(true);
+			btnRimuovi.setVisible(false);
+			tbGuidatori.setVisible(false);
 			campiDisattivi=true;
 		}
 	
@@ -482,7 +522,8 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			tbOptionalNoleggio.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalScelti.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
-			choiceSeggiolini.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelected());
+			choiceSeggiolini.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedSeggiolino());
+			choiceSeggiolini.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedFasce());
 			impostaFalsoTxtGuidatore();
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
