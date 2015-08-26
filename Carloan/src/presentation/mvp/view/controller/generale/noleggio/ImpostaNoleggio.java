@@ -1,5 +1,6 @@
 package presentation.mvp.view.controller.generale.noleggio;
 
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -54,6 +55,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import utility.ParametriFXML;
@@ -80,7 +83,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected  TableView<T> tbOptionalScelti;
 	@FXML
-	protected ChoiceBox<Integer> choiceSeggiolini;
+	protected ChoiceBox<Seggiolino> choiceSeggiolini;
 	@FXML
 	protected ChoiceBox<Integer> choiceLimite;
 	/***
@@ -100,13 +103,13 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	private TableView<T> tbCartaCredito;
 	@FXML
-	private TableView<T> tbAutoveicolo;
+	protected TableView<T> tbAutoveicolo;
 	@FXML
 	private TableView<T> tbContratto;
 	@FXML
 	protected TableView<T> tbOptionalAuto;
 	@FXML
-	private ChoiceBox<String> choiceFascia;
+	private ChoiceBox<Fascia> choiceFascia;
 	@FXML
 	private TextField txtAcconto;
 	@FXML
@@ -294,39 +297,44 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	 * @throws InvocationTargetException
 	 * @throws CommonException
 	 */
+	
+	protected List<Autoveicolo > auto= null;
 	@SuppressWarnings("unchecked")
 	private void inizializzaTabellaAutoveicolo() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		Utente utente = UtenteCorrente.getUtente();
 		int fascia= choiceFascia.getSelectionModel().getSelectedIndex()+1;
-		List<Integer> lista=new ArrayList<Integer>();
-		if(utente instanceof Amministratore )
-			caricaTabella((List<T>)presenter.processRequest("getAllAutoByFascia",fascia), tbAutoveicolo);
+		if(utente instanceof Amministratore ){
+			auto= (List<Autoveicolo>)presenter.processRequest("getAllAutoByFascia",fascia);
+			caricaTabella((List<T>)auto, tbAutoveicolo);
+		}
 		else if( utente instanceof SupervisoreSede){
 			SupervisoreSede supervisoreS= (SupervisoreSede) utente;
+			List<Integer> lista=new ArrayList<Integer>();
 			lista.add(supervisoreS.getIDSede());
 			lista.add(fascia);
-			caricaTabella((List<T>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista), tbAutoveicolo);
+			auto=(List<Autoveicolo>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista);
+			caricaTabella((List<T>)auto, tbAutoveicolo);
 		}
 		else if( utente instanceof Operatore){
 			Operatore operatore= (Operatore) utente;
+			List<Integer> lista=new ArrayList<Integer>();
 			lista.add(operatore.getIDSede());
 			lista.add(fascia);
-			caricaTabella((List<T>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista), tbAutoveicolo);
+			auto=(List<Autoveicolo>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista);
+			caricaTabella((List<T>)auto, tbAutoveicolo);
 		}
 		else {//prendo solo le auto delle sedi sottostanti l'agenzia a cui appartiene l'utente corrente. 
 			SupervisoreAgenzia supervisoreA = (SupervisoreAgenzia) utente;
 			List<Sede> sedi = (List<Sede>)presenter.processRequest("getAllSediByAgenzia",supervisoreA.getIDAgenzia());
 			List<Autoveicolo> autoveicoli  = new ArrayList<Autoveicolo>();
 			for(Sede s: sedi){
-				lista.add(s.getIDSede());
-				lista.add(fascia);
-				List<Autoveicolo> auto= (List<Autoveicolo>) presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista);
-				for(Autoveicolo a: auto){
-					autoveicoli.add(a);
-				}
-				lista.clear();
+				List<Integer> lista=new ArrayList<Integer>();
+				lista.add(0,s.getIDSede());
+				lista.add(1,fascia);
+				autoveicoli= (List<Autoveicolo>) presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista);
+				auto.addAll(autoveicoli);
 			}
-			caricaTabella((List<T>)autoveicoli, tbAutoveicolo);
+			caricaTabella((List<T>)auto, tbAutoveicolo);
 		}
 	}
 	@FXML
@@ -335,6 +343,25 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	private Label lblLimiteCopertura;
 	@FXML
 	private Label lblprezzoOptAuto;
+	@FXML
+	private Label lblAPrincipale;
+	@FXML
+	private Label lblASecondaria;
+	@FXML
+	private Label lblCambio;
+	@FXML
+	private Label lblCilindrata;
+	@FXML
+	private Label lblPotenza;
+	@FXML
+	private Label lblNumPosti;
+	@FXML
+	private Label lblCapPortabagagli;
+	@FXML
+	private Label lblDanni;
+	@FXML
+	private ImageView imgAuto;
+	private InputStream inputStream;
 	/**
 	 * <p> Ascoltatore per il cambio di elemento dal COntratto per settare i label per le info aggiuntive </p>
 	 */
@@ -353,9 +380,11 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 						popolaLabelCliente(cliente);
 						caricaTabella((List<T>)presenter.processRequest("getCarteByCliente",contratto.getIdCliente()), tbCartaCredito);
 					}
+					else if(newValue instanceof Autoveicolo){
+						popolaLabelEImmagineAuto((Autoveicolo)tbAutoveicolo.getSelectionModel().getSelectedItem());
+					}
 					else if(newValue instanceof OptionalNoleggio){
 						popolaLabelOptionalNoleggio(newValue);
-						
 					}
 					else {
 						popolaLabelOptionalAuto(newValue);
@@ -367,6 +396,21 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 					| InvocationTargetException | CommonException e) {
 				e.printStackTrace();
 			}
+		}
+	
+		private void popolaLabelEImmagineAuto(Autoveicolo auto){
+			inputStream=auto.getImmagine_stream();
+			if(inputStream!=null){
+				imgAuto.setImage(new Image(inputStream));
+			}
+			lblAPrincipale.setText(auto.getAlimPrincipale());
+			lblASecondaria.setText(auto.getAlimSec());
+			lblCambio.setText(auto.getCambio());
+			lblCilindrata.setText(String.valueOf(auto.getCilindrata()));
+			lblPotenza.setText(String.valueOf(auto.getPotenza()));
+			lblNumPosti.setText(String.valueOf(auto.getNroPosti()));
+			lblCapPortabagagli.setText(String.valueOf(auto.getCapPortaBagnagli()));
+			lblDanni.setText(auto.getDanni().getDanniFutili());
 		}
 		private void popolaLabelCliente(Cliente cliente){
 			 lblCodFiscale.setText(cliente.getCodFiscale());
@@ -407,25 +451,18 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	
 	@FXML
 	protected Label lblCostoKm;
-	List<Fascia> fasce;
+	List<Fascia> fasce=null;
 	@SuppressWarnings("unchecked")
 	private void inizializzaChoiceBox() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		 //FASCE
-		 fasce=(List<Fascia>) presenter.processRequest("getAllFasce", null);;
-		 LinkedList<String> temp=new LinkedList<String>();
-		 for(Fascia f:fasce)
-			 temp.add(f.getNome());
-		 choiceFascia.setItems(FXCollections.observableArrayList(temp));
-		 choiceFascia.getSelectionModel().select(0);
-		 lblCostoKm.setText(String.valueOf(fasce.get(0).getCosto_kilometrico())+ " €");
+		 fasce=(List<Fascia>) presenter.processRequest("getAllFasce", null);
+		 choiceFascia.setItems(FXCollections.observableArrayList(fasce));
+		 choiceFascia.getSelectionModel().selectFirst();
+		 lblCostoKm.setText(String.valueOf(choiceFascia.getSelectionModel().getSelectedItem().getCosto_kilometrico())+ " €");
 		 
 		 //NUMERO SEGGIOLINI
-		 LinkedList<Integer> temp2=new LinkedList<Integer>();
-		 for(int i=0;i<seggiolini.size();i++){
-			 temp2.add(seggiolini.get(i).getnumero());// metto il numero di seggiolini effettivi
-		 }
-		 choiceSeggiolini.setItems(FXCollections.observableArrayList(temp2));
-		 choiceSeggiolini.getSelectionModel().select(0);
+		 choiceSeggiolini.setItems(FXCollections.observableArrayList(seggiolini));
+		 choiceSeggiolini.getSelectionModel().selectFirst();
 		 choiceSeggiolini.setDisable(true);
 		 
 		 //LIMITE CHILOMETRAGGIO
@@ -434,7 +471,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		 temp3.add(20000);
 		 temp3.add(30000);
 		 choiceLimite.setItems(FXCollections.observableArrayList(temp3));
-		 choiceLimite.getSelectionModel().select(0);
+		 choiceLimite.getSelectionModel().selectFirst();
 	}
 	
 	/**
@@ -442,73 +479,46 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	 * @author francesco
 	 *
 	 */
-	class ItemChoiceSelectedSeggiolino implements ChangeListener<Integer>{
+	class ItemChoiceSelectedSeggiolino implements ChangeListener<Seggiolino>{
 
 		@Override
-		public void changed(ObservableValue<? extends Integer> observable,
-				Integer oldValue, Integer newValue) {
-				impostaPrezzoSeggiolino(newValue);
-		}
-	}
-	/**
-	 * <p>Prende il seggiolino in posizione 2 e mette i lsuo prezzo.</p>
-	 * @author francesco
-	 *
-	 */
-	class ItemChoiceSelectedFasce implements ChangeListener<String>{
-
-		@Override
-		public void changed(ObservableValue<? extends String> observable,
-				String oldValue, String newValue) {
+		public void changed(ObservableValue<? extends Seggiolino> observable,
+				Seggiolino oldValue, Seggiolino newValue) {
 			// TODO Auto-generated method stub
-			 try {
-				impostaCosto_km(newValue);
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (CommonException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			impostaPrezzoSeggiolino(newValue);
 		}
 
-	
+		
 	}
-	
-	private void impostaCosto_km(String arg) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
-		for(int i=0;i<fasce.size();i++){
-			if(fasce.get(i).getNome().equals(arg)){
-				lblCostoKm.setText(fasce.get(i).getCosto_kilometrico() + " €");
-				inizializzaTabellaAutoveicolo();
-				break;
+	/**
+	 * <p>Prende il seggiolino in posizione 2 e mette i lsuo prezzo.</p>
+	 * @author francesco
+	 *
+	 */
+	class ItemChoiceSelectedFasce implements ChangeListener<Fascia>{
+
+		@Override
+		public void changed(ObservableValue<? extends Fascia> arg0,
+				Fascia arg1, Fascia arg2) {
+			// TODO Auto-generated method stub
+			try {
+				impostaCosto_km(arg2);
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | NoSuchMethodException
+					| SecurityException | IllegalArgumentException
+					| InvocationTargetException | CommonException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
-	private void impostaPrezzoSeggiolino(int newValue){
-		for(int i=0;i<seggiolini.size();i++){
-			if(seggiolini.get(i).getnumero()==newValue){
-				lblprezzoOptAuto.setText(seggiolini.get(i).getPrezzo() + " €");
-				break;
-			}
-		}
+	
+	private void impostaCosto_km(Fascia fasciaSelected) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
+		lblCostoKm.setText(String.valueOf(fasciaSelected.getCosto_kilometrico())+ " €");
+		inizializzaTabellaAutoveicolo();
+	}
+	private void impostaPrezzoSeggiolino(Seggiolino seggiolinoSelected){
+			lblprezzoOptAuto.setText(seggiolinoSelected.getPrezzo() + " €");
 	}
 	/*****  GUIDATORE **/
 	@FXML
@@ -551,7 +561,6 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		bindingValuesContratto();
 		bindingValuesCartaCredito();
 		bindingValuesGuidatore();
-
 		inizializzaToggleButton();
 		inizializzaTabelleOptional();
 		try {
@@ -563,6 +572,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			tbOptionalNoleggio.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalScelti.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
+			tbAutoveicolo.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			choiceSeggiolini.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedSeggiolino());
 			choiceFascia.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedFasce());
 			impostaFalsoTxtGuidatore();

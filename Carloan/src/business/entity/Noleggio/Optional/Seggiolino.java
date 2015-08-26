@@ -16,6 +16,9 @@ public class Seggiolino extends OptionalAuto{
 	public int getnumero(){
 		return numeroSeggiolini;
 	}
-
-
+	
+	@Override
+	public String toString(){
+		return String.valueOf(numeroSeggiolini);
+	}
 }

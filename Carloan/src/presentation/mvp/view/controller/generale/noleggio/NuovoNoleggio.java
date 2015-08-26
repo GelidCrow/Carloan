@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
+import business.entity.Auto.Autoveicolo;
 import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
 import business.entity.Noleggio.Optional.Guidatore;
 import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
@@ -41,14 +42,9 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	public void btnAggiungiOptionalAuto(ActionEvent e){
 		ObservableList<Entity> listItem= tbOptionalScelti.getItems();
 		Optional itemSelected = (Optional) tbOptionalAuto.getSelectionModel().getSelectedItem();
-		int numScelto = choiceSeggiolini.getSelectionModel().getSelectedItem();
+		Seggiolino seggiolino = choiceSeggiolini.getSelectionModel().getSelectedItem();
 		if(itemSelected instanceof Seggiolino  && !listItem.contains(itemSelected)){
-			for(int i=0;i<seggiolini.size();i++){
-				if(seggiolini.get(i).getnumero()==numScelto){
-					tbOptionalScelti.getItems().add(seggiolini.get(i));//metto nell'altra tabella quello con l'elemento scelto.
-					break;
-				}
-			 }
+			tbOptionalScelti.getItems().add(seggiolino);//metto nell'altra tabella quello con l'elemento scelto.
 		}
 		else if(!listItem.contains(itemSelected)){
 			tbOptionalScelti.getItems().add(itemSelected);
@@ -167,10 +163,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			controllaGuidatoreAggiuntivo();
 			}
 	}
-	@FXML
-	public void btnInfoAuto(ActionEvent e){
-		
-	}
+
 	@FXML
 	public void btnRimuoviOptional(ActionEvent e){
 		if(tbOptionalScelti.getSelectionModel().getSelectedIndex()<0){

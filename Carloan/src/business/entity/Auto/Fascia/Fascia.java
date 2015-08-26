@@ -47,5 +47,9 @@ public abstract  class Fascia extends Entity{
 	public void setCosto_kilometrico(float costo_kilometrico) {
 		this.costo_kilometrico = costo_kilometrico;
 	}
+	@Override
+	public String toString(){
+		return nome;
+	}
 	
 }

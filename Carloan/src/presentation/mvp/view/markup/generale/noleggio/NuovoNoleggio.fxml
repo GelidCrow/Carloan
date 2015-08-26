@@ -7,23 +7,23 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1228.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.noleggio.NuovoNoleggio">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.noleggio.NuovoNoleggio">
    <children>
-      <AnchorPane layoutY="138.0" prefHeight="761.0" prefWidth="1228.0">
+      <AnchorPane layoutY="73.0" prefHeight="826.0" prefWidth="1500.0">
          <children>
-            <TableView fx:id="tbContratto" layoutX="763.0" layoutY="285.0" prefHeight="75.0" prefWidth="176.0">
+            <TableView fx:id="tbContratto" layoutX="1100.0" layoutY="99.0" prefHeight="75.0" prefWidth="176.0">
               <columns>
                   <TableColumn fx:id="IDContratto" prefWidth="48.0" text="ID" />
                 <TableColumn fx:id="dScadenzaContratto" prefWidth="126.0" text="Data creazione" />
               </columns>
             </TableView>
-            <Label layoutX="771.0" layoutY="261.0" prefHeight="17.0" prefWidth="68.0" text="Contratto *" />
+            <Label layoutX="1108.0" layoutY="75.0" prefHeight="17.0" prefWidth="68.0" text="Contratto *" />
             <DatePicker fx:id="dInizio" layoutX="162.0" layoutY="19.0" prefHeight="25.0" prefWidth="149.0" />
             <DatePicker fx:id="dFine" layoutX="162.0" layoutY="51.0" prefHeight="25.0" prefWidth="149.0" />
             <DatePicker fx:id="dRitiro" layoutX="162.0" layoutY="82.0" prefHeight="25.0" prefWidth="149.0" />
-            <RadioButton fx:id="rdDenaro" layoutX="778.0" layoutY="505.0" mnemonicParsing="false" selected="true" text="Denaro" />
-            <RadioButton fx:id="rdCartaCredito" layoutX="869.0" layoutY="505.0" mnemonicParsing="false" text="Carta di credito" />
-            <Label layoutX="773.0" layoutY="480.0" prefHeight="17.0" prefWidth="75.0" text="Pagamento" />
+            <RadioButton fx:id="rdDenaro" layoutX="1098.0" layoutY="468.0" mnemonicParsing="false" selected="true" text="Denaro" />
+            <RadioButton fx:id="rdCartaCredito" layoutX="1189.0" layoutY="468.0" mnemonicParsing="false" text="Carta di credito" />
+            <Label layoutX="1093.0" layoutY="443.0" prefHeight="17.0" prefWidth="75.0" text="Pagamento" />
             <TextField fx:id="txtKmBase" layoutX="162.0" layoutY="113.0" />
             <Label layoutX="22.0" layoutY="23.0" text="Data inizio *" />
             <Label layoutX="22.0" layoutY="55.0" text="Data fine * " />
@@ -48,7 +48,7 @@
                   <TableColumn fx:id="DescOptNoleggio" prefWidth="152.0" text="Descrizione" />
                </columns>
             </TableView>
-            <TableView fx:id="tbAutoveicolo" layoutX="408.0" layoutY="448.0" prefHeight="84.0" prefWidth="316.0">
+            <TableView fx:id="tbAutoveicolo" layoutX="386.0" layoutY="409.0" prefHeight="84.0" prefWidth="316.0">
                <columns>
                   <TableColumn fx:id="targa" prefWidth="48.0" text="Targa" />
                   <TableColumn fx:id="marca" prefWidth="88.0" text="Marca" />
@@ -56,103 +56,120 @@
                   <TableColumn fx:id="prezzoAuto" prefWidth="93.0" text="Prezzo" />
                </columns>
             </TableView>
-            <Label layoutX="413.0" layoutY="425.0" prefHeight="17.0" prefWidth="89.0" text="Autoveicolo * " />
-            <Button layoutX="688.0" layoutY="532.0" mnemonicParsing="false" onAction="#btnInfoAuto" prefHeight="25.0" prefWidth="37.0" text="Info" />
-            <Label layoutX="774.0" layoutY="402.0" text="Prezzo" />
-            <TextField fx:id="txtAcconto" layoutX="778.0" layoutY="447.0" prefHeight="25.0" prefWidth="97.0" />
-            <Button fx:id="btnCalcola" layoutX="1043.0" layoutY="476.0" mnemonicParsing="false" onAction="#btnCalcolaPrezzo" text="Calcola " />
-            <TableView fx:id="tbCartaCredito" layoutX="770.0" layoutY="561.0" prefHeight="75.0" prefWidth="400.0">
+            <Label layoutX="391.0" layoutY="386.0" prefHeight="17.0" prefWidth="89.0" text="Autoveicolo * " />
+            <Label layoutX="1094.0" layoutY="365.0" text="Prezzo" />
+            <TextField fx:id="txtAcconto" layoutX="1098.0" layoutY="410.0" prefHeight="25.0" prefWidth="97.0" />
+            <Button fx:id="btnCalcola" layoutX="1363.0" layoutY="439.0" mnemonicParsing="false" onAction="#btnCalcolaPrezzo" text="Calcola " />
+            <TableView fx:id="tbCartaCredito" layoutX="1090.0" layoutY="524.0" prefHeight="75.0" prefWidth="400.0">
                <columns>
                   <TableColumn fx:id="iban" prefWidth="205.0" text="IBAN" />
                   <TableColumn fx:id="dScadenza" prefWidth="97.0" text="Data Scadenza" />
                   <TableColumn fx:id="circuito" prefWidth="117.0" text="Circuito" />
                </columns>
             </TableView>
-            <Label layoutX="779.0" layoutY="527.0" prefHeight="17.0" prefWidth="102.0" text="Carta di credito *" />
-            <Button fx:id="btnConferma" layoutX="1088.0" layoutY="717.0" mnemonicParsing="false" onAction="#btnConferma" text="Conferma" textFill="#1dbf25" />
-            <Button fx:id="btnCancella" layoutX="991.0" layoutY="716.0" mnemonicParsing="false" onAction="#btnCancella" text="Cancella" textFill="#d62f2f" />
-            <ChoiceBox fx:id="choiceFascia" layoutX="566.0" layoutY="400.0" prefHeight="25.0" prefWidth="156.0" />
-            <Label layoutX="414.0" layoutY="402.0" prefHeight="17.0" prefWidth="89.0" text="Fascia " />
-            <TextField fx:id="txtCauzione" layoutX="880.0" layoutY="447.0" prefHeight="25.0" prefWidth="110.0" />
-            <Label layoutX="779.0" layoutY="422.0" prefHeight="17.0" prefWidth="68.0" text="Acconto" />
-            <Label layoutX="881.0" layoutY="422.0" text="Cauzione" />
-            <TextField fx:id="txtTotale" layoutX="999.0" layoutY="447.0" prefHeight="25.0" prefWidth="104.0" />
-            <Label layoutX="1009.0" layoutY="422.0" prefHeight="17.0" prefWidth="43.0" text="Totale" />
+            <Label layoutX="1099.0" layoutY="490.0" prefHeight="17.0" prefWidth="102.0" text="Carta di credito *" />
+            <Button fx:id="btnConferma" layoutX="1403.0" layoutY="765.0" mnemonicParsing="false" onAction="#btnConferma" text="Conferma" textFill="#1dbf25" />
+            <Button fx:id="btnCancella" layoutX="1306.0" layoutY="764.0" mnemonicParsing="false" onAction="#btnCancella" text="Cancella" textFill="#d62f2f" />
+            <ChoiceBox fx:id="choiceFascia" layoutX="544.0" layoutY="361.0" prefHeight="25.0" prefWidth="156.0" />
+            <Label layoutX="392.0" layoutY="363.0" prefHeight="17.0" prefWidth="89.0" text="Fascia " />
+            <TextField fx:id="txtCauzione" layoutX="1200.0" layoutY="410.0" prefHeight="25.0" prefWidth="110.0" />
+            <Label layoutX="1099.0" layoutY="385.0" prefHeight="17.0" prefWidth="68.0" text="Acconto" />
+            <Label layoutX="1201.0" layoutY="385.0" text="Cauzione" />
+            <TextField fx:id="txtTotale" layoutX="1319.0" layoutY="410.0" prefHeight="25.0" prefWidth="104.0" />
+            <Label layoutX="1329.0" layoutY="385.0" prefHeight="17.0" prefWidth="43.0" text="Totale" />
             <Button fx:id="btnAggiungi" layoutX="228.0" layoutY="573.0" mnemonicParsing="false" onAction="#btnAggiungiOptionalNoleggio" prefHeight="25.0" prefWidth="89.0" text="Aggiungi" />
             <ChoiceBox fx:id="choiceLimite" layoutX="31.0" layoutY="690.0" prefHeight="25.0" prefWidth="133.0" />
-            <TableView fx:id="tbOptionalAuto" layoutX="411.0" layoutY="580.0" prefHeight="102.0" prefWidth="316.0">
+            <TableView fx:id="tbOptionalAuto" layoutX="730.0" layoutY="62.0" prefHeight="102.0" prefWidth="316.0">
                <columns>
                   <TableColumn fx:id="nomeOptAuto" prefWidth="141.0" text="Nome" />
                   <TableColumn fx:id="descOptAuto" prefWidth="174.0" text="Descrizione" />
                </columns>
             </TableView>
-            <ChoiceBox fx:id="choiceSeggiolini" layoutX="528.0" layoutY="716.0" prefHeight="25.0" prefWidth="62.0" />
-            <Label layoutX="408.0" layoutY="720.0" prefHeight="17.0" prefWidth="102.0" text="Numero Seggiolini" />
-            <Label layoutX="407.0" layoutY="561.0" text="Optional Auto" />
+            <ChoiceBox fx:id="choiceSeggiolini" layoutX="847.0" layoutY="198.0" prefHeight="25.0" prefWidth="62.0" />
+            <Label layoutX="727.0" layoutY="202.0" prefHeight="17.0" prefWidth="102.0" text="Numero Seggiolini" />
             <Label layoutX="31.0" layoutY="640.0" text="Chilometraggio Limitato*" />
             <Label layoutX="33.0" layoutY="665.0" text="Limite Kilometri" />
-            <Button fx:id="btnAggiungiAuto" layoutX="652.0" layoutY="685.0" mnemonicParsing="false" onAction="#btnAggiungiOptionalAuto" prefHeight="25.0" prefWidth="71.0" text="Aggiungi" />
-            <Button layoutX="1016.0" layoutY="533.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta" />
-            <TableView fx:id="tbOptionalScelti" layoutX="757.0" layoutY="28.0" prefHeight="112.0" prefWidth="426.0">
+            <Button fx:id="btnAggiungiAuto" layoutX="971.0" layoutY="167.0" mnemonicParsing="false" onAction="#btnAggiungiOptionalAuto" prefHeight="25.0" prefWidth="71.0" text="Aggiungi" />
+            <Button layoutX="1336.0" layoutY="496.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta" />
+            <TableView fx:id="tbOptionalScelti" layoutX="729.0" layoutY="278.0" prefHeight="112.0" prefWidth="327.0">
                <columns>
                   <TableColumn fx:id="nomeOptScelti" prefWidth="188.0" text="Nome" />
-                  <TableColumn fx:id="descOptScelti" prefWidth="237.0" text="Descrizione" />
+                  <TableColumn fx:id="descOptScelti" prefWidth="138.0" text="Descrizione" />
                </columns>
             </TableView>
-            <Button fx:id="btnRimuovi1" layoutX="1122.0" layoutY="155.0" mnemonicParsing="false" onAction="#btnRimuoviOptional" text="Rimuovi" />
-            <Label layoutX="761.0" layoutY="6.0" text="Optional  scelti" />
-            <Label layoutX="431.0" layoutY="34.0" text="Dati Guidatore" />
-            <Label layoutX="437.0" layoutY="62.0" text="Nome *" />
-            <TextField fx:id="txtNome" layoutX="515.0" layoutY="62.0" />
-            <Label layoutX="437.0" layoutY="100.0" text="Cognome *" />
-            <TextField fx:id="txtCognome" layoutX="515.0" layoutY="96.0" />
-            <Label layoutX="444.0" layoutY="221.0" prefHeight="17.0" prefWidth="75.0" text="Patente *" />
-            <Label layoutX="443.0" layoutY="182.0" text="Cod Fiscale *" />
-            <Label layoutX="443.0" layoutY="140.0" text="Indirizzo *" />
-            <TextField fx:id="txtPatente" layoutX="521.0" layoutY="217.0" />
-            <TextField fx:id="txtCodFiscale" layoutX="521.0" layoutY="178.0" />
-            <TextField fx:id="txtIndirizzo" layoutX="521.0" layoutY="136.0" />
-            <TableView fx:id="tbGuidatori" layoutX="408.0" layoutY="286.0" prefHeight="91.0" prefWidth="302.0">
+            <Button fx:id="btnRimuovi1" layoutX="1007.0" layoutY="391.0" mnemonicParsing="false" onAction="#btnRimuoviOptional" text="Rimuovi" />
+            <Label layoutX="733.0" layoutY="256.0" text="Optional  scelti" />
+            <Label layoutX="400.0" layoutY="6.0" text="Dati Guidatore" />
+            <Label layoutX="406.0" layoutY="34.0" text="Nome *" />
+            <TextField fx:id="txtNome" layoutX="484.0" layoutY="34.0" />
+            <Label layoutX="406.0" layoutY="72.0" text="Cognome *" />
+            <TextField fx:id="txtCognome" layoutX="484.0" layoutY="68.0" />
+            <Label layoutX="413.0" layoutY="193.0" prefHeight="17.0" prefWidth="75.0" text="Patente *" />
+            <Label layoutX="412.0" layoutY="154.0" text="Cod Fiscale *" />
+            <Label layoutX="412.0" layoutY="112.0" text="Indirizzo *" />
+            <TextField fx:id="txtPatente" layoutX="490.0" layoutY="189.0" />
+            <TextField fx:id="txtCodFiscale" layoutX="490.0" layoutY="150.0" />
+            <TextField fx:id="txtIndirizzo" layoutX="490.0" layoutY="108.0" />
+            <TableView fx:id="tbGuidatori" layoutX="377.0" layoutY="258.0" prefHeight="91.0" prefWidth="302.0">
                <columns>
                   <TableColumn fx:id="codFiscale" prefWidth="117.0" text="Codice Fiscale" />
                   <TableColumn fx:id="nomeCognomeGuid" prefWidth="184.0" text="Nome Cognome" />
                </columns>
             </TableView>
-            <Button fx:id="btnRimuovi" layoutX="620.0" layoutY="261.0" mnemonicParsing="false" onAction="#btnRimuoviGuidatore" text="Rimuovi" />
-            <Button fx:id="btnAggiungi" layoutX="544.0" layoutY="261.0" mnemonicParsing="false" onAction="#btnAggiungiGuidatore" text="Aggiungi" />
-            <Label layoutX="962.0" layoutY="265.0" prefHeight="17.0" prefWidth="58.0" text="Cliente" textFill="#181090">
+            <Button fx:id="btnRimuovi" layoutX="589.0" layoutY="233.0" mnemonicParsing="false" onAction="#btnRimuoviGuidatore" text="Rimuovi" />
+            <Button fx:id="btnAggiungi" layoutX="513.0" layoutY="233.0" mnemonicParsing="false" onAction="#btnAggiungiGuidatore" text="Aggiungi" />
+            <Label layoutX="1100.0" layoutY="206.0" prefHeight="17.0" prefWidth="58.0" text="Cliente" textFill="#181090">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="970.0" layoutY="286.0" text="Cod_Fiscale" />
-            <Label layoutX="975.0" layoutY="308.0" text="Nome" />
-            <Label layoutX="975.0" layoutY="339.0" text="Cognome" />
-            <Label fx:id="lblCodFiscale" layoutX="1049.0" layoutY="289.0" prefHeight="17.0" prefWidth="176.0" />
-            <Label fx:id="lblNome" layoutX="1019.0" layoutY="308.0" prefHeight="17.0" prefWidth="207.0" />
-            <Label fx:id="lblCognome" layoutX="1048.0" layoutY="339.0" prefHeight="17.0" prefWidth="207.0" />
+            <Label layoutX="1108.0" layoutY="227.0" text="Cod_Fiscale" />
+            <Label layoutX="1113.0" layoutY="249.0" text="Nome" />
+            <Label layoutX="1113.0" layoutY="280.0" text="Cognome" />
+            <Label fx:id="lblCodFiscale" layoutX="1187.0" layoutY="230.0" prefHeight="17.0" prefWidth="176.0" />
+            <Label fx:id="lblNome" layoutX="1157.0" layoutY="249.0" prefHeight="17.0" prefWidth="207.0" />
+            <Label fx:id="lblCognome" layoutX="1186.0" layoutY="280.0" prefHeight="17.0" prefWidth="207.0" />
             <Label layoutX="25.0" layoutY="605.0" text="Limite Copertura" />
             <Label fx:id="lblLimiteCopertura" layoutX="168.0" layoutY="605.0" prefHeight="17.0" prefWidth="149.0" />
-            <Label layoutX="413.0" layoutY="689.0" text="Prezzo" />
-            <Label fx:id="lblprezzoOptAuto" layoutX="481.0" layoutY="694.0" prefHeight="17.0" prefWidth="127.0" />
+            <Label layoutX="732.0" layoutY="176.0" text="Prezzo" />
+            <Label fx:id="lblprezzoOptAuto" layoutX="800.0" layoutY="176.0" prefHeight="17.0" prefWidth="127.0" />
             <Label fx:id="lblprezzoOptNoleggio" layoutX="87.0" layoutY="585.0" prefHeight="17.0" prefWidth="127.0" />
             <Label layoutX="22.0" layoutY="585.0" text="Prezzo" />
-            <Label fx:id="lblprezzoOptScelti" layoutX="843.0" layoutY="140.0" prefHeight="17.0" prefWidth="127.0" />
-            <Label layoutX="768.0" layoutY="140.0" text="Prezzo" />
-            <Label layoutX="771.0" layoutY="160.0" text="Chilometraggio" />
-            <Label layoutX="768.0" layoutY="182.0" text="Limite Copertura" />
-            <Label fx:id="lblNumSeggioliniScelti" layoutX="896.0" layoutY="208.0" prefHeight="17.0" prefWidth="149.0" />
-            <Label fx:id="lblChilometraggioScelto" layoutX="874.0" layoutY="159.0" prefHeight="17.0" prefWidth="133.0" />
-            <Label fx:id="lblLimiteCoperturaScelto" layoutX="889.0" layoutY="178.0" prefHeight="17.0" prefWidth="133.0" />
-            <Label layoutX="770.0" layoutY="208.0" text="Numero Seggiolini" />
+            <Label fx:id="lblprezzoOptScelti" layoutX="815.0" layoutY="390.0" prefHeight="17.0" prefWidth="127.0" />
+            <Label layoutX="781.0" layoutY="328.0" text="Prezzo" />
+            <Label layoutX="743.0" layoutY="410.0" text="Chilometraggio" />
+            <Label layoutX="740.0" layoutY="432.0" text="Limite Copertura" />
+            <Label fx:id="lblNumSeggioliniScelti" layoutX="868.0" layoutY="458.0" prefHeight="17.0" prefWidth="149.0" />
+            <Label fx:id="lblChilometraggioScelto" layoutX="846.0" layoutY="409.0" prefHeight="17.0" prefWidth="133.0" />
+            <Label fx:id="lblLimiteCoperturaScelto" layoutX="861.0" layoutY="428.0" prefHeight="17.0" prefWidth="133.0" />
+            <Label layoutX="742.0" layoutY="458.0" text="Numero Seggiolini" />
             <Label layoutX="182.0" layoutY="627.0" prefHeight="44.0" prefWidth="176.0" text="Costo Al km in base alla fascia" />
             <Label fx:id="lblCostoKm" layoutX="186.0" layoutY="689.0" prefHeight="17.0" prefWidth="149.0" />
-            <Label layoutX="413.0" layoutY="739.0" text="Nb: il prezzo dell'optional &quot;Seggiolini&quot; varia in base al numero" />
+            <Label layoutX="729.0" layoutY="236.0" text="Nb: il prezzo dell'optional &quot;Seggiolini&quot; varia in base al numero" textFill="#d01010" />
+            <ImageView fx:id="imgAuto" fitHeight="260.0" fitWidth="335.0" layoutX="730.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="389.0" layoutY="533.0" text="Alimentazione Principale" />
+            <Label layoutX="390.0" layoutY="552.0" text="Alimentazione Secondaria" />
+            <Label layoutX="729.0" layoutY="29.0" text="Optional Auto" />
+            <Label layoutX="390.0" layoutY="569.0" text="Cambio" />
+            <Label layoutX="390.0" layoutY="593.0" text="Cilindrata" />
+            <Label layoutX="390.0" layoutY="613.0" text="Potenza" />
+            <Label layoutX="390.0" layoutY="633.0" text="Numero Posti" />
+            <Label layoutX="390.0" layoutY="655.0" text="Capacita Porta Bagagli" />
+            <Label layoutX="387.0" layoutY="682.0" text="Danni futili" />
+            <Label layoutX="391.0" layoutY="505.0" text="Dettagli auto selezionata " textFill="#a8211f" />
+            <Label fx:id="lblAPrincipale" layoutX="564.0" layoutY="533.0" prefHeight="17.0" prefWidth="149.0" />
+            <Label fx:id="lblASecondaria" layoutX="564.0" layoutY="552.0" prefHeight="17.0" prefWidth="138.0" />
+            <Label fx:id="lblCambio" layoutX="564.0" layoutY="569.0" prefHeight="17.0" prefWidth="149.0" />
+            <Label fx:id="lblCilindrata" layoutX="564.0" layoutY="597.0" prefHeight="17.0" prefWidth="135.0" />
+            <Label fx:id="lblPotenza" layoutX="564.0" layoutY="614.0" prefHeight="17.0" prefWidth="138.0" />
+            <Label fx:id="lblNumPosti" layoutX="564.0" layoutY="633.0" prefHeight="17.0" prefWidth="110.0" />
+            <Label fx:id="lblCapPortabagagli" layoutX="564.0" layoutY="657.0" prefHeight="17.0" prefWidth="127.0" />
+            <Label fx:id="lblDanni" layoutX="564.0" layoutY="682.0" prefHeight="102.0" prefWidth="149.0" />
          </children>
       </AnchorPane>
-      <Label layoutX="49.0" layoutY="42.0" prefHeight="44.0" prefWidth="380.0" style="-fx-background-color: #FFFF;" text="NUOVO NOLEGGIO" textFill="#ff6f00">
+      <Label layoutX="45.0" layoutY="22.0" prefHeight="32.0" prefWidth="187.0" style="-fx-background-color: #FFFF;" text="NUOVO NOLEGGIO" textFill="#ff6f00">
          <font>
-            <Font name="Cambria Bold Italic" size="36.0" />
+            <Font name="Cambria Bold Italic" size="22.0" />
          </font>
       </Label>
    </children>
