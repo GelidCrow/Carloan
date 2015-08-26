@@ -91,7 +91,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	private Label lblCognome;
 	
-
+	private List<Fascia> fasce;
 
 	@FXML
 	protected TableView<T> tbGuidatori;
@@ -396,7 +396,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	
 	@FXML
 	private Label lblCostoKm;
-	List<Fascia> fasce;
+
 	private void inizializzaChoiceBox() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		 @SuppressWarnings("unchecked")
 		 //FASCE

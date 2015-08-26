@@ -5,25 +5,20 @@ import java.time.LocalDate;
 import business.entity.Entity;
 public abstract class Manutenzione extends Entity{
 	
-	private String IDManutenzione;
+	private int IDManutenzione;
 	private LocalDate Datainizio;
 	private LocalDate DataFine;
 	private String note;
 	private int IDAuto;
-	public Manutenzione(String iDManutenzione, LocalDate localDate, LocalDate dataFine,
+	public Manutenzione(int iDManutenzione, LocalDate localDate, LocalDate dataFine,
 			String note,int i) {
-		IDManutenzione = iDManutenzione;
+		setIDManutenzione(iDManutenzione);
 		Datainizio = localDate;
 		DataFine = dataFine;
 		this.note = note;
-		i=this.IDAuto;
+		this.IDAuto=i;
 	}
-	public String getIDManutenzione() {
-		return IDManutenzione;
-	}
-	public void setIDManutenzione(String iDManutenzione) {
-		IDManutenzione = iDManutenzione;
-	}
+	
 	public LocalDate getDatainizio() {
 		return Datainizio;
 	}
@@ -47,5 +42,13 @@ public abstract class Manutenzione extends Entity{
 	}
 	public void setIDAuto(int iDAuto) {
 		IDAuto = iDAuto;
+	}
+
+	public int getIDManutenzione() {
+		return IDManutenzione;
+	}
+
+	public void setIDManutenzione(int iDManutenzione) {
+		IDManutenzione = iDManutenzione;
 	}
 }

@@ -75,8 +75,15 @@ public class TabAuto {
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataNuovaManutenzione",Modality.APPLICATION_MODAL);
 	    }
 	}
-	public void ModificaManutenzione() {
-		// TODO Auto-generated method stub
+	public void ChiudiManutenzione()throws CommonException {
+		 if(tbAuto.getSelectionModel().getSelectedIndex()< 0){
+	    		throw new CommonException("Nessun elemento selezionato");
+	    }
+	    else{
+		FXMLParameter.setTitolo("Chiusura manutenzione");
+		FXMLParameter.setEntity(((SchermataGenerale<?>) schermata).getEntitaElementoSelezionato("Autoveicolo"));
+		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataChiusuraManutenzione",Modality.APPLICATION_MODAL);
+	    }
 		
 	}
 	public void VisualizzaManutenzione() {

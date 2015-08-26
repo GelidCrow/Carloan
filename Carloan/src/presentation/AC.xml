@@ -160,11 +160,34 @@
 		<method>aggiornamento</method>
 	</call>
 	<!--Manutenzione-->
-	<call id="VerificaManutenzine">
-		<class>business.model.ManutenzioneChecker</class>
+	<call id="VerificaManutenzione">
+		<class>business.model.checker.autoveicolo.ManutenzioneChecker</class>
 		<method>check</method>
 	</call>
-	
+	<call id="InserimentoManutenzione">
+		<class>business.model.ModelManutenzione</class>
+		<method>Inserimento</method>
+	</call>
+	<call id="ChiusuraManutenzione">
+		<class>business.model.ModelManutenzione</class>
+		<method>chiusuraManutenzione</method>
+	</call>
+	<call id="getAllManutenzioni_ordinarie">
+		<class>business.model.ModelManutenzione</class>
+		<method>getAll_ordinarie</method>
+	</call>
+	<call id="getAllManutenzioni_straordinarie">
+		<class>business.model.ModelManutenzione</class>
+		<method>getAll_straordinarie</method>
+	</call>
+<call id="getAllManutenzioni_ordinarie_aperte">
+		<class>business.model.ModelManutenzione</class>
+		<method>getAll_ordinarie_aperte</method>
+	</call>
+	<call id="getAllManutenzioni_straordinarie_aperte">
+		<class>business.model.ModelManutenzione</class>
+		<method>getAll_straordinarie_aperte</method>
+	</call>
 	<!--Sede-->
 	<call id="getAllSedi">
 		<class>business.model.ModelSede</class>

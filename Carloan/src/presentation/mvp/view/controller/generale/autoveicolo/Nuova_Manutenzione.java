@@ -86,7 +86,7 @@ public void btnconferma(ActionEvent e){
 			new CommonException(e1.getTargetException().getMessage()).showMessage();
 		}
 		catch( ClassNotFoundException e1){
-			new CommonException("File AC.xml corrotto");
+			new CommonException("File AC.xml corrotto").showMessage();
 		}
 		catch (InstantiationException | IllegalAccessException
 				| NoSuchMethodException
@@ -100,12 +100,13 @@ public void btnconferma(ActionEvent e){
 	
 }
 private Manutenzione prendiDatiDaView() throws CommonException{
+	
 	LocalDate d=data_inizio.getValue();
 	if(d==null)
 		throw new CommonException("La data d'inizio è vuota");
 	if(radio_ord.isSelected())
-		return new ManutenzioneOrdinaria(null,d , null, motivo.getText(),this.a.getIDauto());
+		return new ManutenzioneOrdinaria((Integer) null,d , null, motivo.getText(),this.a.getIDauto());
 	else
-		return new ManutenzioneStraordinaria(null, d, null, motivo.getText(),a.getIDauto());
+		return new ManutenzioneStraordinaria((Integer) null, d, null, motivo.getText(),a.getIDauto());
 }
 }
