@@ -23,6 +23,7 @@ import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Gestori.SupervisoreSede;
+import business.entity.Luoghi.Agenzia;
 import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
@@ -68,6 +69,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	private TableView<T> tbAuto;
 	@FXML
+	private TableView<T> tbAgenzia;
+	@FXML
 	private Label txtBenvenuto;
 	@FXML
 	private TableColumn<Cliente,String> cliente;
@@ -88,6 +91,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TabContratto tbContrattoController;
 	
 	private TabNoleggio tbNoleggioController;
+	private TabAgenzia tbAgenziaController;
 	
 	private TabAuto tbAutoController;
 		/***********  CONTRATTO *************/
@@ -159,8 +163,14 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			e1.showMessage();
 		}
 	}
-	
-	
+	@FXML
+	public void btnnuova_agenzia(ActionEvent e){
+		
+	}
+	@FXML
+	public void btnmodifica_agenzia(ActionEvent e){
+		
+	}
 	@FXML
 	public void btnVPagamento(ActionEvent e){
 		
@@ -219,6 +229,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbNoleggio;
 		else if(table.equals("Autoveicolo"))
 			return tbAuto;
+		else if(table.equals("Agenzia"))
+			return tbAgenzia;
 		else
 			return null;
 	}
@@ -232,6 +244,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbContratto.getSelectionModel().getSelectedIndex();
 		else if(table.equals("Autoveicolo"))
 			return tbAuto.getSelectionModel().getSelectedIndex();
+		else if(table.equals("Agenzia"))
+			return tbAgenzia.getSelectionModel().getSelectedIndex();
 		else
 			return 0;
 	}
@@ -248,7 +262,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		else if(table.equals("Autoveicolo"))
 			return tbAuto.getSelectionModel().getSelectedItem();
-		else
+		else if(table.equals("Agenzia"))
+			return tbAgenzia.getSelectionModel().getSelectedItem();
 			return null;
 	}
 	
@@ -361,6 +376,20 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 							| InvocationTargetException | CommonException e) {
 						e.printStackTrace();
 					}
+				}
+			}
+			//agenzia
+			else if(panes.get(4)==newValue){
+				tbAgenziaController=new TabAgenzia((TableView<Agenzia>)tbAgenzia,SchermataGenerale.this);
+				try {
+					List<Agenzia> l=(List<Agenzia>)presenter.processRequest("getAllAgenzie", null);
+					caricaTabella((List<T>)l, tbAgenzia);
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalArgumentException
+						| InvocationTargetException | CommonException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 			

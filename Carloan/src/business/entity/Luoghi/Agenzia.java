@@ -3,13 +3,13 @@ package business.entity.Luoghi;
 import business.entity.Entity;
 
 public class Agenzia extends Entity{
-	private String IDAgenzia;
+	private int IDAgenzia;
 	private String NumTelefono;
 	private String nome;
-	private String IDDitta;
+	private int IDDitta;
 	
-	public Agenzia(String iDAgenzia, String numTelefono,
-			String nome, String iDDitta) {
+	public Agenzia(int iDAgenzia, String numTelefono,
+			String nome, int iDDitta) {
 		super();
 		IDAgenzia = iDAgenzia;
 		NumTelefono = numTelefono;
@@ -18,10 +18,10 @@ public class Agenzia extends Entity{
 	}
 	
 
-	public String getIDAgenzia() {
+	public int getIDAgenzia() {
 		return IDAgenzia;
 	}
-	public void setIDAgenzia(String iDAgenzia) {
+	public void setIDAgenzia(int iDAgenzia) {
 		IDAgenzia = iDAgenzia;
 	}
 	public String getNumTelefono() {
@@ -30,10 +30,10 @@ public class Agenzia extends Entity{
 	public void setNumTelefono(String numTelefono) {
 		NumTelefono = numTelefono;
 	}
-	public String getIDDitta() {
+	public int getIDDitta() {
 		return IDDitta;
 	}
-	public void setIDDitta(String iDDitta) {
+	public void setIDDitta(int iDDitta) {
 		IDDitta = iDDitta;
 	}
 	public String getNome() {

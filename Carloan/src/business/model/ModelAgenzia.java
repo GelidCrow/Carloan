@@ -1,11 +1,20 @@
 package business.model;
 
+import java.util.List;
+
 import integration.DAO.DaoFactory;
+import integration.DAO.entity.DAOAgenzia;
 import business.entity.Entity;
+import business.entity.Luoghi.Agenzia;
 import business.model.Exception.CommonException;
 
 public class ModelAgenzia implements Model{
 	private DaoFactory daofactory;
+	
+	 public ModelAgenzia(DaoFactory d) {
+		daofactory=d;
+	}
+	
 	@Override
 	public void Inserimento(Entity parameter) {
 		// TODO Auto-generated method stub
@@ -35,5 +44,14 @@ public class ModelAgenzia implements Model{
 		return null;
 	}
 
-	
+	public List<Agenzia> getAll(){
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			return ((DAOAgenzia)daofactory.getDao("DAOAgenzia")).getAll();
+			
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

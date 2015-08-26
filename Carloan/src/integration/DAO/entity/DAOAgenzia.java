@@ -5,6 +5,8 @@ import integration.DAO.connection.Connection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import business.entity.Entity;
 import business.entity.Luoghi.Agenzia;
@@ -30,13 +32,13 @@ public class DAOAgenzia implements DAO{
 				
 		Agenzia agenzia= (Agenzia)x;
 
-        insertQuery = queryReplaceFirst(insertQuery, agenzia.getIDAgenzia());
+        insertQuery = queryReplaceFirst(insertQuery,String.valueOf( agenzia.getIDAgenzia()));
         
         insertQuery= queryReplaceFirst(insertQuery,agenzia.getNumTelefono());
         
         insertQuery= queryReplaceFirst(insertQuery,agenzia.getNome());
         
-        insertQuery= queryReplaceFirst(insertQuery,agenzia.getIDDitta());
+        insertQuery= queryReplaceFirst(insertQuery,String.valueOf(agenzia.getIDDitta()));
         
         Connection connection= Connection.getConnection(daofactory);
         ResultSet idList=null;
@@ -61,4 +63,31 @@ public class DAOAgenzia implements DAO{
 		return null;
 	}
 
-}
+	public List<Agenzia> getAll(){
+		String query="Select * from agenzia";
+		Connection c=Connection.getConnection(this.daofactory);
+		try {
+			ResultSet r=c.executeRead(query);
+			return creaElencoAgenzie(r);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private List<Agenzia> creaElencoAgenzie(ResultSet r) {
+		List<Agenzia> agenzie=new ArrayList<Agenzia>();
+		if(r!=null){
+			try {
+				while(r.next()){
+					agenzie.add(new Agenzia(r.getInt(1), r.getString(2), r.getString(3), r.getInt(4)));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	}

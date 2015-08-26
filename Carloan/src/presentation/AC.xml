@@ -237,5 +237,9 @@
 		<class>business.model.checker.guidatore.GuidatoreChecker</class>
 		<method>check</method>
 	</call>
-	
+	<!-- Agenzia -->
+	<call id="getAllAgenzie">
+		<class>business.model.ModelAgenzia</class>
+		<method>getAll</method>
+	</call>
 </calls>
