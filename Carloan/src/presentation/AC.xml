@@ -242,4 +242,12 @@
 		<class>business.model.ModelAgenzia</class>
 		<method>getAll</method>
 	</call>
+
+
+<!--Supervisore Agenzia-->
+
+<call id="leggiSupervisoreAgenzia">
+		<class>business.model.ModelSupervisoreA</class>
+		<method>lettura</method>
+	</call>
 </calls>

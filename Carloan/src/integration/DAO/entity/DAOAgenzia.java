@@ -20,7 +20,7 @@ public class DAOAgenzia implements DAO{
 	private  DaoFactory daofactory;
 	
 	
-	DAOAgenzia(DaoFactory dao){
+	public DAOAgenzia(DaoFactory dao){
 		this.daofactory = dao;		
 	}
 	
@@ -88,6 +88,6 @@ public class DAOAgenzia implements DAO{
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return agenzie;
 	}
 	}

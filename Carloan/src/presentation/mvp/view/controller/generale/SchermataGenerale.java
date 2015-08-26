@@ -80,6 +80,11 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	private Label nome_sede;
 	@FXML
+	private Label nome_sa;
+	@FXML
+	private Label cognome_sa;
+	
+	@FXML
 	private Label telefono_sede;
 	@FXML
 	private Label indirizzo_sede;
@@ -384,6 +389,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				try {
 					List<Agenzia> l=(List<Agenzia>)presenter.processRequest("getAllAgenzie", null);
 					caricaTabella((List<T>)l, tbAgenzia);
+			
 				} catch (InstantiationException | IllegalAccessException
 						| ClassNotFoundException | NoSuchMethodException
 						| SecurityException | IllegalArgumentException
@@ -479,7 +485,31 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			panes.remove(7);
 		}	
 	}
+	private class ItemSelectedAgenzia implements ChangeListener{
 
+		@Override
+		public void changed(ObservableValue observable, Object oldValue,
+				Object newValue) {
+			try {
+				SupervisoreAgenzia s=(SupervisoreAgenzia)presenter.processRequest("leggiSupervisoreAgenzia",((Agenzia) newValue).getIDAgenzia());
+				nome_sa.setText(s.getNome());
+				cognome_sa.setText(s.getCognome());
+				
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | NoSuchMethodException
+					| SecurityException | IllegalArgumentException
+					| InvocationTargetException | CommonException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+
+	
+
+	
+		
+	}
 	
 	@SuppressWarnings({ "rawtypes" })
 	private class ItemSelectedAutoveicolo implements ChangeListener{
@@ -581,6 +611,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
 		tbContratto.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedContratto());
 		tbAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAutoveicolo());
+		tbAgenzia.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAgenzia());
 		
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();

@@ -11,9 +11,7 @@ import business.model.Exception.CommonException;
 public class ModelAgenzia implements Model{
 	private DaoFactory daofactory;
 	
-	 public ModelAgenzia(DaoFactory d) {
-		daofactory=d;
-	}
+
 	
 	@Override
 	public void Inserimento(Entity parameter) {
