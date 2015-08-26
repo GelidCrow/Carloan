@@ -204,6 +204,36 @@ public DAOAutoveicolo(DaoFactory dao) {
 		
 		
 	}
+	
+	public List<Autoveicolo> getAllAutoByFascia(int id){
+		
+		 String readQuery = "Select * from Autoveicolo where idFascia='?'";
+		 readQuery=queryReplaceFirst(readQuery,String.valueOf(id));
+		 
+		 Connection connection= Connection.getConnection(dao);
+	        
+	     ResultSet readQueryResultSet = null;
+	     List<Autoveicolo> risultato = null;
+	     try {
+			readQueryResultSet = connection.executeRead(readQuery);	
+			risultato= creaElencoAuto(readQueryResultSet);
+		 } catch (SQLException  e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere le auto" , AlertType.ERROR);
+		 }
+		 finally{
+			try {
+				readQueryResultSet.close();
+				//connection.chiudiConnessione();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+
+	    return risultato;
+	
+	
+}
 
 	private List<Autoveicolo> creaElencoAuto(ResultSet readQueryResultSet) {
 		List<Autoveicolo> leauto=new LinkedList<Autoveicolo>();
@@ -303,6 +333,30 @@ public DAOAutoveicolo(DaoFactory dao) {
 		 String readQuery = "Select * from Autoveicolo where idSede='?' and disponibilita='Disponibile'";
 		 readQuery=queryReplaceFirst(readQuery,String.valueOf(id));
 		 
+		 Connection connection= Connection.getConnection(dao);
+	        
+	     ResultSet readQueryResultSet = null;
+	     List<Autoveicolo> risultato = null;
+	     try {
+			readQueryResultSet = connection.executeRead(readQuery);	
+			risultato= creaElencoAuto(readQueryResultSet);
+		 } catch (SQLException  e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere le auto" , AlertType.ERROR);
+		 }
+		 finally{
+			try {
+				readQueryResultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+	    return risultato;
+	}
+	public List<Autoveicolo> getAllAutoDisponibiliBySedeAndFascia(List<Entity> lista){
+		 String readQuery = "Select * from Autoveicolo where idSede='?' and disponibilita='Disponibile' and idFascia='?'";
+		 readQuery=queryReplaceFirst(readQuery,String.valueOf(lista.get(0)));
+		 readQuery=queryReplaceFirst(readQuery,String.valueOf(lista.get(1)));
 		 Connection connection= Connection.getConnection(dao);
 	        
 	     ResultSet readQueryResultSet = null;

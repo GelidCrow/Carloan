@@ -52,12 +52,32 @@ public class ModelAutoveicolo implements Model{
 		}
 		return null;
 	}
+	public List<Autoveicolo> getAllAutoByFascia(int id) {
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoByFascia(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	
 	public List<Autoveicolo> getAllAutoDisponibiliBySede(int id) {
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
 			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoDisponibiliBySede(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public List<Autoveicolo> getAllAutoDisponibiliBySedeAndFascia(List<Entity> lista) {
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoDisponibiliBySedeAndFascia(lista);
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

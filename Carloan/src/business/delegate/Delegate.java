@@ -3,6 +3,7 @@ package business.delegate;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 
 import presentation.mvp.view.controller.Schermata;
 import business.entity.Entity;
@@ -40,7 +41,11 @@ public class Delegate {
     			method = model.getClass().getMethod(service_method.get(1), Entity.class);
     			result=  method.invoke(model, parameter);
     		}
-    		else{//nel caso passi un intero
+    		else if(parameter instanceof List){//nel caso passi un intero
+    			method = model.getClass().getMethod(service_method.get(1), List.class);
+    			result=  method.invoke(model, parameter);
+    		}
+    		else {
     			method = model.getClass().getMethod(service_method.get(1), int.class);
     			result=  method.invoke(model, parameter);
     		}

@@ -297,25 +297,34 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@SuppressWarnings("unchecked")
 	private void inizializzaTabellaAutoveicolo() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		Utente utente = UtenteCorrente.getUtente();
+		int fascia= choiceFascia.getSelectionModel().getSelectedIndex()+1;
+		List<Integer> lista=new ArrayList<Integer>();
 		if(utente instanceof Amministratore )
-			caricaTabella((List<T>)presenter.processRequest("getAllAuto",null), tbAutoveicolo);
+			caricaTabella((List<T>)presenter.processRequest("getAllAutoByFascia",fascia), tbAutoveicolo);
 		else if( utente instanceof SupervisoreSede){
 			SupervisoreSede supervisoreS= (SupervisoreSede) utente;
-			caricaTabella((List<T>)presenter.processRequest("getAllAutoDisponibiliBySede",supervisoreS.getIDSede()), tbAutoveicolo);
+			lista.add(supervisoreS.getIDSede());
+			lista.add(fascia);
+			caricaTabella((List<T>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista), tbAutoveicolo);
 		}
 		else if( utente instanceof Operatore){
 			Operatore operatore= (Operatore) utente;
-			caricaTabella((List<T>)presenter.processRequest("getAllAutoDisponibiliBySede",operatore.getIDSede()), tbAutoveicolo);
+			lista.add(operatore.getIDSede());
+			lista.add(fascia);
+			caricaTabella((List<T>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista), tbAutoveicolo);
 		}
 		else {//prendo solo le auto delle sedi sottostanti l'agenzia a cui appartiene l'utente corrente. 
 			SupervisoreAgenzia supervisoreA = (SupervisoreAgenzia) utente;
 			List<Sede> sedi = (List<Sede>)presenter.processRequest("getAllSediByAgenzia",supervisoreA.getIDAgenzia());
 			List<Autoveicolo> autoveicoli  = new ArrayList<Autoveicolo>();
 			for(Sede s: sedi){
-				List<Autoveicolo> auto= (List<Autoveicolo>) presenter.processRequest("getAllAutoDisponibiliBySede",s.getIDSede());
+				lista.add(s.getIDSede());
+				lista.add(fascia);
+				List<Autoveicolo> auto= (List<Autoveicolo>) presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista);
 				for(Autoveicolo a: auto){
 					autoveicoli.add(a);
 				}
+				lista.clear();
 			}
 			caricaTabella((List<T>)autoveicoli, tbAutoveicolo);
 		}
@@ -452,16 +461,43 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		public void changed(ObservableValue<? extends String> observable,
 				String oldValue, String newValue) {
 			// TODO Auto-generated method stub
-			 impostaCosto_km(newValue);
+			 try {
+				impostaCosto_km(newValue);
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (CommonException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	
 	}
 	
-	private void impostaCosto_km(String arg){
+	private void impostaCosto_km(String arg) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		for(int i=0;i<fasce.size();i++){
 			if(fasce.get(i).getNome().equals(arg)){
 				lblCostoKm.setText(fasce.get(i).getCosto_kilometrico() + " €");
+				inizializzaTabellaAutoveicolo();
 				break;
 			}
 		}

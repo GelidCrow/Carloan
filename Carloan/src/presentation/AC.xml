@@ -130,9 +130,17 @@
 		<class>business.model.ModelAutoveicolo</class>
 		<method>getAll</method>
 	</call>
+	<call id="getAllAutoByFascia">
+		<class>business.model.ModelAutoveicolo</class>
+		<method>getAllAutoByFascia</method>
+	</call>
 	<call id="getAllAutoDisponibiliBySede">
 		<class>business.model.ModelAutoveicolo</class>
 		<method>getAllAutoDisponibiliBySede</method>
+	</call>
+	<call id="getAllAutoDisponibiliBySedeAndFascia">
+		<class>business.model.ModelAutoveicolo</class>
+		<method>getAllAutoDisponibiliBySedeAndFascia</method>
 	</call>
 	<call id="getAllFasce">
 		<class>business.model.ModelFascia</class>
