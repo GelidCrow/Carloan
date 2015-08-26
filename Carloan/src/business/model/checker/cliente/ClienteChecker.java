@@ -9,7 +9,7 @@ import business.entity.Entity;
 import business.model.Exception.CommonException;
 import business.model.checker.Checker;
 
-public class ClienteChecker implements Checker{
+ class ClienteChecker implements Checker{
 	
     private static final int MIN_NOME_VALUE = 3;
     private static final int MAX_NOME_VALUE = 20;
@@ -61,13 +61,13 @@ public class ClienteChecker implements Checker{
         checkEmail();
 	}
 	
-	public void checkDataNascita() throws CommonException {
+	private void checkDataNascita() throws CommonException {
 		if(cliente.getDatanascita().isBefore(dateLimit)){
         	throw new CommonException("Data di nascita non valida");
 		}
 	}
 	
-	public void checkDataEmissPatente() throws CommonException {
+	private void checkDataEmissPatente() throws CommonException {
 		LocalDate date = cliente.getDatanascita();
 		DatePicker datepicker= new DatePicker(LocalDate.of(date.getYear()+18, date.getMonth(),date.getDayOfMonth()));
 		date= datepicker.getValue();
@@ -76,14 +76,14 @@ public class ClienteChecker implements Checker{
 		}
 	}
 	
-	public void checkDataScadPatente() throws CommonException {
+	private void checkDataScadPatente() throws CommonException {
 		if(cliente.getDataEmissPatente()==null || cliente.getDataScadPatente().isBefore(LocalDate.now())){
         	throw new CommonException("Patente Scaduta");
 		}
 	}
 
 	
-	public void checkNome() throws CommonException{
+	private void checkNome() throws CommonException{
 		int length;
 		
         length = cliente.getNome().length();
@@ -97,7 +97,7 @@ public class ClienteChecker implements Checker{
 	}
 	
 	
-	public void checkCognome() throws CommonException{
+	private void checkCognome() throws CommonException{
 		int length;
 		
         length = cliente.getCognome().length();
@@ -110,7 +110,7 @@ public class ClienteChecker implements Checker{
         }
 	}
 	
-	public void checkSesso() throws CommonException{
+	private void checkSesso() throws CommonException{
 		int length;
 		
         length = cliente.getSesso().length();
@@ -121,7 +121,7 @@ public class ClienteChecker implements Checker{
         	throw new CommonException("Sesso non valido");
         }
 	}
-	public void checkIndirizzo() throws CommonException{
+	private void checkIndirizzo() throws CommonException{
 		int length;
 		
         length = cliente.getIndirizzo().length();
@@ -134,7 +134,7 @@ public class ClienteChecker implements Checker{
         }
 	}
 	
-	public void checkCodFiscale() throws CommonException{
+	private void checkCodFiscale() throws CommonException{
 		int length;
 		
         length = cliente.getCodFiscale().length();
@@ -147,7 +147,7 @@ public class ClienteChecker implements Checker{
 	}
 	
 
-	public void checkPartitaIva() throws CommonException{
+	private void checkPartitaIva() throws CommonException{
 		int length;
 		
         length = cliente.getPartitaIva().length();
@@ -160,7 +160,7 @@ public class ClienteChecker implements Checker{
 	}
 	
 
-	public void checkEmail() throws CommonException{
+	private void checkEmail() throws CommonException{
 		int length;
 		
         length = cliente.getEmail().length();
@@ -172,7 +172,7 @@ public class ClienteChecker implements Checker{
         }
 	}
 
-	public void checkNumCell() throws CommonException{
+	private void checkNumCell() throws CommonException{
 		int length;
 		
         length = cliente.getNumCell().length();
@@ -184,7 +184,7 @@ public class ClienteChecker implements Checker{
         }
 	}
 
-	public void checkNumTel() throws CommonException{
+	private void checkNumTel() throws CommonException{
 		int length;
 		
         length = cliente.getNumTel().length();
@@ -196,7 +196,7 @@ public class ClienteChecker implements Checker{
         }
 	}
 
-	public void checkPatente() throws CommonException{
+	private void checkPatente() throws CommonException{
 		int length;
 		
         length = cliente.getPatenteGuida().length();

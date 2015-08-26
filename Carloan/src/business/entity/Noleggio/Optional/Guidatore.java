@@ -1,10 +1,11 @@
 package business.entity.Noleggio.Optional;
 
-public class Guidatore {
+import business.entity.Entity;
+
+public class Guidatore extends Entity{
 	private Integer id;
 private String Nome;
 private String Cognome;
-private String IDGuidatore;
 private String Indirizzo;
 private String CodFiscale;
 private String PatenteGuida;
@@ -19,6 +20,17 @@ public Guidatore(Integer id,String nome, String cognome,
 	CodFiscale = codFiscale;
 	PatenteGuida = patenteGuida;
 	this.id=id;
+}
+
+public Guidatore(String nome, String cognome,
+		String indirizzo, String codFiscale, String patenteGuida, int idOptional) {
+	super();
+	Nome = nome;
+	Cognome = cognome;
+	Indirizzo = indirizzo;
+	CodFiscale = codFiscale;
+	PatenteGuida = patenteGuida;
+	this.idOptional = idOptional;
 }
 
 public int getIdOptional() {
@@ -50,12 +62,7 @@ public String getCognome() {
 public void setCognome(String cognome) {
 	Cognome = cognome;
 }
-public String getIDGuidatore() {
-	return IDGuidatore;
-}
-public void setIDGuidatore(String iDGuidatore) {
-	IDGuidatore = iDGuidatore;
-}
+
 public String getIndirizzo() {
 	return Indirizzo;
 }
@@ -73,5 +80,21 @@ public String getPatenteGuida() {
 }
 public void setPatenteGuida(String patenteGuida) {
 	PatenteGuida = patenteGuida;
+}
+
+@Override
+public int hashCode(){
+	return CodFiscale.hashCode();
+}
+ 
+//diversi su patente e codice Fiscale
+@Override
+public boolean equals(Object x){
+	if(x!=null){
+		if(this.getCodFiscale().equals(((Guidatore)x).getCodFiscale()) && this.getPatenteGuida()!=((Guidatore)x).getPatenteGuida()){
+    		return true;
+    	}
+	}
+	return false;
 }
 }

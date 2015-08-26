@@ -1,14 +1,24 @@
 package presentation.mvp.view.controller.generale.noleggio;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
+import business.entity.Noleggio.Optional.Guidatore;
 import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
 import business.entity.Noleggio.Optional.Optional;
+import business.model.Exception.CommonException;
 
 public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		
@@ -30,10 +40,15 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	public void btnAggiungiOptionalAuto(ActionEvent e){
 		ObservableList<Entity> listItem= tbOptionalScelti.getItems();
 		Optional itemSelected = (Optional) tbOptionalAuto.getSelectionModel().getSelectedItem();
+		int numScelto = choiceSeggiolini.getSelectionModel().getSelectedItem();
 		if(!listItem.contains(itemSelected)){
-			tbOptionalScelti.getItems().add(itemSelected);
-			
-			}
+			for(int i=0;i<seggiolini.size();i++){
+				if(seggiolini.get(i).getnumero()==numScelto){
+					tbOptionalScelti.getItems().add(seggiolini.get(i));//metto nell'altra tabella quello con l'elemento scelto.
+					break;
+				}
+			 }
+		}
 		else 
 			AlertView.getAlertView("Hai già aggiunto quest'optional", AlertType.WARNING);
 	}
@@ -46,6 +61,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		txtIndirizzo.setDisable(false);
 		txtCodFiscale.setDisable(false);
 		txtPatente.setDisable(false);
+		campiDisattivi=false;
 	}
 	
 	/**
@@ -74,13 +90,76 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			}
 		}
 	}
+	
+	private Set<Guidatore> guidatori= new HashSet<Guidatore>();//elimino i duplicati 
+	ObservableList<Entity> listItem = FXCollections.observableArrayList(guidatori);
 	@FXML
 	public void btnAggiungiGuidatore(ActionEvent e){
-		
+		if(!campiDisattivi){
+			caricaTabella( listItem,tbGuidatori);
+			if(txtNome.getText().isEmpty() || txtCognome.getText().isEmpty() || txtIndirizzo.getText().isEmpty() || txtCodFiscale.getText().isEmpty() || txtPatente.getText().isEmpty())
+				AlertView.getAlertView("Compilare tutti i campi prima di procedere con l'aggiunta", AlertType.WARNING);	
+			else{
+			   try{
+		        	Integer.parseInt(txtPatente.getText());
+		        	Guidatore guidatore = new Guidatore(txtNome.getText(),txtCognome.getText(),txtIndirizzo.getText(),txtCodFiscale.getText(),txtPatente.getText(),ottieniIDOptional());
+					try {
+						presenter.processRequest("VerificaGuidatore", guidatore);
+						//se l'elemento viene aggiunto, in quanto è un hashset, se trova un duplicato su codice fiscaale non l'aggiungerà
+						if(guidatori.add(guidatore)) {
+							listItem= FXCollections.observableArrayList(guidatori);
+							tbGuidatori.setItems(listItem);
+						}
+						else {
+							AlertView.getAlertView("C'è già qualche guidatore con Patente e/o cod.Fiscale uguale a quelle inserite", AlertType.WARNING);
+						}
+					}	
+					catch(CommonException e1){
+						e1.showMessage();
+					}
+					catch(InvocationTargetException e1){
+						new CommonException(e1.getTargetException().getMessage()).showMessage();
+					}
+					catch (InstantiationException | IllegalAccessException
+							| ClassNotFoundException | NoSuchMethodException
+							| SecurityException | IllegalArgumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				catch(NumberFormatException e2){
+					AlertView.getAlertView("La patente deve essere costituita da soli numeri",AlertType.WARNING);
+				}
+			}
+		}
+		else 
+			AlertView.getAlertView("Se vuoi aggiungere un guidatore seleziona e aggiungi come optional il guidatore Aggiuntivo", AlertType.WARNING);
+	}
+	
+	private int ottieniIDOptional(){
+		ObservableList<Entity> listItem=  tbOptionalScelti.getItems();
+		for(Entity e: listItem){
+			if((Optional)e instanceof GuidatoreAggiuntivo)
+			{
+				return ((Optional)e).getId();
+			}
+		}
+		return 0;
 	}
 	@FXML
 	public void	btnRimuoviGuidatore(ActionEvent e){
-		
+		if(tbGuidatori.getSelectionModel().getSelectedIndex()<0){
+			AlertView.getAlertView("Nessun elemento selezionato", AlertType.WARNING);
+		}
+		else{
+			guidatori.remove(tbGuidatori.getSelectionModel().getSelectedItem());
+			for(Guidatore g: guidatori){
+				System.out.println(arg0);
+				
+			}
+			tbGuidatori.getItems().remove( tbGuidatori.getSelectionModel().getSelectedItem());
+		//	controllaGuidatoreAggiuntivo();
+			}
 	}
 	@FXML
 	public void btnInfoAuto(ActionEvent e){
@@ -93,6 +172,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		}
 		else{
 			tbOptionalScelti.getItems().remove( tbOptionalScelti.getSelectionModel().getSelectedItem());
+			
 			controllaGuidatoreAggiuntivo();
 			}
 	}

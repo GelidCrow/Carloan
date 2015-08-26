@@ -78,7 +78,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected  TableView<T> tbOptionalScelti;
 	@FXML
-	private ChoiceBox<Integer> choiceSeggiolini;
+	protected ChoiceBox<Integer> choiceSeggiolini;
 	@FXML
 	protected ChoiceBox<Integer> choiceLimite;
 	/***
@@ -94,7 +94,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 
 
 	@FXML
-	private TableView<T> tbGuidatori;
+	protected TableView<T> tbGuidatori;
 	@FXML
 	private TableView<T> tbCartaCredito;
 	@FXML
@@ -178,10 +178,14 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		IDContratto.setCellValueFactory(cellData ->  new SimpleIntegerProperty(((Contratto) cellData.getValue()).getIDContratto()));
 		dScadenzaContratto.setCellValueFactory(cellData ->  new SimpleObjectProperty<LocalDate>(((Contratto) cellData.getValue()).getDataCreazione()));
 	}
-	
+	/**** TABELLA GUIDATORE **/
+	@FXML
+	private TableColumn<Guidatore,String> codFiscale;
+	@FXML
+	private TableColumn<Guidatore,String> nomeCognomeGuid;
 	private void bindingValuesGuidatore(){
-		guidatori.get(0).setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getCodFiscale()));
-		guidatori.get(1).setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getNome()+((Guidatore) cellData.getValue()).getCognome()));
+		codFiscale.setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getCodFiscale()));
+		nomeCognomeGuid.setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getNome()+ "  "+ ((Guidatore) cellData.getValue()).getCognome()));
 	}
 	
 	/** OPTIONAL **/
@@ -232,14 +236,14 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	 * @param listaClienti
 	 * @return
 	 */
-	private void caricaTabella(List<T> list,TableView<T> table){
+	protected void caricaTabella(List<T> list,TableView<T> table){
 		ObservableList<T> obsList= FXCollections.observableList(list);
 		table.setItems(obsList);
 	}
 	
 
 	private List<Optional> optional=null;
-	private List<Seggiolino> seggiolini=null;
+	protected List<Seggiolino> seggiolini=null;
 	@SuppressWarnings("unchecked")
 	private void inizializzaTabelleOptional(){
 		try {
@@ -398,8 +402,8 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		 
 		 //NUMERO SEGGIOLINI
 		 LinkedList<Integer> temp2=new LinkedList<Integer>();
-		 for(int i=1;i<=seggiolini.size();i++){
-			 temp2.add(i);
+		 for(int i=0;i<seggiolini.size();i++){
+			 temp2.add(seggiolini.get(i).getnumero());// metto il numero di seggiolini effettivi
 		 }
 		 choiceSeggiolini.setItems(FXCollections.observableArrayList(temp2));
 		 choiceSeggiolini.getSelectionModel().select(0);
@@ -424,7 +428,11 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		@Override
 		public void changed(ObservableValue<? extends Integer> observable,
 				Integer oldValue, Integer newValue) {
-			lblprezzoOptAuto.setText(seggiolini.get(newValue-1).getPrezzo() + " €");
+			for(int i=0;i<seggiolini.size();i++){
+				if(seggiolini.get(i).getnumero()==newValue){
+					lblprezzoOptAuto.setText(seggiolini.get(i).getPrezzo() + " €");
+				}
+			}
 		}
 	}
 	/*****  GUIDATORE **/
@@ -438,6 +446,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	protected TextField txtCodFiscale;
 	@FXML
 	protected TextField txtPatente;
+	protected boolean campiDisattivi;
 	
 	protected void impostaFalsoTxtGuidatore(){
 			txtNome.setDisable(true);
@@ -445,6 +454,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			txtIndirizzo.setDisable(true);
 			txtCodFiscale.setDisable(true);
 			txtPatente.setDisable(true);
+			campiDisattivi=true;
 		}
 	
 	
@@ -459,7 +469,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		bindingValuesAutoveicolo();
 		bindingValuesContratto();
 		bindingValuesCartaCredito();
-		//bindingValuesGuidatore();
+		bindingValuesGuidatore();
 
 		inizializzaToggleButton();
 		inizializzaTabelleOptional();

@@ -196,4 +196,11 @@
 		<method>getAll</method>
 	</call>
 	
+	
+	<!-- GUIDATORE -->
+	<call id="VerificaGuidatore">
+		<class>business.model.checker.guidatore.GuidatoreChecker</class>
+		<method>check</method>
+	</call>
+	
 </calls>
