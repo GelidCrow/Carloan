@@ -4,12 +4,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
+import utility.Finestra;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Modality;
 import MessaggiFinestra.AlertView;
+import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
 import business.entity.Noleggio.Optional.Guidatore;
@@ -23,35 +26,46 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	
 	@FXML
 	public void btnAggiungiOptionalNoleggio(ActionEvent e){
-		ObservableList<Entity> listItem= tbOptionalScelti.getItems();
-
-		Optional itemSelected = (Optional) tbOptionalNoleggio.getSelectionModel().getSelectedItem();
-		if(!listItem.contains(itemSelected)){
-			tbOptionalScelti.getItems().add(itemSelected);
-			controllaGuidatoreAggiuntivo();
-			controllaChilLimitato();
-			}
-		else 
-			AlertView.getAlertView("Hai già aggiunto quest'optional", AlertType.WARNING);
+		if(tbOptionalNoleggio.getSelectionModel().getSelectedIndex()<0 ){
+			AlertView.getAlertView("Nessun elemento selezionato", AlertType.WARNING);
+		}
+		else{
+			ObservableList<Entity> listItem= tbOptionalScelti.getItems();
+	
+			
+			Optional itemSelected = (Optional) tbOptionalNoleggio.getSelectionModel().getSelectedItem();
+			if(!listItem.contains(itemSelected)){
+				tbOptionalScelti.getItems().add(itemSelected);
+				controllaGuidatoreAggiuntivo();
+				controllaChilLimitato();
+				}
+			else 
+				AlertView.getAlertView("Hai già aggiunto quest'optional", AlertType.WARNING);
+		}
 	}
 	@FXML
 	public void btnAggiungiOptionalAuto(ActionEvent e){
-		ObservableList<Entity> listItem= tbOptionalScelti.getItems();
-		Optional itemSelected = (Optional) tbOptionalAuto.getSelectionModel().getSelectedItem();
-		int numScelto = choiceSeggiolini.getSelectionModel().getSelectedItem();
-		if(itemSelected instanceof Seggiolino  && !listItem.contains(itemSelected)){
-			for(int i=0;i<seggiolini.size();i++){
-				if(seggiolini.get(i).getnumero()==numScelto){
-					tbOptionalScelti.getItems().add(seggiolini.get(i));//metto nell'altra tabella quello con l'elemento scelto.
-					break;
-				}
-			 }
+		if(tbOptionalAuto.getSelectionModel().getSelectedIndex()<0 ){
+			AlertView.getAlertView("Nessun elemento selezionato", AlertType.WARNING);
 		}
-		else if(!listItem.contains(itemSelected)){
-			tbOptionalScelti.getItems().add(itemSelected);
+		else{
+			ObservableList<Entity> listItem= tbOptionalScelti.getItems();
+			Optional itemSelected = (Optional) tbOptionalAuto.getSelectionModel().getSelectedItem();
+			int numScelto = choiceSeggiolini.getSelectionModel().getSelectedItem();
+			if(itemSelected instanceof Seggiolino  && !listItem.contains(itemSelected)){
+				for(int i=0;i<seggiolini.size();i++){
+					if(seggiolini.get(i).getnumero()==numScelto){
+						tbOptionalScelti.getItems().add(seggiolini.get(i));//metto nell'altra tabella quello con l'elemento scelto.
+						break;
+					}
+				 }
+			}
+			else if(!listItem.contains(itemSelected)){
+				tbOptionalScelti.getItems().add(itemSelected);
+			}
+			else 
+				AlertView.getAlertView("Hai già aggiunto quest'optional", AlertType.WARNING);
 		}
-		else 
-			AlertView.getAlertView("Hai già aggiunto quest'optional", AlertType.WARNING);
 	}
 	/**
 	 * <p>Setta ad abilitato i valori di guidatore aggiuntivo</p>
@@ -182,7 +196,21 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	}
 	@FXML
 	public void btnAggiungiCartaCredito(ActionEvent e){
-		
+		if(cliente==null){
+			AlertView.getAlertView("Selezionare prima un contratto", AlertType.WARNING);
+		}
+		else {	
+			FXMLParameter.setRidimensionabile(false);
+			FXMLParameter.setTitolo("Nuova Carta Di Credito");
+			FXMLParameter.setHand(false);
+			Finestra.visualizzaFinestra(presenter, FXMLParameter, this, "MostraSchermataInserimentoCartaCredito",Modality.APPLICATION_MODAL);
+
+		 }
+		}
+	
+	
+	public Cliente getEntitaElementoSelezionato(){
+		return cliente;
 	}
 	@FXML
 	public void btnCancella(ActionEvent e){

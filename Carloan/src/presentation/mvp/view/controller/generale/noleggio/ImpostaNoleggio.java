@@ -337,13 +337,13 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	private ImageView imgAuto;
 	private InputStream inputStream;
+	protected 	Cliente cliente;
 	/**
 	 * <p> Ascoltatore per il cambio di elemento dal COntratto per settare i label per le info aggiuntive </p>
 	 */
 	@SuppressWarnings("rawtypes")
 	private class ItemSelected implements ChangeListener{
 	
-		@SuppressWarnings("unchecked")
 		@Override
 		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
 			//interroga db
@@ -351,9 +351,9 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 				if(newValue!=null){
 					if(newValue instanceof Contratto){
 						Contratto contratto= (Contratto)newValue;
-						Cliente cliente = (Cliente)presenter.processRequest("letturaCliente",contratto.getIdCliente());
+						cliente = (Cliente)presenter.processRequest("letturaCliente",contratto.getIdCliente());
 						popolaLabelCliente(cliente);
-						caricaTabella((List<T>)presenter.processRequest("getCarteByCliente",contratto.getIdCliente()), tbCartaCredito);
+						refreshCarteCredito();
 					}
 					else if(newValue instanceof Autoveicolo){
 						popolaLabelEImmagineAuto((Autoveicolo)tbAutoveicolo.getSelectionModel().getSelectedItem());
@@ -416,6 +416,20 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		}
 	
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void refreshCarteCredito(){
+		try {
+			tbCartaCredito.getItems().clear();
+			caricaTabella((List<T>)presenter.processRequest("getCarteByCliente",cliente.getId()), tbCartaCredito);
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@FXML
 	private Label lblprezzoOptScelti;
 	@FXML
@@ -428,7 +442,10 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		@Override
 		public void changed(ObservableValue<? extends Optional> observable,
 				Optional oldValue, Optional newValue) {
-			lblprezzoOptScelti.setText(String.valueOf(newValue.getPrezzo()));
+			lblNumSeggioliniScelti.setText("");
+			lblLimiteCoperturaScelto.setText("");
+			if(newValue!=null)
+				lblprezzoOptScelti.setText(String.valueOf(newValue.getPrezzo()));
 			if(newValue instanceof Seggiolino){
 				lblNumSeggioliniScelti.setText(String.valueOf(((Seggiolino) newValue).getnumero()));
 			}
@@ -507,12 +524,26 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 				e.printStackTrace();
 			}
 		}
-
-		
-
-	
 	}
-	
+	@FXML
+	private Button btnAggiungiCarta;
+	class radioSelected implements ChangeListener{
+
+		@Override
+		public void changed(ObservableValue arg0, Object arg1, Object arg2) {
+			// TODO Auto-generated method stub
+			if((RadioButton)arg2==rdCartaCredito){
+				btnAggiungiCarta.setVisible(true);
+				tbCartaCredito.setVisible(true);
+			}
+			else {
+				btnAggiungiCarta.setVisible(false);
+				tbCartaCredito.setVisible(false);
+			}		
+		}
+		
+		
+	}
 	private void impostaCosto_km(Fascia fasciaSelected) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		lblCostoKm.setText(String.valueOf(fasciaSelected.getCosto_kilometrico())+ " €");
 		inizializzaTabellaAutoveicolo();
@@ -580,6 +611,9 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			tbAutoveicolo.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			choiceSeggiolini.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedSeggiolino());
 			choiceFascia.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedFasce());
+			btnAggiungiCarta.setVisible(false);
+			tbCartaCredito.setVisible(false);
+			group.selectedToggleProperty().addListener(new radioSelected());
 			impostaFalsoTxtGuidatore();
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

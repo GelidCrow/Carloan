@@ -60,7 +60,7 @@
             <Label layoutX="1094.0" layoutY="365.0" text="Prezzo" />
             <TextField fx:id="txtAcconto" layoutX="1098.0" layoutY="410.0" prefHeight="25.0" prefWidth="97.0" />
             <Button fx:id="btnCalcola" layoutX="1363.0" layoutY="439.0" mnemonicParsing="false" onAction="#btnCalcolaPrezzo" text="Calcola " />
-            <TableView fx:id="tbCartaCredito" layoutX="1090.0" layoutY="524.0" prefHeight="75.0" prefWidth="400.0">
+            <TableView fx:id="tbCartaCredito" layoutX="1090.0" layoutY="524.0" prefHeight="176.0" prefWidth="400.0">
                <columns>
                   <TableColumn fx:id="iban" prefWidth="205.0" text="IBAN" />
                   <TableColumn fx:id="dScadenza" prefWidth="97.0" text="Data Scadenza" />
@@ -89,7 +89,7 @@
             <Label layoutX="31.0" layoutY="640.0" text="Chilometraggio Limitato*" />
             <Label layoutX="33.0" layoutY="665.0" text="Limite Kilometri" />
             <Button fx:id="btnAggiungiAuto" layoutX="971.0" layoutY="167.0" mnemonicParsing="false" onAction="#btnAggiungiOptionalAuto" prefHeight="25.0" prefWidth="71.0" text="Aggiungi" />
-            <Button layoutX="1336.0" layoutY="496.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta" />
+            <Button fx:id="btnAggiungiCarta" layoutX="1336.0" layoutY="496.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta" />
             <TableView fx:id="tbOptionalScelti" layoutX="729.0" layoutY="278.0" prefHeight="112.0" prefWidth="327.0">
                <columns>
                   <TableColumn fx:id="nomeOptScelti" prefWidth="188.0" text="Nome" />

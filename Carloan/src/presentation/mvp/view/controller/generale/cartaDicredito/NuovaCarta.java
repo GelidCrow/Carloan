@@ -22,6 +22,7 @@ import MessaggiFinestra.AlertView;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
+import presentation.mvp.view.controller.generale.noleggio.NuovoNoleggio;
 import utility.ParametriFXML;
 
 public class NuovaCarta extends Schermata {
@@ -29,17 +30,27 @@ public class NuovaCarta extends Schermata {
 	@FXML private TextField txtNumCarta;
 	@FXML private DatePicker dScadenza;
 	@FXML private ChoiceBox<String> choiceCircuito;
+	private Schermata scChiamante;
 	private Cliente cliente;
 	@SuppressWarnings("rawtypes")
 	@FXML
 	public void btnConferma(ActionEvent e){
-		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
-		cliente= (Cliente)scChiamante.getEntitaElementoSelezionato("Cliente");
+		if(this.getChiamante() instanceof SchermataGenerale){
+			scChiamante= (SchermataGenerale) this.getChiamante();
+			cliente= (Cliente)((SchermataGenerale) scChiamante).getEntitaElementoSelezionato("Cliente");
+		}
+		else {
+			 scChiamante = (NuovoNoleggio)this.getChiamante();
+			cliente= (Cliente)((NuovoNoleggio) scChiamante).getEntitaElementoSelezionato();
+		}
 		try {
 
 				CartaDiCredito carta= prendiDatiDaView();
 				presenter.processRequest("VerificaCarta", carta);	
 				presenter.processRequest("InserimentoCarta", carta);
+				if(scChiamante instanceof NuovoNoleggio){
+					((NuovoNoleggio) scChiamante).refreshCarteCredito();
+				}
 				chiudiFinestra();
 		}
 		catch(CommonException e1){
