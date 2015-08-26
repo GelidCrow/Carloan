@@ -7,4 +7,8 @@ public class ManutenzioneStraordinaria extends Manutenzione{
 			LocalDate dataFine, String note,int i) {
 		super(iDManutenzione, datainizio, dataFine, note,i);
 	}
+	public ManutenzioneStraordinaria( LocalDate datainizio,
+			LocalDate dataFine, String note,int i) {
+		super(datainizio, dataFine, note,i);
+	}
 }

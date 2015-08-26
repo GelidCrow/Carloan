@@ -9,9 +9,11 @@ import static utility.QueryStringReplacer.queryReplaceFirst;
 
 
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -316,10 +318,10 @@ public DAOAutoveicolo(DaoFactory dao) {
 			AlertView.getAlertView("Non è stato possibile leggere l'auto" , AlertType.ERROR);
 		 }
 		 finally{
+			
 			try {
 				if(readQueryResultSet!=null)
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}

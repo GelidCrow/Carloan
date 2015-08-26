@@ -42,13 +42,14 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="22.0" layoutY="308.0" text="Data fine mantuenzione: " />
+      <Label layoutX="22.0" layoutY="308.0" text="Data fine manutenzione: " />
       <Label fx:id="datafine" layoutX="160.0" layoutY="308.0" prefHeight="17.0" prefWidth="144.0" />
-      <TableView fx:id="table_manutenzioni" layoutX="48.0" layoutY="127.0" prefHeight="124.0" prefWidth="252.0">
+      <TableView fx:id="table_manutenzioni" layoutX="61.0" layoutY="145.0" prefHeight="124.0" prefWidth="252.0">
         <columns>
           <TableColumn fx:id="colonna_id" prefWidth="123.0" text="ID" />
           <TableColumn fx:id="colonna_datainizio" prefWidth="128.0" text="Data Inizio" />
         </columns>
       </TableView>
+      <Label layoutX="61.0" layoutY="109.0" text="Manutenzioni ancora aperte :" />
    </children>
 </AnchorPane>

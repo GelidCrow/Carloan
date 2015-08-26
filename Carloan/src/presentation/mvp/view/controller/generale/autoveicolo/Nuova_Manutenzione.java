@@ -19,6 +19,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,11 +44,15 @@ public class Nuova_Manutenzione extends Schermata{
 	Label modello;
 	private Autoveicolo a=null;
 	private Manutenzione man;
+	final ToggleGroup group = new ToggleGroup();
 public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
 		radio_ord.setSelected(true);
 		radio_stra.setSelected(false);
+		radio_ord.setToggleGroup(group);
+		radio_stra.setToggleGroup(group);
+		
 }
 public void initData(Entity x){
 	this.a=(Autoveicolo)x;
@@ -99,14 +104,22 @@ public void btnconferma(ActionEvent e){
 	
 	
 }
+
 private Manutenzione prendiDatiDaView() throws CommonException{
-	
 	LocalDate d=data_inizio.getValue();
 	if(d==null)
 		throw new CommonException("La data d'inizio è vuota");
-	if(radio_ord.isSelected())
-		return new ManutenzioneOrdinaria((Integer) null,d , null, motivo.getText(),this.a.getIDauto());
-	else
-		return new ManutenzioneStraordinaria((Integer) null, d, null, motivo.getText(),a.getIDauto());
+	if(radio_ord.isSelected()){
+		String mot=motivo.getText();
+		if(mot==null)
+			mot="";
+			return new ManutenzioneOrdinaria(d ,null, mot,this.a.getIDauto());
+	}
+	else{
+		String mot=motivo.getText();
+		if(mot==null)
+			mot="";
+			return new ManutenzioneOrdinaria(d ,null, mot,this.a.getIDauto());
+	}
 }
 }

@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -17,10 +18,12 @@ import business.entity.Entity;
 import business.entity.Utente;
 import business.entity.UtenteCorrente;
 import business.entity.Auto.Autoveicolo;
+import business.entity.Auto.Fascia.Fascia;
 import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Gestori.SupervisoreSede;
+import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
 import business.model.Exception.CommonException;
@@ -38,6 +41,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -67,7 +71,9 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private Label txtBenvenuto;
 	@FXML
 	private TableColumn<Cliente,String> cliente;
-
+	
+	@FXML
+	private ChoiceBox<Fascia> choice_fascia;
 	
 	@FXML
 	private MenuButton btnManutenzione;
@@ -337,7 +343,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 						}
 					}
 					try {
-						caricaTabella((List<T>)presenter.processRequest("getAllAuto",null), tbAuto);
+						List<Fascia> l=(List<Fascia>)presenter.processRequest("getAllFasce", null);
+						ObservableList<Fascia> obs=FXCollections.observableArrayList(l);
+						choice_fascia.setItems(obs);
+						choice_fascia.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedFasce());
+						choice_fascia.getSelectionModel().selectFirst();
+						
 					} catch (InstantiationException | IllegalAccessException
 							| ClassNotFoundException | NoSuchMethodException
 							| SecurityException | IllegalArgumentException
@@ -463,7 +474,47 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 	}
 	
-	
+	class ItemChoiceSelectedFasce implements ChangeListener<Fascia>{
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void changed(ObservableValue<? extends Fascia> arg0,Fascia old, Fascia neww) {
+			
+				try {
+					Utente utente = UtenteCorrente.getUtente();
+					List<Integer> lista=null;
+					if(utente instanceof Amministratore)
+					caricaTabella((List<T>)presenter.processRequest("getAllAutoByFascia",neww.getIDFascia()), tbAuto);
+					else if(utente instanceof SupervisoreAgenzia){
+						List<Autoveicolo> autoveicoli  = new ArrayList<Autoveicolo>();
+						List<Sede> sedi = (List<Sede>)presenter.processRequest("getAllSediByAgenzia",((SupervisoreAgenzia) utente).getIDAgenzia());
+						for(Sede s:sedi){
+							lista=new ArrayList<Integer>();
+							lista.add(s.getIDSede());
+							lista.add(neww.getIDFascia());
+							List<Autoveicolo> auto= (List<Autoveicolo>) presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista);
+							autoveicoli.addAll(auto);
+						}
+						caricaTabella((List<T>)autoveicoli, tbAuto);
+					}
+					else{ //Supervisore sede
+						lista=new ArrayList<Integer>();
+						lista.add(((SupervisoreSede)utente).getIDSede());
+						lista.add(neww.getIDFascia());
+						caricaTabella((List<T>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista), tbAuto);
+					}
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalArgumentException
+						| InvocationTargetException | CommonException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				
+		}
+		
+	}
 	
 	@SuppressWarnings({ "unchecked"})
 	@Override

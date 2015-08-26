@@ -18,7 +18,13 @@ public abstract class Manutenzione extends Entity{
 		this.note = note;
 		this.IDAuto=i;
 	}
-	
+	public Manutenzione( LocalDate localDate, LocalDate dataFine,
+			String note,int i){
+		Datainizio = localDate;
+		DataFine = dataFine;
+		this.note = note;
+		this.IDAuto=i;
+	}
 	public LocalDate getDatainizio() {
 		return Datainizio;
 	}

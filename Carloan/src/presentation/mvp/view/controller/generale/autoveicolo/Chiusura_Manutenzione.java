@@ -59,6 +59,7 @@ public class Chiusura_Manutenzione extends Nuova_Manutenzione{
 			caricatabella(manutenzioni);
 			table_manutenzioni.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedManutenzione());
 			table_manutenzioni.getSelectionModel().selectFirst();
+			m=table_manutenzioni.getSelectionModel().getSelectedItem();
 			
 			
 		} catch (InstantiationException | IllegalAccessException
@@ -72,12 +73,13 @@ public class Chiusura_Manutenzione extends Nuova_Manutenzione{
 private void caricatabella(List<Manutenzione> manutenzioni){
 	ObservableList<Manutenzione> obsList= FXCollections.observableList(manutenzioni);
 	table_manutenzioni.setItems(obsList);
+	table_manutenzioni.getSelectionModel().selectFirst();
 }
 @FXML
 public void btnconferma(ActionEvent e){
 	try {
-		presenter.processRequest("VerificaManutenzione", this.m);
-		presenter.processRequest("ChiusuraManutenzione",this.m);
+		presenter.processRequest("VerificaManutenzione", m);
+		presenter.processRequest("ChiusuraManutenzione",m);
 		chiudiFinestra();
 	}
 	
@@ -113,9 +115,8 @@ class ItemSelectedManutenzione implements ChangeListener<Manutenzione>{
 	@Override
 	public void changed(ObservableValue<? extends Manutenzione> observable,Manutenzione oldValue, Manutenzione newValue) {
 		motivo.setText(newValue.getNote());
+		m=newValue;
 	}
-
-
 	
 }
 }
