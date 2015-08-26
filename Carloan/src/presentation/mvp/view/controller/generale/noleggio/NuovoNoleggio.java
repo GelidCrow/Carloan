@@ -1,20 +1,16 @@
 package presentation.mvp.view.controller.generale.noleggio;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
-import business.entity.Auto.Autoveicolo;
 import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
 import business.entity.Noleggio.Optional.Guidatore;
 import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
@@ -42,9 +38,14 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	public void btnAggiungiOptionalAuto(ActionEvent e){
 		ObservableList<Entity> listItem= tbOptionalScelti.getItems();
 		Optional itemSelected = (Optional) tbOptionalAuto.getSelectionModel().getSelectedItem();
-		Seggiolino seggiolino = choiceSeggiolini.getSelectionModel().getSelectedItem();
+		int numScelto = choiceSeggiolini.getSelectionModel().getSelectedItem();
 		if(itemSelected instanceof Seggiolino  && !listItem.contains(itemSelected)){
-			tbOptionalScelti.getItems().add(seggiolino);//metto nell'altra tabella quello con l'elemento scelto.
+			for(int i=0;i<seggiolini.size();i++){
+				if(seggiolini.get(i).getnumero()==numScelto){
+					tbOptionalScelti.getItems().add(seggiolini.get(i));//metto nell'altra tabella quello con l'elemento scelto.
+					break;
+				}
+			 }
 		}
 		else if(!listItem.contains(itemSelected)){
 			tbOptionalScelti.getItems().add(itemSelected);

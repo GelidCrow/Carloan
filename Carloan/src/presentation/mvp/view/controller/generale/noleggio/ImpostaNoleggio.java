@@ -25,15 +25,12 @@ import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Optional.Assicurazione_KASKO;
 import business.entity.Noleggio.Optional.Guidatore;
-import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
 import business.entity.Noleggio.Optional.Optional;
 import business.entity.Noleggio.Optional.OptionalAuto;
 import business.entity.Noleggio.Optional.OptionalNoleggio;
 import business.entity.Noleggio.Optional.Seggiolino;
 import business.entity.pagamento.CartaDiCredito;
 import business.model.Exception.CommonException;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -42,14 +39,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -83,7 +77,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected  TableView<T> tbOptionalScelti;
 	@FXML
-	protected ChoiceBox<Seggiolino> choiceSeggiolini;
+	protected ChoiceBox<Integer> choiceSeggiolini;
 	@FXML
 	protected ChoiceBox<Integer> choiceLimite;
 	/***
@@ -122,25 +116,6 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	private RadioButton rdCartaCredito;
 	
 	final ToggleGroup group = new ToggleGroup();
-
-	
-	
-	private ObservableList<TableColumn<Sede,?>> restituzione;
-
-	private ObservableList<TableColumn<Optional,?>> optionalNoleggio;
-
-	private ObservableList<TableColumn<Optional,?>> optionalAuto;
-
-	private ObservableList<TableColumn<Optional,?>> optionalScelti;
-
-	private ObservableList<TableColumn<Guidatore,?>> guidatori;
-	
-	private ObservableList<TableColumn<Autoveicolo,?>> autoveicoli;
-
-	private ObservableList<TableColumn<CartaDiCredito,?>> carteDiCredito;
-
-	private ObservableList<TableColumn<Contratto,?>> contratti;
-
 	
 	
 	/******* TABELLA CARTA DI CREDITO ***/
@@ -441,7 +416,27 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		}
 	
 	}
+	@FXML
+	private Label lblprezzoOptScelti;
+	@FXML
+	private Label lblLimiteCoperturaScelto;
+	@FXML
+	private Label lblNumSeggioliniScelti;
 	
+	private class ItemSelectedOptScelti implements ChangeListener<Optional>{
+
+		@Override
+		public void changed(ObservableValue<? extends Optional> observable,
+				Optional oldValue, Optional newValue) {
+			lblprezzoOptScelti.setText(String.valueOf(newValue.getPrezzo()));
+			if(newValue instanceof Seggiolino){
+				lblNumSeggioliniScelti.setText(String.valueOf(((Seggiolino) newValue).getnumero()));
+			}
+			else if( newValue instanceof Assicurazione_KASKO){
+				lblLimiteCoperturaScelto.setText(String.valueOf(((Assicurazione_KASKO)newValue).getCopertura()));
+			}
+		}
+	}
 	
 	
 	private void inizializzaToggleButton(){
@@ -461,7 +456,11 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		 lblCostoKm.setText(String.valueOf(choiceFascia.getSelectionModel().getSelectedItem().getCosto_kilometrico())+ " €");
 		 
 		 //NUMERO SEGGIOLINI
-		 choiceSeggiolini.setItems(FXCollections.observableArrayList(seggiolini));
+		 LinkedList<Integer> temp2=new LinkedList<Integer>();
+		 for(int i=0;i<seggiolini.size();i++){
+			 temp2.add(seggiolini.get(i).getnumero());// metto il numero di seggiolini effettivi
+		 }
+		 choiceSeggiolini.setItems(FXCollections.observableArrayList(temp2));
 		 choiceSeggiolini.getSelectionModel().selectFirst();
 		 choiceSeggiolini.setDisable(true);
 		 
@@ -479,16 +478,13 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	 * @author francesco
 	 *
 	 */
-	class ItemChoiceSelectedSeggiolino implements ChangeListener<Seggiolino>{
+	class ItemChoiceSelectedSeggiolino implements ChangeListener<Integer>{
 
 		@Override
-		public void changed(ObservableValue<? extends Seggiolino> observable,
-				Seggiolino oldValue, Seggiolino newValue) {
-			// TODO Auto-generated method stub
-			impostaPrezzoSeggiolino(newValue);
+		public void changed(ObservableValue<? extends Integer> observable,
+				Integer oldValue, Integer newValue) {
+				impostaPrezzoSeggiolino(newValue);
 		}
-
-		
 	}
 	/**
 	 * <p>Prende il seggiolino in posizione 2 e mette i lsuo prezzo.</p>
@@ -511,14 +507,23 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 				e.printStackTrace();
 			}
 		}
+
+		
+
+	
 	}
 	
 	private void impostaCosto_km(Fascia fasciaSelected) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		lblCostoKm.setText(String.valueOf(fasciaSelected.getCosto_kilometrico())+ " €");
 		inizializzaTabellaAutoveicolo();
 	}
-	private void impostaPrezzoSeggiolino(Seggiolino seggiolinoSelected){
-			lblprezzoOptAuto.setText(seggiolinoSelected.getPrezzo() + " €");
+	private void impostaPrezzoSeggiolino(int newValue){
+		for(int i=0;i<seggiolini.size();i++){
+			if(seggiolini.get(i).getnumero()==newValue){
+				lblprezzoOptAuto.setText(seggiolini.get(i).getPrezzo() + " €");
+				break;
+			}
+		}
 	}
 	/*****  GUIDATORE **/
 	@FXML
@@ -571,7 +576,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			tbContratto.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalNoleggio.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
-			tbOptionalScelti.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
+			tbOptionalScelti.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedOptScelti());
 			tbAutoveicolo.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			choiceSeggiolini.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedSeggiolino());
 			choiceFascia.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedFasce());
