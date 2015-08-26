@@ -486,6 +486,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 				Seggiolino oldValue, Seggiolino newValue) {
 			// TODO Auto-generated method stub
 			impostaPrezzoSeggiolino(newValue);
+			System.out.println("ccc");
 		}
 
 		
