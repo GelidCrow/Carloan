@@ -31,6 +31,8 @@ import business.entity.Noleggio.Optional.OptionalNoleggio;
 import business.entity.Noleggio.Optional.Seggiolino;
 import business.entity.pagamento.CartaDiCredito;
 import business.model.Exception.CommonException;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -91,7 +93,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	private Label lblCognome;
 	
-	private List<Fascia> fasce;
+
 
 	@FXML
 	protected TableView<T> tbGuidatori;
@@ -395,18 +397,18 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	}
 	
 	@FXML
-	private Label lblCostoKm;
-
+	protected Label lblCostoKm;
+	List<Fascia> fasce;
+	@SuppressWarnings("unchecked")
 	private void inizializzaChoiceBox() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
-		 @SuppressWarnings("unchecked")
 		 //FASCE
-		 fasce=presenter.processRequest("getAllFasce", null);
+		 fasce=(List<Fascia>) presenter.processRequest("getAllFasce", null);;
 		 LinkedList<String> temp=new LinkedList<String>();
 		 for(Fascia f:fasce)
 			 temp.add(f.getNome());
 		 choiceFascia.setItems(FXCollections.observableArrayList(temp));
 		 choiceFascia.getSelectionModel().select(0);
-		 lblCostoKm.setText(String.valueOf(fasce.get(0).getCosto_kilometrico()));
+		 lblCostoKm.setText(String.valueOf(fasce.get(0).getCosto_kilometrico())+ " €");
 		 
 		 //NUMERO SEGGIOLINI
 		 LinkedList<Integer> temp2=new LinkedList<Integer>();
@@ -444,18 +446,21 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	 * @author francesco
 	 *
 	 */
-	class ItemChoiceSelectedFasce implements ChangeListener<Integer>{
+	class ItemChoiceSelectedFasce implements ChangeListener<String>{
 
 		@Override
-		public void changed(ObservableValue<? extends Integer> observable,
-				Integer oldValue, Integer newValue) {
-				impostaCosto_km(newValue);
+		public void changed(ObservableValue<? extends String> observable,
+				String oldValue, String newValue) {
+			// TODO Auto-generated method stub
+			 impostaCosto_km(newValue);
 		}
+
+	
 	}
 	
-	private void impostaCosto_km(int newValue){
+	private void impostaCosto_km(String arg){
 		for(int i=0;i<fasce.size();i++){
-			if(fasce.get(i).getIDFascia()==newValue){
+			if(fasce.get(i).getNome().equals(arg)){
 				lblCostoKm.setText(fasce.get(i).getCosto_kilometrico() + " €");
 				break;
 			}
@@ -523,7 +528,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			tbOptionalAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			tbOptionalScelti.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			choiceSeggiolini.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedSeggiolino());
-			choiceSeggiolini.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedFasce());
+			choiceFascia.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedFasce());
 			impostaFalsoTxtGuidatore();
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

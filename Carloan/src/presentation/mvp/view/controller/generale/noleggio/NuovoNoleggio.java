@@ -93,8 +93,12 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			if((Optional)e instanceof ChilometraggioIllimitato)
 			{
 				choiceLimite.setDisable(true);
+				lblCostoKm.setDisable(true);
+				return;
 			}
 		}
+		choiceLimite.setDisable(false);
+		lblCostoKm.setDisable(false);
 	}
 	
 	private Set<Guidatore> guidatori= new HashSet<Guidatore>();//elimino i duplicati 
@@ -173,8 +177,9 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			AlertView.getAlertView("Nessun elemento selezionato", AlertType.WARNING);
 		}
 		else{
-			tbOptionalScelti.getItems().remove(tbOptionalScelti.getSelectionModel().getSelectedItem());
-			controllaGuidatoreAggiuntivo();
+				tbOptionalScelti.getItems().remove(tbOptionalScelti.getSelectionModel().getSelectedItem());
+				controllaChilLimitato();
+				controllaGuidatoreAggiuntivo();
 			}
 	}
 	@FXML
