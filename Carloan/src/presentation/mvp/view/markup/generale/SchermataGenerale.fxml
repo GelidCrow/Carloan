@@ -260,10 +260,19 @@
                                       </items>
                                     </MenuButton>
                                     <ImageView fx:id="auto_image" fitHeight="138.0" fitWidth="249.0" layoutX="828.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label layoutX="14.0" layoutY="406.0" prefHeight="17.0" prefWidth="149.0" text="Sede di Appartenenza" />
+                                    <Label layoutX="7.0" layoutY="387.0" prefHeight="34.0" prefWidth="326.0" text="Sede di Appartenenza dell'auto">
+                                       <font>
+                                          <Font size="23.0" />
+                                       </font></Label>
                                     <Label layoutX="327.0" layoutY="370.0" />
                                     <ChoiceBox fx:id="choice_fascia" layoutX="294.0" layoutY="82.0" prefWidth="150.0" />
                                     <Label layoutX="230.0" layoutY="86.0" prefHeight="17.0" prefWidth="39.0" text="Fascia" />
+                                    <Label layoutX="13.0" layoutY="421.0" text="Nome :" />
+                                    <Label layoutX="13.0" layoutY="447.0" text="Indirizzo:" />
+                                    <Label layoutX="13.0" layoutY="477.0" text="Numero di telefono :" />
+                                    <Label fx:id="nome_sede" layoutX="72.0" layoutY="421.0" prefHeight="17.0" prefWidth="222.0" />
+                                    <Label fx:id="indirizzo_sede" layoutX="72.0" layoutY="447.0" prefHeight="17.0" prefWidth="243.0" />
+                                    <Label fx:id="telefono_sede" layoutX="136.0" layoutY="477.0" prefHeight="17.0" prefWidth="194.0" />
                                  </children>
                               </AnchorPane>
                           </content>

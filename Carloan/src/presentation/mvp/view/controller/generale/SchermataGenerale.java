@@ -74,6 +74,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	@FXML
 	private ChoiceBox<Fascia> choice_fascia;
+	@FXML
+	private Label nome_sede;
+	@FXML
+	private Label telefono_sede;
+	@FXML
+	private Label indirizzo_sede;
 	
 	@FXML
 	private MenuButton btnManutenzione;
@@ -451,13 +457,18 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 
 		@Override
 		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
-			if((Autoveicolo)getEntitaElementoSelezionato("Autoveicolo")!=null){
+			Autoveicolo a=(Autoveicolo)getEntitaElementoSelezionato("Autoveicolo");
+			if(a!=null){
 			try {
-				InputStream i=(InputStream) presenter.processRequest("leggiImmagineAutoveicolo", ((Autoveicolo)getEntitaElementoSelezionato("Autoveicolo")).getIDauto());
+				InputStream i=(InputStream) presenter.processRequest("leggiImmagineAutoveicolo", a.getIDauto());
 				if(i!=null)
 				auto_image.setImage(new Image(i));
 				else
 					auto_image.setImage(null);
+				Sede sede=(Sede)presenter.processRequest("leggiSede",a.getCodiceSedDisp());
+				nome_sede.setText(sede.getNome());
+				telefono_sede.setText(sede.getNumeroTelefono());
+				indirizzo_sede.setText(sede.getIndirizzo());
 				}
 		
 			catch(CommonException e){

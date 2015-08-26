@@ -33,11 +33,8 @@ public class ReturnableStage extends Stage {
 				e.printStackTrace();
 			}
 			this.schermata = loader.getController();
-			
-           	schermata.initData(param.getEntity());
-           	
 			schermata.setStage(this,param.getHandChiusura());
-			
+           	schermata.initData(param.getEntity());
             scene = new Scene(root);
             
 			this.setTitle(param.getTitolo());

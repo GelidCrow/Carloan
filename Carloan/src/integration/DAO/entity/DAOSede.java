@@ -38,9 +38,31 @@ public class DAOSede implements DAO {
 
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
+		String query="Select * from sede where idsede="+String.valueOf(id);
+		Connection conn=Connection.getConnection(this.dao);
+		try {
+			ResultSet r=conn.executeRead(query);
+			return creaSede(r);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
+	private Entity creaSede(ResultSet r) {
+		Sede s = null;
+		try {
+			if(r!=null && r.next()){
+				 s=new Sede(r.getInt(1), r.getString(2), r.getString(3), r.getString(4), r.getInt(5));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return s;
+	}
+
 	public ArrayList<Sede> getAll(){
 		String readQuery = "Select * from Sede";
 

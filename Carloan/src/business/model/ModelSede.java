@@ -56,7 +56,12 @@ public class ModelSede implements Model{
 	
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			return ((DAOSede)daofactory.getDao("DAOSede")).lettura(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

@@ -60,7 +60,7 @@ public class DAOManutenzione implements DAO{
 	@Override
 	public void aggiornamento(Entity entity) throws CommonException {
 		Manutenzione m = null;
-		String query="Update ? Set Note='?',DataFine='?'";
+		String query="Update ? Set Note='?',DataFine='?' where idmanutenzione=?";
 		if(entity instanceof ManutenzioneOrdinaria){
 			query=queryReplaceFirst(query, "manutenzioneordinaria");
 			m=(ManutenzioneOrdinaria)entity;
@@ -71,6 +71,8 @@ public class DAOManutenzione implements DAO{
 		}
 		query=queryReplaceFirst(query, m.getNote());
 		query=queryReplaceFirst(query, m.getDataFine().toString());
+		query=queryReplaceFirst(query, String.valueOf(m.getIDManutenzione()));
+		
 		Connection conn=Connection.getConnection(this.daofactory);
 		ResultSet r=null;
 		try {

@@ -3,6 +3,7 @@ package presentation.mvp.view.controller.generale.autoveicolo;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -16,10 +17,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.manutenzione.Manutenzione;
@@ -29,7 +33,8 @@ public class Chiusura_Manutenzione extends Nuova_Manutenzione{
 	private Manutenzione m;
 	private Autoveicolo auto;
 	private ObservableList<TableColumn<Manutenzione,?>> manutenzioni;
-	
+	@FXML
+	private AnchorPane Pane;
 	@FXML
 	private Label datafine;
 	@FXML
@@ -57,10 +62,15 @@ public class Chiusura_Manutenzione extends Nuova_Manutenzione{
 			List<Manutenzione>manutenzioni=(List<Manutenzione>)presenter.processRequest("getAllManutenzioni_ordinarie_aperte",this.auto.getIDauto());
 			manutenzioni.addAll((List<Manutenzione>)presenter.processRequest("getAllManutenzioni_straordinarie_aperte",this.auto.getIDauto()));
 			caricatabella(manutenzioni);
+			if(manutenzioni.isEmpty()){
+				AlertView.getAlertView("Non ci sono manutenzioni aperte per quest'auto", AlertType.ERROR);
+				Pane.setDisable(true);
+			}
+			else{
 			table_manutenzioni.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedManutenzione());
 			table_manutenzioni.getSelectionModel().selectFirst();
 			m=table_manutenzioni.getSelectionModel().getSelectedItem();
-			
+			}
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
@@ -78,6 +88,7 @@ private void caricatabella(List<Manutenzione> manutenzioni){
 @FXML
 public void btnconferma(ActionEvent e){
 	try {
+		m.setDataFine(LocalDate.now());
 		presenter.processRequest("VerificaManutenzione", m);
 		presenter.processRequest("ChiusuraManutenzione",m);
 		chiudiFinestra();

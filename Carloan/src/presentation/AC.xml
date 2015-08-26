@@ -201,6 +201,10 @@
 		<class>business.model.ModelSede</class>
 		<method>getAll</method>
 	</call>
+	<call id="leggiSede">
+		<class>business.model.ModelSede</class>
+		<method>lettura</method>
+	</call>
 	
 	<call id="getAllSediByAgenzia">
 		<class>business.model.ModelSede</class>
