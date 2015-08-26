@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import presentation.mvp.view.Presenter;
 import utility.ParametriFXML;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -57,7 +58,7 @@ public class Chiusura_Manutenzione extends Nuova_Manutenzione{
 		targa.setText(auto.getTarga());
 		modello.setText(auto.getModello());
 		manutenzioni.get(0).setCellValueFactory(cellData ->  new SimpleIntegerProperty(((Manutenzione) cellData.getValue()).getIDManutenzione()));
-		manutenzioni.get(1).setCellValueFactory(cellData ->  new SimpleStringProperty(((Manutenzione) cellData.getValue()).getDatainizio().toString()));
+		manutenzioni.get(1).setCellValueFactory(cellData ->  new SimpleObjectProperty<LocalDate>(((Manutenzione) cellData.getValue()).getDatainizio()));
 		try {
 			List<Manutenzione>manutenzioni=(List<Manutenzione>)presenter.processRequest("getAllManutenzioni_ordinarie_aperte",this.auto.getIDauto());
 			manutenzioni.addAll((List<Manutenzione>)presenter.processRequest("getAllManutenzioni_straordinarie_aperte",this.auto.getIDauto()));

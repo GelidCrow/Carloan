@@ -337,7 +337,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 							m.setOnAction(new EventHandler<ActionEvent>() {
 					            public void handle(ActionEvent t) {
 					            	try {
-										tbAutoController.NuovaManutenzione();
+										tbAutoController.VisualizzaManutenzione();
 									} catch (CommonException e) {
 										// TODO Auto-generated catch block
 										e.showMessage();

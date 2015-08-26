@@ -30,5 +30,6 @@
 	<!-- Manutenzione-->
 	<interface id="MostraSchermataNuovaManutenzione" src="markup/generale/autoveicolo/Nuova_Manutenzione.fxml"></interface>
 	<interface id="MostraSchermataChiusuraManutenzione" src="markup/generale/autoveicolo/Chiusura_Manutenzione.fxml"></interface>
-
+	<interface id="MostraSchermataVisualizzaManutenzione" src="markup/generale/autoveicolo/Visualizza_Manutenzione.fxml"></interface>
+	
 </interfaces>

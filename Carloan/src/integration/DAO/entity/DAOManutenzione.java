@@ -3,8 +3,10 @@ package integration.DAO.entity;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -118,7 +120,11 @@ public class DAOManutenzione implements DAO{
 		try {
 			if(r!=null){
 			while(r.next()){
-				m.add(new ManutenzioneOrdinaria(r.getInt(1), r.getDate(2).toLocalDate(), r.getDate(3).toLocalDate(), r.getString(4),r.getInt(5)));
+				Date d= r.getDate(3);
+				LocalDate d2=null;
+				if(d!=null)
+					d2=d.toLocalDate();
+				m.add(new ManutenzioneOrdinaria(r.getInt(1), r.getDate(2).toLocalDate(),d2, r.getString(4),r.getInt(5)));
 			}
 			}
 		} catch (SQLException e) {
@@ -147,7 +153,11 @@ public class DAOManutenzione implements DAO{
 		try {
 			if(r!=null){
 			while(r.next()){
-				m.add(new ManutenzioneStraordinaria(r.getInt(1), r.getDate(2).toLocalDate(), r.getDate(3).toLocalDate(), r.getString(4),r.getInt(5)));
+				Date d= r.getDate(3);
+				LocalDate d2=null;
+				if(d!=null)
+					d2=d.toLocalDate();
+				m.add(new ManutenzioneStraordinaria(r.getInt(1), r.getDate(2).toLocalDate(), d2, r.getString(4),r.getInt(5)));
 			}
 			}
 		} catch (SQLException e) {
