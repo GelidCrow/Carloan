@@ -72,7 +72,7 @@
             <Label layoutX="1201.0" layoutY="385.0" text="Cauzione" />
             <TextField fx:id="txtTotale" layoutX="1319.0" layoutY="410.0" prefHeight="25.0" prefWidth="104.0" />
             <Label layoutX="1329.0" layoutY="385.0" prefHeight="17.0" prefWidth="43.0" text="Totale" />
-            <Button fx:id="btnAggiungi" layoutX="226.0" layoutY="657.0" mnemonicParsing="false" onAction="#btnAggiungiOptionalNoleggio" prefHeight="25.0" prefWidth="89.0" text="Aggiungi" />
+            <Button fx:id="btnAggiungi" layoutX="233.0" layoutY="652.0" mnemonicParsing="false" onAction="#btnAggiungiOptionalNoleggio" prefHeight="25.0" prefWidth="89.0" text="Aggiungi" />
             <ChoiceBox fx:id="choiceLimite" layoutX="31.0" layoutY="766.0" prefHeight="25.0" prefWidth="133.0" />
             <TableView fx:id="tbOptionalAuto" layoutX="730.0" layoutY="45.0" prefHeight="119.0" prefWidth="316.0">
                <columns>
@@ -81,7 +81,7 @@
                </columns>
             </TableView>
             <Label layoutX="727.0" layoutY="202.0" prefHeight="17.0" prefWidth="102.0" text="Numero Seggiolini" />
-            <Label layoutX="31.0" layoutY="716.0" text="Chilometraggio Limitato*" />
+            <Label layoutX="21.0" layoutY="723.0" text="Chilometraggio Limitato*" />
             <Label layoutX="33.0" layoutY="741.0" text="Limite Kilometri" />
             <Button fx:id="btnAggiungiAuto" layoutX="971.0" layoutY="167.0" mnemonicParsing="false" onAction="#btnAggiungiOptionalAuto" prefHeight="25.0" prefWidth="71.0" text="Aggiungi" />
             <Button fx:id="btnAggiungiCarta" layoutX="1389.0" layoutY="495.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta" />
@@ -135,7 +135,7 @@
             <Label fx:id="lblNumSeggioliniScelti" layoutX="868.0" layoutY="458.0" prefHeight="17.0" prefWidth="149.0" />
             <Label fx:id="lblLimiteCoperturaScelto" layoutX="861.0" layoutY="428.0" prefHeight="17.0" prefWidth="133.0" />
             <Label layoutX="742.0" layoutY="458.0" text="Numero Seggiolini" />
-            <Label layoutX="182.0" layoutY="703.0" prefHeight="44.0" prefWidth="176.0" text="Costo Al km in base alla fascia" />
+            <Label layoutX="186.0" layoutY="724.0" prefHeight="25.0" prefWidth="169.0" text="Costo Al km in base alla fascia" />
             <Label fx:id="lblCostoKm" layoutX="186.0" layoutY="765.0" prefHeight="17.0" prefWidth="149.0" />
             <Label layoutX="729.0" layoutY="236.0" text="Nb: il prezzo dell'optional &quot;Seggiolini&quot; varia in base al numero" textFill="#d01010" />
             <ImageView fx:id="imgAuto" fitHeight="260.0" fitWidth="335.0" layoutX="730.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true" />
@@ -166,7 +166,9 @@
             <Label layoutX="14.0" layoutY="174.0" prefHeight="17.0" prefWidth="370.0" text="Tale percentuale sarà calcolata sulla base dell'acconto versato. " textFill="#a11b1b" />
             <Label layoutX="25.0" layoutY="51.0" text="Nb : Massimo 3 giorni dopo a partire da adesso" textFill="#9a1010" />
             <Label fx:id="lblDataInizio" layoutX="150.0" layoutY="84.0" prefHeight="17.0" prefWidth="149.0" />
-            <Label layoutX="14.0" layoutY="236.0" text="Nb: il costo giornaliero viene ridotto del 10 % nel caso delle settimane" />
+            <Label layoutX="14.0" layoutY="236.0" text="Nb: il costo giornaliero viene ridotto del 10 % nel caso delle settimane" textFill="#942424" />
+            <ChoiceBox fx:id="choiceGuidatori" layoutX="274.0" layoutY="696.0" prefHeight="25.0" prefWidth="51.0" />
+            <Label layoutX="26.0" layoutY="701.0" text="Numero Guidatori Aggiuntivi" />
          </children>
       </AnchorPane>
       <Label layoutX="45.0" layoutY="22.0" prefHeight="44.0" prefWidth="327.0" style="-fx-background-color: #FFFF;" text="NUOVO NOLEGGIO" textFill="#ff6f00">

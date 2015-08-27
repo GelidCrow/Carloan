@@ -32,10 +32,17 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		}
 		else{
 			ObservableList<Entity> listItem= tbOptionalScelti.getItems();
-	
-			
 			Optional itemSelected = (Optional) tbOptionalNoleggio.getSelectionModel().getSelectedItem();
-			if(!listItem.contains(itemSelected)){
+			int numScelto = choiceGuidatori.getSelectionModel().getSelectedItem();
+			if(itemSelected instanceof GuidatoreAggiuntivo  && !listItem.contains(itemSelected)){
+				for(int i=0;i<guidatoriAggiuntivi.size();i++){
+					if(guidatoriAggiuntivi.get(i).getNumero_guidatori()==numScelto){
+						listItem.add(guidatoriAggiuntivi.get(i));//metto nell'altra tabella quello con l'elemento scelto.
+						break;
+					}
+				 }
+			}
+			else if(!listItem.contains(itemSelected)){
 				tbOptionalScelti.getItems().add(itemSelected);
 				controllaGuidatoreAggiuntivo();
 				controllaChilLimitato();
@@ -56,13 +63,13 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			if(itemSelected instanceof Seggiolino  && !listItem.contains(itemSelected)){
 				for(int i=0;i<seggiolini.size();i++){
 					if(seggiolini.get(i).getnumero()==numScelto){
-						tbOptionalScelti.getItems().add(seggiolini.get(i));//metto nell'altra tabella quello con l'elemento scelto.
+						listItem.add(seggiolini.get(i));//metto nell'altra tabella quello con l'elemento scelto.
 						break;
 					}
 				 }
 			}
 			else if(!listItem.contains(itemSelected)){
-				tbOptionalScelti.getItems().add(itemSelected);
+				listItem.add(itemSelected);
 			}
 			else 
 				AlertView.getAlertView("Hai già aggiunto quest'optional", AlertType.WARNING);

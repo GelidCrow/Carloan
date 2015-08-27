@@ -26,6 +26,7 @@ import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Optional.Assicurazione_KASKO;
 import business.entity.Noleggio.Optional.Guidatore;
+import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
 import business.entity.Noleggio.Optional.Optional;
 import business.entity.Noleggio.Optional.OptionalAuto;
 import business.entity.Noleggio.Optional.OptionalNoleggio;
@@ -225,15 +226,20 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 
 	private List<Optional> optional=null;
 	protected List<Seggiolino> seggiolini=null;
+	protected List<GuidatoreAggiuntivo> guidatoriAggiuntivi=null;
 	@SuppressWarnings("unchecked")
 	private void inizializzaTabelleOptional(){
 		try {
 			optional = (List<Optional>)presenter.processRequest("getAllOptional",null);
 			seggiolini= new ArrayList<Seggiolino>();
+			guidatoriAggiuntivi= new ArrayList<GuidatoreAggiuntivo>();
 			//imposto gli optional senza eliminarli
 			for(Optional e : optional){
 				if(e instanceof Seggiolino){
 					seggiolini.add((Seggiolino) e);
+				}
+				else if(e instanceof GuidatoreAggiuntivo){
+					guidatoriAggiuntivi.add((GuidatoreAggiuntivo) e);
 				}
 			}
 			//metto nel set cosi toglie i doppioni
@@ -403,8 +409,17 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			lblLimiteCopertura.setText("");
 			if(option instanceof Assicurazione_KASKO){
 				lblLimiteCopertura.setText(String.valueOf(((Assicurazione_KASKO)option).getCopertura())+ " €");	
+				lblprezzoOptNoleggio.setText(String.valueOf(option.getPrezzo())+  " €");
+				choiceGuidatori.setDisable(true);
 			}
-			lblprezzoOptNoleggio.setText(String.valueOf(option.getPrezzo())+  " €");
+			else if(option instanceof GuidatoreAggiuntivo){
+				   choiceGuidatori.setDisable(false);
+				   impostaPrezzoGuidatore(choiceGuidatori.getSelectionModel().getSelectedItem());
+			}
+			else {
+				lblprezzoOptNoleggio.setText(String.valueOf(option.getPrezzo())+  " €");
+				choiceGuidatori.setDisable(true);
+			}
 		}
 		
 		private void popolaLabelOptionalAuto(Object optional){
@@ -491,6 +506,14 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		 choiceSeggiolini.getSelectionModel().selectFirst();
 		 choiceSeggiolini.setDisable(true);
 		 
+		 //NUMERO guidatoriAggiuntivi
+		 LinkedList<Integer> temp4=new LinkedList<Integer>();
+		 for(int i=0;i<guidatoriAggiuntivi.size();i++){
+			 temp4.add(guidatoriAggiuntivi.get(i).getNumero_guidatori());// metto il numero di seggiolini effettivi
+		 }
+		 choiceGuidatori.setItems(FXCollections.observableArrayList(temp4));
+		 choiceGuidatori.getSelectionModel().selectFirst();
+		 choiceGuidatori.setDisable(true);
 		 
 		 //NUMERO SETTIMANE
 		 LinkedList<Integer> temp=new LinkedList<Integer>();
@@ -584,6 +607,14 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			}
 		}
 	}
+	private void impostaPrezzoGuidatore(int newValue){
+		for(int i=0;i<guidatoriAggiuntivi.size();i++){
+			if(guidatoriAggiuntivi.get(i).getNumero_guidatori()==newValue){
+				lblprezzoOptNoleggio.setText(guidatoriAggiuntivi.get(i).getPrezzo() + " €");
+				break;
+			}
+		}
+	}
 	/*****  GUIDATORE **/
 	@FXML
 	protected  TextField txtNome;
@@ -639,16 +670,26 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		@Override
 		public void changed(ObservableValue<? extends Integer> observable,
 				Integer oldValue, Integer newValue) {
-			LocalDate dataFineNoleggio= dRitiro.getValue();
-			//dataFineNoleggio.
-			
-			//dataFineNoleggio.getDayOfMonth()+choiceGiorni.getSelectionModel().getSelectedItem();
-			dataFineNoleggio=dataFineNoleggio.plusDays(choiceGiorni.getSelectionModel().getSelectedItem());
-			dataFineNoleggio=dataFineNoleggio.plusWeeks(choiceSettimane.getSelectionModel().getSelectedItem());
+			if(newValue!=null){
+				LocalDate dataFineNoleggio= dRitiro.getValue();
+				dataFineNoleggio=dataFineNoleggio.plusDays(choiceGiorni.getSelectionModel().getSelectedItem());
+				dataFineNoleggio=dataFineNoleggio.plusWeeks(choiceSettimane.getSelectionModel().getSelectedItem());
 				lblDataFineNoleggio.setText(dataFineNoleggio.format(dtf));
+			}
 		}
 	}
+	class ItemChoiceSelectedGuidatore implements ChangeListener<Integer>{
 
+		@Override
+		public void changed(ObservableValue<? extends Integer> observable,
+				Integer oldValue, Integer newValue) {
+			// TODO Auto-generated method stub
+			impostaPrezzoGuidatore(newValue);
+		}
+		
+	}
+	@FXML
+	protected ChoiceBox<Integer> choiceGuidatori;
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -676,6 +717,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			tbOptionalScelti.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedOptScelti());
 			tbAutoveicolo.getSelectionModel().selectedItemProperty().addListener(new ItemSelected());
 			choiceSeggiolini.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedSeggiolino());
+			choiceGuidatori.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedGuidatore());
 			choiceFascia.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedFasce());
 			btnAggiungiCarta.setVisible(false);
 			tbCartaCredito.setVisible(false);

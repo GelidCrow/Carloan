@@ -118,7 +118,7 @@ public class DAOOptional implements DAO{
 				case "assicurazionekasko": 	
 					return new Assicurazione_KASKO(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5),resultset.getFloat(4));
 				case "guidatoreAggiuntivo": 
-					return new GuidatoreAggiuntivo(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5));
+					return new GuidatoreAggiuntivo(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5),resultset.getInt(7));
 				case "chilometraggioIllimitato": 
 					return new ChilometraggioIllimitato(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5),resultset.getFloat(4));
 				case "cateneNeve":
