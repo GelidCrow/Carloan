@@ -33,4 +33,5 @@
 	<interface id="MostraSchermataVisualizzaManutenzione" src="markup/generale/autoveicolo/Visualizza_Manutenzione.fxml"></interface>
 	<!--Agenzia-->
 	<interface id="MostraSchermataNuovaAgenzia" src="markup/generale/luoghi/Nuova_Agenzia.fxml"></interface>
+	<interface id="MostraSchermataModificaAgenzia" src="markup/generale/luoghi/Modifica_Agenzia.fxml"></interface>
 </interfaces>

@@ -55,8 +55,27 @@ public class DAOAgenzia implements DAO{
 	}
 
 	@Override
-	public void aggiornamento(Entity x) {
-		// TODO Auto-generated method stub
+	public void aggiornamento(Entity x) throws CommonException {
+		Agenzia a=(Agenzia)x;
+		String update="Update Agenzia set Nome='?',NumeroTelefono='?' where IDAgenzia=?";
+		update=queryReplaceFirst(update, a.getNome());
+		update=queryReplaceFirst(update, a.getNumTelefono());
+		update=queryReplaceFirst(update,String.valueOf(a.getIDAgenzia()));
+		
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet s=null;
+		try {
+			s=c.executeUpdate(update);
+			if(s!=null)
+				AlertView.getAlertView("Agenzia aggiornata con successo", AlertType.INFORMATION);
+			else
+				throw new CommonException("Non e' stato possibile aggiornare l'agenzia");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		
 	}
 

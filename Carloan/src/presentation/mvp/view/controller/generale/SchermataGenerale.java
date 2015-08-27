@@ -176,7 +176,11 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	@FXML
 	public void btnmodifica_agenzia(ActionEvent e){
-		
+		try {
+			tbAgenziaController.ModificaAgenzia();
+		} catch (CommonException e1) {
+			e1.showMessage();
+		}
 	}
 	@FXML
 	public void btnVPagamento(ActionEvent e){

@@ -4,16 +4,9 @@ import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 import static utility.QueryStringReplacer.queryReplaceFirst;
 
-
-
-
-
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -145,7 +138,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 			if(updated)
 				AlertView.getAlertView("Autoveicolo aggiornato con successo", AlertType.INFORMATION);
 			else
-				AlertView.getAlertView("Autoveicolo non aggiornato", AlertType.INFORMATION);
+				throw new CommonException("Autoveicolo non aggiornato");
 	}
 		 catch (SQLException e) {
 			// TODO Auto-generated catch block

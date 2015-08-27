@@ -8,34 +8,31 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import MessaggiFinestra.AlertView;
-import business.entity.UtenteCorrente;
+import business.entity.Entity;
 import business.entity.Luoghi.Agenzia;
 import business.model.Exception.CommonException;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import presentation.mvp.view.Presenter;
-import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
-import business.entity.Gestori.Amministratore;
 
-public class Nuova_Agenzia extends Schermata{
-	@FXML
-	TextField nome;
-	@FXML
-	TextField num_telefono;
+public class Modifica_Agenzia extends Nuova_Agenzia{
 	private TableView<Agenzia> tw;
-	
+	private Agenzia agenzia;
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		
 	}
-	
+	public void initData(Entity entity){
+		this.agenzia=(Agenzia)entity;
+		nome.setText(agenzia.getNome());
+		num_telefono.setText(agenzia.getNumTelefono());
+	}
 	@FXML
 	public void btnAnnulla(ActionEvent e){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
@@ -57,7 +54,9 @@ public class Nuova_Agenzia extends Schermata{
 				String tel=num_telefono.getText();
 				if(tel==null)
 					tel="";
-				presenter.processRequest("InserisciAgenzia", new Agenzia(n, tel, ((Amministratore)UtenteCorrente.getUtente()).getIDDitta()));
+				agenzia.setNome(n);
+				agenzia.setNumTelefono(tel);
+				presenter.processRequest("AggiornaAgenzia", agenzia);
 				caricaTabella((List<Agenzia>)presenter.processRequest("getAllAgenzie",null));
 				chiudiFinestra();
 			}

@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import business.entity.Luoghi.Agenzia;
+import business.model.Exception.CommonException;
 public class TabAgenzia {
 	private ObservableList<TableColumn<Agenzia,?>> agenzia;
 	private TableView<Agenzia> table_agenzia;
@@ -36,6 +37,17 @@ public class TabAgenzia {
 	public void NuovaAgenzia() {
 		FXMLParameter.setTitolo("Inserimento nuova agenzia");
 		Finestra.visualizzaFinestra(presenter, FXMLParameter, schermata, "MostraSchermataNuovaAgenzia",Modality.APPLICATION_MODAL);
+		
+	}
+	public void ModificaAgenzia() throws CommonException{
+		 if(table_agenzia.getSelectionModel().getSelectedIndex()< 0){
+	    		throw new CommonException("Nessun elemento selezionato");
+	    }
+	    else{
+	    	FXMLParameter.setTitolo("Modifica agenzia");
+	    	FXMLParameter.setEntity(((SchermataGenerale<?>) schermata).getEntitaElementoSelezionato("Agenzia"));
+	    	Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataModificaAgenzia",Modality.APPLICATION_MODAL);
+	    }
 		
 	}
 }

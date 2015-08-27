@@ -256,4 +256,8 @@
 		<class>business.model.ModelAgenzia</class>
 		<method>Inserimento</method>
 	</call>
+	<call id="AggiornaAgenzia">
+		<class>business.model.ModelAgenzia</class>
+		<method>aggiornamento</method>
+	</call>
 </calls>
