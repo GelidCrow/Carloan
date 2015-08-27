@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -39,6 +40,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -56,12 +58,11 @@ import presentation.mvp.view.controller.Schermata;
 import utility.ParametriFXML;
 
 public class ImpostaNoleggio<T extends Entity> extends Schermata{
-	@FXML
-	private DatePicker dInizio;
+	
 	@FXML
 	private DatePicker dFine;
 	@FXML
-	private DatePicker dRitiro;
+	protected DatePicker dRitiro;
 	@FXML
 	private TextField txtKmBase;
 	@FXML
@@ -336,7 +337,9 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	private Label lblDanni;
 	@FXML
 	private ImageView imgAuto;
-	private InputStream inputStream;
+	@FXML
+	private Label lblkmBase;
+
 	protected 	Cliente cliente;
 	/**
 	 * <p> Ascoltatore per il cambio di elemento dal COntratto per settare i label per le info aggiuntive </p>
@@ -373,11 +376,12 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			}
 		}
 	
-		private void popolaLabelEImmagineAuto(Autoveicolo auto){
-			inputStream=auto.getImmagine_stream();
+		private void popolaLabelEImmagineAuto(Autoveicolo auto){	
+			InputStream inputStream=auto.getImmagine_stream();
 			if(inputStream!=null){
 				imgAuto.setImage(new Image(inputStream));
 			}
+			lblkmBase.setText(String.valueOf(auto.getUltimoKm()));
 			lblAPrincipale.setText(auto.getAlimPrincipale());
 			lblASecondaria.setText(auto.getAlimSec());
 			lblCambio.setText(auto.getCambio());
@@ -430,6 +434,8 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			e.printStackTrace();
 		}
 	}
+	
+	
 	@FXML
 	private Label lblprezzoOptScelti;
 	@FXML
@@ -463,6 +469,10 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	
 	@FXML
 	protected Label lblCostoKm;
+	@FXML
+	protected ChoiceBox<Integer> choiceSettimane;
+	@FXML
+	protected ChoiceBox<Integer> choiceGiorni;
 	List<Fascia> fasce=null;
 	@SuppressWarnings("unchecked")
 	private void inizializzaChoiceBox() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
@@ -481,6 +491,23 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		 choiceSeggiolini.getSelectionModel().selectFirst();
 		 choiceSeggiolini.setDisable(true);
 		 
+		 
+		 //NUMERO SETTIMANE
+		 LinkedList<Integer> temp=new LinkedList<Integer>();
+		 for(int i=0;i<=3;i++){
+			 temp.add(i);
+		 }
+		 choiceSettimane.setItems(FXCollections.observableArrayList(temp));
+		 choiceSettimane.getSelectionModel().selectFirst();
+		 
+		 //NUMERO GIORNI
+		 LinkedList<Integer> temp1=new LinkedList<Integer>();
+		 for(int i=1;i<=6;i++){
+			 temp1.add(i);
+		 }
+		 choiceGiorni.setItems(FXCollections.observableArrayList(temp1));
+		 choiceGiorni.getSelectionModel().selectFirst();
+		 
 		 //LIMITE CHILOMETRAGGIO
 		 LinkedList<Integer> temp3=new LinkedList<Integer>();
 		 temp3.add(10000);
@@ -488,6 +515,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		 temp3.add(30000);
 		 choiceLimite.setItems(FXCollections.observableArrayList(temp3));
 		 choiceLimite.getSelectionModel().selectFirst();
+		
 	}
 	
 	/**
@@ -585,12 +613,50 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		}
 	
 	
+	
+	@FXML
+	protected Label lblDataInizio;
+	protected final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy");
+	/**
+	 * <p>Setta le date e la label della data</p>
+	 * @param localdate
+	 */
+	protected void impostaDate(LocalDate localdate){
+		dRitiro.setValue(localdate);
+		lblDataInizio.setText(localdate.format(dtf));
+	}
+	
+	
+	@FXML
+	private Label lblDataFineNoleggio;
+	/**
+	 * <p>Prende il seggiolino in posizione 2 e mette i lsuo prezzo.</p>
+	 * @author francesco
+	 *
+	 */
+	class ItemChoiceSelectedGiorniSettimane implements ChangeListener<Integer>{
+
+		@Override
+		public void changed(ObservableValue<? extends Integer> observable,
+				Integer oldValue, Integer newValue) {
+			LocalDate dataFineNoleggio= dRitiro.getValue();
+			//dataFineNoleggio.
+			
+			//dataFineNoleggio.getDayOfMonth()+choiceGiorni.getSelectionModel().getSelectedItem();
+			dataFineNoleggio=dataFineNoleggio.plusDays(choiceGiorni.getSelectionModel().getSelectedItem());
+			dataFineNoleggio=dataFineNoleggio.plusWeeks(choiceSettimane.getSelectionModel().getSelectedItem());
+				lblDataFineNoleggio.setText(dataFineNoleggio.format(dtf));
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
-
+		
+		impostaDate(LocalDate.now());	
+		
 		bindingValuesRestituzione();
 		bindingValuesOptional();
 		bindingValuesAutoveicolo();
@@ -613,6 +679,8 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			choiceFascia.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedFasce());
 			btnAggiungiCarta.setVisible(false);
 			tbCartaCredito.setVisible(false);
+			choiceSettimane.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedGiorniSettimane());
+			choiceGiorni.getSelectionModel().selectedItemProperty().addListener(new ItemChoiceSelectedGiorniSettimane());
 			group.selectedToggleProperty().addListener(new radioSelected());
 			impostaFalsoTxtGuidatore();
 		} catch (InstantiationException | IllegalAccessException

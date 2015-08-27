@@ -1,6 +1,7 @@
 package presentation.mvp.view.controller.generale.noleggio;
 
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -190,10 +191,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 				controllaGuidatoreAggiuntivo();
 			}
 	}
-	@FXML
-	public void btnCalcolaPrezzo(ActionEvent e){
-		
-	}
+	
 	@FXML
 	public void btnAggiungiCartaCredito(ActionEvent e){
 		if(cliente==null){
@@ -218,6 +216,44 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	}
 	@FXML
 	public void btnConferma(ActionEvent e){
+		
+	}
+	
+	
+	@FXML
+	public void dRitiroAction(ActionEvent e){
+		final int MASSIMO_INIZIO= 3;
+		try {
+			LocalDate lDate= dRitiro.getValue();
+			if(lDate!=null){
+				if(lDate.isBefore(LocalDate.now())){
+					impostaDate(LocalDate.now());
+				}
+				if (lDate.isAfter(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()+MASSIMO_INIZIO))){
+					impostaDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()+MASSIMO_INIZIO));		
+				}
+				else 
+					impostaDate(lDate);
+			}
+			else 
+				throw new CommonException("Data di Ritiro non impostata");
+		} catch (CommonException e1) {
+			e1.showMessage();
+		}
+	}
+	
+	
+	@FXML
+	public void btnCalcolaPrezzo(ActionEvent e){
+		//somma tutti i valori : 
+		//tutti gli optional
+		//prezzo auto
+		//chilometri * fasciaSelezionata
+		
+		
+		
+		
+		
 		
 	}
 
