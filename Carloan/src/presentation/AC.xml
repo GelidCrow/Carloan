@@ -250,7 +250,15 @@
 		<class>business.model.ModelSupervisoreA</class>
 		<method>lettura</method>
 	</call>
-
+	<!--Supervisore Sede-->
+	<call id="leggiSupervisoreSede">
+		<class>business.model.ModelSupervisoreS</class>
+		<method>lettura</method>
+	</call>
+<call id="leggiSupervisoriSedebySede">
+		<class>business.model.ModelSupervisoreS</class>
+		<method>getAll_bysede</method>
+	</call>
 	<!-- Agenzia-->
 	<call id="InserisciAgenzia">
 		<class>business.model.ModelAgenzia</class>
@@ -260,4 +268,9 @@
 		<class>business.model.ModelAgenzia</class>
 		<method>aggiornamento</method>
 	</call>
+	<call id="leggiAgenzia">
+		<class>business.model.ModelAgenzia</class>
+		<method>lettura</method>
+	</call>
+
 </calls>

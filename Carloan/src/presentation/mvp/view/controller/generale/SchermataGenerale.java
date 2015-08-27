@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -40,6 +41,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
@@ -71,6 +73,11 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	private TableView<T> tbAgenzia;
 	@FXML
+	private TableView<T> tbSede;
+	@FXML
+	private TableView<T> tablesupsede;
+	
+	@FXML
 	private Label txtBenvenuto;
 	@FXML
 	private TableColumn<Cliente,String> cliente;
@@ -97,10 +104,22 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	private TabNoleggio tbNoleggioController;
 	private TabAgenzia tbAgenziaController;
+	private TabSede tbSedeController;
 	
 	private TabAuto tbAutoController;
 	@FXML
+	private Label nome_agenzia;
+	@FXML
+	private Label tel_agenzia;
+	@FXML
+	private Label nome_supsede;
+	@FXML
+	private Label cognome_supsede;
+	@FXML
+	private Label codfis_supsede;;
+	@FXML
 	private Label superv_agenzia;
+	
 		/***********  CONTRATTO *************/
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
@@ -183,6 +202,21 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 	}
 	@FXML
+	public void btnnuova_sede(ActionEvent e){
+		tbAgenziaController.NuovaAgenzia();
+	}
+	@FXML
+	public void btnmodifica_sede(ActionEvent e){
+		try {
+			tbAgenziaController.ModificaAgenzia();
+		} catch (CommonException e1) {
+			e1.showMessage();
+		}
+	}
+
+	
+	
+	@FXML
 	public void btnVPagamento(ActionEvent e){
 		
 	}
@@ -242,6 +276,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbAuto;
 		else if(table.equals("Agenzia"))
 			return tbAgenzia;
+		else if(table.equals("SupSede"))
+			return tablesupsede;
 		else
 			return null;
 	}
@@ -283,6 +319,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	 * <p> Ascoltatore per il cambio di tab </p>
 	 */
 	private class TabChangeListener<X> implements ChangeListener<Tab>{
+		
+
 		/**
 		 * <p>Quando selezioni il tab "Cliente" vengono caricati SOLO 1 VOLTA tutti i clienti</p>
 		 * 
@@ -406,6 +444,23 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				}
 			}
 			
+			//sede
+			else if(panes.get(5)==newValue){
+				tbSedeController=new TabSede((TableView<Sede>)tbSede,SchermataGenerale.this,(TableView<SupervisoreSede>) tablesupsede);
+				try {
+					List<Sede> l=(List<Sede>)presenter.processRequest("getAllSedi", null);
+					caricaTabella((List<T>)l, tbSede);
+					tbSede.getSelectionModel().selectFirst();
+			
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalArgumentException
+						| InvocationTargetException | CommonException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 	    }
 	} 
 	@FXML
@@ -493,7 +548,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}	
 	}
 	private class ItemSelectedAgenzia implements ChangeListener{
-
 		@Override
 		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
 			if((Agenzia)getEntitaElementoSelezionato("Agenzia")!=null){
@@ -527,7 +581,35 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		
 	}
+	private class ItemSelectedSede implements ChangeListener<Sede>{
+		@SuppressWarnings("unchecked")
+		@Override
+		public void changed(ObservableValue observable, Sede oldValue,Sede newValue) {
+			if(newValue!=null){
+			try {
+				LinkedList<SupervisoreSede> temp=(LinkedList<SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede", newValue.getIDSede());
+				caricaTabella((List<T>)temp, tablesupsede);
+				Agenzia a=(Agenzia)presenter.processRequest("leggiAgenzia",newValue.getIDSede());
+				nome_agenzia.setText(a.getNome());
+				tel_agenzia.setText(a.getNumTelefono());
+				
+				
+				
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | NoSuchMethodException
+					| SecurityException | IllegalArgumentException
+					| InvocationTargetException | CommonException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+
 	
+
+		}
+		
+	}
 	@SuppressWarnings({ "rawtypes" })
 	private class ItemSelectedAutoveicolo implements ChangeListener{
 
@@ -629,7 +711,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tbContratto.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedContratto());
 		tbAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAutoveicolo());
 		tbAgenzia.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAgenzia());
-		
+		tbSede.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedSede());
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	

@@ -81,8 +81,21 @@ public class DAOAgenzia implements DAO{
 
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String query="Select * from agenzia where idagenzia=?";
+		query=queryReplaceFirst(query, String.valueOf(id));
+		Connection c=Connection.getConnection(this.daofactory);
+		Agenzia a=null;
+		try {
+			ResultSet r=c.executeRead(query);
+			if(r!=null){
+				r.next();
+				a=new Agenzia(r.getInt(1), r.getString(2), r.getString(3), r.getInt(4));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return a;
 	}
 
 	public List<Agenzia> getAll(){

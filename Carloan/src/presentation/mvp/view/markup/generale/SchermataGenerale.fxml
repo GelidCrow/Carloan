@@ -303,17 +303,36 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView layoutX="-1.0" layoutY="110.0" prefHeight="235.0" prefWidth="1244.0" />
-                                    <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
-                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
-                                    <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
-                                    <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Immagini/ic_search_black_24dp_2x.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField layoutX="63.0" layoutY="57.0" />
-                                    <Label layoutX="13.0" layoutY="347.0" prefHeight="17.0" prefWidth="143.0" text="Agenzia di Appartenenza" />
+                                    <TableView fx:id="tbSede" layoutX="14.0" layoutY="53.0" prefHeight="452.0" prefWidth="390.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="ID" />
+                                          <TableColumn prefWidth="75.0" text="Nome" />
+                                          <TableColumn prefWidth="145.0" text="Numero di telefono" />
+                                          <TableColumn prefWidth="92.0" text="Indirizzo" />
+                                       </columns></TableView>
+                                    <Button fx:id="btnnuova_sede" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
+                                    <Button fx:id="btnmodifica_sede" layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
+                                    <Label layoutX="441.0" layoutY="387.0" prefHeight="27.0" prefWidth="213.0" text="Agenzia di Appartenenza">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Label>
+                                    <Label layoutX="448.0" layoutY="426.0" text="Nome: " />
+                                    <Label layoutX="448.0" layoutY="457.0" text="Numero di telefono :" />
+                                    <Label fx:id="nome_agenzia" layoutX="520.0" layoutY="426.0" prefHeight="17.0" prefWidth="177.0" />
+                                    <Label fx:id="tel_agenzia" layoutX="579.0" layoutY="457.0" prefHeight="17.0" prefWidth="177.0" />
+                                    <Label layoutX="563.0" layoutY="27.0" text="Supervisori Sede">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="tablesupsede" layoutX="564.0" layoutY="69.0" prefHeight="309.0" prefWidth="385.0">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" text="ID" />
+                                        <TableColumn prefWidth="84.0" text="Nome" />
+                                          <TableColumn prefWidth="114.0" text="Cognome" />
+                                          <TableColumn prefWidth="111.0" text="Codice Fiscale" />
+                                      </columns>
+                                    </TableView>
                                  </children>
                               </AnchorPane>
                            </content>

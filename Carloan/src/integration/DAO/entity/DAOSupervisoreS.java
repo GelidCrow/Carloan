@@ -6,6 +6,8 @@ import integration.DAO.connection.Connection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
@@ -37,7 +39,7 @@ public class DAOSupervisoreS implements DAO{
 
 	@Override
 	public Entity lettura(int id){
-	String QUERY= "Select * from SupervisoreAgenzia where idSupervisoreAgenzia='?' ";
+	String QUERY= "Select * from SupervisoreSede where idSupervisoreAgenzia='?' ";
 	 Connection connection= Connection.getConnection(daofactory);
 	 
 	 String readQuery = QUERY;
@@ -71,4 +73,32 @@ public class DAOSupervisoreS implements DAO{
 				 	resultset.getString(7),resultset.getString(8),resultset.getString(9),resultset.getBoolean(10),resultset.getInt(11));
 	}
 
+	public List<SupervisoreSede> getAll_bySede(int idSede){
+		String query="Select * from supervisoresede where idsede="+String.valueOf(idSede);
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet r=null;
+		try {
+			r=c.executeRead(query);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return creaElencoSupervisoriSede(r);
+	}
+
+	private List<SupervisoreSede> creaElencoSupervisoriSede(ResultSet r) {
+		List<SupervisoreSede> l=new LinkedList<SupervisoreSede>();
+		if(r!=null){
+		try {
+			while(r.next()){
+			l.add(ottieniSupS(r));	
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		return l;
+	}
 }

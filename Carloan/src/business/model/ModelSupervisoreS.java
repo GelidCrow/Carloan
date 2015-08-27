@@ -1,5 +1,7 @@
 package business.model;
 
+import java.util.List;
+
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOSupervisoreS;
 import business.entity.Entity;
@@ -40,5 +42,14 @@ public class ModelSupervisoreS implements Model{
 			}
 		return null;
 	}
-
+public List<SupervisoreSede> getAll_bysede(int id){
+	try{
+		if(daofactory==null)
+			daofactory= DaoFactory.getDaoFactory(1);
+			return (List<SupervisoreSede>) ((DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS")).getAll_bySede(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	return null;
+}
 }
