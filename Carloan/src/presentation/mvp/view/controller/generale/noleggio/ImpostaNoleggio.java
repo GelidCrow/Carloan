@@ -18,6 +18,7 @@ import business.entity.Utente;
 import business.entity.UtenteCorrente;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.Fascia.Fascia;
+import business.entity.Auto.manutenzione.Manutenzione;
 import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
@@ -25,6 +26,7 @@ import business.entity.Gestori.SupervisoreSede;
 import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Optional.Assicurazione_KASKO;
+import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
 import business.entity.Noleggio.Optional.Guidatore;
 import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
 import business.entity.Noleggio.Optional.Optional;
@@ -65,14 +67,6 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected DatePicker dRitiro;
 	@FXML
-	private TextField txtKmBase;
-	@FXML
-	private TextField txtNumSettimane;
-	@FXML
-	private TextField txtNumGiorni;
-	@FXML
-	private TextField txtNumChilometri;
-	@FXML
 	private TableView<T> tbRestituzione;
 	@FXML
 	protected TableView<T> tbOptionalNoleggio;	
@@ -82,6 +76,10 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	protected ChoiceBox<Integer> choiceSeggiolini;
 	@FXML
 	protected ChoiceBox<Integer> choiceLimite;
+	@FXML
+	protected ChoiceBox<Fascia> choiceFascia;
+
+	final int MASSIMO_KILOMETRI=2000;
 	/***
 	 * Cliente
 	 */
@@ -104,8 +102,6 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	private TableView<T> tbContratto;
 	@FXML
 	protected TableView<T> tbOptionalAuto;
-	@FXML
-	protected ChoiceBox<Fascia> choiceFascia;
 	@FXML
 	private TextField txtAcconto;
 	@FXML
@@ -223,7 +219,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		table.setItems(obsList);
 	}
 	
-
+	private ChilometraggioIllimitato chilIllimitato=null;
 	private List<Optional> optional=null;
 	protected List<Seggiolino> seggiolini=null;
 	protected List<GuidatoreAggiuntivo> guidatoriAggiuntivi=null;
@@ -240,6 +236,9 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 				}
 				else if(e instanceof GuidatoreAggiuntivo){
 					guidatoriAggiuntivi.add((GuidatoreAggiuntivo) e);
+				}
+				else if(e instanceof ChilometraggioIllimitato){
+					chilIllimitato=(ChilometraggioIllimitato)e;
 				}
 			}
 			//metto nel set cosi toglie i doppioni
@@ -345,7 +344,6 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	private ImageView imgAuto;
 	@FXML
 	private Label lblkmBase;
-
 	protected 	Cliente cliente;
 	/**
 	 * <p> Ascoltatore per il cambio di elemento dal COntratto per settare i label per le info aggiuntive </p>
@@ -416,12 +414,16 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 				   choiceGuidatori.setDisable(false);
 				   impostaPrezzoGuidatore(choiceGuidatori.getSelectionModel().getSelectedItem());
 			}
-			else {
+			else if(option instanceof ChilometraggioIllimitato){
+				lblprezzoOptNoleggio.setText(chilIllimitato.getPrezzo() +  " €");
+			}
+			else{
 				lblprezzoOptNoleggio.setText(String.valueOf(option.getPrezzo())+  " €");
 				choiceGuidatori.setDisable(true);
 			}
 		}
-		
+
+	
 		private void popolaLabelOptionalAuto(Object optional){
 			Optional option = (Optional) optional;
 			 if(option instanceof Seggiolino){
@@ -433,9 +435,20 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 				choiceSeggiolini.setDisable(true);
 			 }
 		}
-	
 	}
-	
+	/**
+	 * <p>IN base alla fascia scelta c'è un costo kilometrico. Esso viene moltiplicato con il massimo del limitato disponibile e vieneapplicata un aggiunta ragionevolo del 30% per fare chilometri ILLIMITATI.</p>
+	 * @return
+	 */
+	private float getCostoChilIllimitato(){
+		//massimo costo di quello limitato
+		float maxCostoLimitato= choiceFascia.getSelectionModel().getSelectedItem().getCosto_kilometrico()*
+				MASSIMO_KILOMETRI;
+		int percentualeAumento = 30;
+		float aggiunta= (maxCostoLimitato*percentualeAumento)/100;
+		return maxCostoLimitato+aggiunta;
+		
+	}
 	@SuppressWarnings("unchecked")
 	public void refreshCarteCredito(){
 		try {
@@ -502,6 +515,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		 choiceFascia.setItems(FXCollections.observableArrayList(fasce));
 		 choiceFascia.getSelectionModel().selectFirst();
 		 lblCostoKm.setText(String.valueOf(choiceFascia.getSelectionModel().getSelectedItem().getCosto_kilometrico())+ " €");
+		 chilIllimitato.setPrezzo(getCostoChilIllimitato());
 		 
 		 //NUMERO SEGGIOLINI
 		 LinkedList<Integer> temp2=new LinkedList<Integer>();
@@ -540,9 +554,9 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		 
 		 //LIMITE CHILOMETRAGGIO
 		 LinkedList<Integer> temp3=new LinkedList<Integer>();
-		 temp3.add(10000);
-		 temp3.add(20000);
-		 temp3.add(30000);
+		 temp3.add(500);
+		 temp3.add(1000);
+		 temp3.add(MASSIMO_KILOMETRI);
 		 choiceLimite.setItems(FXCollections.observableArrayList(temp3));
 		 choiceLimite.getSelectionModel().selectFirst();
 		
@@ -604,6 +618,10 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	}
 	private void impostaCosto_km(Fascia fasciaSelected) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
 		lblCostoKm.setText(String.valueOf(fasciaSelected.getCosto_kilometrico())+ " €");
+		chilIllimitato.setPrezzo(getCostoChilIllimitato());
+		if(tbOptionalNoleggio.getSelectionModel().getSelectedItem() instanceof ChilometraggioIllimitato){
+			lblprezzoOptNoleggio.setText(String.valueOf(chilIllimitato.getPrezzo()));
+		}
 		inizializzaTabellaAutoveicolo();
 	}
 	private void impostaPrezzoSeggiolino(int newValue){
@@ -646,6 +664,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			txtCodFiscale.setDisable(true);
 			txtPatente.setDisable(true);
 			btnRimuovi.setVisible(false);
+			tbGuidatori.getItems().clear();
 			tbGuidatori.setVisible(false);
 			campiDisattivi=true;
 		}
@@ -662,6 +681,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	protected void impostaDate(LocalDate localdate){
 		dRitiro.setValue(localdate);
 		lblDataInizio.setText(localdate.format(dtf));
+		setDataFineNoleggio();
 	}
 	
 	
@@ -684,8 +704,10 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	}
 	private void setDataFineNoleggio(){
 		LocalDate dataFineNoleggio= dRitiro.getValue();
-		dataFineNoleggio=dataFineNoleggio.plusDays(choiceGiorni.getSelectionModel().getSelectedItem());
-		dataFineNoleggio=dataFineNoleggio.plusWeeks(choiceSettimane.getSelectionModel().getSelectedItem());
+		if(choiceGiorni.getSelectionModel().getSelectedItem()!=null){
+			dataFineNoleggio=dataFineNoleggio.plusDays(choiceGiorni.getSelectionModel().getSelectedItem());
+			dataFineNoleggio=dataFineNoleggio.plusWeeks(choiceSettimane.getSelectionModel().getSelectedItem());
+		}
 		lblDataFineNoleggio.setText(dataFineNoleggio.format(dtf));
 	}
 	class ItemChoiceSelectedGuidatore implements ChangeListener<Integer>{

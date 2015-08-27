@@ -24,8 +24,8 @@ import business.entity.Noleggio.Optional.Seggiolino;
 import business.model.Exception.CommonException;
 
 public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
-		
-	
+
+	private GuidatoreAggiuntivo guidatore= null;
 	@FXML
 	public void btnAggiungiOptionalNoleggio(ActionEvent e){
 		if(tbOptionalNoleggio.getSelectionModel().getSelectedIndex()<0 ){
@@ -36,16 +36,18 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			Optional itemSelected = (Optional) tbOptionalNoleggio.getSelectionModel().getSelectedItem();
 			int numScelto = choiceGuidatori.getSelectionModel().getSelectedItem();
 			if(itemSelected instanceof GuidatoreAggiuntivo  && !listItem.contains(itemSelected)){
+				
 				for(int i=0;i<guidatoriAggiuntivi.size();i++){
 					if(guidatoriAggiuntivi.get(i).getNumero_guidatori()==numScelto){
-						listItem.add(guidatoriAggiuntivi.get(i));//metto nell'altra tabella quello con l'elemento scelto.
+						guidatore= guidatoriAggiuntivi.get(i);
+						listItem.add(guidatore);//metto nell'altra tabella quello con l'elemento scelto.
 						break;
 					}
 				 }
+				controllaGuidatoreAggiuntivo();
 			}
 			else if(!listItem.contains(itemSelected)){
 				tbOptionalScelti.getItems().add(itemSelected);
-				controllaGuidatoreAggiuntivo();
 				controllaChilLimitato();
 				}
 			else 
@@ -125,45 +127,58 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	ObservableList<Entity> listItem = FXCollections.observableArrayList(guidatori);
 	@FXML
 	public void btnAggiungiGuidatore(ActionEvent e){
-		if(!campiDisattivi){
-			caricaTabella( listItem,tbGuidatori);
-			if(txtNome.getText().isEmpty() || txtCognome.getText().isEmpty() || txtIndirizzo.getText().isEmpty() || txtCodFiscale.getText().isEmpty() || txtPatente.getText().isEmpty())
-				AlertView.getAlertView("Compilare tutti i campi prima di procedere con l'aggiunta", AlertType.WARNING);	
-			else{
-			   try{
-		        	Integer.parseInt(txtPatente.getText());
-		        	Guidatore guidatore = new Guidatore(txtNome.getText(),txtCognome.getText(),txtIndirizzo.getText(),txtCodFiscale.getText(),txtPatente.getText(),ottieniIDOptional());
-					try {
-						presenter.processRequest("VerificaGuidatore", guidatore);
-						//se l'elemento viene aggiunto, in quanto è un hashset, se trova un duplicato su codice fiscaale non l'aggiungerà
-						if(guidatori.add(guidatore)) {
-							listItem= FXCollections.observableArrayList(guidatori);
-							tbGuidatori.setItems(listItem);
+		try{
+			//se i campi del giudatore non sono stati disattivati
+		 if(!campiDisattivi){
+			 caricaTabella( listItem,tbGuidatori);
+			 //se la tabella non contiene già tutti gli elementi massimi da inserire in base a quello scelto
+			 
+			 if(tbGuidatori.getItems().size()<guidatore.getNumero_guidatori()){
+				if(txtNome.getText().isEmpty() || txtCognome.getText().isEmpty() || txtIndirizzo.getText().isEmpty() || 
+						txtCodFiscale.getText().isEmpty() || txtPatente.getText().isEmpty())
+					throw new CommonException("Compilare tutti i campi prima di procedere con l'aggiunta");	
+				else{
+				   try{
+			        	Integer.parseInt(txtPatente.getText());
+			        	Guidatore guidatore = new Guidatore(txtNome.getText(),txtCognome.getText(),txtIndirizzo.getText(),
+			        								txtCodFiscale.getText(),txtPatente.getText(),ottieniIDOptional());
+						try {
+							presenter.processRequest("VerificaGuidatore", guidatore);
+							//se l'elemento viene aggiunto, in quanto è un hashset, se trova un duplicato su codice fiscaale non l'aggiungerà
+							if(guidatori.add(guidatore)) {
+								listItem= FXCollections.observableArrayList(guidatori);
+								tbGuidatori.setItems(listItem);
+							}
+							else {
+								throw new CommonException("C'è già qualche guidatore con Patente e/o cod.Fiscale uguale a quelle inserite");
+							}
+						}	
+						catch(CommonException e1){
+							e1.showMessage();
 						}
-						else {
-							AlertView.getAlertView("C'è già qualche guidatore con Patente e/o cod.Fiscale uguale a quelle inserite", AlertType.WARNING);
+						catch(InvocationTargetException e1){
+							new CommonException(e1.getTargetException().getMessage()).showMessage();
 						}
-					}	
-					catch(CommonException e1){
-						e1.showMessage();
+						catch (InstantiationException | IllegalAccessException
+								| ClassNotFoundException | NoSuchMethodException
+								| SecurityException | IllegalArgumentException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
-					catch(InvocationTargetException e1){
-						new CommonException(e1.getTargetException().getMessage()).showMessage();
+					catch(NumberFormatException e2){
+						throw new CommonException("La patente deve essere costituita da soli numeri");					
 					}
-					catch (InstantiationException | IllegalAccessException
-							| ClassNotFoundException | NoSuchMethodException
-							| SecurityException | IllegalArgumentException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
-				}
-				catch(NumberFormatException e2){
-					AlertView.getAlertView("La patente deve essere costituita da soli numeri",AlertType.WARNING);
-				}
-			}
+			 }
+			 else 
+				 throw new CommonException("Hai già impostato tutti i guidatori");
 		}
 		else 
-			AlertView.getAlertView("Se vuoi aggiungere un guidatore seleziona e aggiungi come optional il guidatore Aggiuntivo", AlertType.WARNING);
+			throw new CommonException("Se vuoi aggiungere un guidatore seleziona e aggiungi come optional il guidatore Aggiuntivo");
+		}
+		catch(CommonException e1){
+			e1.showMessage();}
 	}
 	
 	private int ottieniIDOptional(){
@@ -210,7 +225,6 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			FXMLParameter.setTitolo("Nuova Carta Di Credito");
 			FXMLParameter.setHand(false);
 			Finestra.visualizzaFinestra(presenter, FXMLParameter, this, "MostraSchermataInserimentoCartaCredito",Modality.APPLICATION_MODAL);
-
 		 }
 		}
 	
@@ -261,7 +275,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		for(Entity op: optional){
 			acconto+=((Optional)op).getPrezzo();
 		}
-		acconto+= ((Autoveicolo)tbAutoveicolo.getSelectionModel().getSelectedItem()).getPrezzo();//if selected
+		acconto+= ((Autoveicolo)tbAutoveicolo.getSelectionModel().getSelectedItem()).getPrezzo();//if selected controlla sennò dai messaggio.
 		
 		//moltiplico il costo al kilometro della fascia per il limite di chilometri.
 		costoKilometri= choiceFascia.getSelectionModel().getSelectedItem().getCosto_kilometrico() * choiceLimite.getSelectionModel().getSelectedItem();
