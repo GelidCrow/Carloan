@@ -99,6 +99,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TabAgenzia tbAgenziaController;
 	
 	private TabAuto tbAutoController;
+	@FXML
+	private Label superv_agenzia;
 		/***********  CONTRATTO *************/
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
@@ -170,7 +172,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	@FXML
 	public void btnnuova_agenzia(ActionEvent e){
-		
+		tbAgenziaController.NuovaAgenzia();
 	}
 	@FXML
 	public void btnmodifica_agenzia(ActionEvent e){
@@ -389,6 +391,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				try {
 					List<Agenzia> l=(List<Agenzia>)presenter.processRequest("getAllAgenzie", null);
 					caricaTabella((List<T>)l, tbAgenzia);
+					tbAgenzia.getSelectionModel().selectFirst();
 			
 				} catch (InstantiationException | IllegalAccessException
 						| ClassNotFoundException | NoSuchMethodException
@@ -488,12 +491,22 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private class ItemSelectedAgenzia implements ChangeListener{
 
 		@Override
-		public void changed(ObservableValue observable, Object oldValue,
-				Object newValue) {
+		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+			if((Agenzia)getEntitaElementoSelezionato("Agenzia")!=null){
 			try {
-				SupervisoreAgenzia s=(SupervisoreAgenzia)presenter.processRequest("leggiSupervisoreAgenzia",((Agenzia) newValue).getIDAgenzia());
+				Object temp=presenter.processRequest("leggiSupervisoreAgenzia",((Agenzia) newValue).getIDAgenzia());
+				if(temp!=null){
+					SupervisoreAgenzia s=(SupervisoreAgenzia)temp;
 				nome_sa.setText(s.getNome());
 				cognome_sa.setText(s.getCognome());
+				superv_agenzia.setVisible(false);
+				}
+				else{
+					superv_agenzia.setVisible(true);
+					nome_sa.setText("");
+					cognome_sa.setText("");
+				}
+					
 				
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
@@ -507,7 +520,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 
 	
 
-	
+		}
 		
 	}
 	

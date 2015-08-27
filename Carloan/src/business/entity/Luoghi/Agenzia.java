@@ -16,7 +16,11 @@ public class Agenzia extends Entity{
 		this.nome = nome;
 		IDDitta = iDDitta;
 	}
-	
+	public Agenzia(String nome,String num,int idditta){
+		this.nome=nome;
+		this.NumTelefono=num;
+		this.IDDitta=idditta;
+	}
 
 	public int getIDAgenzia() {
 		return IDAgenzia;

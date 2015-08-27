@@ -14,8 +14,14 @@ public class ModelAgenzia implements Model{
 
 	
 	@Override
-	public void Inserimento(Entity parameter) {
-		// TODO Auto-generated method stub
+	public void Inserimento(Entity parameter) throws CommonException {
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			((DAOAgenzia)daofactory.getDao("DAOAgenzia")).creazione(parameter);
+			
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

@@ -8,10 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.control.Alert.AlertType;
+import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Luoghi.Agenzia;
 
 
+import business.model.Exception.CommonException;
 import static utility.QueryStringReplacer.queryReplaceFirst;
 
 public class DAOAgenzia implements DAO{
@@ -25,25 +28,25 @@ public class DAOAgenzia implements DAO{
 	}
 	
 	@Override
-	public ResultSet creazione(Entity x) {
+	public ResultSet creazione(Entity x) throws CommonException {
 
-		String INSERT = "INSERT INTO Agenzia values('?','?','?','?');";
+		String INSERT = "INSERT INTO Agenzia(NumeroTelefono,Nome,IDDitta) values('?','?',?);";
 		String insertQuery = INSERT;
 				
 		Agenzia agenzia= (Agenzia)x;
-
-        insertQuery = queryReplaceFirst(insertQuery,String.valueOf( agenzia.getIDAgenzia()));
-        
+		
         insertQuery= queryReplaceFirst(insertQuery,agenzia.getNumTelefono());
-        
         insertQuery= queryReplaceFirst(insertQuery,agenzia.getNome());
-        
         insertQuery= queryReplaceFirst(insertQuery,String.valueOf(agenzia.getIDDitta()));
         
         Connection connection= Connection.getConnection(daofactory);
         ResultSet idList=null;
 		try {
 			 idList = connection.executeUpdate(insertQuery);
+			 if(idList!=null)
+				 AlertView.getAlertView("Agenzia inserita con successo!", AlertType.INFORMATION);
+			 else
+				 throw new CommonException("Non e' stato possibile inserire l'agenzia");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
