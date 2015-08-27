@@ -2,7 +2,9 @@ package presentation.mvp.view.controller.generale.noleggio;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import utility.Finestra;
@@ -10,12 +12,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Modality;
 import MessaggiFinestra.AlertView;
 import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Auto.Autoveicolo;
+import business.entity.Luoghi.Sede;
+import business.entity.Noleggio.Noleggio;
 import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
 import business.entity.Noleggio.Optional.Guidatore;
 import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
@@ -24,7 +29,7 @@ import business.entity.Noleggio.Optional.Seggiolino;
 import business.model.Exception.CommonException;
 
 public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
-
+	private Noleggio noleggio=new Noleggio();
 	private GuidatoreAggiuntivo guidatore= null;
 	@FXML
 	public void btnAggiungiOptionalNoleggio(ActionEvent e){
@@ -234,13 +239,11 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	}
 	@FXML
 	public void btnCancella(ActionEvent e){
-		
+	 java.util.Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
+			if(result.isPresent() && result.get() == ButtonType.OK)
+				this.chiudiFinestra();
 	}
-	@FXML
-	public void btnConferma(ActionEvent e){
-		
-	}
-	
+
 	
 	@FXML
 	public void dRitiroAction(ActionEvent e){
@@ -263,26 +266,102 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			e1.showMessage();
 		}
 	}
-	
-	
+	private float oldPrezzo=0;
 	@FXML
 	public void btnCalcolaPrezzo(ActionEvent e){
-		//somma tutti i valori : 
+		oldPrezzo= calcolaPrezzo();
+		
+	}
+
+
+	private float calcolaPrezzo(){
 		float acconto = 0;
-		float costoKilometri=0;
+		float costoChilometrico=0;
+		float cauzione=0;
+		//somma tutti i valori : 
+	
 		//sommo il costo degli optional
 		ObservableList<Entity> optional= tbOptionalScelti.getItems();
 		for(Entity op: optional){
 			acconto+=((Optional)op).getPrezzo();
 		}
-		acconto+= ((Autoveicolo)tbAutoveicolo.getSelectionModel().getSelectedItem()).getPrezzo();//if selected controlla sennò dai messaggio.
-		
-		//moltiplico il costo al kilometro della fascia per il limite di chilometri.
-		costoKilometri= choiceFascia.getSelectionModel().getSelectedItem().getCosto_kilometrico() * choiceLimite.getSelectionModel().getSelectedItem();
-		
-		
-		
-		
+		try{
+			//costo auto + costo della fascia.
+			if(tbAutoveicolo.getSelectionModel().getSelectedItem()!=null)
+				acconto+= ((Autoveicolo)tbAutoveicolo.getSelectionModel().getSelectedItem()).getPrezzo()+choiceFascia.getSelectionModel().getSelectedItem().getPrezzo();
+			else
+				throw new CommonException("Scegliere almeno un autoveicolo");
+			//moltiplico il costo al kilometro della fascia per il limite di chilometri.
+			if(!choiceLimite.isDisable())
+				costoChilometrico= choiceFascia.getSelectionModel().getSelectedItem().getCosto_kilometrico() * choiceLimite.getSelectionModel().getSelectedItem();
+			
+			
+			//costo di solo le settimane
+			int numeroSettimane= choiceSettimane.getSelectionModel().getSelectedItem();
+			float costoOriginaleInGiorni= acconto*(7*numeroSettimane);
+			float scontoSettimanale = (costoOriginaleInGiorni*10)/100;
+			float costoPerSettimane= costoOriginaleInGiorni-scontoSettimanale;
+			
+			//+ il costo dei giorni se scelti.
+			int numeroGiorni= choiceGiorni.getSelectionModel().getSelectedItem();
+			float costoPerGiorni = acconto*numeroGiorni;
+			
+			acconto= costoPerSettimane+ costoPerGiorni+costoChilometrico;
+			
+			txtAcconto.setText(String.valueOf(acconto));
+			//la cauzione è il 20% del totale 
+			cauzione= (acconto*30)/100;
+			txtCauzione.setText(String.valueOf(cauzione));
+			
+			
+			txtTotale.setText(String.valueOf(acconto+cauzione));
+			
+		}
+		catch(CommonException e1){
+			e1.showMessage();}
+		return acconto+cauzione;
 	}
+	
+	@FXML
+	public void btnConferma(ActionEvent e){
+		float nuovoPrezzo=calcolaPrezzo();
+		if(nuovoPrezzo==0 || oldPrezzo!=nuovoPrezzo){
+			try {
+				oldPrezzo=nuovoPrezzo;
+				throw new CommonException("E' stato ricalcolato il prezzo in quanto sono state apportate modifiche al noleggio, cliccare su conferma per procedere");
+			} catch (CommonException e1) {
+				e1.showMessage();
+			}
+		}	
+		else {
+			prendiDatiDaView();
+			//presenter.processRequest("InserimentoNoleggio", )
+		}
+			
+	}
+    private Noleggio prendiDatiDaView(){
+    	noleggio.setRitiro(dRitiro.getValue());
+    	noleggio.setInizioNoleggio(LocalDate.parse(lblDataInizio.getText(),dtf));
+    	noleggio.setFineNoleggio(LocalDate.parse(lblDataFineNoleggio.getText(),dtf));
+    	noleggio.setSedeRestituzione(((Sede)tbRestituzione.getSelectionModel().getSelectedItem()).getIDSede());
 
+    	List<Integer> optionalScelti = new ArrayList<Integer>();
+    	
+		ObservableList<Entity> optional= tbOptionalScelti.getItems();
+		for(Entity op: optional){
+			optionalScelti.add(((Optional)op).getId());
+		}
+    			
+    	noleggio.setOptional(optionalScelti);
+    	
+    	noleggio.
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+		return noleggio;
+    }
 }

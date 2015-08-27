@@ -27,6 +27,8 @@ public class Noleggio extends Entity{
 	private String note;
 	private int idPagamento;
 	
+	
+	public Noleggio(){}
 	public Noleggio(int iDNoleggio, LocalDate inizioNoleggio,
 			LocalDate fineNoleggio, LocalDate rientro, LocalDate ritiro,
 			int kmRientro,  int kmBase, List<Integer> optional,

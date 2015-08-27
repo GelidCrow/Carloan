@@ -53,7 +53,7 @@
             </TableView>
             <Label layoutX="391.0" layoutY="386.0" prefHeight="17.0" prefWidth="89.0" text="Autoveicolo * " />
             <Label layoutX="1094.0" layoutY="365.0" text="Prezzo" />
-            <TextField fx:id="txtAcconto" layoutX="1098.0" layoutY="410.0" prefHeight="25.0" prefWidth="97.0" />
+            <TextField fx:id="txtAcconto" editable="false" layoutX="1098.0" layoutY="410.0" prefHeight="25.0" prefWidth="97.0" />
             <Button fx:id="btnCalcola" layoutX="1437.0" layoutY="411.0" mnemonicParsing="false" onAction="#btnCalcolaPrezzo" text="Calcola " />
             <TableView fx:id="tbCartaCredito" layoutX="1090.0" layoutY="524.0" prefHeight="176.0" prefWidth="400.0">
                <columns>
@@ -67,10 +67,10 @@
             <Button fx:id="btnCancella" layoutX="1306.0" layoutY="764.0" mnemonicParsing="false" onAction="#btnCancella" text="Cancella" textFill="#d62f2f" />
             <ChoiceBox fx:id="choiceFascia" layoutX="541.0" layoutY="361.0" prefHeight="25.0" prefWidth="156.0" />
             <Label layoutX="391.0" layoutY="365.0" prefHeight="17.0" prefWidth="89.0" text="Fascia " />
-            <TextField fx:id="txtCauzione" layoutX="1200.0" layoutY="410.0" prefHeight="25.0" prefWidth="110.0" />
+            <TextField fx:id="txtCauzione" editable="false" layoutX="1200.0" layoutY="410.0" prefHeight="25.0" prefWidth="110.0" />
             <Label layoutX="1099.0" layoutY="385.0" prefHeight="17.0" prefWidth="68.0" text="Acconto" />
-            <Label layoutX="1201.0" layoutY="385.0" text="Cauzione" />
-            <TextField fx:id="txtTotale" layoutX="1319.0" layoutY="410.0" prefHeight="25.0" prefWidth="104.0" />
+            <Label layoutX="1175.0" layoutY="386.0" text="Cauzione (20% su acconto)" />
+            <TextField fx:id="txtTotale" editable="false" layoutX="1319.0" layoutY="410.0" prefHeight="25.0" prefWidth="104.0" />
             <Label layoutX="1329.0" layoutY="385.0" prefHeight="17.0" prefWidth="43.0" text="Totale" />
             <Button fx:id="btnAggiungi" layoutX="233.0" layoutY="652.0" mnemonicParsing="false" onAction="#btnAggiungiOptionalNoleggio" prefHeight="25.0" prefWidth="89.0" text="Aggiungi" />
             <ChoiceBox fx:id="choiceLimite" layoutX="31.0" layoutY="766.0" prefHeight="25.0" prefWidth="133.0" />

@@ -67,7 +67,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected DatePicker dRitiro;
 	@FXML
-	private TableView<T> tbRestituzione;
+	protected TableView<T> tbRestituzione;
 	@FXML
 	protected TableView<T> tbOptionalNoleggio;	
 	@FXML
@@ -103,11 +103,11 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected TableView<T> tbOptionalAuto;
 	@FXML
-	private TextField txtAcconto;
+	protected TextField txtAcconto;
 	@FXML
-	private TextField txtCauzione;
+	protected TextField txtCauzione;
 	@FXML
-	private TextField txtTotale;
+	protected TextField txtTotale;
 	@FXML
 	private RadioButton rdDenaro;
 	@FXML
@@ -545,11 +545,12 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		 
 		 //NUMERO GIORNI
 		 LinkedList<Integer> temp1=new LinkedList<Integer>();
-		 for(int i=1;i<=6;i++){
+		 for(int i=0;i<=6;i++){
 			 temp1.add(i);
 		 }
 		 choiceGiorni.setItems(FXCollections.observableArrayList(temp1));
 		 choiceGiorni.getSelectionModel().selectFirst();
+		 choiceGiorni.getSelectionModel().selectNext();
 		 setDataFineNoleggio();
 		 
 		 //LIMITE CHILOMETRAGGIO
@@ -686,7 +687,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	
 	
 	@FXML
-	private Label lblDataFineNoleggio;
+	protected Label lblDataFineNoleggio;
 	/**
 	 * <p>Prende il seggiolino in posizione 2 e mette i lsuo prezzo.</p>
 	 * @author francesco
