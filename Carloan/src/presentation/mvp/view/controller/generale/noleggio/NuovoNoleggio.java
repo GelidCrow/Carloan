@@ -15,6 +15,7 @@ import javafx.stage.Modality;
 import MessaggiFinestra.AlertView;
 import business.entity.Cliente;
 import business.entity.Entity;
+import business.entity.Auto.Autoveicolo;
 import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
 import business.entity.Noleggio.Optional.Guidatore;
 import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
@@ -253,11 +254,17 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	@FXML
 	public void btnCalcolaPrezzo(ActionEvent e){
 		//somma tutti i valori : 
-		//tutti gli optional
-		//prezzo auto
-		//chilometri * fasciaSelezionata
+		float acconto = 0;
+		float costoKilometri=0;
+		//sommo il costo degli optional
+		ObservableList<Entity> optional= tbOptionalScelti.getItems();
+		for(Entity op: optional){
+			acconto+=((Optional)op).getPrezzo();
+		}
+		acconto+= ((Autoveicolo)tbAutoveicolo.getSelectionModel().getSelectedItem()).getPrezzo();//if selected
 		
-		
+		//moltiplico il costo al kilometro della fascia per il limite di chilometri.
+		costoKilometri= choiceFascia.getSelectionModel().getSelectedItem().getCosto_kilometrico() * choiceLimite.getSelectionModel().getSelectedItem();
 		
 		
 		

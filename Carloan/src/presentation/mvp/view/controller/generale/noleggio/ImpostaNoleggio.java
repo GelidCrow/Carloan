@@ -105,7 +105,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected TableView<T> tbOptionalAuto;
 	@FXML
-	private ChoiceBox<Fascia> choiceFascia;
+	protected ChoiceBox<Fascia> choiceFascia;
 	@FXML
 	private TextField txtAcconto;
 	@FXML
@@ -457,6 +457,8 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	private Label lblLimiteCoperturaScelto;
 	@FXML
 	private Label lblNumSeggioliniScelti;
+	@FXML
+	private Label lblNumGuidAggiuntivi;
 	
 	private class ItemSelectedOptScelti implements ChangeListener<Optional>{
 
@@ -465,6 +467,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 				Optional oldValue, Optional newValue) {
 			lblNumSeggioliniScelti.setText("");
 			lblLimiteCoperturaScelto.setText("");
+			lblNumGuidAggiuntivi.setText("");
 			if(newValue!=null)
 				lblprezzoOptScelti.setText(String.valueOf(newValue.getPrezzo()));
 			if(newValue instanceof Seggiolino){
@@ -472,6 +475,9 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			}
 			else if( newValue instanceof Assicurazione_KASKO){
 				lblLimiteCoperturaScelto.setText(String.valueOf(((Assicurazione_KASKO)newValue).getCopertura()));
+			}
+			else if( newValue instanceof GuidatoreAggiuntivo){
+				lblNumGuidAggiuntivi.setText(String.valueOf(((GuidatoreAggiuntivo)newValue).getNumero_guidatori()));
 			}
 		}
 	}
@@ -530,6 +536,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		 }
 		 choiceGiorni.setItems(FXCollections.observableArrayList(temp1));
 		 choiceGiorni.getSelectionModel().selectFirst();
+		 setDataFineNoleggio();
 		 
 		 //LIMITE CHILOMETRAGGIO
 		 LinkedList<Integer> temp3=new LinkedList<Integer>();
@@ -671,12 +678,15 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		public void changed(ObservableValue<? extends Integer> observable,
 				Integer oldValue, Integer newValue) {
 			if(newValue!=null){
-				LocalDate dataFineNoleggio= dRitiro.getValue();
-				dataFineNoleggio=dataFineNoleggio.plusDays(choiceGiorni.getSelectionModel().getSelectedItem());
-				dataFineNoleggio=dataFineNoleggio.plusWeeks(choiceSettimane.getSelectionModel().getSelectedItem());
-				lblDataFineNoleggio.setText(dataFineNoleggio.format(dtf));
+				setDataFineNoleggio();
 			}
 		}
+	}
+	private void setDataFineNoleggio(){
+		LocalDate dataFineNoleggio= dRitiro.getValue();
+		dataFineNoleggio=dataFineNoleggio.plusDays(choiceGiorni.getSelectionModel().getSelectedItem());
+		dataFineNoleggio=dataFineNoleggio.plusWeeks(choiceSettimane.getSelectionModel().getSelectedItem());
+		lblDataFineNoleggio.setText(dataFineNoleggio.format(dtf));
 	}
 	class ItemChoiceSelectedGuidatore implements ChangeListener<Integer>{
 
