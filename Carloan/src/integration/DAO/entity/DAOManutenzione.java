@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,21 +31,27 @@ public class DAOManutenzione implements DAO{
 	public ResultSet creazione(Entity x) throws CommonException {
 		Manutenzione m = null;
 		String query="Insert into ? (DataInizio,Note,IDAuto) values('?','?',?)";
+		String update="Update Autoveicolo Set Disponibilita='?' where IDAuto=?";
 		if(x instanceof ManutenzioneOrdinaria){
 			query=queryReplaceFirst(query, "manutenzioneordinaria");
 			m=(ManutenzioneOrdinaria)x;
+			update=queryReplaceFirst(update, "ManutenzioneOrdinaria");
 		}
 		else if(x instanceof ManutenzioneStraordinaria){
 			query=queryReplaceFirst(query, "manutenzionestraordinaria");
 			m=(ManutenzioneStraordinaria)x;
+			update=queryReplaceFirst(update, "ManutenzioneStraordinaria");
 		}
 		
 		query=queryReplaceFirst(query, m.getDatainizio().toString());
 		query=queryReplaceFirst(query, m.getNote());
 		query=queryReplaceFirst(query, String.valueOf(m.getIDAuto()));
+		update=queryReplaceFirst(update, String.valueOf(m.getIDAuto()));
 		Connection conn=Connection.getConnection(daofactory);
 		ResultSet r=null;
 		try {
+			r=conn.executeUpdate(update);
+			r=null;
 			r=conn.executeUpdate(query);
 			if(r!=null)
 				AlertView.getAlertView("Manutenzione inserita con successo", AlertType.INFORMATION);
@@ -79,8 +86,17 @@ public class DAOManutenzione implements DAO{
 		ResultSet r=null;
 		try {
 			r=conn.executeUpdate(query);
-			if(r!=null)
-				AlertView.getAlertView("Manutenzione chuisa con successo", AlertType.INFORMATION);
+			if(r!=null){
+				List<?super Manutenzione> list=new LinkedList<>();
+				list.addAll(getAll_ordinarie_aperte(m.getIDAuto()));
+				list.addAll(getAll_straordinarie_aperte(m.getIDAuto()));
+				
+				if(list.isEmpty()){//L'auto può tornare disponibile
+					query="Update Autoveicolo set Disponibilita='Disponibile' where IDAuto="+String.valueOf(m.getIDAuto());
+					conn.executeUpdate(query);
+				}
+				AlertView.getAlertView("Manutenzione chiusa con successo", AlertType.INFORMATION);
+			}
 			else
 				throw new CommonException("Manutenzione non chiusa");
 		} catch (SQLException e) {

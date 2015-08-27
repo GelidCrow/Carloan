@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import presentation.mvp.view.Presenter;
+import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -92,6 +93,9 @@ public void btnconferma(ActionEvent e){
 		m.setDataFine(LocalDate.now());
 		presenter.processRequest("VerificaManutenzione", m);
 		presenter.processRequest("ChiusuraManutenzione",m);
+		SchermataGenerale<Autoveicolo> schermataGenerale = (SchermataGenerale<Autoveicolo>)this.getChiamante();
+		tw= ((SchermataGenerale<Autoveicolo>)schermataGenerale).getTable("Autoveicolo");
+		caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null));
 		chiudiFinestra();
 	}
 	

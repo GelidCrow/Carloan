@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -12,12 +13,15 @@ import business.entity.Entity;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.manutenzione.*;
 import business.model.Exception.CommonException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
@@ -25,6 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
+import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
 
 public class Nuova_Manutenzione extends Schermata{
@@ -45,6 +50,7 @@ public class Nuova_Manutenzione extends Schermata{
 	private Autoveicolo a=null;
 	private Manutenzione man;
 	final ToggleGroup group = new ToggleGroup();
+	protected TableView<Autoveicolo> tw;
 public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
@@ -62,6 +68,7 @@ public void initData(Entity x){
 	
 	targa.setText(a.getTarga());
 	modello.setText(a.getModello());
+
 }
 
 @FXML
@@ -75,11 +82,13 @@ public void btnannulla(ActionEvent e){
 @FXML
 public void btnconferma(ActionEvent e){
 
-		
+	SchermataGenerale<Autoveicolo> schermataGenerale = (SchermataGenerale<Autoveicolo>)this.getChiamante();
+	tw= ((SchermataGenerale<Autoveicolo>)schermataGenerale).getTable("Autoveicolo");
 		try {
 			this.man=prendiDatiDaView();
 			presenter.processRequest("VerificaManutenzione", this.man);
 			presenter.processRequest("InserimentoManutenzione",this.man);
+			caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null));
 			chiudiFinestra();
 		}
 		
@@ -105,6 +114,10 @@ public void btnconferma(ActionEvent e){
 	
 }
 
+protected void caricaTabella(List<Autoveicolo> list){
+		ObservableList<Autoveicolo> obsList= FXCollections.observableList(list);
+		this.tw.setItems(obsList);
+	}
 private Manutenzione prendiDatiDaView() throws CommonException{
 	LocalDate d=data_inizio.getValue();
 	if(d==null)
