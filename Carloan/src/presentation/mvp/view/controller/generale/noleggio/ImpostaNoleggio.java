@@ -285,7 +285,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		Utente utente = UtenteCorrente.getUtente();
 		int fascia= choiceFascia.getSelectionModel().getSelectedIndex()+1;
 		if(utente instanceof Amministratore ){
-			auto= (List<Autoveicolo>)presenter.processRequest("getAllAutoByFascia",fascia);
+			auto= (List<Autoveicolo>)presenter.processRequest("getAllAutoByFasciaAssicurazione",fascia);
 			caricaTabella((List<T>)auto, tbAutoveicolo);
 		}
 		else if( utente instanceof SupervisoreSede){
@@ -293,7 +293,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			List<Integer> lista=new ArrayList<Integer>();
 			lista.add(supervisoreS.getIDSede());
 			lista.add(fascia);
-			auto=(List<Autoveicolo>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista);
+			auto=(List<Autoveicolo>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFasciaAndAssicurazione",lista);
 			caricaTabella((List<T>)auto, tbAutoveicolo);
 		}
 		else if( utente instanceof Operatore){
@@ -301,7 +301,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			List<Integer> lista=new ArrayList<Integer>();
 			lista.add(operatore.getIDSede());
 			lista.add(fascia);
-			auto=(List<Autoveicolo>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista);
+			auto=(List<Autoveicolo>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFasciaAndAssicurazione",lista);
 			caricaTabella((List<T>)auto, tbAutoveicolo);
 		}
 		else {//prendo solo le auto delle sedi sottostanti l'agenzia a cui appartiene l'utente corrente. 
@@ -312,7 +312,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 				List<Integer> lista=new ArrayList<Integer>();
 				lista.add(0,s.getIDSede());
 				lista.add(1,fascia);
-				autoveicoli= (List<Autoveicolo>) presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista);
+				autoveicoli= (List<Autoveicolo>) presenter.processRequest("getAllAutoDisponibiliBySedeAndFasciaAndAssicurazione",lista);
 				auto.addAll(autoveicoli);
 			}
 			caricaTabella((List<T>)auto, tbAutoveicolo);
@@ -380,12 +380,14 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			}
 		}
 	
-		private void popolaLabelEImmagineAuto(Autoveicolo auto){	
-			InputStream inputStream=auto.getImmagine_stream();
-			if(inputStream!=null)
+		private void popolaLabelEImmagineAuto(Autoveicolo auto) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{	
+			InputStream inputStream=(InputStream) presenter.processRequest("leggiImmagineAutoveicolo", auto.getIDauto());
+			if(inputStream!=null){
 				imgAuto.setImage(new Image(inputStream));
-			else
-			imgAuto.setImage(null);
+			}
+			else{
+				imgAuto.setImage(null);
+				}
 			
 			lblkmBase.setText(String.valueOf(auto.getUltimoKm()));
 			lblAPrincipale.setText(auto.getAlimPrincipale());
