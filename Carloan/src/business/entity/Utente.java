@@ -1,13 +1,13 @@
 package business.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public abstract class Utente extends Entity {
 	private int idUtente;
 	private String Nome;
 	private String Cognome;
 	private String Sesso;
-	private Date DataNascita;
+	private LocalDate DataNascita;
 	private String Indirizzo;
 	private String CodiceFiscale;
 	private String NumCell;
@@ -18,7 +18,7 @@ public abstract class Utente extends Entity {
 
 
 	public Utente(int idUtente, String nome, String cognome, String sesso,
-			Date dataNascita, String indirizzo, String codiceFiscale,
+			LocalDate dataNascita, String indirizzo, String codiceFiscale,
 			String numCell, String numFisso, boolean assunto) {
 		super();
 		this.idUtente = idUtente;
@@ -56,10 +56,10 @@ public abstract class Utente extends Entity {
 	public void setSesso(String sesso) {
 		Sesso = sesso;
 	}
-	public Date getDataNascita() {
+	public LocalDate getDataNascita() {
 		return DataNascita;
 	}
-	public void setDataNascita(Date dataNascita) {
+	public void setDataNascita(LocalDate dataNascita) {
 		DataNascita = dataNascita;
 	}
 	public String getIndirizzo() {

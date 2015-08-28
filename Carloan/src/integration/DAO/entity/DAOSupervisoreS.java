@@ -61,7 +61,7 @@ public class DAOSupervisoreS implements DAO{
 	}
 	
 	private SupervisoreSede ottieniSupS(ResultSet resultset) throws SQLException{
-		 return new SupervisoreSede(resultset.getInt(1),resultset.getString(2),resultset.getString(3),resultset.getString(4),resultset.getDate(5),resultset.getString(6),
+		 return new SupervisoreSede(resultset.getInt(1),resultset.getString(2),resultset.getString(3),resultset.getString(4),resultset.getDate(5).toLocalDate(),resultset.getString(6),
 				 	resultset.getString(7),resultset.getString(8),resultset.getString(9),resultset.getBoolean(10),resultset.getInt(11));
 	}
 

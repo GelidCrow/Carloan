@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="20.0" prefWidth="1024.0">
         <menus>
@@ -326,9 +326,20 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView layoutY="63.0" prefHeight="450.0" prefWidth="1236.0" />
-                                    <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
-                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
+                                    <TableView fx:id="tbAmministratore" layoutY="63.0" prefHeight="450.0" prefWidth="1236.0">
+                                       <columns>
+                                          <TableColumn prefWidth="91.00003051757812" text="ID" />
+                                          <TableColumn prefWidth="128.0" text="Nome" />
+                                          <TableColumn minWidth="6.0" prefWidth="95.0" text="Cognome" />
+                                          <TableColumn minWidth="9.0" prefWidth="78.0" text="Sesso" />
+                                          <TableColumn minWidth="0.0" prefWidth="165.0" text="Data nascita" />
+                                          <TableColumn prefWidth="153.0" text="Indirizzo" />
+                                          <TableColumn minWidth="0.0" prefWidth="139.0" text="Codice Fiscale" />
+                                          <TableColumn prefWidth="187.0" text="Numero fisso" />
+                                          <TableColumn prefWidth="198.0" text="Numero cellulare" />
+                                       </columns></TableView>
+                                    <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnnuovo_amministratore" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
+                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnmodifica_amministratore" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                  </children>
                               </AnchorPane>
                            </content>

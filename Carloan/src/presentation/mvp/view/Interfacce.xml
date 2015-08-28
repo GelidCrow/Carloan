@@ -41,4 +41,6 @@
 	<!-- OPTIONAL -->
 	<interface id="MostraSchermataVisualizzaOptional" src ="markup/generale/noleggio/optional/VisualizzaOptional.fxml"></interface>
 
+	<!--Amministratore -->
+	<interface id="MostraSchermataNuovoAmministratore" src ="markup/generale/gestori/Nuovo_Amministratore.fxml"></interface>
 </interfaces>

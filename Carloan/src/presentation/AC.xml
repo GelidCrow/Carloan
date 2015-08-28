@@ -305,4 +305,10 @@
 		<class>business.model.ModelSede</class>
 		<method>aggiornamento</method>
 	</call>
+<!--Amministratore-->
+<call id="getAllAmministratori">
+	<class>business.model.ModelAmministratore</class>
+	<method>getAll</method>
+</call>
+
 </calls>

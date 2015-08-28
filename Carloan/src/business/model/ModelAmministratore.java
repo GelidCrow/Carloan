@@ -1,9 +1,9 @@
 package business.model;
 
+import java.util.List;
+
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOAmministratore;
-import integration.DAO.entity.DAOCliente;
-import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Gestori.Amministratore;
 import business.model.Exception.CommonException;
@@ -15,9 +15,6 @@ public class ModelAmministratore implements Model{
 		// TODO Auto-generated method stub
 		
 	}
-
-
-	
 
 	@Override
 	public void ricerca() {
@@ -32,7 +29,8 @@ public class ModelAmministratore implements Model{
 	}
 
 	@Override
-	public Entity lettura(int id) {try {
+	public Entity lettura(int id) {
+		try {
 		if(daofactory==null)
 			daofactory= DaoFactory.getDaoFactory(1);
 		return (Amministratore) ((DAOAmministratore) daofactory.getDao("DAOAmministratore")).lettura(id);
@@ -41,4 +39,15 @@ public class ModelAmministratore implements Model{
 		}
 		return null;
 	}	
+	
+	public List<Amministratore> getAll(){
+		try{
+		if(daofactory==null)
+			daofactory= DaoFactory.getDaoFactory(1);
+		return (List<Amministratore>) ((DAOAmministratore) daofactory.getDao("DAOAmministratore")).getAll();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

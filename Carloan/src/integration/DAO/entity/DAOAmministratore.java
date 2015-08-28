@@ -6,12 +6,13 @@ import integration.DAO.connection.Connection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Gestori.Amministratore;
-import business.entity.Gestori.SupervisoreAgenzia;
 import business.model.Exception.CommonException;
 
 public class DAOAmministratore implements DAO{
@@ -58,7 +59,6 @@ public class DAOAmministratore implements DAO{
 	 finally{
 		try {
 			readQueryResultSet.close();
-			//connection.chiudiConnessione();
 			} catch (SQLException e) {
 				e.printStackTrace();
 		}
@@ -67,8 +67,35 @@ public class DAOAmministratore implements DAO{
 	}
 	
 	private Amministratore ottieniAmministratore(ResultSet resultset) throws SQLException{
-		 return new Amministratore(resultset.getInt(1),resultset.getString(2),resultset.getString(3),resultset.getString(4),resultset.getDate(5),resultset.getString(6),
+		 return new Amministratore(resultset.getInt(1),resultset.getString(2),resultset.getString(3),resultset.getString(4),resultset.getDate(5).toLocalDate(),resultset.getString(6),
 				 	resultset.getString(7),resultset.getString(8),resultset.getString(9),resultset.getBoolean(10),resultset.getInt(11));
 	}
 
+
+	public List<Amministratore> getAll() {
+		String query="Select * from Amministratore";
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet s=null;
+		try {
+			 s=c.executeRead(query);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return creaElencoAmministratori(s);
+	}
+private List<Amministratore> creaElencoAmministratori(ResultSet r){
+	List<Amministratore> l=new LinkedList<Amministratore>();
+	if(r!=null){
+		try {
+			while(r.next()){
+				l.add(ottieniAmministratore(r));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	return l;
+}
 }

@@ -1,13 +1,13 @@
 package business.entity.Gestori;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class SupervisoreAgenzia extends Supervisore {
 
 	private int IDAgenzia;
 
 	public SupervisoreAgenzia(int idUtente, String nome, String cognome,
-			String sesso, Date dataNascita, String indirizzo,
+			String sesso, LocalDate dataNascita, String indirizzo,
 			String codiceFiscale, String numCell, String numFisso,
 			boolean assunto,int IDAgenzia) {
 		super(idUtente, nome, cognome, sesso, dataNascita, indirizzo, codiceFiscale,

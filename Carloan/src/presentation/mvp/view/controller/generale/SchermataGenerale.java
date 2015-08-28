@@ -41,7 +41,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
@@ -76,6 +75,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TableView<T> tbSede;
 	@FXML
 	private TableView<T> tablesupsede;
+	@FXML
+	private TableView<T> tbAmministratore;
 	
 	@FXML
 	private Label txtBenvenuto;
@@ -105,7 +106,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TabNoleggio tbNoleggioController;
 	private TabAgenzia tbAgenziaController;
 	private TabSede tbSedeController;
-	
+	private TabAmministratore tbAmministratoreController;
 	private TabAuto tbAutoController;
 	@FXML
 	private Label nome_agenzia;
@@ -214,6 +215,15 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 	}
 
+	@FXML
+	public void btnnuovo_amministratore(ActionEvent e){
+		tbAmministratoreController.NuovoAmministratore();
+	}
+	@FXML
+	public void btnmodifica_amministratore(ActionEvent e){
+		
+	}
+	
 	
 	@FXML
 	public void btnVOptional(ActionEvent e){
@@ -274,6 +284,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tablesupsede;
 		else if(table.equals("Sede"))
 			return tbSede;
+		else if(table.equals("Amministratore"))
+			return tbAmministratore;
 		else
 			return null;
 	}
@@ -289,6 +301,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbAuto.getSelectionModel().getSelectedIndex();
 		else if(table.equals("Agenzia"))
 			return tbAgenzia.getSelectionModel().getSelectedIndex();
+		else if(table.equals("Amministratore"))
+			return tbAmministratore.getSelectionModel().getSelectedIndex();
 		else
 			return 0;
 	}
@@ -309,6 +323,9 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbAgenzia.getSelectionModel().getSelectedItem();
 		else if(table.equals("Sede"))
 			return tbSede.getSelectionModel().getSelectedItem();
+		else if(table.equals("Amministratore"))
+			return tbAmministratore.getSelectionModel().getSelectedItem();
+		
 		else
 			return null;
 	}
@@ -458,6 +475,22 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+			else if(panes.get(6)==newValue){
+				tbAmministratoreController=new TabAmministratore((TableView<Amministratore>)tbAmministratore,SchermataGenerale.this);
+				List<Amministratore> l;
+				try {
+					l = (List<Amministratore>)presenter.processRequest("getAllAmministratori", null);
+					caricaTabella((List<T>)l, tbAmministratore);
+					
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalArgumentException
+						| InvocationTargetException | CommonException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 			
 	    }
@@ -711,6 +744,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tbAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAutoveicolo());
 		tbAgenzia.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAgenzia());
 		tbSede.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedSede());
+		
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	

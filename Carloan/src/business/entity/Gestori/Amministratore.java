@@ -1,6 +1,6 @@
 package business.entity.Gestori;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import business.entity.Utente;
 
@@ -10,7 +10,7 @@ public class Amministratore extends Utente {
 
 
 	public Amministratore(int idUtente, String nome, String cognome,
-			String sesso, Date dataNascita, String indirizzo,
+			String sesso, LocalDate dataNascita, String indirizzo,
 			String codiceFiscale, String numCell, String numFisso,
 			boolean assunto,int IDDitta) {
 		super(idUtente, nome, cognome, sesso, dataNascita, indirizzo, codiceFiscale,
