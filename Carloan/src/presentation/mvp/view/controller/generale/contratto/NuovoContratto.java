@@ -68,13 +68,10 @@ public class NuovoContratto extends Schermata{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
 	public void btnConferma(ActionEvent event) throws CommonException{
-		 if(tbcliente.getSelectionModel().getSelectedIndex()< 0){
-	    		throw new CommonException("Nessun cliente selezionato");
-		 }
-		 else{
-			tw= ((SchermataGenerale)this.getChiamante()).getTable("Contratto");
-			
-			try {
+			try { 
+				if(tbcliente.getSelectionModel().getSelectedIndex()< 0)
+	    			throw new CommonException("Nessun cliente selezionato");
+	    			tw= ((SchermataGenerale)this.getChiamante()).getTable("Contratto");
 					contratto= prendiDatiDaView();
 					presenter.processRequest("VerificaContratto", contratto);	
 					presenter.processRequest("InserimentoContratto", contratto);
@@ -83,7 +80,7 @@ public class NuovoContratto extends Schermata{
 				chiudiFinestra();
 			}
 			catch(CommonException e){
-				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
+				e.showMessage();
 			}
 			catch(InvocationTargetException e){
 
@@ -94,7 +91,7 @@ public class NuovoContratto extends Schermata{
 					| SecurityException | IllegalArgumentException e) {
 				e.printStackTrace();
 			}
-		 }
+		 
 	}
 	
 	public Contratto prendiDatiDaView() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{

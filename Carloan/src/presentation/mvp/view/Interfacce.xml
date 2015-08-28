@@ -35,4 +35,7 @@
 	<!--Agenzia-->
 	<interface id="MostraSchermataNuovaAgenzia" src="markup/generale/luoghi/Nuova_Agenzia.fxml"></interface>
 	<interface id="MostraSchermataModificaAgenzia" src="markup/generale/luoghi/Modifica_Agenzia.fxml"></interface>
+	<!--Sede-->
+	<interface id="MostraSchermataNuovaSede" src="markup/generale/luoghi/Nuova_Sede.fxml"></interface>
+	<interface id="MostraSchermataModificaSede" src="markup/generale/luoghi/Modifica_Sede.fxml"></interface>
 </interfaces>

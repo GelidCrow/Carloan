@@ -382,9 +382,11 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	
 		private void popolaLabelEImmagineAuto(Autoveicolo auto){	
 			InputStream inputStream=auto.getImmagine_stream();
-			if(inputStream!=null){
+			if(inputStream!=null)
 				imgAuto.setImage(new Image(inputStream));
-			}
+			else
+			imgAuto.setImage(null);
+			
 			lblkmBase.setText(String.valueOf(auto.getUltimoKm()));
 			lblAPrincipale.setText(auto.getAlimPrincipale());
 			lblASecondaria.setText(auto.getAlimSec());

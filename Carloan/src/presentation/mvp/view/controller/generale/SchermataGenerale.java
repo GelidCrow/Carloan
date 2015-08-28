@@ -203,12 +203,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	@FXML
 	public void btnnuova_sede(ActionEvent e){
-		tbAgenziaController.NuovaAgenzia();
+		tbSedeController.NuovaSede();
 	}
 	@FXML
 	public void btnmodifica_sede(ActionEvent e){
 		try {
-			tbAgenziaController.ModificaAgenzia();
+			tbSedeController.ModificaSede();
 		} catch (CommonException e1) {
 			e1.showMessage();
 		}
