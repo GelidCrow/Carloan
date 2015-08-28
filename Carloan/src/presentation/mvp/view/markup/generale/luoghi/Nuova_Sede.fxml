@@ -19,7 +19,7 @@
       <Button layoutX="101.0" layoutY="265.0" mnemonicParsing="false" onAction="#btnAnnulla" prefHeight="43.0" prefWidth="101.0" text="Annulla" />
       <Button layoutX="262.0" layoutY="265.0" mnemonicParsing="false" onAction="#btnConferma" prefHeight="43.0" prefWidth="101.0" text="Conferma" />
       <Label layoutX="14.0" layoutY="325.0" text="* Campo obbligatorio" />
-      <Label layoutX="56.0" layoutY="199.0" text="Indirizzo :" />
+      <Label layoutX="56.0" layoutY="199.0" text="Indirizzo* :" />
       <TextField fx:id="indirizzo" layoutX="144.0" layoutY="195.0" />
       <TableView fx:id="agenzie" layoutX="453.0" layoutY="99.0" prefHeight="254.0" prefWidth="283.0">
         <columns>

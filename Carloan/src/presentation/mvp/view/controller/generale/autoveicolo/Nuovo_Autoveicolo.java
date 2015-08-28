@@ -201,7 +201,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 			Autoveicolo auto_da_inserire=prendiDatiDaView();
 			presenter.processRequest("VerificaAutoveicolo", auto_da_inserire);
 			presenter.processRequest("InserimentoAutoveicolo", auto_da_inserire);
-			caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null));
+			schermataGenerale.caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null), tw);
 			chiudiFinestra();
 		} 
 		catch(CommonException e1){
@@ -218,11 +218,6 @@ public class Nuovo_Autoveicolo extends Schermata{
 		}
 	}
 
-	protected void caricaTabella(List<Autoveicolo> list){
-		ObservableList<Autoveicolo> obsList= FXCollections.observableList(list);
-		this.tw.setItems(obsList);
-	}
-	
 	
 	protected Autoveicolo prendiDatiDaView() throws CommonException {
 	Autoveicolo temp=new Autoveicolo();

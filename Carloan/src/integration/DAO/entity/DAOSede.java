@@ -24,10 +24,26 @@ public class DAOSede implements DAO {
 	}
 	
 	@Override
-	public ResultSet creazione(Entity x) {
-		return null;
-		// TODO Auto-generated method stub
-		
+	public ResultSet creazione(Entity x) throws CommonException {
+	Sede s=(Sede)x;
+	String query="Insert into Sede(Indirizzo,NumeroTelefono,Nome,IDAgenzia) values('?','?','?',?)";
+	query=queryReplaceFirst(query, s.getIndirizzo());
+	query=queryReplaceFirst(query, s.getNumeroTelefono());
+	query=queryReplaceFirst(query, s.getNome());
+	query=queryReplaceFirst(query, String.valueOf(s.getIDAgenzia()));
+	Connection c=Connection.getConnection(this.dao);
+	ResultSet r=null;
+	try {
+		r=c.executeUpdate(query);
+		if(r!=null)
+			AlertView.getAlertView("Sede inserita con successo", AlertType.INFORMATION);
+		else
+			throw new CommonException("Non e' stato possibile inserire la sede");
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return null;
 	}
 
 	@Override

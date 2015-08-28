@@ -17,6 +17,14 @@ public class Sede extends Entity{
 		this.nome=nome;
 		setIDAgenzia(idagenzia);
 	}
+	public Sede( String indirizzo, String numeroTelefono,String nome,int idagenzia) {
+		super();
+		
+		Indirizzo = indirizzo;
+		NumeroTelefono = numeroTelefono;
+		this.nome=nome;
+		setIDAgenzia(idagenzia);
+	}
 	public int getIDSede() {
 		return IDSede;
 	}

@@ -14,8 +14,6 @@ import business.model.Exception.CommonException;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import presentation.mvp.view.Presenter;
@@ -39,6 +37,7 @@ public class Modifica_Agenzia extends Nuova_Agenzia{
 		if(result.isPresent() && result.get() == ButtonType.OK)
 			this.chiudiFinestra();
 	}
+	@SuppressWarnings("unchecked")
 	@FXML
 	public void btnConferma(ActionEvent e){
 		@SuppressWarnings("unchecked")
@@ -57,7 +56,7 @@ public class Modifica_Agenzia extends Nuova_Agenzia{
 				agenzia.setNome(n);
 				agenzia.setNumTelefono(tel);
 				presenter.processRequest("AggiornaAgenzia", agenzia);
-				caricaTabella((List<Agenzia>)presenter.processRequest("getAllAgenzie",null));
+				schermataGenerale.caricaTabella((List<Agenzia>)presenter.processRequest("getAllAgenzie",null), tw);
 				chiudiFinestra();
 			}
 		}
@@ -74,9 +73,6 @@ public class Modifica_Agenzia extends Nuova_Agenzia{
 			e1.printStackTrace();
 		}
 	}
-	protected void caricaTabella(List<Agenzia> list){
-		ObservableList<Agenzia> obsList= FXCollections.observableList(list);
-		this.tw.setItems(obsList);
-	}
+
 }
 	

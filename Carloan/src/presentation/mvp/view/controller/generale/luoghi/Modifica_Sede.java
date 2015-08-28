@@ -24,20 +24,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import presentation.mvp.view.Presenter;
-import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
-public class Nuova_Sede extends Schermata{
-	@FXML
-	protected TextField nome;
-	@FXML
-	protected TextField num_telefono;
-	@FXML
-	protected TextField indirizzo;
-	@FXML
-	protected TableView<Agenzia> agenzie;
-	
-	protected TableView<Sede> ts;
-	protected ObservableList<TableColumn<Agenzia,?>> agenzia;
+public class Modifica_Sede extends Nuova_Sede{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		agenzia=agenzie.getColumns();
@@ -50,8 +38,6 @@ public class Nuova_Sede extends Schermata{
 		try {
 			List<Agenzia> agenzie_list=(List<Agenzia>)presenter.processRequest("getAllAgenzie", null);
 			caricaTabella(agenzie_list);
-			agenzie.getSelectionModel().selectFirst();
-			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException

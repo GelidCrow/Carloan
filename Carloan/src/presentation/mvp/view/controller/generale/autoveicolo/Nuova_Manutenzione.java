@@ -13,8 +13,6 @@ import business.entity.Entity;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.manutenzione.*;
 import business.model.Exception.CommonException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
@@ -88,7 +86,7 @@ public void btnconferma(ActionEvent e){
 			this.man=prendiDatiDaView();
 			presenter.processRequest("VerificaManutenzione", this.man);
 			presenter.processRequest("InserimentoManutenzione",this.man);
-			caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null));
+			schermataGenerale.caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null), tw);
 			chiudiFinestra();
 		}
 		
@@ -114,10 +112,7 @@ public void btnconferma(ActionEvent e){
 	
 }
 
-protected void caricaTabella(List<Autoveicolo> list){
-		ObservableList<Autoveicolo> obsList= FXCollections.observableList(list);
-		this.tw.setItems(obsList);
-	}
+
 private Manutenzione prendiDatiDaView() throws CommonException{
 	LocalDate d=data_inizio.getValue();
 	if(d==null)

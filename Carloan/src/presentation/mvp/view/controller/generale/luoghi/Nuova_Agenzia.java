@@ -58,7 +58,7 @@ public class Nuova_Agenzia extends Schermata{
 				if(tel==null)
 					tel="";
 				presenter.processRequest("InserisciAgenzia", new Agenzia(n, tel, ((Amministratore)UtenteCorrente.getUtente()).getIDDitta()));
-				caricaTabella((List<Agenzia>)presenter.processRequest("getAllAgenzie",null));
+				schermataGenerale.caricaTabella((List<Agenzia>)presenter.processRequest("getAllAgenzie",null), tw);
 				chiudiFinestra();
 			}
 		}
@@ -74,10 +74,6 @@ public class Nuova_Agenzia extends Schermata{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	}
-	protected void caricaTabella(List<Agenzia> list){
-		ObservableList<Agenzia> obsList= FXCollections.observableList(list);
-		this.tw.setItems(obsList);
 	}
 }
 	

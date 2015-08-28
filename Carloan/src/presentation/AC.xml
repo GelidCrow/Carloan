@@ -249,14 +249,6 @@
 		<method>getAllByNoleggio</method>
 	</call>
 	
-	
-	<!-- Agenzia -->
-	<call id="getAllAgenzie">
-		<class>business.model.ModelAgenzia</class>
-		<method>getAll</method>
-	</call>
-
-
 <!--Supervisore Agenzia-->
 
 <call id="leggiSupervisoreAgenzia">
@@ -285,12 +277,20 @@
 		<class>business.model.ModelAgenzia</class>
 		<method>lettura</method>
 	</call>
-	
+		<call id="getAllAgenzie">
+		<class>business.model.ModelAgenzia</class>
+		<method>getAll</method>
+	</call>
 	<!-- PAGAMENTO-->
 	<call id="InserimentoPagamento">
 		<class>business.model.ModelPagamento</class>
 		<method>Inserimento</method>
 	</call>
 	
+	<!--Sede-->
 
+<call id="InserisciSede">
+		<class>business.model.ModelSede</class>
+		<method>Inserimento</method>
+	</call>
 </calls>

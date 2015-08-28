@@ -23,9 +23,13 @@ public class ModelSede implements Model{
 
 
 	@Override
-	public void Inserimento(Entity parameter) {
-		// TODO Auto-generated method stub
-		
+	public void Inserimento(Entity parameter) throws CommonException {
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			((DAOSede)daofactory.getDao("DAOSede")).creazione(parameter);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

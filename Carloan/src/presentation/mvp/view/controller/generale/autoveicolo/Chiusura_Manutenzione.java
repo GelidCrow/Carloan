@@ -12,7 +12,6 @@ import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -95,7 +94,7 @@ public void btnconferma(ActionEvent e){
 		presenter.processRequest("ChiusuraManutenzione",m);
 		SchermataGenerale<Autoveicolo> schermataGenerale = (SchermataGenerale<Autoveicolo>)this.getChiamante();
 		tw= ((SchermataGenerale<Autoveicolo>)schermataGenerale).getTable("Autoveicolo");
-		caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null));
+		schermataGenerale.caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null), tw);
 		chiudiFinestra();
 	}
 	

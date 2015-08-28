@@ -275,6 +275,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbAgenzia;
 		else if(table.equals("SupSede"))
 			return tablesupsede;
+		else if(table.equals("Sede"))
+			return tbSede;
 		else
 			return null;
 	}
