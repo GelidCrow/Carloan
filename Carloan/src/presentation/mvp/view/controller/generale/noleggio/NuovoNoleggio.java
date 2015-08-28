@@ -368,7 +368,9 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 				    	if(tbGuidatori.isVisible()){
 				    		aggiungiGuidatori();
 				    	}
-						chiudiFinestra();}
+						AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
+						chiudiFinestra();
+						}
 				else{
 					throw new CommonException("Devi inserire in tutto " + guidatore.getNumero_guidatori() + " Guidatore/i");
 				}
@@ -419,7 +421,6 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 				Guidatore guidatore = (Guidatore)el;
 				try {
 					presenter.processRequest("InserimentoGuidatore", guidatore);
-					AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
 				} catch (InstantiationException | IllegalAccessException
 						| ClassNotFoundException | NoSuchMethodException
 						| SecurityException | IllegalArgumentException
