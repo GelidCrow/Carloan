@@ -12,6 +12,7 @@ import utility.Finestra;
 import utility.ParametriFXML;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
+import business.model.Exception.CommonException;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -53,10 +54,18 @@ public class TabNoleggio {
 	
 	@SuppressWarnings("rawtypes")
 	void visualizzaGuidatori(){
-		FXMLParameter.setTitolo("Optional");
-	    FXMLParameter.setRidimensionabile(false);
-	    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Noleggio"));
-		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaGuidatori",Modality.APPLICATION_MODAL);	
+		if(tbNoleggio.getSelectionModel().getSelectedIndex()< 0){
+    		try {
+				throw new CommonException("Nessun elemento selezionato");
+			} catch (CommonException e) {
+				e.showMessage();
+			}
+		}
+		else{
+			FXMLParameter.setTitolo("Optional");
+		    FXMLParameter.setRidimensionabile(false);
+		    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Noleggio"));
+			Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaGuidatori",Modality.APPLICATION_MODAL);	}
 	}
 	
 	

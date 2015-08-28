@@ -167,7 +167,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	
 	@FXML
-	public void btnModificaNoleggio(ActionEvent e) {
+	public void btnAnnullaNoleggio(ActionEvent e) {
 		
 	}
 	

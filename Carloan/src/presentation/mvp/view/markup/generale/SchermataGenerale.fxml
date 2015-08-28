@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="20.0" prefWidth="1024.0">
         <menus>
@@ -117,7 +117,7 @@
                                           <TableColumn prefWidth="169.0" text="Chilometri Limite" />
                                        </columns></TableView>
                                     <Button fx:id="btnNoleggio" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoNoleggio" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
-                                    <Button layoutX="125.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaNoleggio" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
+                                    <Button layoutX="125.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAnnullaNoleggio" prefHeight="25.0" prefWidth="97.0" text="Annulla" />
                                     <Button layoutX="241.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnChiudiNoleggio" prefHeight="25.0" prefWidth="78.0" text="Chiudi" />
                                     <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

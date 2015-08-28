@@ -60,12 +60,16 @@ public class VisualizzaGuidatore extends Schermata{
 	@Override
 	public void initData(Entity entity){
 		try {
-			caricaTabella((List<Guidatore>)presenter.processRequest("getAllByNoleggio",((Noleggio)entity).getIDNoleggio()));
+			List<Guidatore> guidatori= (List<Guidatore>)presenter.processRequest("getAllGuidatoriByNoleggio",((Noleggio)entity).getIDNoleggio());
+			caricaTabella(guidatori);
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
-				| InvocationTargetException | CommonException e) {
+				| InvocationTargetException e) {
 			e.printStackTrace();
+		} catch (CommonException e) {
+			// TODO Auto-generated catch block
+			e.showMessage();
 		}
 	}
 	@Override

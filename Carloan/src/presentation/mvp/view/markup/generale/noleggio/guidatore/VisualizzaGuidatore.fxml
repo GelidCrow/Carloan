@@ -14,7 +14,7 @@
             <Font name="Cambria Bold Italic" size="29.0" />
          </font>
       </Label>
-      <TableView fx:id="tbGuidatore" layoutX="14.0" layoutY="130.0" prefHeight="182.0" prefWidth="785.0">
+      <TableView fx:id="tbGuidatori" layoutX="14.0" layoutY="130.0" prefHeight="182.0" prefWidth="785.0">
         <columns>
           <TableColumn fx:id="codFiscale" prefWidth="225.0" text="Codice Fiscale" />
           <TableColumn fx:id="nomeECognome" prefWidth="192.0" text="Nome E Cognome" />

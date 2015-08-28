@@ -69,7 +69,7 @@ public class TabClienti{
     		try {
 				throw new CommonException("Nessun elemento selezionato");
 			} catch (CommonException e) {
-				AlertView.getAlertView("nessun elemento selezionato", AlertType.ERROR);
+				e.showMessage();
 			}
 		}
 		else{

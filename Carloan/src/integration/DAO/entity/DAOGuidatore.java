@@ -132,6 +132,7 @@ public class DAOGuidatore implements DAO{
 			guidatore.setId(resultset.getInt(1));
 			guidatore.setIndirizzo(resultset.getString(4));
 			guidatore.setIdNoleggio(resultset.getInt(6));
+			guidatore.setPatenteGuida(resultset.getString(7));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

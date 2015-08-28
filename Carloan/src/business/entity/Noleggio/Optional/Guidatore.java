@@ -92,7 +92,7 @@ public int hashCode(){
 //diversi su patente e codice Fiscale
 @Override
 public boolean equals(Object x){
-	if(x!=null){
+	if(x!=null && x instanceof Guidatore){
 		if(this.getCodFiscale().equals(((Guidatore)x).getCodFiscale()) && this.getPatenteGuida().equals(((Guidatore)x).getPatenteGuida())){
     		return true;
     	}
