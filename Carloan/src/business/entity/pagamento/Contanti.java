@@ -6,5 +6,5 @@ public class Contanti extends Pagamento{
 			float detrazioneAggiuntiva) {
 		super(depositoCauzinale, importo, detrazioneAggiuntiva);
 	}
-
+	public Contanti(){}
 }

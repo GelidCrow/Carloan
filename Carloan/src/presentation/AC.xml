@@ -108,7 +108,10 @@
 		<class>business.model.ModelNoleggio</class>
 		<method>aggiornamento</method>
 	</call>
-	
+	<call id="numNoleggi">
+		<class>business.model.ModelNoleggio</class>
+		<method>contaNoleggi</method>
+	</call>
 	
 	<call id="VerificaNoleggio">
 		<class>business.model.checker.contratto.NoleggioChecker</class>
@@ -237,6 +240,10 @@
 		<class>business.model.checker.guidatore.GuidatoreChecker</class>
 		<method>check</method>
 	</call>
+	<call id="InserimentoGuidatore">
+		<class>business.model.ModelGuidatore</class>
+		<method>Inserimento</method>
+	</call>
 	<!-- Agenzia -->
 	<call id="getAllAgenzie">
 		<class>business.model.ModelAgenzia</class>
@@ -272,5 +279,12 @@
 		<class>business.model.ModelAgenzia</class>
 		<method>lettura</method>
 	</call>
+	
+	<!-- PAGAMENTO-->
+	<call id="InserimentoPagamento">
+		<class>business.model.ModelPagamento</class>
+		<method>Inserimento</method>
+	</call>
+	
 
 </calls>

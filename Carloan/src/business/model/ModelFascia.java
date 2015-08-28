@@ -9,7 +9,7 @@ import integration.DAO.entity.DAOFascia;
 
 import java.util.List;
 public class ModelFascia implements Model{
-	DaoFactory daofactory;
+	private DaoFactory daofactory;
 	@Override
 	public void Inserimento(Entity parameter) {
 		// TODO Auto-generated method stub

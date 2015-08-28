@@ -27,6 +27,31 @@ public class DAONoleggio implements DAO{
 	public DAONoleggio(DaoFactory dao){
 		this.daofactory = dao;		
 	}
+	
+	public int conta(){
+		String count= "Select count(idNoleggio) from noleggio";
+	  Connection connection= Connection.getConnection(daofactory);
+       
+       ResultSet idList = null;
+       int numero=0;
+		try {
+			 idList = connection.executeUpdate(count);
+			 numero=idList.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 AlertView.getAlertView("Non è stato possibile contare i Noleggi" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				idList.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return numero;
+		
+	}
 	@Override
 	public ResultSet creazione(Entity x) {
 		String insert= "INSERT INTO Noleggio"

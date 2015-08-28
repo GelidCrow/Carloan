@@ -9,7 +9,7 @@ private String Cognome;
 private String Indirizzo;
 private String CodFiscale;
 private String PatenteGuida;
-private int idOptional;
+private int idNoleggio;
 
 public Guidatore(Integer id,String nome, String cognome,
 		String indirizzo, String codFiscale, String patenteGuida) {
@@ -23,22 +23,24 @@ public Guidatore(Integer id,String nome, String cognome,
 }
 
 public Guidatore(String nome, String cognome,
-		String indirizzo, String codFiscale, String patenteGuida, int idOptional) {
+		String indirizzo, String codFiscale, String patenteGuida, int idNoleggio) {
 	super();
 	Nome = nome;
 	Cognome = cognome;
 	Indirizzo = indirizzo;
 	CodFiscale = codFiscale;
 	PatenteGuida = patenteGuida;
-	this.idOptional = idOptional;
+	this.idNoleggio = idNoleggio;
 }
 
-public int getIdOptional() {
-	return idOptional;
+public int getIdNoleggio() {
+	return idNoleggio;
 }
-public void setIdOptional(int idOptional) {
-	this.idOptional = idOptional;
+
+public void setIdNoleggio(int idNoleggio) {
+	this.idNoleggio = idNoleggio;
 }
+
 public Guidatore(){
 	
 

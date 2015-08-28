@@ -95,11 +95,11 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected TableView<T> tbGuidatori;
 	@FXML
-	private TableView<T> tbCartaCredito;
+	protected TableView<T> tbCartaCredito;
 	@FXML
 	protected TableView<T> tbAutoveicolo;
 	@FXML
-	private TableView<T> tbContratto;
+	protected TableView<T> tbContratto;
 	@FXML
 	protected TableView<T> tbOptionalAuto;
 	@FXML
@@ -109,9 +109,9 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected TextField txtTotale;
 	@FXML
-	private RadioButton rdDenaro;
+	protected RadioButton rdDenaro;
 	@FXML
-	private RadioButton rdCartaCredito;
+	protected RadioButton rdCartaCredito;
 	
 	final ToggleGroup group = new ToggleGroup();
 	

@@ -66,7 +66,16 @@ public class ModelNoleggio implements Model{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public int contaNoleggi(){
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);	
+			return ((DAONoleggio) daofactory.getDao("DAONoleggio")).conta();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 	
 		

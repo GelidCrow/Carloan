@@ -6,8 +6,29 @@ public abstract class Pagamento extends Entity{
    private float depositoCauzinale;
    private float importo;
    private float detrazioneAggiuntiva;
+   private float acconto;
+   private int idPagamento;
+   private int idCarta;
 
    
+	public int getIdCarta() {
+	return idCarta;
+}
+public void setIdCarta(int idCarta) {
+	this.idCarta = idCarta;
+}
+	public int getIdPagamento() {
+	return idPagamento;
+}
+public void setIdPagamento(int idPagamento) {
+	this.idPagamento = idPagamento;
+}
+	public float getAcconto() {
+	return acconto;
+}
+public void setAcconto(float acconto) {
+	this.acconto = acconto;
+}
 	public float getDepositoCauzinale() {
 		return depositoCauzinale;
 	}
