@@ -46,9 +46,11 @@ public class TabNoleggio {
 	}
 	
 	
+	@SuppressWarnings("rawtypes")
 	void visualizzaOptional(){
 		FXMLParameter.setTitolo("Optional");
 	    FXMLParameter.setRidimensionabile(false);
+	    FXMLParameter.setEntity(((SchermataGenerale)schermata).getEntitaElementoSelezionato("Noleggio"));
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaOptional",Modality.APPLICATION_MODAL);
 	}
 	

@@ -359,7 +359,8 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		    		throw new CommonException ("E' stato ricalcolato il prezzo in quanto non si è premuto il pulsante calcola");
 		    	}
 		    	listItemGuidatori= tbGuidatori.getItems();
-		    	if(listItemGuidatori.size()==guidatore.getNumero_guidatori()){
+		    	if(guidatore!=null){
+		    		if(listItemGuidatori.size()==guidatore.getNumero_guidatori()){
 				    	//PAGAMENTO
 				    	aggiungiPagamento();
 						//Noleggio
@@ -371,10 +372,19 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 						AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
 						chiudiFinestra();
 						}
-				else{
-					throw new CommonException("Devi inserire in tutto " + guidatore.getNumero_guidatori() + " Guidatore/i");
-				}
-			}
+					else{
+						throw new CommonException("Devi inserire in tutto " + guidatore.getNumero_guidatori() + " Guidatore/i");
+					}
+		    	}
+		    	else{
+		    		//PAGAMENTO
+			    	aggiungiPagamento();
+					//Noleggio
+			    	aggiungiNoleggio();
+			    	AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
+					chiudiFinestra();
+		    	}
+		    	}
 		} catch (CommonException e1) {
 			e1.showMessage();
 		}

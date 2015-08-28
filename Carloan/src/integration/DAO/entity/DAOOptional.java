@@ -94,7 +94,6 @@ public class DAOOptional implements DAO{
 		
 		return risultato;
 	}
-	@SuppressWarnings("null")
 	public List<Optional> getAllByNoleggio(int id){
 		 String readQuery = "Select idoptional from NoleggioOptional where idnoleggio='?'";
 		  readQuery = queryReplaceFirst(readQuery, String.valueOf(id));
@@ -102,14 +101,15 @@ public class DAOOptional implements DAO{
 		 
 		ResultSet readQueryResultSet = null;
 		ResultSet readSingle  = null;
-		List<Optional> risultato = null;
+		List<Optional> risultato = new ArrayList<Optional>();
 		try {
 				readQueryResultSet = connection.executeRead(readQuery);	
 				while(readQueryResultSet.next()){
 					readQuery="Select * from optional where idoptional='?'";
-					readQuery = queryReplaceFirst(readQuery, String.valueOf(readQueryResultSet.getInt(1)));
+					readQuery = queryReplaceFirst(readQuery, String.valueOf(readQueryResultSet.getInt("idOptional")));
 					readSingle= connection.executeRead(readQuery);	
-					risultato.add(ottieniOptional(readSingle));
+					while(readSingle.next())
+						risultato.add(ottieniOptional(readSingle));
 				}
 		} catch (SQLException e) {
 			e.printStackTrace();

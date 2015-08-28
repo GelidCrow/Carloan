@@ -149,6 +149,10 @@
 		<class>business.model.ModelAutoveicolo</class>
 		<method>getAllAutoDisponibiliBySedeAndFasciaAndAssicurazione</method>
 	</call>
+	<call id="getAllAutoDisponibiliBySedeAndFascia">
+		<class>business.model.ModelAutoveicolo</class>
+		<method>getAllAutoDisponibiliBySedeAndFascia</method>
+	</call>
 	<call id="getAllFasce">
 		<class>business.model.ModelFascia</class>
 		<method>getAll</method>

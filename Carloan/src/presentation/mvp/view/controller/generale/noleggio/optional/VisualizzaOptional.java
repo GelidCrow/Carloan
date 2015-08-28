@@ -27,7 +27,7 @@ import utility.ParametriFXML;
 
 public class VisualizzaOptional extends Schermata{
 	  @FXML
-	  private TableView<Optional> tbGuidatori;
+	  private TableView<Optional> tbOptionalScelti;
 	  @FXML
 	  private TableColumn<Optional,String> nomeOptScelti;
 	  @FXML
@@ -64,7 +64,7 @@ public class VisualizzaOptional extends Schermata{
 	 */
 	private void caricaTabella(List<Optional> list){
 		ObservableList<Optional> obsList= FXCollections.observableList(list);
-		tbGuidatori.setItems(obsList);
+		tbOptionalScelti.setItems(obsList);
 	}
 	@SuppressWarnings("unchecked")
 	@Override
