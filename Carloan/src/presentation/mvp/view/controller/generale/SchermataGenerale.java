@@ -213,17 +213,14 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			e1.showMessage();
 		}
 	}
-
-	
-	
 	@FXML
-	public void btnVPagamento(ActionEvent e){
-		
+	public void btnVisualizzaGuidatori(ActionEvent e){
+		tbNoleggioController.visualizzaGuidatori();
 	}
 	
 	@FXML
 	public void btnVOptional(ActionEvent e){
-		
+		tbNoleggioController.visualizzaOptional();
 	}
 	
 	

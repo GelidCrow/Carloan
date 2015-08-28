@@ -44,6 +44,20 @@ public class TabNoleggio {
 		
 	}
 	
+	
+	void visualizzaOptional(){
+		FXMLParameter.setTitolo("Optional");
+	    FXMLParameter.setRidimensionabile(false);
+		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaOptional",Modality.APPLICATION_MODAL);
+	}
+	
+	void visualizzaGuidatori(){
+		FXMLParameter.setTitolo("Optional");
+	    FXMLParameter.setRidimensionabile(false);
+		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaGuidatori",Modality.APPLICATION_MODAL);	
+	}
+	
+	
 	public void bindingValuesContratto(){
 		noleggio.get(0).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getIDNoleggio()));
 		noleggio.get(1).setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(((Noleggio) cellData.getValue()).getInizioNoleggio()));
@@ -58,7 +72,7 @@ public class TabNoleggio {
 		noleggio.get(10).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getNumeroChilometri()));
 	}
 
-	
+
 	TabNoleggio(TableView<Noleggio> tbNoleggio,Schermata schermata){
 		noleggio= tbNoleggio.getColumns();
 		this.schermata= schermata;

@@ -113,7 +113,7 @@ public class DAONoleggio implements DAO{
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdcontratto()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdAuto()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdPagamento()));
-	   System.out.println(insertQuery);
+	   
 	   Connection connection= Connection.getConnection(daofactory);
        
        ResultSet idList = null;

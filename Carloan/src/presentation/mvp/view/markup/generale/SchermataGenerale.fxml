@@ -75,13 +75,6 @@
                                     <Button fx:id="btnNuovoContratto" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoContratto" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button fx:id="btnModificaContratto" layoutX="125.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaContratto" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button fx:id="btnChiudiContratto" layoutX="241.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnChiudiContratto" prefHeight="25.0" prefWidth="78.0" text="Chiudi" />
-                                    <Button layoutX="819.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
-                                    <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Immagini/ic_search_black_24dp_2x.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField layoutX="63.0" layoutY="57.0" />
                                     <Label layoutX="700.0" layoutY="118.0" text="Informazioni Aggiuntive">
                                        <font>
                                           <Font name="Book Antiqua" size="22.0" />
@@ -126,7 +119,6 @@
                                     <Button fx:id="btnNoleggio" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoNoleggio" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="125.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaNoleggio" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="241.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnChiudiNoleggio" prefHeight="25.0" prefWidth="78.0" text="Chiudi" />
-                                    <Button layoutX="819.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
                                     <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../Immagini/ic_search_black_24dp_2x.png" />
@@ -134,9 +126,10 @@
                                     </ImageView>
                                     <TextField layoutX="63.0" layoutY="57.0" />
                                     <Button fx:id="btnVOptional" layoutX="339.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVOptional" text="Visualizza Optional " />
-                                    <MenuButton layoutX="493.0" layoutY="14.0" mnemonicParsing="false" text="Multa">
+                                    <MenuButton layoutX="610.0" layoutY="14.0" mnemonicParsing="false" text="Multa">
                                       <items>
                                         <MenuItem mnemonicParsing="false" text="Aggiungi" />
+                                          <MenuItem mnemonicParsing="false" text="Chiudi" />
                                         <MenuItem mnemonicParsing="false" text="Visualizza" />
                                       </items>
                                     </MenuButton>
@@ -146,42 +139,42 @@
                                     <Label layoutX="229.0" layoutY="381.0" text="Marca" />
                                     <Label layoutX="229.0" layoutY="409.0" text="Modello" />
                                     <ImageView fx:id="imgAuto" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="355.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label fx:id="lblTarga" layoutX="280.0" layoutY="355.0" prefHeight="17.0" prefWidth="80.0" text="targa " />
-                                    <Label fx:id="lblMarca" layoutX="280.0" layoutY="381.0" prefHeight="17.0" prefWidth="97.0" text="Marca" />
-                                    <Label fx:id="lblModello" layoutX="283.0" layoutY="409.0" prefHeight="17.0" prefWidth="107.0" text="Modello" />
+                                    <Label fx:id="lblTarga" layoutX="280.0" layoutY="355.0" prefHeight="17.0" prefWidth="80.0" />
+                                    <Label fx:id="lblMarca" layoutX="280.0" layoutY="381.0" prefHeight="17.0" prefWidth="97.0" />
+                                    <Label fx:id="lblModello" layoutX="283.0" layoutY="409.0" prefHeight="17.0" prefWidth="107.0" />
                                     <Label layoutX="377.0" layoutY="323.0" prefHeight="17.0" prefWidth="107.0" text="Sede Restituzione" />
                                     <Label layoutX="396.0" layoutY="348.0" text="Nome Sede" />
                                     <Label layoutX="396.0" layoutY="374.0" text="Indirizzo" />
-                                    <Label fx:id="lblNSede" layoutX="473.0" layoutY="344.0" prefHeight="17.0" prefWidth="110.0" text="nome sede" />
-                                    <Label fx:id="lblIndirizzo" layoutX="473.0" layoutY="370.0" prefHeight="17.0" prefWidth="115.0" text="indirizzo" />
+                                    <Label fx:id="lblNSede" layoutX="473.0" layoutY="344.0" prefHeight="17.0" prefWidth="110.0" />
+                                    <Label fx:id="lblIndirizzo" layoutX="473.0" layoutY="370.0" prefHeight="17.0" prefWidth="115.0" />
                                     <Label layoutX="652.0" layoutY="327.0" text="Contratto" />
                                     <Label layoutX="658.0" layoutY="352.0" text="Codice Contratto" />
                                     <Label layoutX="658.0" layoutY="378.0" text="Data Apertura" />
                                     <Label layoutX="658.0" layoutY="406.0" text="Data Chiusura" />
                                     <Label layoutX="658.0" layoutY="433.0" text="Stato" />
-                                    <Label fx:id="lblCodContratto" layoutX="781.0" layoutY="352.0" prefHeight="17.0" prefWidth="119.0" text="Codice " />
-                                    <Label fx:id="lblDAp" layoutX="781.0" layoutY="378.0" prefHeight="17.0" prefWidth="129.0" text="data ap" />
-                                    <Label fx:id="lblDChiusura" layoutX="777.0" layoutY="409.0" prefHeight="17.0" prefWidth="128.0" text="Label" />
-                                    <Label fx:id="lblStato" layoutX="781.0" layoutY="436.0" prefHeight="17.0" prefWidth="153.0" text="Label" />
-                                    <Label fx:id="lblCognome" layoutX="1058.0" layoutY="401.0" prefHeight="17.0" prefWidth="198.0" text="Cognome" />
-                                    <Label fx:id="lblNome" layoutX="1058.0" layoutY="375.0" prefHeight="17.0" prefWidth="204.0" text="nome" />
-                                    <Label fx:id="lblCodFiscale" layoutX="1057.0" layoutY="350.0" prefHeight="17.0" prefWidth="182.0" text="Cod Fiscale" />
+                                    <Label fx:id="lblCodContratto" layoutX="781.0" layoutY="352.0" prefHeight="17.0" prefWidth="119.0" />
+                                    <Label fx:id="lblDAp" layoutX="781.0" layoutY="378.0" prefHeight="17.0" prefWidth="129.0" />
+                                    <Label fx:id="lblDChiusura" layoutX="777.0" layoutY="409.0" prefHeight="17.0" prefWidth="128.0" />
+                                    <Label fx:id="lblStato" layoutX="781.0" layoutY="436.0" prefHeight="17.0" prefWidth="153.0" />
+                                    <Label fx:id="lblCognome" layoutX="1058.0" layoutY="401.0" prefHeight="17.0" prefWidth="198.0" />
+                                    <Label fx:id="lblNome" layoutX="1058.0" layoutY="375.0" prefHeight="17.0" prefWidth="204.0" />
+                                    <Label fx:id="lblCodFiscale" layoutX="1057.0" layoutY="350.0" prefHeight="17.0" prefWidth="182.0" />
                                     <Label layoutX="922.0" layoutY="401.0" text="Cognome" />
                                     <Label layoutX="922.0" layoutY="375.0" text="Nome" />
                                     <Label layoutX="919.0" layoutY="350.0" text="Codice Fiscale" />
                                     <Label layoutX="874.0" layoutY="326.0" text="Cliente" textFill="#1f489a" />
                                     <Label layoutX="377.0" layoutY="402.0" prefHeight="17.0" prefWidth="69.0" text="Pagamento" />
                                     <Label layoutX="392.0" layoutY="421.0" text="Tipo Pagamento" />
-                                    <Label fx:id="lblTPagamento" layoutX="524.0" layoutY="421.0" prefHeight="17.0" prefWidth="128.0" text="Label" />
+                                    <Label fx:id="lblTPagamento" layoutX="524.0" layoutY="421.0" prefHeight="17.0" prefWidth="128.0" />
                                     <Label layoutX="397.0" layoutY="440.0" text="Prezzo" />
-                                    <Label fx:id="lblCauzione" layoutX="526.0" layoutY="461.0" prefHeight="17.0" prefWidth="115.0" text="Label" />
+                                    <Label fx:id="lblCauzione" layoutX="526.0" layoutY="461.0" prefHeight="17.0" prefWidth="115.0" />
                                     <Label layoutX="394.0" layoutY="461.0" text="Cauzione" />
-                                    <Label fx:id="lblPrezzo" layoutX="524.0" layoutY="441.0" prefHeight="17.0" prefWidth="107.0" text="Label" />
+                                    <Label fx:id="lblPrezzo" layoutX="524.0" layoutY="441.0" prefHeight="17.0" prefWidth="107.0" />
                                     <Label layoutX="394.0" layoutY="479.0" text="Ulteriori Addebiti" />
-                                    <Label fx:id="lblUltAddebiti" layoutX="524.0" layoutY="479.0" prefHeight="17.0" prefWidth="90.0" text="Label" />
+                                    <Label fx:id="lblUltAddebiti" layoutX="524.0" layoutY="479.0" prefHeight="17.0" prefWidth="90.0" />
                                     <Label layoutX="398.0" layoutY="497.0" text="IBAN" />
-                                    <Label fx:id="lblIban" layoutX="525.0" layoutY="497.0" text="Label" />
-                                    <Button layoutX="339.0" layoutY="51.0" mnemonicParsing="false" text="Visualizza Guidatori" />
+                                    <Label fx:id="lblIban" layoutX="525.0" layoutY="497.0" prefHeight="17.0" prefWidth="115.0" />
+                                    <Button layoutX="471.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVisualizzaGuidatori" text="Visualizza Guidatori" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -210,12 +203,6 @@
                                     <Button fx:id="btnNuovoCliente" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoCliente" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button fx:id="btnModificaCliente" layoutX="147.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaCliente" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
-                                    <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="27.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Immagini/ic_search_black_24dp_2x.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField layoutX="63.0" layoutY="57.0" />
                                     <Button layoutX="264.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta Di Credito" />
                                     <Button layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVisualizzaCartaCredito" text="Visualizza Carta di Credito" />
                                  </children>
