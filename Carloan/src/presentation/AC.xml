@@ -237,7 +237,10 @@
 		<class>business.model.ModelOptional</class>
 		<method>getAll</method>
 	</call>
-	
+	<call id="getAllOptionalByNoleggio">
+		<class>business.model.ModelOptional</class>
+		<method>getAllByNoleggio</method>
+	</call>
 	
 	<!-- GUIDATORE -->
 	<call id="VerificaGuidatore">

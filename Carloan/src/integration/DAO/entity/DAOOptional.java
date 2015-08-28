@@ -1,5 +1,6 @@
 package integration.DAO.entity;
 
+import static utility.QueryStringReplacer.queryReplaceFirst;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 
@@ -93,18 +94,24 @@ public class DAOOptional implements DAO{
 		
 		return risultato;
 	}
+	@SuppressWarnings("null")
 	public List<Optional> getAllByNoleggio(int id){
-		 String readQuery = "Select * from Optional where idnoleggio='?'";
-
+		 String readQuery = "Select idoptional from NoleggioOptional where idnoleggio='?'";
+		  readQuery = queryReplaceFirst(readQuery, String.valueOf(id));
 		Connection connection= Connection.getConnection(daofactory);
 		 
 		ResultSet readQueryResultSet = null;
+		ResultSet readSingle  = null;
 		List<Optional> risultato = null;
 		try {
 				readQueryResultSet = connection.executeRead(readQuery);	
-				risultato= creaElencoOptional(readQueryResultSet);
-			
-		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+				while(readQueryResultSet.next()){
+					readQuery="Select * from optional where idoptional='?'";
+					readQuery = queryReplaceFirst(readQuery, String.valueOf(readQueryResultSet.getInt(1)));
+					readSingle= connection.executeRead(readQuery);	
+					risultato.add(ottieniOptional(readSingle));
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
 			AlertView.getAlertView("Non è stato possibile leggere gli Optional" , AlertType.ERROR);
 		}
