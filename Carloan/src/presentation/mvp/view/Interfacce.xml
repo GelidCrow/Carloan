@@ -39,6 +39,6 @@
 	<interface id="MostraSchermataNuovaSede" src="markup/generale/luoghi/Nuova_Sede.fxml"></interface>
 	<interface id="MostraSchermataModificaSede" src="markup/generale/luoghi/Modifica_Sede.fxml"></interface>
 	<!-- OPTIONAL -->
-	<interface id="	MostraSchermataVisualizzaOptional" src ="markup/generale/noleggio/optional/VisualizzaOptional.fxml"></interface>
+	<interface id="MostraSchermataVisualizzaOptional" src ="markup/generale/noleggio/optional/VisualizzaOptional.fxml"></interface>
 
 </interfaces>
