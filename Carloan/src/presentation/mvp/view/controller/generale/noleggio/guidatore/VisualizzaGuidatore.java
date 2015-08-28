@@ -1,10 +1,17 @@
 package presentation.mvp.view.controller.generale.noleggio.guidatore;
 
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import business.entity.Cliente;
+import business.entity.Entity;
+import business.entity.Noleggio.Noleggio;
 import business.entity.Noleggio.Optional.Guidatore;
-import business.entity.pagamento.Guidatore;
+import business.entity.pagamento.CartaDiCredito;
+import business.model.Exception.CommonException;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -13,7 +20,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
+import utility.ParametriFXML;
 
 public class VisualizzaGuidatore extends Schermata{
 	  @FXML
@@ -23,7 +32,7 @@ public class VisualizzaGuidatore extends Schermata{
 	  @FXML
 	  private TableColumn<Guidatore,String> nomeECognome;
 	  @FXML
-	  private TableColumn<Guidatore,LocalDate> indirizzo;
+	  private TableColumn<Guidatore,String> indirizzo;
 	  @FXML
 	  private TableColumn<Guidatore,String> patente;
 	
@@ -31,8 +40,6 @@ public class VisualizzaGuidatore extends Schermata{
 	  public void btnOk(ActionEvent e){
 		  chiudiFinestra();
 	  }
-	  
-  
   /**
 	 * <p>Carica la tabella dei guidatori </p>
 	 * @return
@@ -41,7 +48,7 @@ public class VisualizzaGuidatore extends Schermata{
 		ObservableList<Guidatore> obsList= FXCollections.observableList(list);
 		tbGuidatori.setItems(obsList);
 	}
-	private void bindingValuesCarta(){
+	private void bindingValuesGuidatore(){
 		codFiscale.setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getCodFiscale()));
 		nomeECognome.setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getNome()+ " "+ ((Guidatore) cellData.getValue()).getCognome()));
 		indirizzo.setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getIndirizzo()));
@@ -49,6 +56,22 @@ public class VisualizzaGuidatore extends Schermata{
 	}
 	
 	
-	
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void initData(Entity entity){
+		try {
+			caricaTabella((List<Guidatore>)presenter.processRequest("getAllByNoleggio",((Noleggio)entity).getIDNoleggio()));
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		presenter=new Presenter();
+		FXMLParameter = new ParametriFXML(null,false,false);	
+		bindingValuesGuidatore();	
+	}
 }

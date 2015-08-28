@@ -20,7 +20,8 @@
 	<!-- NOLEGGIO -->
 	<interface id="MostraSchermataNuovoNoleggio" src ="markup/generale/noleggio/NuovoNoleggio.fxml"></interface>
 	<interface id="MostraSchermataModificaNoleggio" src ="markup/generale/noleggio/ModificaNoleggio.fxml"></interface>
-	
+	<!-- GUIDATORE -->
+	<interface id="MostraSchermataVisualizzaGuidatori" src ="markup/generale/noleggio/guidatore/VisualizzaGuidatore.fxml"></interface>
 	<!-- Autoveicolo -->
 	<interface id="MostraSchermataNuovaAuto" src ="markup/generale/autoveicolo/Nuovo_Autoveicolo.fxml"></interface>
 	<interface id="MostraSchermataModificaAutoveicolo" src="markup/generale/autoveicolo/Modifica_Autoveicolo.fxml"></interface>

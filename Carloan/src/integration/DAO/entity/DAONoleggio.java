@@ -120,8 +120,8 @@ public class DAONoleggio implements DAO{
        
 		try {
 			 idList = connection.executeUpdate(insertQuery);
-			 if (idList!=null){
-				 AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
+			 if (idList==null){
+				throw new CommonException("Errore nell'inserimento del noleggio");
 			 }
 			// qui assegno l'optional ad un noleggio
 			 if(noleggio.getOptional().size()>0){
@@ -140,6 +140,9 @@ public class DAONoleggio implements DAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			 AlertView.getAlertView("Non è stato possibile inserire il Noleggio" , AlertType.ERROR);
+		} catch (CommonException e) {
+			// TODO Auto-generated catch block
+			e.showMessage();
 		}
 		finally{
 			try {

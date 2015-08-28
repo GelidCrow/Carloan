@@ -16,10 +16,10 @@
       </Label>
       <TableView fx:id="tbGuidatore" layoutX="14.0" layoutY="130.0" prefHeight="182.0" prefWidth="785.0">
         <columns>
-          <TableColumn fx:id="iban" prefWidth="225.0" text="Codice Fiscale" />
-          <TableColumn fx:id="numCarta" prefWidth="192.0" text="Nome E Cognome" />
-            <TableColumn fx:id="dScadenza" minWidth="8.0" prefWidth="138.0" text="Indirizzo" />
-            <TableColumn fx:id="circuito" prefWidth="229.0" text="Numero Patente" />
+          <TableColumn fx:id="codFiscale" prefWidth="225.0" text="Codice Fiscale" />
+          <TableColumn fx:id="nomeECognome" prefWidth="192.0" text="Nome E Cognome" />
+            <TableColumn fx:id="indirizzo" minWidth="8.0" prefWidth="138.0" text="Indirizzo" />
+            <TableColumn fx:id="patente" prefWidth="229.0" text="Numero Patente" />
         </columns>
       </TableView>
       <Button layoutX="682.0" layoutY="329.0" mnemonicParsing="false" onAction="#btnOk" prefHeight="25.0" prefWidth="104.0" text="OK" />

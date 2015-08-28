@@ -335,6 +335,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		return acconto+cauzione;
 	}
 	private Pagamento pagamento ;
+	ObservableList<Entity> listItemGuidatori=null;
 	@FXML
 	public void btnConferma(ActionEvent e){
 		float nuovoPrezzo;
@@ -357,17 +358,20 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		    	if(nuovoPrezzo==0){
 		    		throw new CommonException ("E' stato ricalcolato il prezzo in quanto non si è premuto il pulsante calcola");
 		    	}
-		    
-		    	//PAGAMENTO
-		    	aggiungiPagamento();
-				//Noleggio
-		    	aggiungiNoleggio();
-		    	//GUIDATORI
-		    	if(tbGuidatori.isVisible()){
-		    		aggiungiGuidatori();
-		    	}
-		    	
-				chiudiFinestra();
+		    	listItemGuidatori= tbGuidatori.getItems();
+		    	if(listItemGuidatori.size()==guidatore.getNumero_guidatori()){
+				    	//PAGAMENTO
+				    	aggiungiPagamento();
+						//Noleggio
+				    	aggiungiNoleggio();
+				    	//GUIDATORI
+				    	if(tbGuidatori.isVisible()){
+				    		aggiungiGuidatori();
+				    	}
+						chiudiFinestra();}
+				else{
+					throw new CommonException("Devi inserire in tutto " + guidatore.getNumero_guidatori() + " Guidatore/i");
+				}
 			}
 		} catch (CommonException e1) {
 			e1.showMessage();
@@ -409,12 +413,13 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		}
 	}
 	private void aggiungiGuidatori() throws CommonException{
-		ObservableList<Entity> listItem= tbGuidatori.getItems();
-		if(listItem.size()==guidatore.getNumero_guidatori())
+		
+	
 			for(Entity el: listItem){
 				Guidatore guidatore = (Guidatore)el;
 				try {
 					presenter.processRequest("InserimentoGuidatore", guidatore);
+					AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
 				} catch (InstantiationException | IllegalAccessException
 						| ClassNotFoundException | NoSuchMethodException
 						| SecurityException | IllegalArgumentException
@@ -422,11 +427,9 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
 			}
-		else{
-			throw new CommonException("Devi inserire in tutto " + guidatore.getNumero_guidatori() + " Guidatore/i");
-			
-		}
+	
 	}
 	private void aggiungiPagamento() throws CommonException{
 		try {
