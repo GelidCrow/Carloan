@@ -310,6 +310,9 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbAuto.getSelectionModel().getSelectedItem();
 		else if(table.equals("Agenzia"))
 			return tbAgenzia.getSelectionModel().getSelectedItem();
+		else if(table.equals("Sede"))
+			return tbSede.getSelectionModel().getSelectedItem();
+		else
 			return null;
 	}
 	

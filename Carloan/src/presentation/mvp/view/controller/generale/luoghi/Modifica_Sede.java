@@ -9,16 +9,12 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import MessaggiFinestra.AlertView;
+import business.entity.Entity;
 import business.entity.Luoghi.Agenzia;
 import business.entity.Luoghi.Sede;
 import business.model.Exception.CommonException;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +22,7 @@ import javafx.fxml.FXML;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
 public class Modifica_Sede extends Nuova_Sede{
+	private Sede sede_coinvolta;
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		agenzia=agenzie.getColumns();
@@ -33,28 +30,14 @@ public class Modifica_Sede extends Nuova_Sede{
 		initTable();
 	}
 	
-	@SuppressWarnings("unchecked")
-	private void initTable() {
-		try {
-			List<Agenzia> agenzie_list=(List<Agenzia>)presenter.processRequest("getAllAgenzie", null);
-			caricaTabella(agenzie_list);
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
-				| InvocationTargetException | CommonException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void initData(Entity entity){
+		this.sede_coinvolta=(Sede)entity;
+		nome.setText(sede_coinvolta.getNome());
+		num_telefono.setText(sede_coinvolta.getNumeroTelefono());
+		indirizzo.setText(sede_coinvolta.getIndirizzo());
 		
 	}
-
-	private void bindValuesAgenzia() {
-		agenzia.get(0).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Agenzia) cellData.getValue()).getIDAgenzia()));
-		agenzia.get(1).setCellValueFactory(cellData -> new SimpleStringProperty(((Agenzia) cellData.getValue()).getNome()));
-		agenzia.get(2).setCellValueFactory(cellData -> new SimpleStringProperty(((Agenzia) cellData.getValue()).getNumTelefono()));
-		
-	}
-
+	
 	@FXML
 	public void btnAnnulla(ActionEvent e){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
@@ -77,7 +60,7 @@ public class Modifica_Sede extends Nuova_Sede{
 				if(indir==null || indir.isEmpty())
 					throw new CommonException("L'indirizzo non può essere vuoto");
 				Agenzia agenzia_scelta=this.agenzie.getSelectionModel().getSelectedItem();
-				presenter.processRequest("InserisciSede", new Sede(indir, tel, n,agenzia_scelta.getIDAgenzia()));
+				presenter.processRequest("AggiornaSede", new Sede(indir, tel, n,agenzia_scelta.getIDAgenzia()));
 				schermataGenerale.caricaTabella((List<Sede>)presenter.processRequest("getAllSedi",null),ts);
 				chiudiFinestra();
 				

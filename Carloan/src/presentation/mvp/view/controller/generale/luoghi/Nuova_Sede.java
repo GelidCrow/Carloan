@@ -46,7 +46,7 @@ public class Nuova_Sede extends Schermata{
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void initTable() {
+	protected void initTable() {
 		try {
 			List<Agenzia> agenzie_list=(List<Agenzia>)presenter.processRequest("getAllAgenzie", null);
 			caricaTabella(agenzie_list);
@@ -62,7 +62,7 @@ public class Nuova_Sede extends Schermata{
 		
 	}
 
-	private void bindValuesAgenzia() {
+	protected void bindValuesAgenzia() {
 		agenzia.get(0).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Agenzia) cellData.getValue()).getIDAgenzia()));
 		agenzia.get(1).setCellValueFactory(cellData -> new SimpleStringProperty(((Agenzia) cellData.getValue()).getNome()));
 		agenzia.get(2).setCellValueFactory(cellData -> new SimpleStringProperty(((Agenzia) cellData.getValue()).getNumTelefono()));
