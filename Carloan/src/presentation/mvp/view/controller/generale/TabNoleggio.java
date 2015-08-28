@@ -52,21 +52,7 @@ public class TabNoleggio {
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaOptional",Modality.APPLICATION_MODAL);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	void visualizzaGuidatori(){
-		if(tbNoleggio.getSelectionModel().getSelectedIndex()< 0){
-    		try {
-				throw new CommonException("Nessun elemento selezionato");
-			} catch (CommonException e) {
-				e.showMessage();
-			}
-		}
-		else{
-			FXMLParameter.setTitolo("Optional");
-		    FXMLParameter.setRidimensionabile(false);
-		    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Noleggio"));
-			Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaGuidatori",Modality.APPLICATION_MODAL);	}
-	}
+
 	
 	
 	public void bindingValuesContratto(){

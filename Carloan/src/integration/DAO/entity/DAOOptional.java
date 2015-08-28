@@ -93,7 +93,32 @@ public class DAOOptional implements DAO{
 		
 		return risultato;
 	}
-	
+	public List<Optional> getAllByNoleggio(int id){
+		 String readQuery = "Select * from Optional where idnoleggio='?'";
+
+		Connection connection= Connection.getConnection(daofactory);
+		 
+		ResultSet readQueryResultSet = null;
+		List<Optional> risultato = null;
+		try {
+				readQueryResultSet = connection.executeRead(readQuery);	
+				risultato= creaElencoOptional(readQueryResultSet);
+			
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere gli Optional" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				readQueryResultSet.close();
+				//connection.chiudiConnessione();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+		
+		return risultato;
+	}
 	public List<Optional> creaElencoOptional(ResultSet resultset) throws InstantiationException, IllegalAccessException{
 	
 		List<Optional> risultato = new ArrayList<Optional>();

@@ -41,7 +41,16 @@ public class ModelOptional implements Model{
 		}
 		return null;	
 	}
-
+	public List<Optional> getAllByNoleggio(int id){
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			return ((DAOOptional) daofactory.getDao("DAOOptional")).getAllByNoleggio(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	@Override
 	public Entity lettura(int id) {
 		// TODO Auto-generated method stub
