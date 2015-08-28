@@ -39,7 +39,7 @@ public class DAOSupervisoreS implements DAO{
 
 	@Override
 	public Entity lettura(int id){
-	String QUERY= "Select * from SupervisoreSede where idSupervisoreAgenzia='?' ";
+	String QUERY= "Select * from SupervisoreSede where idSupervisoreSede='?' ";
 	 Connection connection= Connection.getConnection(daofactory);
 	 
 	 String readQuery = QUERY;
@@ -50,22 +50,14 @@ public class DAOSupervisoreS implements DAO{
      SupervisoreSede  risultato = null;
      try {
 		readQueryResultSet = connection.executeRead(readQuery);	
-		if(readQueryResultSet.next()){
+		if(readQueryResultSet!=null &&readQueryResultSet.next()){
 			risultato= ottieniSupS(readQueryResultSet);
 		}
 	 } catch (SQLException e) {
 		e.printStackTrace();
 		AlertView.getAlertView("Non è stato possibile leggere il supervisore della sede " , AlertType.ERROR);
 	 }
-	 finally{
-		try {
-			readQueryResultSet.close();
-			//connection.chiudiConnessione();
-			} catch (SQLException e) {
-				e.printStackTrace();
-		}
-	}
-    return risultato;
+	     return risultato;
 	}
 	
 	private SupervisoreSede ottieniSupS(ResultSet resultset) throws SQLException{
