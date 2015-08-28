@@ -583,15 +583,15 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		
 	}
-	private class ItemSelectedSede implements ChangeListener<Sede>{
+	private class ItemSelectedSede implements ChangeListener{
 		@SuppressWarnings("unchecked")
 		@Override
-		public void changed(ObservableValue observable, Sede oldValue,Sede newValue) {
+		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
 			if(newValue!=null){
 			try {
-				LinkedList<SupervisoreSede> temp=(LinkedList<SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede", newValue.getIDSede());
+				LinkedList<SupervisoreSede> temp=(LinkedList<SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede", ((Sede)newValue).getIDSede());
 				caricaTabella((List<T>)temp, tablesupsede);
-				Agenzia a=(Agenzia)presenter.processRequest("leggiAgenzia",newValue.getIDSede());
+				Agenzia a=(Agenzia)presenter.processRequest("leggiAgenzia",((Sede)newValue).getIDSede());
 				nome_agenzia.setText(a.getNome());
 				tel_agenzia.setText(a.getNumTelefono());
 				
@@ -713,7 +713,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tbContratto.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedContratto());
 		tbAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAutoveicolo());
 		tbAgenzia.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAgenzia());
-		tbSede.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedSede());
+		tbSede.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedSede());
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	
