@@ -128,7 +128,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 			
 			/*Faccio due update: 1 per tutti i campi tranne l'immagine e 1 per l'immagine(è più comodo)*/
 			String image=a.getImmagine();
-			if(!image.isEmpty()){//<-- Ha scelto una nuova immagine, quindi bisogna aggiornare
+			if( !image.isEmpty()){//<-- Ha scelto una nuova immagine, quindi bisogna aggiornare
 				update="UPDATE Autoveicolo SET Immagine=? WHERE IDAuto="+a.getIDauto();
 				s=null;
 				InputStream i=new FileInputStream(new File(image));
@@ -232,7 +232,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 	
 	public List<Autoveicolo> getAllAutoByFasciaAssicurazione(int id){
 		
-		 String readQuery = "Select * from Autoveicolo where idFascia='?'  and datediff(dataScadAssic,curdate())>27;";
+		 String readQuery = "Select * from Autoveicolo where idFascia='?' and disponibilita='disponibile' and datediff(dataScadAssic,curdate())>27;";
 		 readQuery=queryReplaceFirst(readQuery,String.valueOf(id));
 		 
 		 Connection connection= Connection.getConnection(dao);
@@ -401,7 +401,30 @@ public DAOAutoveicolo(DaoFactory dao) {
 		}
 	    return risultato;
 	}
-	
+	public List<Autoveicolo> getAllAutoBySedeAndFascia(List<Entity> lista){
+		 String readQuery = "Select * from Autoveicolo where idSede='?'  and idFascia='?'";
+		 readQuery=queryReplaceFirst(readQuery,String.valueOf(lista.get(0)));
+		 readQuery=queryReplaceFirst(readQuery,String.valueOf(lista.get(1)));
+		 Connection connection= Connection.getConnection(dao);
+	        
+	     ResultSet readQueryResultSet = null;
+	     List<Autoveicolo> risultato = null;
+	     try {
+			readQueryResultSet = connection.executeRead(readQuery);	
+			risultato= creaElencoAuto(readQueryResultSet);
+		 } catch (SQLException  e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere le auto" , AlertType.ERROR);
+		 }
+		 finally{
+			try {
+				readQueryResultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+	    return risultato;
+	}
 	public List<Autoveicolo> getAllAutoDisponibiliBySedeAndFasciaAndAssicurazione(List<Entity> lista){
 		 String readQuery = "Select * from Autoveicolo where idSede='?' and disponibilita='Disponibile' and idFascia='?' and datediff(dataScadAssic,curdate())>27;";
 		 readQuery=queryReplaceFirst(readQuery,String.valueOf(lista.get(0)));

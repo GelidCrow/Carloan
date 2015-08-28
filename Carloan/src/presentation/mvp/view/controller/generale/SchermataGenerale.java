@@ -642,6 +642,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		
 	}
+	
+	public Fascia getFascia(){
+		return choice_fascia.getSelectionModel().getSelectedItem();
+	}
 	@SuppressWarnings({ "rawtypes" })
 	private class ItemSelectedAutoveicolo implements ChangeListener{
 
@@ -693,7 +697,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 							lista=new ArrayList<Integer>();
 							lista.add(s.getIDSede());
 							lista.add(neww.getIDFascia());
-							List<Autoveicolo> auto= (List<Autoveicolo>) presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista);
+							List<Autoveicolo> auto= (List<Autoveicolo>) presenter.processRequest("getAllAutoBySedeAndFascia",lista);
 							autoveicoli.addAll(auto);
 						}
 						caricaTabella((List<T>)autoveicoli, tbAuto);
@@ -702,7 +706,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 						lista=new ArrayList<Integer>();
 						lista.add(((SupervisoreSede)utente).getIDSede());
 						lista.add(neww.getIDFascia());
-						caricaTabella((List<T>)presenter.processRequest("getAllAutoDisponibiliBySedeAndFascia",lista), tbAuto);
+						tbAuto.getItems().clear();
+						caricaTabella((List<T>)presenter.processRequest("getAllAutoBySedeAndFascia",lista), tbAuto);
 					}
 				} catch (InstantiationException | IllegalAccessException
 						| ClassNotFoundException | NoSuchMethodException

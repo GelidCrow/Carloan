@@ -15,9 +15,14 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import MessaggiFinestra.AlertView;
+import business.entity.Utente;
+import business.entity.UtenteCorrente;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.Danni;
 import business.entity.Auto.Fascia.Fascia;
+import business.entity.Gestori.Amministratore;
+import business.entity.Gestori.SupervisoreAgenzia;
+import business.entity.Gestori.SupervisoreSede;
 import business.entity.Luoghi.Sede;
 import business.model.Exception.CommonException;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -201,8 +206,39 @@ public class Nuovo_Autoveicolo extends Schermata{
 			Autoveicolo auto_da_inserire=prendiDatiDaView();
 			presenter.processRequest("VerificaAutoveicolo", auto_da_inserire);
 			presenter.processRequest("InserimentoAutoveicolo", auto_da_inserire);
-			schermataGenerale.caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAuto",null), tw);
-			chiudiFinestra();
+			try {
+				Utente utente = UtenteCorrente.getUtente();
+				List<Integer> lista=null;
+				if(utente instanceof Amministratore){
+					schermataGenerale.caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAutoByFascia",schermataGenerale.getFascia().getIDFascia()), tw);
+				}
+					else if(utente instanceof SupervisoreAgenzia){
+					List<Autoveicolo> autoveicoli  = new ArrayList<Autoveicolo>();
+					List<Sede> sedi = (List<Sede>)presenter.processRequest("getAllSediByAgenzia",((SupervisoreAgenzia) utente).getIDAgenzia());
+					for(Sede s:sedi){
+						lista=new ArrayList<Integer>();
+						lista.add(s.getIDSede());
+						lista.add(schermataGenerale.getFascia().getIDFascia());
+						List<Autoveicolo> auto= (List<Autoveicolo>) presenter.processRequest("getAllAutoBySedeAndFascia",lista);
+						autoveicoli.addAll(auto);
+					}
+					schermataGenerale.caricaTabella((List<Autoveicolo>)autoveicoli, tw);
+				}
+				else{ //Supervisore sede
+					lista=new ArrayList<Integer>();
+					lista.add(((SupervisoreSede)utente).getIDSede());
+					lista.add(schermataGenerale.getFascia().getIDFascia());
+					tw.getItems().clear();
+					schermataGenerale.caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAutoBySedeAndFascia",lista), tw);
+				}
+				chiudiFinestra();
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | NoSuchMethodException
+					| SecurityException | IllegalArgumentException
+					| InvocationTargetException | CommonException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
 		} 
 		catch(CommonException e1){
 			e1.showMessage();

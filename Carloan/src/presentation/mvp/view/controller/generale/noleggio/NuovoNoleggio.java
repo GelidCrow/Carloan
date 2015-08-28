@@ -21,6 +21,7 @@ import MessaggiFinestra.AlertView;
 import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Auto.Autoveicolo;
+import business.entity.Auto.Disponibilita;
 import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
@@ -365,6 +366,8 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 				    	aggiungiPagamento();
 						//Noleggio
 				    	aggiungiNoleggio();
+				    	//AUTO set disponibilità 
+				    	modificaDisponibilitaAuto();
 				    	//GUIDATORI
 				    	if(tbGuidatori.isVisible()){
 				    		aggiungiGuidatori();
@@ -381,6 +384,8 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			    	aggiungiPagamento();
 					//Noleggio
 			    	aggiungiNoleggio();
+			    	//AUTO set disponibilità 
+			    	modificaDisponibilitaAuto();
 			    	AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
 					chiudiFinestra();
 		    	}
@@ -391,6 +396,19 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			
 	}
 	
+	private void modificaDisponibilitaAuto(){
+		Autoveicolo auto= ((Autoveicolo)tbAutoveicolo.getSelectionModel().getSelectedItem());
+		auto.setDisponibilita(Disponibilita.NonDisponibile);
+		try {
+			presenter.processRequest("AggiornamentoAutoveicolo",auto);
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void aggiungiNoleggio(){
 		try {
