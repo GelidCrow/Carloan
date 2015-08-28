@@ -28,6 +28,7 @@ public class Modifica_Sede extends Nuova_Sede{
 		agenzia=agenzie.getColumns();
 		bindValuesAgenzia();
 		initTable();
+		
 	}
 	
 	public void initData(Entity entity){
@@ -35,7 +36,12 @@ public class Modifica_Sede extends Nuova_Sede{
 		nome.setText(sede_coinvolta.getNome());
 		num_telefono.setText(sede_coinvolta.getNumeroTelefono());
 		indirizzo.setText(sede_coinvolta.getIndirizzo());
-		
+		for(Agenzia a:agenzie.getItems()){
+			if(a.getIDAgenzia()==sede_coinvolta.getIDAgenzia()){
+				agenzie.getSelectionModel().select(a);
+				break;
+			}
+		}
 	}
 	
 	@FXML
@@ -60,7 +66,8 @@ public class Modifica_Sede extends Nuova_Sede{
 				if(indir==null || indir.isEmpty())
 					throw new CommonException("L'indirizzo non può essere vuoto");
 				Agenzia agenzia_scelta=this.agenzie.getSelectionModel().getSelectedItem();
-				presenter.processRequest("AggiornaSede", new Sede(indir, tel, n,agenzia_scelta.getIDAgenzia()));
+				
+				presenter.processRequest("AggiornaSede", new Sede(sede_coinvolta.getIDSede(),indir, tel, n,agenzia_scelta.getIDAgenzia()));
 				schermataGenerale.caricaTabella((List<Sede>)presenter.processRequest("getAllSedi",null),ts);
 				chiudiFinestra();
 				

@@ -297,4 +297,9 @@
 		<class>business.model.ModelSede</class>
 		<method>Inserimento</method>
 	</call>
+	
+	<call id="AggiornaSede">
+		<class>business.model.ModelSede</class>
+		<method>aggiornamento</method>
+	</call>
 </calls>

@@ -34,7 +34,12 @@ public class ModelSede implements Model{
 
 	@Override
 	public void aggiornamento(Entity parameter) throws CommonException {
-		// TODO Auto-generated method stub
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			((DAOSede)daofactory.getDao("DAOSede")).aggiornamento(parameter);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	public ArrayList<Sede> getAll(){
