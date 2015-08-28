@@ -14,6 +14,16 @@ public class CartaDiCredito extends Pagamento{
 	private int idCarta;
 	
 
+	public int getIdCarta() {
+		return idCarta;
+	}
+
+
+	public void setIdCarta(int idCarta) {
+		this.idCarta = idCarta;
+	}
+
+
 	public int getIDCliente() {
 		return IDCliente;
 	}
@@ -85,6 +95,15 @@ public class CartaDiCredito extends Pagamento{
 		this.dataScadenza=dataSca;
 		this.Circuito=Circuito;
 		
+	}
+
+
+	@Override
+	public String toString() {
+		return "CartaDiCredito [IDCliente=" + IDCliente + ", dataScadenza="
+				+ dataScadenza + ", IBAN=" + IBAN + ", NumeroCarta="
+				+ NumeroCarta + ", Circuito=" + Circuito + ", idCarta="
+				+ idCarta + "]";
 	}
 	
 		

@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="20.0" prefWidth="1024.0">
         <menus>
@@ -112,17 +112,16 @@
                                     <TableView fx:id="tbNoleggio" layoutY="115.0" prefHeight="199.0" prefWidth="1228.0">
                                        <columns>
                                           <TableColumn minWidth="0.0" prefWidth="53.0" text="ID" />
-                                          <TableColumn prefWidth="75.0" text="Data Inizio" />
-                                          <TableColumn minWidth="0.0" prefWidth="75.0" text="Data Fine" />
-                                          <TableColumn prefWidth="58.0" text="Data Rientro" />
-                                          <TableColumn prefWidth="85.0" text="Data Ritiro" />
-                                          <TableColumn prefWidth="54.0" text="KmBase" />
-                                          <TableColumn prefWidth="75.0" text="KmRientro" />
-                                          <TableColumn prefWidth="75.0" text="Stato" />
-                                          <TableColumn prefWidth="94.0" text="N.Settimane" />
-                                          <TableColumn prefWidth="74.0" text="N.Giorni" />
-                                          <TableColumn prefWidth="146.0" text="Chilometri Limite" />
-                                          <TableColumn prefWidth="320.0" text="Note" />
+                                          <TableColumn prefWidth="117.0" text="Data Inizio" />
+                                          <TableColumn minWidth="0.0" prefWidth="94.0" text="Data Fine" />
+                                          <TableColumn prefWidth="96.0" text="Data Rientro" />
+                                          <TableColumn prefWidth="97.0" text="Data Ritiro" />
+                                          <TableColumn prefWidth="137.0" text="KmBase" />
+                                          <TableColumn prefWidth="117.0" text="KmRientro" />
+                                          <TableColumn prefWidth="148.0" text="Stato" />
+                                          <TableColumn prefWidth="89.0" text="N.Settimane" />
+                                          <TableColumn prefWidth="108.0" text="N.Giorni" />
+                                          <TableColumn prefWidth="169.0" text="Chilometri Limite" />
                                        </columns></TableView>
                                     <Button fx:id="btnNoleggio" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoNoleggio" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="125.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaNoleggio" prefHeight="25.0" prefWidth="97.0" text="Modifica" />

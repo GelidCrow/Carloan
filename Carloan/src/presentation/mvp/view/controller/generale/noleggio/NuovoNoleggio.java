@@ -440,10 +440,9 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 					pagamento= new CartaDiCredito();
 					prendiDatiPagamentoDaView();
 					presenter.processRequest("InserimentoPagamento", pagamento);
-					pagamento.setIdPagamento(ottieniIDNoleggio());//num noleggi+ 1;
 				}
 				else 
-					throw new CommonException("Seziona una carta");
+					throw new CommonException("Seleziona una carta");
 			}
 	
 		} catch (InstantiationException | IllegalAccessException
@@ -464,8 +463,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		pagamento.setDepositoCauzinale(cauzione);
 		pagamento.setAcconto(acconto);	
 		if(rdCartaCredito.isSelected()){
-				((CartaDiCredito)pagamento).setIdCarta(((CartaDiCredito)tbCartaCredito.getSelectionModel().getSelectedItem()).getIdCarta());
-		}		
+			((CartaDiCredito)pagamento).setIdCarta(((CartaDiCredito)tbCartaCredito.getSelectionModel().getSelectedItem()).getIdCarta());}
 	}
 	
     private void prendiDatiDaView() throws CommonException{
@@ -496,7 +494,6 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
     	noleggio.setKmBase(auto.getUltimoKm());
     	
     	noleggio.setNumeroChilometri(choiceLimite.getSelectionModel().getSelectedItem());
-    	
     	
     	noleggio.setIdcontratto(((Contratto)tbContratto.getSelectionModel().getSelectedItem()).getIDContratto());
 

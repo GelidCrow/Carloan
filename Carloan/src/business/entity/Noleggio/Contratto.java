@@ -6,7 +6,7 @@ import business.entity.Entity;
 
 public class Contratto extends Entity{
 
-	private Integer IDContratto;
+	private int IDContratto;
 	private Integer IDOperatore;
 	private Integer IDSupervisoreSede;
 	private Integer IDSupervisoreAgenzia;
@@ -17,7 +17,7 @@ public class Contratto extends Entity{
 	private String Note;
 	private int idCliente;
 	
-	public Integer getIDContratto() {
+	public int getIDContratto() {
 		return IDContratto;
 	}
 	public void setIDContratto(Integer iDContratto) {

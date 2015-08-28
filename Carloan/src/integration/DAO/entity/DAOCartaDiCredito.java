@@ -121,5 +121,6 @@ public class DAOCartaDiCredito implements DAO{
 		return  new CartaDiCredito(resultset.getInt(6),resultset.getDate(4).toLocalDate(),
 					resultset.getString(2),resultset.getString(3),resultset.getString(5),resultset.getInt(1));
 		
+		
 	}
 }

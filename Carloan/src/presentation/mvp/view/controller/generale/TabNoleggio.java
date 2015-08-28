@@ -45,7 +45,7 @@ public class TabNoleggio {
 	}
 	
 	public void bindingValuesContratto(){
-		noleggio.get(0).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getIdcontratto()));
+		noleggio.get(0).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getIDNoleggio()));
 		noleggio.get(1).setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(((Noleggio) cellData.getValue()).getInizioNoleggio()));
 		noleggio.get(2).setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(((Noleggio) cellData.getValue()).getFineNoleggio()));
 		noleggio.get(3).setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(((Noleggio) cellData.getValue()).getRientro()));
@@ -56,7 +56,6 @@ public class TabNoleggio {
 		noleggio.get(8).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getNumeroSettimane()));
 		noleggio.get(9).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getNumeroGiorni()));
 		noleggio.get(10).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getNumeroChilometri()));
-		noleggio.get(11).setCellValueFactory(cellData -> new SimpleStringProperty(((Noleggio) cellData.getValue()).getNote()));
 	}
 
 	

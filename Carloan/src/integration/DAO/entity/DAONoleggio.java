@@ -113,24 +113,29 @@ public class DAONoleggio implements DAO{
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdcontratto()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdAuto()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdPagamento()));
-	   
+	   System.out.println(insertQuery);
 	   Connection connection= Connection.getConnection(daofactory);
        
        ResultSet idList = null;
        
 		try {
 			 idList = connection.executeUpdate(insertQuery);
-			 //qui assegno l'optional ad un noleggio
-			// insertQuery= " Insert into NoleggioOptional('?','?');";
-			// insertQuery = queryReplaceFirst(insertQuery, String.valueOf(idList.getInt(1)));
-			// String queryPartenza=insertQuery;
-			 //for(int i=0;i< noleggio.getOptional().size();i++){
-				/// insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getOptional().get(i)));
-				 //idList = connection.executeUpdate(insertQuery);
-				 //insertQuery = queryPartenza;
-				// }
-			 
-			   AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
+			 if (idList!=null){
+				 AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
+			 }
+			// qui assegno l'optional ad un noleggio
+			 if(noleggio.getOptional().size()>0){
+				 insertQuery= " Insert into NoleggioOptional('?','?');";
+				 insertQuery = queryReplaceFirst(insertQuery, String.valueOf(conta()));
+				 String queryPartenza=insertQuery;
+				 for(int i=0;i< noleggio.getOptional().size();i++){
+					 insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getOptional().get(i)));
+					 idList = connection.executeUpdate(insertQuery);
+					 insertQuery = queryPartenza;
+					 }
+			}
+		
+			   
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -169,7 +174,8 @@ public class DAONoleggio implements DAO{
 		List<Noleggio> risultato = null;
 		try {
 			readQueryResultSet = connection.executeRead(readQuery);	
-			risultato= creaElencoNoleggi(readQueryResultSet,connection);
+			if(readQueryResultSet!=null)
+				risultato= creaElencoNoleggi(readQueryResultSet,connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			AlertView.getAlertView("Non è stato possibile leggere i contratti" , AlertType.ERROR);
@@ -268,7 +274,6 @@ public class DAONoleggio implements DAO{
 			while(readQueryResultSet.next()){
 				idOptionals.add(resultset.getInt(1));
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			AlertView.getAlertView("Non è stato possibile leggere gli optional associati al noleggio" , AlertType.ERROR);
@@ -308,4 +313,5 @@ public class DAONoleggio implements DAO{
 		}
 		return idMulta;
 	}
+
 }
