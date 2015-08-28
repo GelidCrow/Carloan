@@ -9,10 +9,15 @@ import business.entity.Entity;
 import business.entity.Noleggio.Noleggio;
 import business.entity.Noleggio.Optional.Guidatore;
 import business.entity.Noleggio.Optional.Optional;
+import business.entity.Noleggio.Optional.Optional;
 import business.model.Exception.CommonException;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
@@ -21,7 +26,12 @@ import utility.Finestra;
 import utility.ParametriFXML;
 
 public class VisualizzaOptional extends Schermata{
-	
+	  @FXML
+	  private TableView<Optional> tbGuidatori;
+	  @FXML
+	  private TableColumn<Optional,String> nomeOptScelti;
+	  @FXML
+	  private TableColumn<Optional,String> descOptScelti;
 	
 	@SuppressWarnings("rawtypes")
 	@FXML
@@ -29,8 +39,8 @@ public class VisualizzaOptional extends Schermata{
 		if(((SchermataGenerale)this.getChiamante()).getEntitaElementoSelezionato("Noleggio")==null){
     		try {
 				throw new CommonException("Nessun elemento selezionato");
-			} catch (CommonException e) {
-				e.showMessage();
+			} catch (CommonException e1) {
+				e1.showMessage();
 			}
 		}
 		else{
@@ -41,12 +51,21 @@ public class VisualizzaOptional extends Schermata{
 	}
 	
 	private void bindingValuesOptional(){
-		codFiscale.setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getCodFiscale()));
-		nomeECognome.setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getNome()+ " "+ ((Guidatore) cellData.getValue()).getCognome()));
-		indirizzo.setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getIndirizzo()));
-		patente.setCellValueFactory(cellData ->  new SimpleStringProperty(((Guidatore) cellData.getValue()).getPatenteGuida()));
+		nomeOptScelti.setCellValueFactory(cellData ->  new SimpleStringProperty(((Optional) cellData.getValue()).getNome()));
+		descOptScelti.setCellValueFactory(cellData ->  new SimpleStringProperty(((Optional) cellData.getValue()).getDescrizione()));
 	}
-	
+	  
+	  public void btnOk(ActionEvent e){
+		  chiudiFinestra();
+	  }
+/**
+	 * <p>Carica la tabella dei guidatori </p>
+	 * @return
+	 */
+	private void caricaTabella(List<Optional> list){
+		ObservableList<Optional> obsList= FXCollections.observableList(list);
+		tbGuidatori.setItems(obsList);
+	}
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initData(Entity entity){
@@ -67,6 +86,6 @@ public class VisualizzaOptional extends Schermata{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false,false);	
-		bindingValuesGuidatore();	
+		bindingValuesOptional();	
 	}
 }
