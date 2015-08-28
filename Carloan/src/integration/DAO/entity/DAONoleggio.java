@@ -125,7 +125,7 @@ public class DAONoleggio implements DAO{
 			 }
 			// qui assegno l'optional ad un noleggio
 			 if(noleggio.getOptional().size()>0){
-				 insertQuery= " Insert into NoleggioOptional('?','?');";
+				 insertQuery= "Insert into NoleggioOptional values ('?','?');";
 				 insertQuery = queryReplaceFirst(insertQuery, String.valueOf(conta()));
 				 String queryPartenza=insertQuery;
 				 for(int i=0;i< noleggio.getOptional().size();i++){
