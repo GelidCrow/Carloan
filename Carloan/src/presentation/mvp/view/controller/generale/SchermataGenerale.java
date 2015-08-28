@@ -588,7 +588,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			try {
 				LinkedList<SupervisoreSede> temp=(LinkedList<SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede", ((Sede)newValue).getIDSede());
 				caricaTabella((List<T>)temp, tablesupsede);
-				Agenzia a=(Agenzia)presenter.processRequest("leggiAgenzia",((Sede)newValue).getIDSede());
+				Agenzia a=(Agenzia)presenter.processRequest("leggiAgenzia",((Sede)newValue).getIDAgenzia());
 				nome_agenzia.setText(a.getNome());
 				tel_agenzia.setText(a.getNumTelefono());
 				
