@@ -244,6 +244,12 @@
 		<class>business.model.ModelGuidatore</class>
 		<method>Inserimento</method>
 	</call>
+	<call id="getAllGuidatoriByNoleggio">
+		<class>business.model.ModelGuidatore</class>
+		<method>getAllByNoleggio</method>
+	</call>
+	
+	
 	<!-- Agenzia -->
 	<call id="getAllAgenzie">
 		<class>business.model.ModelAgenzia</class>

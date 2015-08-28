@@ -129,7 +129,6 @@ public class Connection {
 				st=connessione_remota.prepareStatement("use "+db+";");
 				st.execute();
 				result=st.executeQuery(query);
-		
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

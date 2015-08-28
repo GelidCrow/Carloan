@@ -29,8 +29,9 @@ public class DAOPagamento implements DAO {
 				+ "(DepCauzionale,Acconto)"
 				+	"values('?','?');";
 		String conCarta = "INSERT INTO Pagamento"
-				+ "(DepCauzionale,Acconto,idCarta)"
+				+ "(DepCauzionale,Acconto,idIban)"
 				+	"values('?','?','?');";
+		
 		Pagamento pagamento= (Pagamento)x;
 		String insertQuery=null;
 		if (pagamento.getIdCarta()!=0){
@@ -38,7 +39,6 @@ public class DAOPagamento implements DAO {
 		    insertQuery = queryReplaceFirst(insertQuery, String.valueOf(pagamento.getDepositoCauzinale()));
 	        
 	        insertQuery= queryReplaceFirst(insertQuery,String.valueOf(pagamento.getAcconto()));
-
 	        insertQuery= queryReplaceFirst(insertQuery,String.valueOf(pagamento.getIdCarta()));
 		}
 		else {
@@ -53,12 +53,18 @@ public class DAOPagamento implements DAO {
         
 		try {
 			 idList = connection.executeUpdate(insertQuery);
-			 if(idList!=null)
-				 AlertView.getAlertView("Pagamento inserito con successo",AlertType.INFORMATION);
+			 if(idList==null)
+				 throw new CommonException("non è stato possibile inserire il pagamento");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			 AlertView.getAlertView("Non è stato possibile inserire il Pagamento" , AlertType.ERROR);
+			 throw new CommonException("non è stato possibile inserire il pagamento");
+		}
+		finally{
+			try {
+				idList.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return idList;
 	}

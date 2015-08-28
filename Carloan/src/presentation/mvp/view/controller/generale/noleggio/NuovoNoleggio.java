@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.Finestra;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import MessaggiFinestra.AlertView;
 import business.entity.Cliente;
@@ -99,6 +101,8 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		txtPatente.setDisable(false);
 		btnRimuovi.setVisible(true);
 		tbGuidatori.setVisible(true);
+		if(tbGuidatori.getItems()!=null)
+			tbGuidatori.getItems().clear();
 		campiDisattivi=false;
 	}
 	
@@ -176,7 +180,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 							e1.printStackTrace();
 						}
 					}
-					catch(InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e2){
+					catch(SecurityException | IllegalArgumentException e2){
 						throw new CommonException("La patente deve essere costituita da soli numeri");					
 					}
 					}
@@ -191,8 +195,17 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			e1.showMessage();}
 	}
 	
-	private int ottieniIDNoleggio() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
-		return (int)presenter.processRequest("numNoleggi", null)+1;
+	private int ottieniIDNoleggio() {
+		try {
+			return ((int)presenter.processRequest("numNoleggi", null))+1;
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	@FXML
 	public void	btnRimuoviGuidatore(ActionEvent e){
@@ -344,15 +357,16 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		    	if(nuovoPrezzo==0){
 		    		throw new CommonException ("E' stato ricalcolato il prezzo in quanto non si è premuto il pulsante calcola");
 		    	}
+		    
 		    	//PAGAMENTO
 		    	aggiungiPagamento();
+				//Noleggio
+		    	aggiungiNoleggio();
 		    	//GUIDATORI
-		    	if(!tbGuidatori.isDisabled())
+		    	if(tbGuidatori.isVisible()){
 		    		aggiungiGuidatori();
-				
-		    	prendiDatiDaView();
-		//presenter.processRequest("InserimentoNoleggio", )
-				
+		    	}
+		    	
 				chiudiFinestra();
 			}
 		} catch (CommonException e1) {
@@ -360,26 +374,61 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		}
 			
 	}
-	private void aggiungiGuidatori(){
-		ObservableList<Entity> listItem= tbGuidatori.getItems();
-		for(Entity el: listItem){
-			Guidatore guidatore = (Guidatore)el;
-			try {
-				(guidatore).setIdNoleggio((int)presenter.processRequest("numNoleggi", null)+1);
-				presenter.processRequest("InserimentoGuidatore", guidatore);
-			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException | NoSuchMethodException
-					| SecurityException | IllegalArgumentException
-					| InvocationTargetException | CommonException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void aggiungiNoleggio(){
+		try {
+			prendiDatiDaView();
+			presenter.processRequest("InserimentoNoleggio",noleggio);
+			TableView<Contratto> tw=  ((SchermataGenerale)this.getChiamante()).getTable("Noleggio");
+			((SchermataGenerale)this.getChiamante()).caricaTabella((List<Cliente>)presenter.processRequest("getAllNoleggi",null), tw);
+		} catch (CommonException e) {
+			// TODO Auto-generated catch block
+			e.showMessage();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		
-		
 	}
-	private void aggiungiPagamento(){
+	private void aggiungiGuidatori() throws CommonException{
+		ObservableList<Entity> listItem= tbGuidatori.getItems();
+		if(listItem.size()==guidatore.getNumero_guidatori())
+			for(Entity el: listItem){
+				Guidatore guidatore = (Guidatore)el;
+				try {
+					presenter.processRequest("InserimentoGuidatore", guidatore);
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalArgumentException
+						| InvocationTargetException | CommonException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		else{
+			throw new CommonException("Devi inserire in tutto " + guidatore.getNumero_guidatori() + " Guidatore/i");
+			
+		}
+	}
+	private void aggiungiPagamento() throws CommonException{
 		try {
 			if(rdDenaro.isSelected()){
 				pagamento= new Contanti();
@@ -391,10 +440,10 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 					pagamento= new CartaDiCredito();
 					prendiDatiPagamentoDaView();
 					presenter.processRequest("InserimentoPagamento", pagamento);
-					pagamento.setIdPagamento((int)presenter.processRequest("numNoleggi", null)+1);
+					pagamento.setIdPagamento(ottieniIDNoleggio());//num noleggi+ 1;
 				}
 				else 
-					throw new CommonException("Seziona almeno una carta");
+					throw new CommonException("Seziona una carta");
 			}
 	
 		} catch (InstantiationException | IllegalAccessException
@@ -403,9 +452,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 				| InvocationTargetException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (CommonException e) {
-			// TODO Auto-generated catch block
-			e.showMessage();
+			
 		}
 	}
 
@@ -422,7 +469,8 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	}
 	
     private void prendiDatiDaView() throws CommonException{
-    	
+    	 
+    	noleggio.setIdPagamento(ottieniIDNoleggio());
     	
     	noleggio.setRitiro(dRitiro.getValue());
     	noleggio.setInizioNoleggio(LocalDate.parse(lblDataInizio.getText(),dtf));

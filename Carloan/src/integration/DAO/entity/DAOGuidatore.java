@@ -1,5 +1,6 @@
 package integration.DAO.entity;
 
+import static utility.QueryStringReplacer.queryReplaceFirst;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 
@@ -22,10 +23,45 @@ public class DAOGuidatore implements DAO{
 	}
 	
 	@Override
-	public ResultSet creazione(Entity x) {
-		return null;
-		// TODO Auto-generated method stub
+	public ResultSet creazione(Entity x)  {
+		Guidatore guidatore= (Guidatore)x;
+		String insertQuery = "insert into guidatore "
+						+"(nome,cognome,indirizzo,codFiscale,numeropatente,idnoleggio) "
+						+ "values('?','?','?','?','?','?');";
+		insertQuery= queryReplaceFirst(insertQuery,guidatore.getNome());
+		insertQuery= queryReplaceFirst(insertQuery,guidatore.getCognome());
+		insertQuery= queryReplaceFirst(insertQuery,guidatore.getIndirizzo());
+		insertQuery= queryReplaceFirst(insertQuery,guidatore.getCodFiscale());
+		insertQuery= queryReplaceFirst(insertQuery,guidatore.getPatenteGuida());
+		insertQuery= queryReplaceFirst(insertQuery,String.valueOf(guidatore.getIdNoleggio()));
+		Connection connection= Connection.getConnection(daofactory);
+		 
+		ResultSet  insertQueryResultSet = null;
+		try {
+				insertQueryResultSet = connection.executeUpdate(insertQuery);	
+				if(insertQueryResultSet==null){
+					throw new CommonException("non è stato agguinto il guidatore");
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				throw new CommonException("non è stato agguiunto il guidatore");
+			} catch (CommonException e1) {
+				e1.printStackTrace();
+			}
+		} catch (CommonException e) {
+			// TODO Auto-generated catch block
+			e.showMessage();
+		}
+		finally{
+			try {
+				insertQueryResultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
 		
+		return insertQueryResultSet;
 	}
 
 	@Override
@@ -41,10 +77,12 @@ public class DAOGuidatore implements DAO{
 	}
 	
 	
-	public List<Guidatore> getAllByOptional(int idOptional){
-		 String readQuery = "Select * from Guidatore where idOptional='?'";
-
-		Connection connection= Connection.getConnection(daofactory);
+	public List<Guidatore> getAllByNoleggio(int idNoleggio){
+		 String readQuery = "Select * from Guidatore where idNoleggio='?'";
+		 
+		 readQuery= queryReplaceFirst(readQuery,String.valueOf(idNoleggio));
+		 
+		 Connection connection= Connection.getConnection(daofactory);
 		 
 		ResultSet readQueryResultSet = null;
 		List<Guidatore> risultato = null;
@@ -54,12 +92,11 @@ public class DAOGuidatore implements DAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			AlertView.getAlertView("Non è stato possibile leggere gli Optional" , AlertType.ERROR);
+			AlertView.getAlertView("Non è stato possibile leggere il guidatore " , AlertType.ERROR);
 		}
 		finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}
@@ -75,7 +112,6 @@ public class DAOGuidatore implements DAO{
         try {
          if(resultset!=null){
             while (resultset.next()) {
-            	ottieniGuidatore(resultset);
                 guidatore= ottieniGuidatore(resultset);
                 risultato.add(guidatore);
             }
@@ -95,7 +131,7 @@ public class DAOGuidatore implements DAO{
 			guidatore.setCognome(resultset.getString(3));;
 			guidatore.setId(resultset.getInt(1));
 			guidatore.setIndirizzo(resultset.getString(4));
-			guidatore.setIdOptional(resultset.getInt(6));
+			guidatore.setIdNoleggio(resultset.getInt(6));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

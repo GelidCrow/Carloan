@@ -1,15 +1,23 @@
 package business.model;
 
+import java.util.List;
+
 import integration.DAO.DaoFactory;
+import integration.DAO.entity.DAOGuidatore;
 import business.entity.Entity;
+import business.entity.Noleggio.Optional.Guidatore;
 import business.model.Exception.CommonException;
 
 public class ModelGuidatore implements Model{
 	private DaoFactory daofactory;
 	@Override
 	public void Inserimento(Entity parameter) {
-		// TODO Auto-generated method stub
-		
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			((DAOGuidatore)daofactory.getDao("DAOGuidatore")).creazione(parameter);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public void aggiornamento(Entity parameter) throws CommonException {
@@ -25,5 +33,15 @@ public class ModelGuidatore implements Model{
 	public void ricerca() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public List<Guidatore> getAllByNoleggio(int idNoleggio){
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			return ((DAOGuidatore)daofactory.getDao("DAOGuidatore")).getAllByNoleggio(idNoleggio);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

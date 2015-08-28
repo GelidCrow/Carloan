@@ -29,18 +29,31 @@ public class DAONoleggio implements DAO{
 	}
 	
 	public int conta(){
-		String count= "Select count(idNoleggio) from noleggio";
+		String count= "Select count(1) as numNoleggi from noleggio";
 	  Connection connection= Connection.getConnection(daofactory);
        
        ResultSet idList = null;
        int numero=0;
 		try {
-			 idList = connection.executeUpdate(count);
-			 numero=idList.getInt(1);
+			 idList = connection.executeRead(count);
+			 if(idList!=null)
+				 while(idList.next()){
+					 numero=idList.getInt(1);
+				 }
+			 else 
+				 throw new CommonException("non è stato possibile contare i noleggi");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			 AlertView.getAlertView("Non è stato possibile contare i Noleggi" , AlertType.ERROR);
+			 try {
+				throw new CommonException("non è stato possibile contare i noleggi");
+			} catch (CommonException e1) {
+				// TODO Auto-generated catch block
+				e1.showMessage();
+			}
+		} catch (CommonException e) {
+			// TODO Auto-generated catch block
+			e.showMessage();
 		}
 		finally{
 			try {
@@ -55,31 +68,52 @@ public class DAONoleggio implements DAO{
 	@Override
 	public ResultSet creazione(Entity x) {
 		String insert= "INSERT INTO Noleggio"
-				+ "(InizioNoleggio,FineNoleggio,Ritiro,KmRientro,KmBase,Stato,NumeroSettimane,NumeroGiorni,numero_chilometri,LuogoRestituzione,Note,"
-				+ " idContratto, idAuto, idPagamento ) values ('?','?','?','?','?','?','?','?','?','?','?','?','?','?'); ";
+				+ "(InizioNoleggio"
+				+ ",FineNoleggio"
+				+ ",Ritiro"
+				+ ",KmBase"
+				+ ",Stato"
+				+ ",NumeroSettimane"
+				+ ",NumeroGiorni"
+				+ ",numero_chilometri"
+				+ ",LuogoRestituzione,"
+				+ " idContratto"
+				+ ", idAuto"
+				+ ", idPagamento) "
+				
+				
+				+ " values ("
+				+ "'?'"
+				+ ",'?'"
+				+ ",'?'"
+				+ ",'?'"
+				+ ",'?'"
+				+ ",'?'"
+				+ ",'?'"
+				+ ",'?'"
+				+ ",'?'"
+				+ ",'?'"
+				+ ",'?'"
+				+ ",'?');";
+				
 	
 		
 		String   insertQuery =insert;
 		Noleggio noleggio= (Noleggio)x;
 		
-	   insertQuery = queryReplaceFirst(insertQuery, noleggio.getInizioNoleggio().toString());
+	   insertQuery = queryReplaceFirst(insertQuery,  noleggio.getInizioNoleggio().toString());
 	   insertQuery = queryReplaceFirst(insertQuery, noleggio.getFineNoleggio().toString());
 	   insertQuery= queryReplaceFirst(insertQuery, noleggio.getRitiro().toString());
-	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getKmRientro()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getKmBase()));
 	   insertQuery = queryReplaceFirst(insertQuery, noleggio.getStato().toString());
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroSettimane()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroGiorni()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroChilometri()));
-	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroSettimane()));
-	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNumeroSettimane()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getSedeRestituzione()));
-	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getNote()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdcontratto()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdAuto()));
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getIdPagamento()));
-	    
-
+	   
 	   Connection connection= Connection.getConnection(daofactory);
        
        ResultSet idList = null;
@@ -87,14 +121,14 @@ public class DAONoleggio implements DAO{
 		try {
 			 idList = connection.executeUpdate(insertQuery);
 			 //qui assegno l'optional ad un noleggio
-			 insertQuery= " Insert into NoleggioOptional('?','?');";
-			 insertQuery = queryReplaceFirst(insertQuery, String.valueOf(idList.getInt(1)));
-			 String queryPartenza=insertQuery;
-			 for(int i=0;i< noleggio.getOptional().size();i++){
-				 insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getOptional().get(i)));
-				 idList = connection.executeUpdate(insertQuery);
-				 insertQuery = queryPartenza;
-				 }
+			// insertQuery= " Insert into NoleggioOptional('?','?');";
+			// insertQuery = queryReplaceFirst(insertQuery, String.valueOf(idList.getInt(1)));
+			// String queryPartenza=insertQuery;
+			 //for(int i=0;i< noleggio.getOptional().size();i++){
+				/// insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getOptional().get(i)));
+				 //idList = connection.executeUpdate(insertQuery);
+				 //insertQuery = queryPartenza;
+				// }
 			 
 			   AlertView.getAlertView("Noleggio inserito con successo",AlertType.INFORMATION);
 		} catch (SQLException e) {
