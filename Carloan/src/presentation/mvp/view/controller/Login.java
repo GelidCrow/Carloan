@@ -77,7 +77,7 @@ public class Login extends Schermata{
 				AlertView.getAlertView("Autenticazione fallita : Ricontrollare l'Username e la password inserite",AlertType.ERROR);
 			}
 		} catch (InstantiationException | IllegalAccessException| ClassNotFoundException | NoSuchMethodException| SecurityException | IllegalArgumentException
-				| InvocationTargetException | NoSuchAlgorithmException | CommonException e1) {
+				| InvocationTargetException  | CommonException e1) {
 				//AlertView.getAlertView("C'è stato un problema" + e1.getMessage(), AlertType.ERROR);
 			e1.printStackTrace();
 		}

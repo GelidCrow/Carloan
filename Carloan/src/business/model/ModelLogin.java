@@ -1,7 +1,6 @@
 package business.model;
 
 import business.entity.Entity;
-import business.entity.Login;
 import business.model.Exception.CommonException;
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOLogin;
@@ -31,13 +30,20 @@ public class ModelLogin implements Model {
 
 	@Override
 	public void Inserimento(Entity parameter) {
-		// TODO Auto-generated method stub
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);			
+		 ((DAOLogin) daofactory.getDao("DAOLogin")).creazione(parameter);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
 	public void aggiornamento(Entity parameter) {
-		// TODO Auto-generated method stub
+		
+		
 		
 	}
 
@@ -51,7 +57,7 @@ public class ModelLogin implements Model {
 	 * Verifica che l'username da registrare non è già presente nel database
 	 * @param l
 	 */
-	public void VerificaCredenziali(Login l) throws CommonException{
+	public void VerificaCredenziali(Entity l) throws CommonException{
 		try {
 			if(daofactory==null)
 				daofactory= DaoFactory.getDaoFactory(1);			

@@ -11,8 +11,14 @@ import business.model.Exception.CommonException;
 public class ModelAmministratore implements Model{
 	private DaoFactory daofactory;
 	@Override
-	public void Inserimento(Entity parameter) {
-		// TODO Auto-generated method stub
+	public void Inserimento(Entity parameter) throws CommonException {
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			((DAOAmministratore) daofactory.getDao("DAOAmministratore")).creazione(parameter);
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
 		
 	}
 
@@ -48,6 +54,17 @@ public class ModelAmministratore implements Model{
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+	
+	public Entity leggiAmministratoreByCodiceFiscale(String c){
+		try{
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			return ((DAOAmministratore) daofactory.getDao("DAOAmministratore")).leggiAmministratoreByCodiceFiscale(c);
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
 		return null;
 	}
 }

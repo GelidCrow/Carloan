@@ -45,6 +45,10 @@ public class Delegate {
     			method = model.getClass().getMethod(service_method.get(1), List.class);
     			result=  method.invoke(model, parameter);
     		}
+    		else if(parameter instanceof String){
+    			method = model.getClass().getMethod(service_method.get(1), String.class);
+    			result=  method.invoke(model, parameter);
+    		}
     		else {
     			method = model.getClass().getMethod(service_method.get(1), int.class);
     			result=  method.invoke(model, parameter);

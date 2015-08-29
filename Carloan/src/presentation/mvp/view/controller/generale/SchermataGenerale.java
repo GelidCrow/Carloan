@@ -505,7 +505,13 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			else if(panes.get(5)==newValue){
 				tbSedeController=new TabSede((TableView<Sede>)tbSede,SchermataGenerale.this,(TableView<SupervisoreSede>) tablesupsede);
 				try {
-					List<Sede> l=(List<Sede>)presenter.processRequest("getAllSedi", null);
+					Utente u=UtenteCorrente.getUtente();
+					List<Sede> l;
+					if(u instanceof Amministratore)
+					l=(List<Sede>)presenter.processRequest("getAllSedi", null);
+					else//sono un supervisore agenzia
+						l=(List<Sede>)presenter.processRequest("getAllSediByAgenzia", ((SupervisoreAgenzia)u).getIDAgenzia());
+					
 					caricaTabella((List<T>)l, tbSede);
 					tbSede.getSelectionModel().selectFirst();
 			
@@ -733,15 +739,19 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		Utente utente= UtenteCorrente.getUtente();
 		String msgBenvenuto = "Benvenuto "+ utente.getNome() + " " + utente.getCognome() + "\n  Cod: "+  utente.getIdUtente();
 		txtBenvenuto.setText(msgBenvenuto);
+	
 		if( utente instanceof Operatore){
-			panes.remove(3,panes.size());
+			for(short i=3;i<panes.size();i++)
+				panes.get(i).setDisable(true);
 		}
 		else if(utente instanceof SupervisoreSede){
-			panes.remove(4, 9);
+			for(short i=4;i<9;i++)
+				panes.get(i).setDisable(true);
 		}
 		else if(utente instanceof SupervisoreAgenzia){
-			panes.remove(4);
-			panes.remove(7);
+			panes.get(4).setDisable(true);
+			panes.get(6).setDisable(true);
+			panes.get(7).setDisable(true);
 		}	
 	}
 	private class ItemSelectedAgenzia implements ChangeListener<Agenzia>{

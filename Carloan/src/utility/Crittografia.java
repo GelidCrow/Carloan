@@ -3,12 +3,22 @@ package utility;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javafx.scene.control.Alert.AlertType;
+import MessaggiFinestra.AlertView;
+
 public class Crittografia {
-	public static String CriptaPassword(String password) throws NoSuchAlgorithmException{
-		 MessageDigest md = MessageDigest.getInstance("SHA-256");
-	     md.update(password.getBytes());
-	     byte[] output = md.digest();
-	     return (bytesToHex(output));
+	public static String CriptaPassword(String password) {
+		 MessageDigest md;
+		 byte[] output = null;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+			md.update(password.getBytes());
+		      output= md.digest();
+		    
+		} catch (NoSuchAlgorithmException e) {
+			AlertView.getAlertView("L'utility per la crittografia è corrotta", AlertType.ERROR);
+		}
+		 return (bytesToHex(output)); 
 	}
 	private static String bytesToHex(byte[] b) {
 	    char hexDigit[] = {'0', '1', '2', '3', '4', '5', '6', '7',

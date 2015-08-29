@@ -25,8 +25,33 @@ public class DAOAmministratore implements DAO{
 	
 
 	@Override
-	public ResultSet creazione(Entity x) {
-		return null;
+	public ResultSet creazione(Entity x) throws CommonException {
+		String query="insert into Amministratore(Nome,Cognome,Sesso,datanascita,indirizzo,codicefiscale,numcell,numfisso,assunto,idditta)"+
+	     " values('?','?','?','?','?','?','?','?','V',?)";
+		Amministratore a=(Amministratore)x;
+		query=queryReplaceFirst(query, a.getNome());
+		query=queryReplaceFirst(query, a.getCognome());
+		query=queryReplaceFirst(query, a.getSesso());
+		query=queryReplaceFirst(query, a.getDataNascita().toString());
+		query=queryReplaceFirst(query, a.getIndirizzo());
+		query=queryReplaceFirst(query, a.getCodiceFiscale());
+		query=queryReplaceFirst(query, a.getNumCell());
+		query=queryReplaceFirst(query, a.getNumFisso());
+		query=queryReplaceFirst(query, String.valueOf(a.getIDDitta()));
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet s=null;
+		try {
+			s=c.executeUpdate(query);
+			if(s!=null)
+				AlertView.getAlertView("Amministratore inserito con successo", AlertType.INFORMATION);
+				else
+					throw new CommonException("L'amministratore non è stato inserito");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return s;
 		
 	}
 
@@ -66,9 +91,15 @@ public class DAOAmministratore implements DAO{
     return risultato;
 	}
 	
-	private Amministratore ottieniAmministratore(ResultSet resultset) throws SQLException{
-		 return new Amministratore(resultset.getInt(1),resultset.getString(2),resultset.getString(3),resultset.getString(4),resultset.getDate(5).toLocalDate(),resultset.getString(6),
-				 	resultset.getString(7),resultset.getString(8),resultset.getString(9),resultset.getBoolean(10),resultset.getInt(11));
+	private Amministratore ottieniAmministratore(ResultSet resultset){
+		 try {
+			return new Amministratore(resultset.getInt(1),resultset.getString(2),resultset.getString(3),resultset.getString(4),resultset.getDate(5).toLocalDate(),resultset.getString(6),
+					 	resultset.getString(7),resultset.getString(8),resultset.getString(9),resultset.getBoolean(10),resultset.getInt(11));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 return null;
 	}
 
 
@@ -97,5 +128,24 @@ private List<Amministratore> creaElencoAmministratori(ResultSet r){
 		}
 	}
 	return l;
+}
+
+
+public Amministratore leggiAmministratoreByCodiceFiscale(String c) {
+	String query="Select * from amministratore where codicefiscale='?'";
+	query=queryReplaceFirst(query, c);
+	Connection co=Connection.getConnection(this.daofactory);
+	ResultSet s=null;
+	try {
+		 s=co.executeRead(query);
+		 s.next();
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
+		return ottieniAmministratore(s);
 }
 }

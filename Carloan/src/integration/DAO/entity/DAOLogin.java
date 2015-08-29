@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 
 
-
+import utility.Crittografia;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 import business.entity.Entity;
@@ -29,7 +29,7 @@ public class DAOLogin implements DAO{
 	
 	@Override
 	public ResultSet creazione(Entity x){
-		String INSERT = "INSERT INTO Credenziali values('?','?','?','?','?','?');";
+		String INSERT = "INSERT INTO Credenziali(Username,Password,IDSupervisoreAgenzia,IDSupervisoreSede,IDAmministratore,IDOperatore) values('?','?',?,?,?,?);";
 		
 		String insertQuery = INSERT;
 				
@@ -37,29 +37,38 @@ public class DAOLogin implements DAO{
 
         insertQuery = queryReplaceFirst(insertQuery, login.getUsername());
         
-        insertQuery= queryReplaceFirst(insertQuery,login.getPassword());
-        
-        insertQuery= queryReplaceFirst(insertQuery,login.getSupA());
-        
-        insertQuery= queryReplaceFirst(insertQuery,login.getSupS());
-        
-        insertQuery= queryReplaceFirst(insertQuery,login.getAmministratore());
-        
-        insertQuery= queryReplaceFirst(insertQuery,login.getOperatore());
- 
-        
+        insertQuery= queryReplaceFirst(insertQuery,Crittografia.CriptaPassword(login.getPassword()));
+        String s=login.getSupA();
+        if(s==null)
+        	insertQuery= queryReplaceFirst(insertQuery,"null");
+        else
+        insertQuery= queryReplaceFirst(insertQuery,s);
+        s=login.getSupS();
+        if(s==null)
+        	 insertQuery= queryReplaceFirst(insertQuery,"null");
+        else
+        insertQuery= queryReplaceFirst(insertQuery,s);
+        s=login.getAmministratore();
+        if(s==null)
+        	insertQuery= queryReplaceFirst(insertQuery,"null");
+        else
+        insertQuery= queryReplaceFirst(insertQuery,s);
+        s=login.getOperatore();
+        if(s==null)
+        	insertQuery= queryReplaceFirst(insertQuery,"null");
+        else
+        insertQuery= queryReplaceFirst(insertQuery,s);
         Connection connection= Connection.getConnection(daofactory);
         ResultSet idList = null;
 		try {
 			 idList = connection.executeUpdate(insertQuery);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		finally{
 			try {
 				idList.close();
-				//connection.chiudiConnessione();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -148,7 +157,8 @@ public class DAOLogin implements DAO{
 	}
 
 
-	public void verifica_credenziali(Login l) throws CommonException {
+	public void verifica_credenziali(Entity x) throws CommonException {
+		Login l =(Login)x;
 		String query="Select * from credenziali where username='?'";
 		query=queryReplaceFirst(query, l.getUsername());
 		Connection c=Connection.getConnection(this.daofactory);

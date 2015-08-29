@@ -330,7 +330,14 @@
 	<class>business.model.ModelAmministratore</class>
 	<method>getAll</method>
 </call>
-
+<call id="InserisciAmministratore">
+	<class>business.model.ModelAmministratore</class>
+	<method>Inserimento</method>
+</call>
+<call id="leggiAmministratoreByCodiceFiscale">
+	<class>business.model.ModelAmministratore</class>
+	<method>leggiAmministratoreByCodiceFiscale</method>
+</call>
 	<!-- MULTA -->
 	<call id="getAllMulteByNoleggio">
 		<class>business.model.ModelMulta</class>
@@ -350,5 +357,8 @@
 		<method>VerificaCredenziali</method>
 	</call>
 	
-
+	<call id="InserisciCredenziali">
+		<class>business.model.ModelLogin</class>
+		<method>Inserimento</method>
+	</call>
 </calls>

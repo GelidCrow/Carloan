@@ -4,11 +4,16 @@ package presentation.mvp.view.controller.generale.luoghi;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import MessaggiFinestra.AlertView;
+import business.entity.Utente;
+import business.entity.UtenteCorrente;
+import business.entity.Gestori.Amministratore;
+import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Luoghi.Agenzia;
 import business.entity.Luoghi.Sede;
 import business.model.Exception.CommonException;
@@ -47,11 +52,21 @@ public class Nuova_Sede extends Schermata{
 	
 	@SuppressWarnings("unchecked")
 	protected void initTable() {
+		List<Agenzia> agenzie_list;
 		try {
-			List<Agenzia> agenzie_list=(List<Agenzia>)presenter.processRequest("getAllAgenzie", null);
+			Utente u=UtenteCorrente.getUtente();
+			if(u instanceof Amministratore){
+			 agenzie_list=(List<Agenzia>)presenter.processRequest("getAllAgenzie", null);
+			}
+			else{// E' un supervisore agenzia quindi può solamente aggiungere sedi alla propria agenzia
+				SupervisoreAgenzia s=(SupervisoreAgenzia)u;
+				Agenzia a=(Agenzia)presenter.processRequest("leggiAgenzia", s.getIDAgenzia());
+				agenzie_list=new LinkedList<Agenzia>();
+				agenzie_list.add(a);
+			}
+			
 			caricaTabella(agenzie_list);
 			agenzie.getSelectionModel().selectFirst();
-			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
@@ -92,7 +107,15 @@ public class Nuova_Sede extends Schermata{
 					throw new CommonException("L'indirizzo non può essere vuoto");
 				Agenzia agenzia_scelta=this.agenzie.getSelectionModel().getSelectedItem();
 				presenter.processRequest("InserisciSede", new Sede(indir, tel, n,agenzia_scelta.getIDAgenzia()));
-				schermataGenerale.caricaTabella((List<Sede>)presenter.processRequest("getAllSedi",null),ts);
+				Utente u=UtenteCorrente.getUtente();
+				if(u instanceof Amministratore){
+					schermataGenerale.caricaTabella((List<Sede>)presenter.processRequest("getAllSedi",null),ts);
+				}
+				else{// E' un supervisore agenzia quindi può solamente aggiungere sedi alla propria agenzia
+					SupervisoreAgenzia s=(SupervisoreAgenzia)u;
+					Agenzia a=(Agenzia)presenter.processRequest("leggiAgenzia", s.getIDAgenzia());
+					schermataGenerale.caricaTabella((List<Sede>)presenter.processRequest("getAllSediByAgenzia",a.getIDAgenzia()),ts);
+				}
 				chiudiFinestra();
 				
 			}

@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import business.entity.Login;
+import business.entity.UtenteCorrente;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Gestori.Amministratore;
 import business.model.Exception.CommonException;
@@ -22,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
+import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
 
@@ -51,11 +53,13 @@ public class Nuovo_Amministratore extends Schermata{
 	protected ToggleGroup tog;
 	protected TableView<Amministratore> tw;
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		presenter=new Presenter();
 		tog=new ToggleGroup();
 		radio_f.setToggleGroup(tog);
 		radio_m.setToggleGroup(tog);
 		radio_m.setSelected(true);
 		radio_f.setSelected(false);
+		
 	}
 	@FXML
 	public void btnconferma(ActionEvent e){
@@ -66,6 +70,11 @@ public class Nuovo_Amministratore extends Schermata{
 			Login login=prendiDatiPerLogIn();
 			//Verifico se l'username non è stato scelto già
 			presenter.processRequest("VerificaCredenziali",login);
+			presenter.processRequest("InserisciAmministratore", a);
+			a=(Amministratore) presenter.processRequest("leggiAmministratoreByCodiceFiscale", a.getCodiceFiscale());
+			login.setAmministratore(String.valueOf(a.getIdUtente()));
+			presenter.processRequest("InserisciCredenziali", login);
+			chiudiFinestra();
 			
 			}
 				catch (CommonException e1) {
@@ -118,6 +127,8 @@ public class Nuovo_Amministratore extends Schermata{
 		n=codfis.getText();
 		if(n==null || n.isEmpty())
 			throw new CommonException("Codice fiscale vuoto");
+		if(n.length()!=16)
+			throw new CommonException("Codice fiscale non valido(deve essere di 16 caratteri)");
 		a.setCodiceFiscale(n);
 		n=nfisso.getText();
 		if(n==null)
@@ -125,7 +136,10 @@ public class Nuovo_Amministratore extends Schermata{
 		a.setNumFisso(n);
 		n=ncell.getText();
 		if(n==null)
+			n="";
 			a.setNumCell(n);
+		Amministratore current_admin=(Amministratore)UtenteCorrente.getUtente();
+		a.setIDDitta(current_admin.getIDDitta());//Il nuovo amministratore avrà lo stesso idditta dell'amministratore che lo sta aggiungendo
 		
 		return  a;
 	}
