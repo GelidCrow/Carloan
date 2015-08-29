@@ -113,7 +113,7 @@ public class ModificaContratto extends NuovoContratto{
 		ObservableList<String> choice = FXCollections.observableArrayList(StatoContratto.getAllStates());
 		choice.remove(1); 
 		choiceStato.setItems(choice);
-		choiceStato.getSelectionModel().select(0);
+		choiceStato.getSelectionModel().selectFirst();
 	}
 	
 }

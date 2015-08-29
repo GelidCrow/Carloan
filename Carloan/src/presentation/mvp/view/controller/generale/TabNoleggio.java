@@ -55,17 +55,39 @@ public class TabNoleggio {
 	}
 	
 	void NuovaMulta(){
-		System.out.println("Ciao");
-		FXMLParameter.setTitolo("Nuova Multa");
-	    FXMLParameter.setRidimensionabile(false);
-	    FXMLParameter.setEntity(((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio"));
-		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataInserimentoMulta",Modality.APPLICATION_MODAL);
+		if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
+			try {
+				throw new CommonException("Nessun elemento selezionato");
+			} catch (CommonException e) {
+				// TODO Auto-generated catch block
+				e.showMessage();
+			}
+		}
+		else {
+			FXMLParameter.setTitolo("Nuova Multa");
+		    FXMLParameter.setRidimensionabile(false);
+		    FXMLParameter.setEntity(((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio"));
+			Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataInserimentoMulta",Modality.APPLICATION_MODAL);
+		}
 	}
 	void ChiudiMulta(){
 			
 	}
 	void VisualizzaMulta(){
-		
+		if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
+			try {
+				throw new CommonException("Nessun elemento selezionato");
+			} catch (CommonException e) {
+				// TODO Auto-generated catch block
+				e.showMessage();
+			}
+		}
+		else {
+			FXMLParameter.setTitolo("Visualizza multe");
+		    FXMLParameter.setRidimensionabile(false);
+		    FXMLParameter.setEntity(((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio"));
+			Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaMulte",Modality.APPLICATION_MODAL);
+		}
 	}
 	
 	public void bindingValuesContratto(){
