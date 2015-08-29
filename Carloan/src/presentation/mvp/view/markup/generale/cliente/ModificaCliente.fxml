@@ -25,9 +25,9 @@
                      </children>
                   </HBox>
                   <Separator prefHeight="7.0" prefWidth="218.0" />
-                  <DatePicker fx:id="dNascita" prefHeight="25.0" prefWidth="219.0" promptText="01/01/1980" />
+                  <DatePicker fx:id="dNascita" editable="false" prefHeight="25.0" prefWidth="219.0" />
                   <Separator prefHeight="5.0" prefWidth="218.0" />
-                  <DatePicker fx:id="dEmissPatente" prefHeight="25.0" prefWidth="228.0" promptText="01/01/1998" />
+                  <DatePicker fx:id="dEmissPatente" editable="false" prefHeight="25.0" prefWidth="228.0" />
                   <Separator prefHeight="8.0" prefWidth="218.0" />
                   <TextField fx:id="txtIndirizzo" />
                   <Separator prefHeight="3.0" prefWidth="218.0" />

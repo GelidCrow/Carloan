@@ -95,7 +95,10 @@
 		<class>business.model.ModelContratto</class>
 		<method>getAll</method>
 	</call>
-		
+		<call id="letturaContratto">
+		<class>business.model.ModelContratto</class>
+		<method>lettura</method>
+	</call>
 
 	
 	
@@ -182,6 +185,8 @@
 		<class>business.model.ModelAutoveicolo</class>
 		<method>aggiornamento</method>
 	</call>
+	
+	
 	<!--Manutenzione-->
 	<call id="VerificaManutenzione">
 		<class>business.model.checker.autoveicolo.ManutenzioneChecker</class>
@@ -230,6 +235,10 @@
 	<call id="InserimentoCarta">
 		<class>business.model.ModelCartaDiCredito</class>
 		<method>Inserimento</method>
+	</call>
+	<call id="letturaCarta">
+		<class>business.model.ModelCartaDiCredito</class>
+	<method>lettura</method>
 	</call>
 	<call id="VerificaCarta">
 		<class>business.model.checker.cartaCredito.CartaCreditoChecker</class>
@@ -301,7 +310,10 @@
 		<class>business.model.ModelPagamento</class>
 		<method>Inserimento</method>
 	</call>
-	
+		<call id="letturaPagamento">
+		<class>business.model.ModelPagamento</class>
+		<method>lettura</method>
+	</call>
 	<!--Sede-->
 
 <call id="InserisciSede">

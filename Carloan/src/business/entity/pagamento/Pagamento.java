@@ -47,13 +47,18 @@ public void setAcconto(float acconto) {
 	public void setDetrazioneAggiuntiva(float detrazioneAggiuntiva) {
 		this.detrazioneAggiuntiva = detrazioneAggiuntiva;
 	}
+	
 		public Pagamento(float depositoCauzinale, float importo,
-				float detrazioneAggiuntiva) {
-			super();
-			this.depositoCauzinale = depositoCauzinale;
-			this.importo = importo;
-			this.detrazioneAggiuntiva = detrazioneAggiuntiva;
-		}
+			float detrazioneAggiuntiva, float acconto, int idPagamento,
+			int idCarta) {
+		super();
+		this.depositoCauzinale = depositoCauzinale;
+		this.importo = importo;
+		this.detrazioneAggiuntiva = detrazioneAggiuntiva;
+		this.acconto = acconto;
+		this.idPagamento = idPagamento;
+		this.idCarta = idCarta;
+	}
 		public Pagamento(float depositoCauzinale, float detrazioneAggiuntiva) {
 			super();
 			this.depositoCauzinale = depositoCauzinale;

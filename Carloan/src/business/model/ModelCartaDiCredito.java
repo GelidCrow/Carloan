@@ -5,6 +5,8 @@ import java.util.List;
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOAutoveicolo;
 import integration.DAO.entity.DAOCartaDiCredito;
+import integration.DAO.entity.DAOCliente;
+import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.pagamento.CartaDiCredito;
 import business.model.Exception.CommonException;
@@ -39,7 +41,13 @@ public class ModelCartaDiCredito implements Model{
 
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			return (CartaDiCredito) ((DAOCartaDiCredito) daofactory.getDao("DAOCartaDiCredito")).lettura(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

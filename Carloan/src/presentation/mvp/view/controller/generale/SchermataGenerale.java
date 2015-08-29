@@ -28,6 +28,8 @@ import business.entity.Luoghi.Agenzia;
 import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
+import business.entity.pagamento.CartaDiCredito;
+import business.entity.pagamento.Pagamento;
 import business.model.Exception.CommonException;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
@@ -496,6 +498,127 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	    }
 	} 
 	@FXML
+	private ImageView imgAutoNoleggio;
+	@FXML
+	private Label lblTarga;
+	@FXML
+	private Label lblMarca;
+	@FXML
+	private Label lblModello;
+	@FXML
+	private Label lblNSede;
+	@FXML
+	private Label lblIndirizzo;
+	@FXML
+	private Label lblTPagamento;
+	@FXML
+	private Label lblPrezzo;
+	@FXML
+	private Label lblCauzione;
+	@FXML
+	private Label lblUltAddebiti;
+	@FXML
+	private Label lblIban;
+	@FXML
+	private Label lblCodContratto;
+	@FXML
+	private Label lblDAp;
+	@FXML
+	private Label lblDChiusura;
+	@FXML
+	private Label lblStato;
+	@FXML
+	private Label lblCodFiscale;
+	@FXML
+	private Label lblNome;
+	@FXML
+	private Label lblCognome;
+	
+	private class 	ItemSelectedNoleggio implements ChangeListener<Noleggio>{
+		@Override
+		public void changed(ObservableValue<? extends Noleggio> observable,
+				Noleggio oldValue, Noleggio newValue) {
+			if(newValue!=null){
+				lblTarga.setText("");
+				lblMarca.setText("");
+				lblModello.setText("");
+				lblNSede.setText("");
+				lblIndirizzo.setText("");
+				lblCodContratto.setText("");
+				lblDAp.setText("");
+				lblCodFiscale.setText("");
+				lblNome.setText("");
+				lblCognome.setText("");
+				lblPrezzo.setText("");
+				lblCauzione.setText("");
+				lblUltAddebiti.setText("");
+				lblTPagamento.setText("");
+				lblIban.setText("");
+				Autoveicolo auto;
+				//IMMAGINE AUTO
+				try {
+					InputStream i;
+					try {
+						auto=(Autoveicolo)presenter.processRequest("letturaAutoveicolo", newValue.getIdAuto());
+						i = (InputStream)auto.getImmagine_stream();
+				
+					if(i!=null)
+						imgAutoNoleggio.setImage(new Image(i));
+					else
+						imgAutoNoleggio.setImage(null);
+					
+					//dati auto : 
+					lblTarga.setText(auto.getTarga());
+					lblMarca.setText(auto.getMarca());
+					lblModello.setText(auto.getModello());
+					//DATI SEDE
+					Sede sede=(Sede)presenter.processRequest("leggiSede",newValue.getSedeRestituzione());
+					lblNSede.setText(sede.getNome());
+					lblIndirizzo.setText(sede.getIndirizzo());
+					//CONTRATTO
+					Contratto contratto=(Contratto)presenter.processRequest("letturaContratto",newValue.getIdcontratto());
+					lblCodContratto.setText(String.valueOf(contratto.getIDContratto()));
+					lblDAp.setText(contratto.getDataCreazione().toString());
+					if(contratto.getDataChiusura()!=null)
+						lblDChiusura.setText(contratto.getDataChiusura().toString());
+					lblStato.setText(contratto.getStato());
+					//CLIENTE
+					Cliente cliente=(Cliente)presenter.processRequest("letturaCliente",contratto.getIdCliente());
+					lblCodFiscale.setText(cliente.getCodFiscale());
+					lblNome.setText(cliente.getNome());
+					lblCognome.setText(cliente.getCognome());
+					//PAGAMENTO
+					Pagamento pagamento=(Pagamento)presenter.processRequest("letturaPagamento",newValue.getIdPagamento());
+					lblPrezzo.setText(String.valueOf(pagamento.getAcconto()+pagamento.getImporto()));
+					lblCauzione.setText(String.valueOf(pagamento.getDepositoCauzinale()));
+					lblUltAddebiti.setText(String.valueOf(pagamento.getDetrazioneAggiuntiva()));
+					if(pagamento instanceof CartaDiCredito ){
+						lblTPagamento.setText("Carta di credito");
+						CartaDiCredito carta = (CartaDiCredito)presenter.processRequest("letturaCarta",pagamento.getIdCarta());
+						lblIban.setText(carta.getIBAN());
+					}
+					else{
+						lblTPagamento.setText("Contanti");
+					}				
+				}	
+				catch(CommonException e){
+					e.showMessage();} 
+				}
+				catch (InstantiationException
+						| IllegalAccessException
+						| ClassNotFoundException
+						| NoSuchMethodException | SecurityException
+						| IllegalArgumentException
+						| InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+	 }
+	}
+
+	@FXML
 	private Label lblCodFiscaleCliente;
 	@FXML
 	private Label lblNomeCliente;
@@ -513,15 +636,27 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	/**
 	 * <p> Ascoltatore per il cambio di elemento dal COntratto per settare i label per le info aggiuntive </p>
 	 */
-	@SuppressWarnings("rawtypes")
-	private class ItemSelectedContratto implements ChangeListener{
+
+	private class ItemSelectedContratto implements ChangeListener<Contratto>{
 	
+	
+		private void popolaLabelCliente(Cliente cliente){
+			 lblCodFiscaleCliente.setText(cliente.getCodFiscale());
+			 lblNomeCliente.setText(cliente.getNome());
+			 lblCognomeCliente.setText(cliente.getCognome());
+		}
+		private void popolaLabelGestore(Utente utente){
+			lblCodiceFiscaleGestore.setText(utente.getCodiceFiscale());
+			lblNomeGestore.setText(utente.getNome());
+			lblCognomeGestore.setText(utente.getCognome());
+		}
 		@Override
-		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+		public void changed(ObservableValue<? extends Contratto> observable,
+				Contratto oldValue, Contratto newValue) {
 			//interroga db
 			try {
-				if((Contratto)getEntitaElementoSelezionato("Contratto")!=null){
-					Cliente cliente = (Cliente)presenter.processRequest("letturaCliente",((Contratto)getEntitaElementoSelezionato("Contratto")).getIdCliente());
+				if(newValue!=null){
+					Cliente cliente = (Cliente)presenter.processRequest("letturaCliente",newValue.getIdCliente());
 					popolaLabelCliente(cliente);
 					Contratto contratto= (Contratto)getEntitaElementoSelezionato("Contratto");
 					Utente gestore= null;
@@ -549,16 +684,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 					| InvocationTargetException | CommonException e) {
 				e.printStackTrace();
 			}
-		}
-		private void popolaLabelCliente(Cliente cliente){
-			 lblCodFiscaleCliente.setText(cliente.getCodFiscale());
-			 lblNomeCliente.setText(cliente.getNome());
-			 lblCognomeCliente.setText(cliente.getCognome());
-		}
-		private void popolaLabelGestore(Utente utente){
-			lblCodiceFiscaleGestore.setText(utente.getCodiceFiscale());
-			lblNomeGestore.setText(utente.getNome());
-			lblCognomeGestore.setText(utente.getCognome());
+			
 		}
 	}
 	/**
@@ -579,37 +705,36 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			panes.remove(7);
 		}	
 	}
-	private class ItemSelectedAgenzia implements ChangeListener{
+	private class ItemSelectedAgenzia implements ChangeListener<Agenzia>{
+
 		@Override
-		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
-			if((Agenzia)getEntitaElementoSelezionato("Agenzia")!=null){
-			try {
-				Object temp=presenter.processRequest("leggiSupervisoreAgenzia",((Agenzia) newValue).getIDAgenzia());
-				if(temp!=null){
-					SupervisoreAgenzia s=(SupervisoreAgenzia)temp;
-				nome_sa.setText(s.getNome());
-				cognome_sa.setText(s.getCognome());
-				superv_agenzia.setVisible(false);
-				}
-				else{
-					superv_agenzia.setVisible(true);
-					nome_sa.setText("");
-					cognome_sa.setText("");
-				}
+		public void changed(ObservableValue<? extends Agenzia> observable,
+				Agenzia oldValue, Agenzia newValue) {
+			// TODO Auto-generated method stub
+			if(newValue!=null){
+				try {
+					Object temp=presenter.processRequest("leggiSupervisoreAgenzia",((Agenzia) newValue).getIDAgenzia());
+					if(temp!=null){
+						SupervisoreAgenzia s=(SupervisoreAgenzia)temp;
+					nome_sa.setText(s.getNome());
+					cognome_sa.setText(s.getCognome());
+					superv_agenzia.setVisible(false);
+					}
+					else{
+						superv_agenzia.setVisible(true);
+						nome_sa.setText("");
+						cognome_sa.setText("");
+					}
+						
 					
-				
-			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException | NoSuchMethodException
-					| SecurityException | IllegalArgumentException
-					| InvocationTargetException | CommonException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalArgumentException
+						| InvocationTargetException | CommonException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
-
-	
-
 		}
 		
 	}
@@ -646,12 +771,15 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	public Fascia getFascia(){
 		return choice_fascia.getSelectionModel().getSelectedItem();
 	}
-	@SuppressWarnings({ "rawtypes" })
-	private class ItemSelectedAutoveicolo implements ChangeListener{
+	private class ItemSelectedAutoveicolo implements ChangeListener<Autoveicolo>{
 
 		@Override
-		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
-			Autoveicolo a=(Autoveicolo)getEntitaElementoSelezionato("Autoveicolo");
+		public void changed(ObservableValue<? extends Autoveicolo> arg0,
+				Autoveicolo arg1, Autoveicolo auto) {
+			nome_sede.setText("");
+			telefono_sede.setText("");
+			indirizzo_sede.setText("");
+			Autoveicolo a=auto;
 			if(a!=null){
 			try {
 				InputStream i=(InputStream) presenter.processRequest("leggiImmagineAutoveicolo", a.getIDauto());
@@ -676,7 +804,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				e.printStackTrace();
 			} 
 		}
+			
 		}
+		
+		
 	}
 	
 	class ItemChoiceSelectedFasce implements ChangeListener<Fascia>{
@@ -745,9 +876,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			e.printStackTrace();
 		}
 		tabPane.getSelectionModel().selectedItemProperty().addListener( new TabChangeListener<Tab>());
-		tbContratto.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedContratto());
-		tbAuto.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAutoveicolo());
-		tbAgenzia.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedAgenzia());
+		tbContratto.getSelectionModel().selectedItemProperty().addListener( (ChangeListener<? super T>) new ItemSelectedContratto());
+		tbNoleggio.getSelectionModel().selectedItemProperty().addListener( (ChangeListener<? super T>) new ItemSelectedNoleggio());
+		tbAuto.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedAutoveicolo());
+		tbAgenzia.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedAgenzia());
 		tbSede.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedSede());
 		
 		//setta la schermata per l'utente corrente

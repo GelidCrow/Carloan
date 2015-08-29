@@ -160,7 +160,7 @@ public class Modifica_Autoveicolo extends Nuovo_Autoveicolo{
 				else{ //Supervisore sede
 					lista=new ArrayList<Integer>();
 					lista.add(((SupervisoreSede)utente).getIDSede());
-					lista.add(schermataGenerale.getFascia().getIDFascia());
+					lista.add(( schermataGenerale).getFascia().getIDFascia());
 					tw.getItems().clear();
 					schermataGenerale.caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAutoBySedeAndFascia",lista), tw);
 				}

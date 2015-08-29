@@ -171,8 +171,7 @@ public class DAOContratto implements DAO{
 	}
 	
 	public List<Contratto> creaElencoContratti(ResultSet resultset) throws InstantiationException, IllegalAccessException{
-
-		 
+	 
 		List<Contratto> risultato = new LinkedList<>();
 
         try {
@@ -191,8 +190,31 @@ public class DAOContratto implements DAO{
 	}
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		 String readQuery= "Select * from contratto where idCOntratto='?'";
+		readQuery = queryReplaceFirst(readQuery,String.valueOf(id));
+		 Connection connection= Connection.getConnection(daofactory);
+	        Contratto contratto=null;
+	     ResultSet readQueryResultSet = null;
+	     try {
+				readQueryResultSet = connection.executeRead(readQuery);	
+				if(readQueryResultSet!=null){
+					while(readQueryResultSet.next()){
+					contratto= ottieniContratto(readQueryResultSet);}
+					}
+			 } catch (SQLException e) {
+				e.printStackTrace();
+				AlertView.getAlertView("Non è stato possibile leggere i contratti" , AlertType.ERROR);
+			 }
+			 finally{
+				try {
+					readQueryResultSet.close();
+					//connection.chiudiConnessione();
+					} catch (SQLException e) {
+						e.printStackTrace();
+				}
+			}
+
+		    return contratto;
 	}
 	
 	

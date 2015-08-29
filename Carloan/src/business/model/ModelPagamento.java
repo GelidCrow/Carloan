@@ -2,8 +2,10 @@ package business.model;
 
 
 import integration.DAO.DaoFactory;
+import integration.DAO.entity.DAOCliente;
 import integration.DAO.entity.DAOPagamento;
 import business.entity.Entity;
+import business.entity.pagamento.Pagamento;
 import business.model.Exception.CommonException;
 
 public class ModelPagamento implements Model{
@@ -30,7 +32,16 @@ public class ModelPagamento implements Model{
 
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			return (Pagamento) ((DAOPagamento) daofactory.getDao("DAOPagamento")).lettura(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (CommonException e) {
+			// TODO Auto-generated catch block
+			e.showMessage();
+		}
 		return null;
 	}
 

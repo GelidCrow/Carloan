@@ -74,8 +74,31 @@ public class DAOCartaDiCredito implements DAO{
 
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String readQuery = "Select * from CartaDiCredito where idiban = '?'";
+		readQuery = queryReplaceFirst(readQuery,String.valueOf(id));
+
+		Connection connection= Connection.getConnection(daofactory);
+		CartaDiCredito carta=null;
+		  ResultSet readQueryResultSet=null;
+		     try {
+				readQueryResultSet = connection.executeRead(readQuery);	
+				
+				if(readQueryResultSet!=null){
+					while(readQueryResultSet.next())
+						carta=  ottieniCarta(readQueryResultSet);}
+			 } catch (SQLException e) {
+				e.printStackTrace();
+				AlertView.getAlertView("Non è stato possibile leggere la carta " , AlertType.ERROR);
+			 }
+			 finally{
+				try {
+					readQueryResultSet.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+				}
+			}
+
+		    return carta;
 	}
 	
 	
@@ -120,7 +143,5 @@ public class DAOCartaDiCredito implements DAO{
 	private CartaDiCredito ottieniCarta(ResultSet resultset) throws SQLException{
 		return  new CartaDiCredito(resultset.getInt(6),resultset.getDate(4).toLocalDate(),
 					resultset.getString(2),resultset.getString(3),resultset.getString(5),resultset.getInt(1));
-		
-		
 	}
 }

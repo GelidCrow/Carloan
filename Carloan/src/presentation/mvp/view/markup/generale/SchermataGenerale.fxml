@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="20.0" prefWidth="1024.0">
         <menus>
@@ -126,7 +126,7 @@
                                     </ImageView>
                                     <TextField layoutX="63.0" layoutY="57.0" />
                                     <Button fx:id="btnVOptional" layoutX="339.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVOptional" text="Visualizza Optional " />
-                                    <MenuButton layoutX="480.0" layoutY="14.0" mnemonicParsing="false" text="Multa">
+                                    <MenuButton fx:id="choiceMulta" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" text="Multa">
                                       <items>
                                         <MenuItem mnemonicParsing="false" text="Aggiungi" />
                                           <MenuItem mnemonicParsing="false" text="Chiudi" />
@@ -138,7 +138,7 @@
                                     <Label layoutX="229.0" layoutY="355.0" text="Targa" />
                                     <Label layoutX="229.0" layoutY="381.0" text="Marca" />
                                     <Label layoutX="229.0" layoutY="409.0" text="Modello" />
-                                    <ImageView fx:id="imgAuto" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="355.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="imgAutoNoleggio" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="355.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label fx:id="lblTarga" layoutX="280.0" layoutY="355.0" prefHeight="17.0" prefWidth="80.0" />
                                     <Label fx:id="lblMarca" layoutX="280.0" layoutY="381.0" prefHeight="17.0" prefWidth="97.0" />
                                     <Label fx:id="lblModello" layoutX="283.0" layoutY="409.0" prefHeight="17.0" prefWidth="107.0" />
@@ -166,7 +166,7 @@
                                     <Label layoutX="377.0" layoutY="402.0" prefHeight="17.0" prefWidth="69.0" text="Pagamento" />
                                     <Label layoutX="392.0" layoutY="421.0" text="Tipo Pagamento" />
                                     <Label fx:id="lblTPagamento" layoutX="524.0" layoutY="421.0" prefHeight="17.0" prefWidth="128.0" />
-                                    <Label layoutX="397.0" layoutY="440.0" text="Prezzo" />
+                                    <Label layoutX="399.0" layoutY="441.0" text="Importo Momentaneo" />
                                     <Label fx:id="lblCauzione" layoutX="526.0" layoutY="461.0" prefHeight="17.0" prefWidth="115.0" />
                                     <Label layoutX="394.0" layoutY="461.0" text="Cauzione" />
                                     <Label fx:id="lblPrezzo" layoutX="524.0" layoutY="441.0" prefHeight="17.0" prefWidth="107.0" />
@@ -201,7 +201,6 @@
                                        </columns></TableView>
                                     <Button fx:id="btnNuovoCliente" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoCliente" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button fx:id="btnModificaCliente" layoutX="147.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaCliente" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
-                                    <Button layoutX="818.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Stampa" />
                                     <Button layoutX="264.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta Di Credito" />
                                     <Button layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVisualizzaCartaCredito" text="Visualizza Carta di Credito" />
                                  </children>

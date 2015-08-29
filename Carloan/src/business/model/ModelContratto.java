@@ -53,7 +53,13 @@ public class ModelContratto implements Model{
 
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			return (Contratto) ((DAOContratto) daofactory.getDao("DAOContratto")).lettura(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }
