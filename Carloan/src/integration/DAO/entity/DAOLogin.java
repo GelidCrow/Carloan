@@ -89,13 +89,18 @@ public class DAOLogin implements DAO{
 	public void aggiornamento(Entity x) {
 		Login login=(Login)x;
 		
-		String INSERT = "Update Credenziali set Username='?',Password='?' where ";
+		String INSERT = "Update Credenziali set Username='?'";
+		String where="where ";
 		
 		String insertQuery = INSERT;
 
         insertQuery = queryReplaceFirst(insertQuery, login.getUsername());
-        
-        insertQuery= queryReplaceFirst(insertQuery,Crittografia.CriptaPassword(login.getPassword()));
+        String pswrd=login.getPassword();
+        if(!pswrd.equals("")){
+        	insertQuery+=",Password='?'";
+        insertQuery= queryReplaceFirst(insertQuery,Crittografia.CriptaPassword(pswrd));
+        }
+        insertQuery+=" "+where;
        String n=login.getAmministratore();
        if(n!=null){
     	   insertQuery+="idamministratore='?'";
@@ -257,7 +262,7 @@ public class DAOLogin implements DAO{
 	Connection c=Connection.getConnection(this.daofactory);
 	try {
 		ResultSet r=c.executeRead(query);
-		if(r!=null)
+		if(r!=null && r.next())
 			ret=r.getString(1);
 	} catch (SQLException e) {
 		e.printStackTrace();

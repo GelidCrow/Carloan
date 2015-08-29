@@ -96,7 +96,7 @@ public class Nuovo_Amministratore extends Schermata{
 			}
 		} 
 	
-	protected Login prendiDatiPerLogIn() throws CommonException {
+	private Login prendiDatiPerLogIn() throws CommonException {
 		String user_name=username.getText();
 		if(user_name==null || user_name.isEmpty() || user_name.length()<4)
 			throw new CommonException("Username non valido");

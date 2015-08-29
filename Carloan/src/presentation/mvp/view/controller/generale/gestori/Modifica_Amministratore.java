@@ -101,7 +101,14 @@ public void initData(Entity x){
 				e1.printStackTrace();
 			}
 		} 
-	
+	private Login prendiDatiPerLogIn() throws CommonException {
+		String user_name=username.getText();
+		if(user_name==null || user_name.isEmpty() || user_name.length()<4)
+			throw new CommonException("Username non valido");
+		String passw=password.getText();
+		
+		return new Login(user_name, passw);
+	}
 	@FXML
 	public void btnannulla(ActionEvent e){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);

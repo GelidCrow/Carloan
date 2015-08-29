@@ -42,5 +42,6 @@
       <Button layoutX="335.0" layoutY="447.0" mnemonicParsing="false" onAction="#btnannulla" prefHeight="45.0" prefWidth="164.0" text="Annulla" />
       <Label layoutX="403.0" layoutY="155.0" text="Assunzione" />
       <CheckBox fx:id="assunto" layoutX="473.0" layoutY="155.0" mnemonicParsing="false" text="Assunto" />
+      <Label layoutX="403.0" layoutY="343.0" text="Lasciare la password vuota per non modificare quella esistente" textFill="#e43535" />
    </children>
 </AnchorPane>
