@@ -16,7 +16,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import presentation.mvp.view.controller.Schermata;
 
 public class ChiudiMulta extends VisualizzaMulte{
 	@FXML
@@ -53,7 +52,7 @@ public class ChiudiMulta extends VisualizzaMulte{
 	}
 	@FXML
 	public void btnCancella(ActionEvent e){
-	 java.util.Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
+	Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
 			if(result.isPresent() && result.get() == ButtonType.OK)
 				this.chiudiFinestra();
 	}
@@ -81,5 +80,6 @@ public class ChiudiMulta extends VisualizzaMulte{
 		if(dPagamento.isBefore(multa.getDataScadenza())){
 			txtRitardo.setDisable(true);
 		}
+		System.out.println("QUi");
 	}
 }
