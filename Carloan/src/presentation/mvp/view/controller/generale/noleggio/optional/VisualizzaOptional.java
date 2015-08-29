@@ -104,14 +104,19 @@ public class VisualizzaOptional extends Schermata{
 			List<Optional> optional= (List<Optional>)presenter.processRequest("getAllOptionalByNoleggio",((Noleggio)entity).getIDNoleggio());
 			caricaTabella(optional);
 			ObservableList<Optional> listItem= tbOptionalScelti.getItems();
-			for(Optional op: listItem){
-				if(op instanceof GuidatoreAggiuntivo){
-					break;
+			if(listItem!=null && !listItem.isEmpty()) {
+				for(Optional op: listItem){
+					if(op instanceof GuidatoreAggiuntivo){
+						break;
+					}
+					else {
+						btnVGuidatore.setVisible(false);
+						break;
+					}
 				}
-				else {
-					btnVGuidatore.setVisible(false);
-					break;
-				}
+			}
+			else {
+				btnVGuidatore.setVisible(false);
 			}
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
