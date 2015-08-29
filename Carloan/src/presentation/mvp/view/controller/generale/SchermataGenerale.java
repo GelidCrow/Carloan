@@ -101,6 +101,9 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	@FXML
 	private MenuButton btnManutenzione;
+	
+	@FXML
+	private MenuButton btnMulta;
 	private TabClienti tbClientController;
 
 	private TabContratto tbContrattoController;
@@ -344,7 +347,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	/**
 	 * <p> Ascoltatore per il cambio di tab </p>
 	 */
-	private class TabChangeListener<X> implements ChangeListener<Tab>{
+	class TabChangeListener<X> implements ChangeListener<Tab>{
 		
 
 		/**
@@ -362,6 +365,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 						tbClientController = new TabClienti((TableView<Cliente>)tbCliente,SchermataGenerale.this);
 						//carica la prima volta la tabella 
 						caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
+						
 					} catch (InstantiationException | IllegalAccessException| ClassNotFoundException| NoSuchMethodException | SecurityException
 							| IllegalArgumentException	
 							| InvocationTargetException
@@ -380,6 +384,33 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 						tbNoleggioController = new TabNoleggio((TableView<Noleggio>)tbNoleggio,SchermataGenerale.this);
 						//carica la prima volta la tabella 
 						caricaTabella((List<T>)presenter.processRequest("getAllNoleggi",null),tbNoleggio);
+						ObservableList<MenuItem> items=btnMulta.getItems();
+						for(MenuItem m:items){
+							switch(m.getText()){
+							case "Aggiungi":
+								m.setOnAction(new EventHandler<ActionEvent>() {
+						            public void handle(ActionEvent t) {
+						            	tbNoleggioController.NuovaMulta();
+						            }
+						        });  
+								break;
+							case "Chiudi":
+								m.setOnAction(new EventHandler<ActionEvent>() {
+						            public void handle(ActionEvent t) {
+						            	tbNoleggioController.ChiudiMulta();
+						            }
+						        });  
+								break;
+							case "Visualizza":
+								m.setOnAction(new EventHandler<ActionEvent>() {
+						            public void handle(ActionEvent t) {
+						            	tbNoleggioController.VisualizzaMulta();
+						            }
+						        });  
+								break;
+								
+							}
+						}
 					} catch (InstantiationException | IllegalAccessException| ClassNotFoundException| NoSuchMethodException | SecurityException
 							| IllegalArgumentException	
 							| InvocationTargetException

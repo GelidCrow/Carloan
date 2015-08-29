@@ -54,8 +54,19 @@ public class TabNoleggio {
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaOptional",Modality.APPLICATION_MODAL);
 	}
 	
-
-	
+	void NuovaMulta(){
+		System.out.println("Ciao");
+		FXMLParameter.setTitolo("Nuova Multa");
+	    FXMLParameter.setRidimensionabile(false);
+	    FXMLParameter.setEntity(((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio"));
+		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataInserimentoMulta",Modality.APPLICATION_MODAL);
+	}
+	void ChiudiMulta(){
+			
+	}
+	void VisualizzaMulta(){
+		
+	}
 	
 	public void bindingValuesContratto(){
 		noleggio.get(0).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getIDNoleggio()));
