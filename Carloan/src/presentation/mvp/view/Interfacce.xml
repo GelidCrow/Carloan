@@ -43,4 +43,12 @@
 
 	<!--Amministratore -->
 	<interface id="MostraSchermataNuovoAmministratore" src ="markup/generale/gestori/Nuovo_Amministratore.fxml"></interface>
+	
+	
+	<! -- MULTA -->
+	<interface id="MostraSchermataInserimentoMulta" src ="markup/generale/noleggio/multa/NuovaMulta.fxml"></interface>
+	<interface id="MostraSchermataVisualizzaMulte" src ="markup/generale/noleggio/multa/VisualizzaMulte.fxml"></interface>
+	<interface id="MostraSchermataChiusuraMulta" src ="markup/generale/noleggio/multa/ChiusuraMulta.fxml"></interface>
+	
+	
 </interfaces>

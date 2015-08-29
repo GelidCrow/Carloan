@@ -331,4 +331,20 @@
 	<method>getAll</method>
 </call>
 
+	<!-- MULTA -->
+	<call id="getAllMulteByNoleggio">
+		<class>business.model.ModelMulta</class>
+		<method>getAllMulteByNoleggio</method>
+	</call>
+	<call id="InserimentoMulta">
+		<class>business.model.ModelMulta</class>
+		<method>Inserimento</method>
+	</call>
+	<call id="ChiusuraMulta">
+		<class>business.model.ModelMulta</class>
+		<method>aggiornamento</method>
+	</call>
+	
+	
+
 </calls>
