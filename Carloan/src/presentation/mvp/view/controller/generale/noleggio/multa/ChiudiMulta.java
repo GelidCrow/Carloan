@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import presentation.mvp.view.controller.Schermata;
 import business.entity.Entity;
 import business.entity.Noleggio.Multa;
 import business.entity.Noleggio.StatoMulta;
@@ -17,7 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class ChiudiMulta extends VisualizzaMulte{
+public class ChiudiMulta extends Schermata{
 	@FXML
 	private TextField txtRitardo;
 	@FXML
