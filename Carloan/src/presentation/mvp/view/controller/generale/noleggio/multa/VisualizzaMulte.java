@@ -104,8 +104,7 @@ public class VisualizzaMulte extends Schermata{
 				Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataChiusuraMulta",Modality.APPLICATION_MODAL);
 			}
 		else 
-			throw new CommonException(""
-					+ "La multa è già stata chiusa!");
+			throw new CommonException( "La multa è già stata chiusa!");
 		} catch (CommonException e1) {
 			e1.showMessage();
 		}
