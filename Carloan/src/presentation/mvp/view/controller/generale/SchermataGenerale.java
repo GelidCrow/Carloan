@@ -234,7 +234,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	@FXML
 	public void btnmodifica_amministratore(ActionEvent e){
-		
+		try {
+			tbAmministratoreController.ModificaAmministratore();
+		} catch (CommonException e1) {
+			// TODO Auto-generated catch block
+			e1.showMessage();
+		}
 	}
 	
 	

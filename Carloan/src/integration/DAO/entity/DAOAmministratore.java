@@ -27,7 +27,7 @@ public class DAOAmministratore implements DAO{
 	@Override
 	public ResultSet creazione(Entity x) throws CommonException {
 		String query="insert into Amministratore(Nome,Cognome,Sesso,datanascita,indirizzo,codicefiscale,numcell,numfisso,assunto,idditta)"+
-	     " values('?','?','?','?','?','?','?','?','V',?)";
+	     " values('?','?','?','?','?','?','?','?','1',?)";
 		Amministratore a=(Amministratore)x;
 		query=queryReplaceFirst(query, a.getNome());
 		query=queryReplaceFirst(query, a.getCognome());
@@ -57,7 +57,42 @@ public class DAOAmministratore implements DAO{
 
 	@Override
 	public void aggiornamento(Entity entity) throws CommonException {
-		// TODO Auto-generated method stub
+		Amministratore a=(Amministratore)entity;
+		String query="Update amministratore set nome='?',cognome='?',sesso='?',datanascita='?',indirizzo='?'"
+				+",codicefiscale='?',numcell='?',numfisso='?',assunto='?' where idamministratore=?";
+		query=queryReplaceFirst(query, a.getNome());
+		query=queryReplaceFirst(query, a.getCognome());
+		query=queryReplaceFirst(query, a.getSesso());
+		query=queryReplaceFirst(query, a.getDataNascita().toString());
+		query=queryReplaceFirst(query, a.getIndirizzo());
+		query=queryReplaceFirst(query, a.getCodiceFiscale());
+		query=queryReplaceFirst(query, a.getNumCell());
+		query=queryReplaceFirst(query, a.getNumFisso());
+		if(a.isAssunto())
+			query=queryReplaceFirst(query,"1");
+		else
+			query=queryReplaceFirst(query, "0");
+		query=queryReplaceFirst(query,String.valueOf(a.getIdUtente()));
+		Connection c=Connection.getConnection(this.daofactory);
+		try {
+			ResultSet r=c.executeUpdate(query);
+			if(r!=null)
+				AlertView.getAlertView("Amministratore aggiornato con successo", AlertType.INFORMATION);
+			else
+				throw new CommonException("Non e' stato possibile aggiornare l'amministratore");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 	

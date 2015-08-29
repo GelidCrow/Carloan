@@ -8,11 +8,19 @@ import java.sql.SQLException;
 
 
 
+
+
+
+
 import utility.Crittografia;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 import business.entity.Entity;
 import business.entity.Login;
+import business.entity.Gestori.Amministratore;
+import business.entity.Gestori.Operatore;
+import business.entity.Gestori.SupervisoreAgenzia;
+import business.entity.Gestori.SupervisoreSede;
 import business.model.Exception.CommonException;
 
 
@@ -79,8 +87,52 @@ public class DAOLogin implements DAO{
 
 	@Override
 	public void aggiornamento(Entity x) {
-		// TODO Auto-generated method stub
+		Login login=(Login)x;
 		
+		String INSERT = "Update Credenziali set Username='?',Password='?' where ";
+		
+		String insertQuery = INSERT;
+
+        insertQuery = queryReplaceFirst(insertQuery, login.getUsername());
+        
+        insertQuery= queryReplaceFirst(insertQuery,Crittografia.CriptaPassword(login.getPassword()));
+       String n=login.getAmministratore();
+       if(n!=null){
+    	   insertQuery+="idamministratore='?'";
+    	   insertQuery=queryReplaceFirst(insertQuery,n);
+       }
+       n=login.getSupA();
+       if(n!=null){
+    	   insertQuery+="idsupervisoreagenzia='?'";
+    	   insertQuery=queryReplaceFirst(insertQuery,n);
+       }
+       n=login.getSupS();
+       if(n!=null){
+    	   insertQuery+="idsupervisoresede='?'";
+    	   insertQuery=queryReplaceFirst(insertQuery,n);
+       }
+       
+       n=login.getOperatore();
+       if(n!=null){
+    	   insertQuery+="idoperatore='?'";
+    	   insertQuery=queryReplaceFirst(insertQuery,n);
+       }
+        Connection connection= Connection.getConnection(daofactory);
+        ResultSet idList = null;
+		try {
+			 idList = connection.executeUpdate(insertQuery);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				idList.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 
@@ -170,7 +222,48 @@ public class DAOLogin implements DAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
+	
+	/**
+	 * Legge l'username partendo dall'istanza di un utente
+	 * @param x
+	 * @return
+	 */
+	public String getUsername(Entity x){
+		String query="Select username from credenziali where";
+		String ret = null;
+		if(x instanceof Amministratore){
+			Amministratore a=(Amministratore)x;
+			query+=" idamministratore =?";
+			query=queryReplaceFirst(query, String.valueOf(a.getIdUtente()));
+		}
+		else if(x instanceof SupervisoreAgenzia){
+			SupervisoreAgenzia s=(SupervisoreAgenzia)x;
+			query+=" idsupervisoreagenzia =?";
+			query=queryReplaceFirst(query, String.valueOf(s.getIdUtente()));
+			
+		}
+		else if(x instanceof SupervisoreSede){
+			SupervisoreSede s=(SupervisoreSede)x;
+			query+=" idsupervisoresede =?";
+			query=queryReplaceFirst(query, String.valueOf(s.getIdUtente()));
+		}
+		else {
+			Operatore s=(Operatore)x;
+			query+=" idoperatore =?";
+			query=queryReplaceFirst(query, String.valueOf(s.getIdUtente()));
+		}
+		
+	Connection c=Connection.getConnection(this.daofactory);
+	try {
+		ResultSet r=c.executeRead(query);
+		if(r!=null)
+			ret=r.getString(1);
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+	return ret;
+	}
+	
 }

@@ -51,7 +51,7 @@ public class TabAmministratore {
 		Finestra.visualizzaFinestra(presenter, FXMLParameter, schermata, "MostraSchermataNuovoAmministratore",Modality.APPLICATION_MODAL);
 		
 	}
-	public void ModificaSede() throws CommonException{
+	public void ModificaAmministratore() throws CommonException{
 		 if(table_amministratore.getSelectionModel().getSelectedIndex()< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }

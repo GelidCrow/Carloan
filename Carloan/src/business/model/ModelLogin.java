@@ -1,5 +1,7 @@
 package business.model;
 
+
+
 import business.entity.Entity;
 import business.model.Exception.CommonException;
 import integration.DAO.DaoFactory;
@@ -43,7 +45,13 @@ public class ModelLogin implements Model {
 	@Override
 	public void aggiornamento(Entity parameter) {
 		
-		
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);			
+		 ((DAOLogin) daofactory.getDao("DAOLogin")).aggiornamento(parameter);;
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -66,4 +74,18 @@ public class ModelLogin implements Model {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public String getUsername(Entity x){
+		String ret = null;
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);			
+		ret=	 ((DAOLogin) daofactory.getDao("DAOLogin")).getUsername(x);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
 }
