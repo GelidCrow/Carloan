@@ -344,7 +344,11 @@
 		<class>business.model.ModelMulta</class>
 		<method>aggiornamento</method>
 	</call>
-	
+	<!--Credenziali-->
+	<call id="VerificaCredenziali">
+		<class>business.model.ModelLogin</class>
+		<method>VerificaCredenziali</method>
+	</call>
 	
 
 </calls>

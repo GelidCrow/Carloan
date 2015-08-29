@@ -43,6 +43,7 @@
 
 	<!--Amministratore -->
 	<interface id="MostraSchermataNuovoAmministratore" src ="markup/generale/gestori/Nuovo_Amministratore.fxml"></interface>
+	<interface id="MostraSchermataModificaAmministratore" src ="markup/generale/gestori/Modifica_Amministratore.fxml"></interface>
 	
 	
 	<!-- MULTA -->

@@ -8,14 +8,12 @@ import java.sql.SQLException;
 
 
 
+
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 import business.entity.Entity;
 import business.entity.Login;
-import business.entity.Gestori.Amministratore;
-import business.entity.Gestori.Operatore;
-import business.entity.Gestori.SupervisoreAgenzia;
-import business.entity.Gestori.SupervisoreSede;
+import business.model.Exception.CommonException;
 
 
 public class DAOLogin implements DAO{
@@ -147,5 +145,22 @@ public class DAOLogin implements DAO{
 	public Entity lettura(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	public void verifica_credenziali(Login l) throws CommonException {
+		String query="Select * from credenziali where username='?'";
+		query=queryReplaceFirst(query, l.getUsername());
+		Connection c=Connection.getConnection(this.daofactory);
+		try {
+			ResultSet r=c.executeRead(query);
+			if(r.next())
+				throw new CommonException("L'username è già stato scelto");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 }

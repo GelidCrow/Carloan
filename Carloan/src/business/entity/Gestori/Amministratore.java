@@ -18,7 +18,9 @@ public class Amministratore extends Utente {
 		// TODO Auto-generated constructor stub
 		this.IDDitta=IDDitta;
 	}
-
+public Amministratore(){
+	super();
+}
 
 	public int getIDDitta() {
 		return IDDitta;
