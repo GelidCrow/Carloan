@@ -17,7 +17,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Utente;
 import business.entity.UtenteCorrente;
@@ -162,6 +164,7 @@ public class Modifica_Autoveicolo extends Nuovo_Autoveicolo{
 					tw.getItems().clear();
 					schermataGenerale.caricaTabella((List<Autoveicolo>)presenter.processRequest("getAllAutoBySedeAndFascia",lista), tw);
 				}
+				AlertView.getAlertView("Autoveicolo aggiornato con successo", AlertType.INFORMATION);
 				chiudiFinestra();
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException

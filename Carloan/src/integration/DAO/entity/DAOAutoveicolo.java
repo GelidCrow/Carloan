@@ -135,11 +135,9 @@ public DAOAutoveicolo(DaoFactory dao) {
 				s=connection.executeUpdate_binary(update,i);
 				updated=true;
 				}
-			if(updated)
-				AlertView.getAlertView("Autoveicolo aggiornato con successo", AlertType.INFORMATION);
-			else
+			if(!updated)
 				throw new CommonException("Autoveicolo non aggiornato");
-	}
+		}
 		 catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
