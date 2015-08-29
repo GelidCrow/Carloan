@@ -34,7 +34,7 @@ public class ChiudiContratto extends NuovoContratto{
 				presenter.processRequest("VerificaContratto", contratto);
 				presenter.processRequest("ModificaContratto", contratto);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
-				((SchermataGenerale)this.getChiamante()).caricaTabella((List<Contratto>)presenter.processRequest("getAllContratti",null), scChiamante.getTable("Contratto"));
+				scChiamante.caricaTabella((List<Contratto>)presenter.processRequest("getAllContratti",null), scChiamante.getTable("Contratto"));
 				chiudiFinestra();
 			}
 			catch(CommonException e){
@@ -47,17 +47,12 @@ public class ChiudiContratto extends NuovoContratto{
 				e.printStackTrace();
 			}	
 		}
-	@SuppressWarnings("unchecked")
 	@Override
-	public Contratto prendiDatiDaView() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException{
+	public Contratto prendiDatiDaView() {
+		
 		contratto.setStato(StatoContratto.Chiuso.toString());
 		contratto.setNote(textNote.getText());
-		List<Noleggio> contrattiAperti= (List<Noleggio>)presenter.processRequest("getNoleggiAperti", contratto.getIDContratto());
-			if(contrattiAperti.size()>0){
-				throw new CommonException("Ci sono dei contratti aperti , non è possibile fare questa scelta");
-			}
-			else 
-				contratto.setDataChiusura(LocalDate.now());//imposto la data di chiusura se il valore scelto è annullato	
+			
 		return contratto;
 	}
 	 

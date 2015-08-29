@@ -141,7 +141,15 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	public void btnChiudiContratto(ActionEvent e) {
 		try {
-			tbContrattoController.ChiudiContratto();
+			try {
+				tbContrattoController.ChiudiContratto();
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | NoSuchMethodException
+					| SecurityException | IllegalArgumentException
+					| InvocationTargetException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} catch (CommonException e1) {
 			e1.showMessage();
 		}

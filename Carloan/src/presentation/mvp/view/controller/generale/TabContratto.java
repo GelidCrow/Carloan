@@ -1,7 +1,9 @@
 package presentation.mvp.view.controller.generale;
 
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
+import java.util.List;
 
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
@@ -12,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import business.entity.Noleggio.Contratto;
+import business.entity.Noleggio.Noleggio;
 import business.model.Exception.CommonException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -58,8 +61,16 @@ public class TabContratto {
 	    }
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public void ChiudiContratto() throws CommonException{
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void ChiudiContratto() throws CommonException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException{
+		Contratto contratto= (Contratto) ((SchermataGenerale) schermata).getEntitaElementoSelezionato("Contratto");
+		List<Noleggio> noleggiAperti= (List<Noleggio>)presenter.processRequest("getNoleggiAperti", contratto.getIDContratto());
+		if(noleggiAperti.size()>0){
+			throw new CommonException("Ci sono dei noleggi aperti , non è possibile fare questa scelta");
+		}
+		else 
+			contratto.setDataChiusura(LocalDate.now());//imposto la data di chiusura se il valore scelto è annullato
+		
 	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }

@@ -56,7 +56,7 @@ public class ModificaContratto extends NuovoContratto{
 				presenter.processRequest("VerificaContratto", contratto);
 				presenter.processRequest("ModificaContratto", contratto);
 				//Prendo la schermata che ha chiamato questo metodo , li passo l'elemento selezionato , il cliente da modificare e la tabella su cui lavorare
-				((SchermataGenerale)this.getChiamante()).caricaTabella((List<Contratto>)presenter.processRequest("getAllContratti",null), scChiamante.getTable("Contratto"));
+				scChiamante.caricaTabella((List<Contratto>)presenter.processRequest("getAllContratti",null), scChiamante.getTable("Contratto"));
 				chiudiFinestra();
 			}
 			catch(CommonException e){
@@ -86,7 +86,7 @@ public class ModificaContratto extends NuovoContratto{
 		if(choiceStato.getSelectionModel().getSelectedItem().equals(StatoContratto.Annullato.toString())){
 			List<Noleggio> contrattiAperti= (List<Noleggio>)presenter.processRequest("getNoleggiAperti", contratto.getIDContratto());
 			if(contrattiAperti.size()>0){
-				throw new CommonException("Ci sono dei contratti aperti , non è possibile fare questa scelta");
+				throw new CommonException("Ci sono dei noleggi aperti , non è possibile fare questa scelta");
 			}
 			else 
 				contratto.setDataChiusura(LocalDate.now());//imposto la data di chiusura se il valore scelto è annullato	
