@@ -399,13 +399,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 						            }
 						        });  
 								break;
-							case "Chiudi":
-								m.setOnAction(new EventHandler<ActionEvent>() {
-						            public void handle(ActionEvent t) {
-						            	tbNoleggioController.ChiudiMulta();
-						            }
-						        });  
-								break;
 							case "Visualizza":
 								m.setOnAction(new EventHandler<ActionEvent>() {
 						            public void handle(ActionEvent t) {

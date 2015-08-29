@@ -65,7 +65,7 @@ public class VisualizzaMulte extends Schermata{
 	 * <p>Carica la tabella dei guidatori </p>
 	 * @return
 	 */
-	protected void caricaTabella(List<Multa> list){
+	public void caricaTabella(List<Multa> list){
 		ObservableList<Multa> obsList= FXCollections.observableList(list);
 		tbMulta.setItems(obsList);
 	}

@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
+import presentation.mvp.view.controller.generale.noleggio.multa.VisualizzaMulte;
 import presentation.mvp.view.controller.Schermata;
 import business.entity.Entity;
 import business.entity.Noleggio.Multa;
@@ -26,15 +26,16 @@ public class ChiudiMulta extends Schermata{
 	private LocalDate dPagamento;
 	private Multa multa;
 	
+	@SuppressWarnings("unchecked")
 	@FXML
 	public void btnConferma(ActionEvent e){
 		
 		try {
 			prendiDatiDaView();
 			try {
-			//	presenter.processRequest("VerificaMulta", multa);
+				presenter.processRequest("VerificaMulta", multa);
 				presenter.processRequest("ChiusuraMulta", multa);
-				//this.caricaTabella((List<Multa>)presenter.processRequest("getAllMulteByNoleggio",multa.getIdNoleggio()));
+				((VisualizzaMulte)this.getChiamante()).caricaTabella((List<Multa>)presenter.processRequest("getAllMulteByNoleggio",multa.getIdNoleggio()));
 			
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
@@ -81,6 +82,5 @@ public class ChiudiMulta extends Schermata{
 		if(dPagamento.isBefore(multa.getDataScadenza())){
 			txtRitardo.setDisable(true);
 		}
-		System.out.println("QUi");
 	}
 }
