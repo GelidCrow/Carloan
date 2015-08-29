@@ -105,6 +105,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		if(tbGuidatori.getItems()!=null)
 			tbGuidatori.getItems().clear();
 		campiDisattivi=false;
+		guidatore=null;
 	}
 	
 	/**

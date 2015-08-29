@@ -25,7 +25,7 @@
       <Label layoutX="445.0" layoutY="153.0" text="Numero Seggiolini" />
       <Label layoutX="445.0" layoutY="119.0" text="Limite Copertura" />
       <Label layoutX="445.0" layoutY="80.0" text="Prezzo" />
-      <Button layoutX="445.0" layoutY="241.0" mnemonicParsing="false" onAction="#btnVisualizzaGuidatori" text="Visualizza Guidatori" />
+      <Button fx:id="btnVGuidatore" layoutX="445.0" layoutY="241.0" mnemonicParsing="false" onAction="#btnVisualizzaGuidatori" text="Visualizza Guidatori" />
       <Label fx:id="lblNumGuidAggiuntivi" layoutX="630.0" layoutY="192.0" prefHeight="17.0" prefWidth="127.0" />
       <Label fx:id="lblLimiteCoperturaScelto" layoutX="586.0" layoutY="119.0" prefHeight="17.0" prefWidth="133.0" />
       <Label fx:id="lblNumSeggioliniScelti" layoutX="586.0" layoutY="153.0" prefHeight="17.0" prefWidth="149.0" />

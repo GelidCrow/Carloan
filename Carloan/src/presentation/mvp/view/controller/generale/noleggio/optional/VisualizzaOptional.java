@@ -7,15 +7,20 @@ import java.util.ResourceBundle;
 
 import business.entity.Entity;
 import business.entity.Noleggio.Noleggio;
-import business.entity.Noleggio.Optional.Guidatore;
+import business.entity.Noleggio.Optional.Assicurazione_KASKO;
+import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
 import business.entity.Noleggio.Optional.Optional;
-import business.entity.Noleggio.Optional.Optional;
+import business.entity.Noleggio.Optional.Seggiolino;
 import business.model.Exception.CommonException;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
@@ -36,18 +41,11 @@ public class VisualizzaOptional extends Schermata{
 	@SuppressWarnings("rawtypes")
 	@FXML
 	public void btnVisualizzaGuidatori(ActionEvent e){
-		if(((SchermataGenerale)this.getChiamante()).getEntitaElementoSelezionato("Noleggio")==null){
-    		try {
-				throw new CommonException("Nessun elemento selezionato");
-			} catch (CommonException e1) {
-				e1.showMessage();
-			}
-		}
-		else{
+
 			FXMLParameter.setTitolo("Optional");
 		    FXMLParameter.setRidimensionabile(false);
 		    FXMLParameter.setEntity(((SchermataGenerale)this.getChiamante()).getEntitaElementoSelezionato("Noleggio"));
-			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataVisualizzaGuidatori",Modality.APPLICATION_MODAL);	}
+			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataVisualizzaGuidatori",Modality.APPLICATION_MODAL);	
 	}
 	
 	private void bindingValuesOptional(){
@@ -66,12 +64,55 @@ public class VisualizzaOptional extends Schermata{
 		ObservableList<Optional> obsList= FXCollections.observableList(list);
 		tbOptionalScelti.setItems(obsList);
 	}
+	
+	@FXML
+	private Label lblprezzoOptScelti;
+	@FXML
+	private Label lblLimiteCoperturaScelto;
+	@FXML
+	private Label lblNumSeggioliniScelti;
+	@FXML
+	private Label lblNumGuidAggiuntivi;
+	
+	private class ItemSelectedOptScelti implements ChangeListener<Optional>{
+
+		@Override
+		public void changed(ObservableValue<? extends Optional> observable,
+				Optional oldValue, Optional newValue) {
+			lblNumSeggioliniScelti.setText("");
+			lblLimiteCoperturaScelto.setText("");
+			lblNumGuidAggiuntivi.setText("");
+			if(newValue!=null)
+				lblprezzoOptScelti.setText(String.valueOf(newValue.getPrezzo()));
+			if(newValue instanceof Seggiolino){
+				lblNumSeggioliniScelti.setText(String.valueOf(((Seggiolino) newValue).getnumero()));
+			}
+			else if( newValue instanceof Assicurazione_KASKO){
+				lblLimiteCoperturaScelto.setText(String.valueOf(((Assicurazione_KASKO)newValue).getCopertura()));
+			}
+			else if( newValue instanceof GuidatoreAggiuntivo){
+				lblNumGuidAggiuntivi.setText(String.valueOf(((GuidatoreAggiuntivo)newValue).getNumero_guidatori()));
+			}
+		}
+	}
+	@FXML
+	private Button btnVGuidatore;
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initData(Entity entity){
 		try {
-			List<Optional> guidatori= (List<Optional>)presenter.processRequest("getAllOptionalByNoleggio",((Noleggio)entity).getIDNoleggio());
-			caricaTabella(guidatori);
+			List<Optional> optional= (List<Optional>)presenter.processRequest("getAllOptionalByNoleggio",((Noleggio)entity).getIDNoleggio());
+			caricaTabella(optional);
+			ObservableList<Optional> listItem= tbOptionalScelti.getItems();
+			for(Optional op: listItem){
+				if(op instanceof GuidatoreAggiuntivo){
+					break;
+				}
+				else {
+					btnVGuidatore.setVisible(false);
+					break;
+				}
+			}
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
@@ -86,6 +127,7 @@ public class VisualizzaOptional extends Schermata{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false,false);	
-		bindingValuesOptional();	
+		bindingValuesOptional();
+		tbOptionalScelti.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedOptScelti());
 	}
 }

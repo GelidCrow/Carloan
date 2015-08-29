@@ -128,7 +128,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 			
 			/*Faccio due update: 1 per tutti i campi tranne l'immagine e 1 per l'immagine(è più comodo)*/
 			String image=a.getImmagine();
-			if( !image.isEmpty()){//<-- Ha scelto una nuova immagine, quindi bisogna aggiornare
+			if( image!=null && !image.isEmpty()){//<-- Ha scelto una nuova immagine, quindi bisogna aggiornare
 				update="UPDATE Autoveicolo SET Immagine=? WHERE IDAuto="+a.getIDauto();
 				s=null;
 				InputStream i=new FileInputStream(new File(image));
