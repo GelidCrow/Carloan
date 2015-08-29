@@ -63,7 +63,7 @@ public class DAOAmministratore implements DAO{
 	
 	@Override
 	public Entity lettura(int id){
-	String QUERY= "Select * from SupervisoreAgenzia where idSupervisoreAgenzia='?' ";
+	String QUERY= "Select * from Amministratore where idAmministratore='?' ";
 	 Connection connection= Connection.getConnection(daofactory);
 	 
 	 String readQuery = QUERY;
