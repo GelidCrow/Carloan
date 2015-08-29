@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import business.entity.Entity;
 import business.entity.Noleggio.Multa;
 import business.entity.Noleggio.Noleggio;
+import business.entity.Noleggio.StatoMulta;
 import business.model.Exception.CommonException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -44,7 +45,7 @@ public class VisualizzaMulte extends Schermata{
 	private TableColumn<Multa,String>Stato;
 	@FXML
 	private TableColumn<Multa,String>Note;
-	
+	private Noleggio noleggio;
 	@FXML
 	public void btnOk(ActionEvent e){
 		chiudiFinestra();
@@ -64,7 +65,7 @@ public class VisualizzaMulte extends Schermata{
 	 * <p>Carica la tabella dei guidatori </p>
 	 * @return
 	 */
-	private void caricaTabella(List<Multa> list){
+	protected void caricaTabella(List<Multa> list){
 		ObservableList<Multa> obsList= FXCollections.observableList(list);
 		tbMulta.setItems(obsList);
 	}
@@ -73,7 +74,8 @@ public class VisualizzaMulte extends Schermata{
 	@Override
 	public void initData(Entity entity){
 		try {
-			List<Multa> multa= (List<Multa>)presenter.processRequest("getAllMulteByNoleggio",((Noleggio)entity).getIDNoleggio());
+			 noleggio = (Noleggio)entity;
+			List<Multa> multa= (List<Multa>)presenter.processRequest("getAllMulteByNoleggio",noleggio.getIDNoleggio());
 			caricaTabella(multa);
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
@@ -88,20 +90,25 @@ public class VisualizzaMulte extends Schermata{
 	
 	@FXML
 	public void btnChiudi(ActionEvent e){
-		if(tbMulta.getSelectionModel().getSelectedIndex()<0){
-			try {
-				throw new CommonException("Seleziona una multa");
-			} catch (CommonException e1) {
-				e1.showMessage();
+		Multa multa= tbMulta.getSelectionModel().getSelectedItem();
+		try {
+			if(tbMulta.getSelectionModel().getSelectedIndex()<0){
+				
+					throw new CommonException("Seleziona una multa");
+				
 			}
+			else if(multa.getStato()==StatoMulta.Aperto){
+				FXMLParameter.setTitolo("Chiusura Multa");
+			    FXMLParameter.setRidimensionabile(false);
+			    FXMLParameter.setEntity(tbMulta.getSelectionModel().getSelectedItem());
+				Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataChiusuraMulta",Modality.APPLICATION_MODAL);
+			}
+		else 
+			throw new CommonException(""
+					+ "La multa è già stata chiusa!");
+		} catch (CommonException e1) {
+			e1.showMessage();
 		}
-		else{
-			FXMLParameter.setTitolo("Chiusura Multa");
-		    FXMLParameter.setRidimensionabile(false);
-		    FXMLParameter.setEntity(tbMulta.getSelectionModel().getSelectedItem());
-			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraSchermataChiusuraMulta",Modality.APPLICATION_MODAL);	
-		}
-		
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

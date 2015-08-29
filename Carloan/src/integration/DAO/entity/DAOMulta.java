@@ -78,8 +78,36 @@ public class DAOMulta implements DAO{
 
 	@Override
 	public void aggiornamento(Entity x) {
-		// TODO Auto-generated method stub
+		Multa multa= (Multa)x;
+		String updateQuery= "UPDATE multa set "
+				+ "dataPagamento='?', ulterioreaddebitoritardi='?',stato='?',note='?' where idmulta='?'";
+		updateQuery= queryReplaceFirst(updateQuery, multa.getDataPagamento().toString());
+		updateQuery= queryReplaceFirst(updateQuery, String.valueOf(multa.getUlterioreAddebito()));
+		updateQuery= queryReplaceFirst(updateQuery, multa.getStato().toString());
+		updateQuery= queryReplaceFirst(updateQuery, multa.getNote());
+		updateQuery= queryReplaceFirst(updateQuery, String.valueOf(multa.getIDMulta()));
 		
+		Connection connection= Connection.getConnection(daofactory);
+        
+        ResultSet idList = null;
+        try {
+			 idList = connection.executeUpdate(updateQuery);
+			 if(idList!=null)
+				 AlertView.getAlertView("Multa chiusa con successo", AlertType.INFORMATION);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 AlertView.getAlertView("Non è stato possibile aggiornare la multa" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				idList.close();
+				//connection.chiudiConnessione();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
@@ -116,9 +144,8 @@ public class DAOMulta implements DAO{
 	}
 	
 	private List<Multa> creaElencoMulta(ResultSet resultset) throws SQLException{
-		List<Multa> multe=null;
+		List<Multa> multe=new ArrayList<Multa>();
 		while(resultset.next()){
-			multe= new ArrayList<Multa>();
 			multe.add(ottieniMulta(resultset));
 		}
 		return multe;

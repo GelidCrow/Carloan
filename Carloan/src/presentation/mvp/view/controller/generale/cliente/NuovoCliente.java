@@ -106,7 +106,7 @@ public class NuovoCliente extends Schermata{
 	
 	public Cliente prendiDatiDaView() throws CommonException{
 		LocalDate dParam= null;
-		
+		cliente=new Cliente();
 		if(txtNome.getText().isEmpty() || txtCognome.getText().isEmpty() || dNascita.getValue()==null ||  dEmissPatente.getValue() ==null ||
 				txtIndirizzo.getText().isEmpty() ||txtCodFisc.getText().isEmpty() ||  txtNumCel.getText().isEmpty() ||  txtPatGuida.getText().isEmpty() || txtEmail.getText().isEmpty())
 		

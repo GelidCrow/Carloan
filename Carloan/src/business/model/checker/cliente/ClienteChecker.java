@@ -9,7 +9,7 @@ import business.entity.Entity;
 import business.model.Exception.CommonException;
 import business.model.checker.Checker;
 
- class ClienteChecker implements Checker{
+public class ClienteChecker implements Checker{
 	
     private static final int MIN_NOME_VALUE = 3;
     private static final int MAX_NOME_VALUE = 20;
