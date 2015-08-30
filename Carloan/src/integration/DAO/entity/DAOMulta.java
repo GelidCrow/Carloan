@@ -31,7 +31,7 @@ public class DAOMulta implements DAO{
 	public ResultSet creazione(Entity x) {
 		
 		String insertQuery = "INSERT INTO Multa"
-				+ "(dataMulta,dataScadenza,importo,note,stato,idNoleggio)"
+				+ "(DataMulta,DataScadenza,Importo,Note,Stato,IDNoleggio)"
 				+ "	values('?','?','?','?','?','?');";
 		
 		Multa multa= (Multa)x;
@@ -79,8 +79,8 @@ public class DAOMulta implements DAO{
 	@Override
 	public void aggiornamento(Entity x) {
 		Multa multa= (Multa)x;
-		String updateQuery= "UPDATE multa set "
-				+ "dataPagamento='?', ulterioreaddebitoritardi='?',stato='?',note='?' where idmulta='?'";
+		String updateQuery= "UPDATE Multa set "
+				+ "DataPagamento='?', UlterioreAddebitoRitardi='?',Stato='?',Note='?' where IDMulta='?'";
 		updateQuery= queryReplaceFirst(updateQuery, multa.getDataPagamento().toString());
 		updateQuery= queryReplaceFirst(updateQuery, String.valueOf(multa.getUlterioreAddebito()));
 		updateQuery= queryReplaceFirst(updateQuery, multa.getStato().toString());
@@ -116,7 +116,7 @@ public class DAOMulta implements DAO{
 		return null;
 	}
 	public List<Multa> getAllMulteByNoleggio(int id){
-		String readQuery= "Select * from multa where idNoleggio= '?'";
+		String readQuery= "Select * from Multa where IDNoleggio= '?'";
 		readQuery= queryReplaceFirst(readQuery,String.valueOf(id));
 		
 		Connection connection= Connection.getConnection(daofactory);

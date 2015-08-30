@@ -28,7 +28,7 @@ public class DAOCartaDiCredito implements DAO{
 	@Override
 	public ResultSet creazione(Entity x) {
 		String INSERT = "INSERT INTO CartaDiCredito"
-				+ "(Iban,numerocarta,datascadenza,circuito,idcliente)" 
+				+ "(IBAN,NumeroCarta,DataScadenza,Circuito,IDCliente)" 
 				+ "  values('?','?','?','?','?')";
 		
 		String insertQuery = INSERT;
@@ -74,7 +74,7 @@ public class DAOCartaDiCredito implements DAO{
 
 	@Override
 	public Entity lettura(int id) {
-		String readQuery = "Select * from CartaDiCredito where idiban = '?'";
+		String readQuery = "Select * from CartaDiCredito where IDIban = '?'";
 		readQuery = queryReplaceFirst(readQuery,String.valueOf(id));
 
 		Connection connection= Connection.getConnection(daofactory);
@@ -103,7 +103,7 @@ public class DAOCartaDiCredito implements DAO{
 	
 	
 	public List<CartaDiCredito> getAllByCliente(int id){
-		String read = "select idiban,IBan,numerocarta,datascadenza,circuito,idCliente from cartadicredito where idcliente='?'";
+		String read = "select IDIban,IBAN,NumeroCarta,DataScadenza,Circuito,IDCliente from CartaDiCredito where IDCliente='?'";
 		String readQuery = read;
 		readQuery = queryReplaceFirst(readQuery,String.valueOf(id));
 	

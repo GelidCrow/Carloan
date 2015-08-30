@@ -25,8 +25,8 @@ public class DAOGuidatore implements DAO{
 	@Override
 	public ResultSet creazione(Entity x)  {
 		Guidatore guidatore= (Guidatore)x;
-		String insertQuery = "insert into guidatore "
-						+"(nome,cognome,indirizzo,codFiscale,numeropatente,idnoleggio) "
+		String insertQuery = "insert into Guidatore "
+						+"(Nome,Cognome,Indirizzo,CodFiscale,NumeroPatente,IDNoleggio) "
 						+ "values('?','?','?','?','?','?');";
 		insertQuery= queryReplaceFirst(insertQuery,guidatore.getNome());
 		insertQuery= queryReplaceFirst(insertQuery,guidatore.getCognome());
@@ -78,7 +78,7 @@ public class DAOGuidatore implements DAO{
 	
 	
 	public List<Guidatore> getAllByNoleggio(int idNoleggio){
-		 String readQuery = "Select * from Guidatore where idNoleggio='?'";
+		 String readQuery = "Select * from Guidatore where IDNoleggio='?'";
 		 
 		 readQuery= queryReplaceFirst(readQuery,String.valueOf(idNoleggio));
 		 

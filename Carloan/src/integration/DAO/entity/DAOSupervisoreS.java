@@ -39,7 +39,7 @@ public class DAOSupervisoreS implements DAO{
 
 	@Override
 	public Entity lettura(int id){
-	String QUERY= "Select * from SupervisoreSede where idSupervisoreSede='?' ";
+	String QUERY= "Select * from SupervisoreSede where IDSupervisoreSede='?' ";
 	 Connection connection= Connection.getConnection(daofactory);
 	 
 	 String readQuery = QUERY;
@@ -66,7 +66,7 @@ public class DAOSupervisoreS implements DAO{
 	}
 
 	public List<SupervisoreSede> getAll_bySede(int idSede){
-		String query="Select * from supervisoresede where idsede="+String.valueOf(idSede);
+		String query="Select * from Supervisoresede where IDSede="+String.valueOf(idSede);
 		Connection c=Connection.getConnection(this.daofactory);
 		ResultSet r=null;
 		try {

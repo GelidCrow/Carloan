@@ -81,7 +81,7 @@ public class DAOAgenzia implements DAO{
 
 	@Override
 	public Entity lettura(int id) {
-		String query="Select * from agenzia where idagenzia=?";
+		String query="Select * from Agenzia where IDAgenzia=?";
 		query=queryReplaceFirst(query, String.valueOf(id));
 		Connection c=Connection.getConnection(this.daofactory);
 		Agenzia a=null;
@@ -99,7 +99,7 @@ public class DAOAgenzia implements DAO{
 	}
 
 	public List<Agenzia> getAll(){
-		String query="Select * from agenzia";
+		String query="Select * from Agenzia";
 		Connection c=Connection.getConnection(this.daofactory);
 		try {
 			ResultSet r=c.executeRead(query);

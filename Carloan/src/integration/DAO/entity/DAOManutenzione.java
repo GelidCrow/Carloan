@@ -33,12 +33,12 @@ public class DAOManutenzione implements DAO{
 		String query="Insert into ? (DataInizio,Note,IDAuto) values('?','?',?)";
 		String update="Update Autoveicolo Set Disponibilita='?' where IDAuto=?";
 		if(x instanceof ManutenzioneOrdinaria){
-			query=queryReplaceFirst(query, "manutenzioneordinaria");
+			query=queryReplaceFirst(query, "ManutenzioneOrdinaria");
 			m=(ManutenzioneOrdinaria)x;
 			update=queryReplaceFirst(update, "ManutenzioneOrdinaria");
 		}
 		else if(x instanceof ManutenzioneStraordinaria){
-			query=queryReplaceFirst(query, "manutenzionestraordinaria");
+			query=queryReplaceFirst(query, "ManutenzioneStraordinaria");
 			m=(ManutenzioneStraordinaria)x;
 			update=queryReplaceFirst(update, "ManutenzioneStraordinaria");
 		}
@@ -69,13 +69,13 @@ public class DAOManutenzione implements DAO{
 	@Override
 	public void aggiornamento(Entity entity) throws CommonException {
 		Manutenzione m = null;
-		String query="Update ? Set Note='?',DataFine='?' where idmanutenzione=?";
+		String query="Update ? Set Note='?',DataFine='?' where IDManutenzione=?";
 		if(entity instanceof ManutenzioneOrdinaria){
-			query=queryReplaceFirst(query, "manutenzioneordinaria");
+			query=queryReplaceFirst(query, "ManutenzioneOrdinaria");
 			m=(ManutenzioneOrdinaria)entity;
 		}
 		else if(entity instanceof ManutenzioneStraordinaria){
-			query=queryReplaceFirst(query, "manutenzionestraordinaria");
+			query=queryReplaceFirst(query, "ManutenzioneStraordinaria");
 			m=(ManutenzioneStraordinaria)entity;
 		}
 		query=queryReplaceFirst(query, m.getNote());
@@ -119,7 +119,7 @@ public class DAOManutenzione implements DAO{
 	 * @return
 	 */
 	public List<ManutenzioneOrdinaria> getAll_ordinarie(int id_auto){
-		String query="Select * from manutenzioneordinaria where IDAuto="+String.valueOf(id_auto);
+		String query="Select * from ManutenzioneOrdinaria where IDAuto="+String.valueOf(id_auto);
 		ResultSet r=null;
 		Connection conn=Connection.getConnection(this.daofactory);
 		try {
@@ -152,7 +152,7 @@ public class DAOManutenzione implements DAO{
 
 
 	public List<ManutenzioneStraordinaria> getAll_straordinarie(int id_auto){
-		String query="Select * from manutenzionestraordinaria where IDAuto="+String.valueOf(id_auto);
+		String query="Select * from ManutenzioneStraordinaria where IDAuto="+String.valueOf(id_auto);
 		ResultSet r=null;
 		Connection conn=Connection.getConnection(this.daofactory);
 		try {
@@ -189,7 +189,7 @@ public class DAOManutenzione implements DAO{
 	 * @return
 	 */
 	public List<ManutenzioneOrdinaria> getAll_ordinarie_aperte(int id_auto){
-		String query="Select * from manutenzioneordinaria where IDAuto="+String.valueOf(id_auto)+" and DataFine is null";
+		String query="Select * from ManutenzioneOrdinaria where IDAuto="+String.valueOf(id_auto)+" and DataFine is null";
 		ResultSet r=null;
 		Connection conn=Connection.getConnection(this.daofactory);
 		try {
@@ -218,7 +218,7 @@ public class DAOManutenzione implements DAO{
 
 
 	public List<ManutenzioneStraordinaria> getAll_straordinarie_aperte(int id_auto){
-		String query="Select * from manutenzionestraordinaria where IDAuto="+String.valueOf(id_auto)+" and DataFine is null";
+		String query="Select * from ManutenzioneStraordinaria where IDAuto="+String.valueOf(id_auto)+" and DataFine is null";
 		ResultSet r=null;
 		Connection conn=Connection.getConnection(this.daofactory);
 		try {

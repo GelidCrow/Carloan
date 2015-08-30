@@ -58,8 +58,8 @@ public class DAOAmministratore implements DAO{
 	@Override
 	public void aggiornamento(Entity entity) throws CommonException {
 		Amministratore a=(Amministratore)entity;
-		String query="Update amministratore set nome='?',cognome='?',sesso='?',datanascita='?',indirizzo='?'"
-				+",codicefiscale='?',numcell='?',numfisso='?',assunto='?' where idamministratore=?";
+		String query="Update Amministratore set Nome='?',Cognome='?',Sesso='?',DataNascita='?',Indirizzo='?'"
+				+",CodiceFiscale='?',NumCell='?',NumFisso='?',Assunto='?' where IDAmministratore=?";
 		query=queryReplaceFirst(query, a.getNome());
 		query=queryReplaceFirst(query, a.getCognome());
 		query=queryReplaceFirst(query, a.getSesso());
@@ -98,7 +98,7 @@ public class DAOAmministratore implements DAO{
 	
 	@Override
 	public Entity lettura(int id){
-	String QUERY= "Select * from Amministratore where idAmministratore='?' ";
+	String QUERY= "Select * from Amministratore where IDAmministratore='?' ";
 	 Connection connection= Connection.getConnection(daofactory);
 	 
 	 String readQuery = QUERY;
@@ -167,7 +167,7 @@ private List<Amministratore> creaElencoAmministratori(ResultSet r){
 
 
 public Amministratore leggiAmministratoreByCodiceFiscale(String c) {
-	String query="Select * from amministratore where codicefiscale='?'";
+	String query="Select * from Amministratore where CodiceFiscale='?'";
 	query=queryReplaceFirst(query, c);
 	Connection co=Connection.getConnection(this.daofactory);
 	ResultSet s=null;

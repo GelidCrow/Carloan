@@ -74,7 +74,7 @@ public class DAOSede implements DAO {
 
 	@Override
 	public Entity lettura(int id) {
-		String query="Select * from sede where idsede="+String.valueOf(id);
+		String query="Select * from Dede where IDSede="+String.valueOf(id);
 		Connection conn=Connection.getConnection(this.dao);
 		try {
 			ResultSet r=conn.executeRead(query);

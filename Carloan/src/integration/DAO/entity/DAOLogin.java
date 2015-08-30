@@ -148,7 +148,7 @@ public class DAOLogin implements DAO{
 		
 		Login login= (Login)x;
 		
-		String Autenticazione = "select IDSupervisoreAgenzia,IDSupervisoreSede,IDAmministratore,IDOperatore from Credenziali where Username='?' and password='?'";
+		String Autenticazione = "select IDSupervisoreAgenzia,IDSupervisoreSede,IDAmministratore,IDOperatore from Credenziali where Username='?' and Password='?'";
 		
 		String insertQuery = Autenticazione;
 	
@@ -216,7 +216,7 @@ public class DAOLogin implements DAO{
 
 	public void verifica_credenziali(Entity x) throws CommonException {
 		Login l =(Login)x;
-		String query="Select * from credenziali where username='?'";
+		String query="Select * from Credenziali where Username='?'";
 		query=queryReplaceFirst(query, l.getUsername());
 		Connection c=Connection.getConnection(this.daofactory);
 		try {
@@ -235,27 +235,27 @@ public class DAOLogin implements DAO{
 	 * @return
 	 */
 	public String getUsername(Entity x){
-		String query="Select username from credenziali where";
+		String query="Select username from Credenziali where";
 		String ret = null;
 		if(x instanceof Amministratore){
 			Amministratore a=(Amministratore)x;
-			query+=" idamministratore =?";
+			query+=" IDAmministratore =?";
 			query=queryReplaceFirst(query, String.valueOf(a.getIdUtente()));
 		}
 		else if(x instanceof SupervisoreAgenzia){
 			SupervisoreAgenzia s=(SupervisoreAgenzia)x;
-			query+=" idsupervisoreagenzia =?";
+			query+=" IDSupervisoreagenzia =?";
 			query=queryReplaceFirst(query, String.valueOf(s.getIdUtente()));
 			
 		}
 		else if(x instanceof SupervisoreSede){
 			SupervisoreSede s=(SupervisoreSede)x;
-			query+=" idsupervisoresede =?";
+			query+=" IDSupervisoresede =?";
 			query=queryReplaceFirst(query, String.valueOf(s.getIdUtente()));
 		}
 		else {
 			Operatore s=(Operatore)x;
-			query+=" idoperatore =?";
+			query+=" IDOperatore =?";
 			query=queryReplaceFirst(query, String.valueOf(s.getIdUtente()));
 		}
 		

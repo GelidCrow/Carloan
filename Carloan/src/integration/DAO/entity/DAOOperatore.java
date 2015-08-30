@@ -38,7 +38,7 @@ public class DAOOperatore implements DAO{
 
 	@Override
 	public Entity lettura(int id){
-	String QUERY= "Select * from Operatore where idOperatore='?' ";
+	String QUERY= "Select * from Operatore where IDOperatore='?' ";
 	 Connection connection= Connection.getConnection(daofactory);
 	 
 	 String readQuery = QUERY;

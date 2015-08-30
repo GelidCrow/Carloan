@@ -29,7 +29,7 @@ public class DAONoleggio implements DAO{
 	}
 	
 	public int conta(){
-		String count= "Select count(1) as numNoleggi from noleggio";
+		String count= "Select count(1) as numNoleggi from Noleggio";
 	  Connection connection= Connection.getConnection(daofactory);
        
        ResultSet idList = null;
@@ -75,11 +75,11 @@ public class DAONoleggio implements DAO{
 				+ ",Stato"
 				+ ",NumeroSettimane"
 				+ ",NumeroGiorni"
-				+ ",numero_chilometri"
+				+ ",Numero_chilometri"
 				+ ",LuogoRestituzione,"
-				+ " idContratto"
-				+ ", idAuto"
-				+ ", idPagamento) "
+				+ " IDContratto"
+				+ ", IDAuto"
+				+ ", IDPagamento) "
 				
 				
 				+ " values ("
@@ -169,7 +169,7 @@ public class DAONoleggio implements DAO{
 	
 	
 	public List<Noleggio> getAll(){
-		 String readQuery = "Select * from noleggio";
+		 String readQuery = "Select * from Noleggio";
 		 
 		Connection connection= Connection.getConnection(daofactory);
 		 
@@ -197,7 +197,7 @@ public class DAONoleggio implements DAO{
 	
 	
 	public List<Noleggio> getNoleggiAperti(int idContratto){
-		 String readQuery = "Select * from noleggio where idcontratto='?' and (stato='Aperto' or stato='rientro' or stato='uscita')";
+		 String readQuery = "Select * from Noleggio where IDContratto='?' and (Stato='Aperto' or Stato='rientro' or Stato='uscita')";
 		 readQuery = queryReplaceFirst(readQuery, String.valueOf(idContratto));
 		 
 		Connection connection= Connection.getConnection(daofactory);
@@ -266,7 +266,7 @@ public class DAONoleggio implements DAO{
 	}
 	
 	private List<Integer> ottieniIDOptional(ResultSet resultset,Connection connection) throws SQLException{
-		String readQuery  = "Select idOptional from noleggioOptional where idNoleggio= '?'";
+		String readQuery  = "Select IDOptional from NoleggioOptional where IDNoleggio= '?'";
 		readQuery = queryReplaceFirst(readQuery, String.valueOf(resultset.getInt(1)));
 		
 		ResultSet readQueryResultSet = null;
@@ -292,7 +292,7 @@ public class DAONoleggio implements DAO{
 	}
 	
 	private List<Integer> ottieniIDMulte(ResultSet resultset,Connection connection) throws SQLException{
-		String readQuery  = "Select idMulta from Multa where idNoleggio= '?'";
+		String readQuery  = "Select IDMulta from Multa where IDNoleggio= '?'";
 		readQuery = queryReplaceFirst(readQuery, String.valueOf(resultset.getInt(1)));
 		ResultSet readQueryResultSet = null;
 		List<Integer> idMulta=null;

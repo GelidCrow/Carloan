@@ -37,7 +37,7 @@ public class DAOContratto implements DAO{
 	@Override
 	public ResultSet creazione(Entity x) {
 		String INSERT = "INSERT INTO Contratto "
-				+ "( ?,Stato,dataCreazione,Note,idcliente) "
+				+ "( ?,Stato,CataCreazione,Note,IDCliente) "
 				+ "values ('?','?','?','?','?');";
 		
 		String insertQuery = INSERT;
@@ -45,21 +45,21 @@ public class DAOContratto implements DAO{
 		Contratto contratto= (Contratto)x;	
 		
 		if(UtenteCorrente.getUtente() instanceof Operatore){
-        	insertQuery= queryReplaceFirst(insertQuery,"idOperatore");
+        	insertQuery= queryReplaceFirst(insertQuery,"IDOperatore");
         	insertQuery= queryReplaceFirst(insertQuery,contratto.getIDOperatore().toString());
        
         }
         else if(UtenteCorrente.getUtente() instanceof Amministratore){
-        	insertQuery= queryReplaceFirst(insertQuery,"idAmministratore");
+        	insertQuery= queryReplaceFirst(insertQuery,"IDAmministratore");
         	insertQuery= queryReplaceFirst(insertQuery,contratto.getIDAmministratore().toString());
         	
         }
         else if(UtenteCorrente.getUtente() instanceof SupervisoreSede){
-        	insertQuery= queryReplaceFirst(insertQuery,"idSupervisoreSede");
+        	insertQuery= queryReplaceFirst(insertQuery,"IDSupervisoreSede");
         	insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreSede().toString());
         }
         else if(UtenteCorrente.getUtente() instanceof SupervisoreAgenzia){
-        	insertQuery= queryReplaceFirst(insertQuery,"idSupervisoreAgenzia");
+        	insertQuery= queryReplaceFirst(insertQuery,"IDSupervisoreAgenzia");
 			insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreAgenzia().toString());
 		}
         	
@@ -103,7 +103,7 @@ public class DAOContratto implements DAO{
 	
 		Contratto contratto= (Contratto) entity;
 		String UPDATE = "UPDATE  Contratto  SET "
-							+ "stato= '?', note = '?' ";
+							+ "Stato= '?', Note = '?' ";
 		String 	WHERE= " WHERE IDContratto = '?'";
 		String updateQuery = UPDATE;
 	
@@ -113,7 +113,7 @@ public class DAOContratto implements DAO{
         updateQuery= queryReplaceFirst(updateQuery,contratto.getNote());
 
         if(!contratto.getStato().equals(StatoContratto.Aperto.toString())){
-    		updateQuery+=", dataChiusura='?'";
+    		updateQuery+=", DataChiusura='?'";
     		updateQuery= queryReplaceFirst(updateQuery,contratto.getDataChiusura().toString());
         }        	
         updateQuery+=WHERE;
@@ -144,8 +144,8 @@ public class DAOContratto implements DAO{
 
 	
 	public List<Contratto> getAll(){		
-		 String readQuery = "Select idContratto, Stato , dataCreazione,note,datachiusura,idcliente,idoperatore,"
-		 					+ "idSupervisoreAgenzia, idsupervisoresede, idamministratore from contratto";
+		 String readQuery = "Select IDContratto, Stato , DataCreazione,Note,DataChiusura,IDcliente,IDoperatore,"
+		 					+ "IDSupervisoreAgenzia,IDsupervisoresede, IDamministratore from Contratto";
 
 		 Connection connection= Connection.getConnection(daofactory);
 	        
@@ -190,7 +190,7 @@ public class DAOContratto implements DAO{
 	}
 	@Override
 	public Entity lettura(int id) {
-		 String readQuery= "Select * from contratto where idCOntratto='?'";
+		 String readQuery= "Select * from Contratto where IDContratto='?'";
 		readQuery = queryReplaceFirst(readQuery,String.valueOf(id));
 		 Connection connection= Connection.getConnection(daofactory);
 	        Contratto contratto=null;
@@ -222,28 +222,28 @@ public class DAOContratto implements DAO{
 		   String sParam= null;
 	        int iParam;
 		Contratto contratto = new Contratto();
-        iParam= resultset.getInt("idContratto");
+        iParam= resultset.getInt("IDContratto");
         contratto.setIDContratto(iParam);
         
-        iParam= resultset.getInt("idOperatore");
+        iParam= resultset.getInt("IDOperatore");
         contratto.setIDOperatore(iParam);
         
-        iParam= resultset.getInt("idSupervisoreAgenzia");
+        iParam= resultset.getInt("IDSupervisoreAgenzia");
         contratto.setIDSupervisoreAgenzia(iParam);  
         
-        iParam= resultset.getInt("idSupervisoreSede");
+        iParam= resultset.getInt("IDSupervisoreSede");
         contratto.setIDSupervisoreSede(iParam);
         
-        iParam= resultset.getInt("idAmministratore");
+        iParam= resultset.getInt("IDAmministratore");
         contratto.setIDAmministratore(iParam);
         
-        iParam= resultset.getInt("idCliente");//leggo l'id del cliente e ora prendo la sua istanza.facendo una specie di join
+        iParam= resultset.getInt("IDCliente");//leggo l'id del cliente e ora prendo la sua istanza.facendo una specie di join
         contratto.setIdCliente(iParam);
        
-        sParam= resultset.getString("stato");
+        sParam= resultset.getString("Stato");
         contratto.setStato(sParam);
         
-        sParam= resultset.getString("note");
+        sParam= resultset.getString("Note");
         contratto.setNote(sParam);
    
         contratto.setDataCreazione(resultset.getDate("DataCreazione").toLocalDate());

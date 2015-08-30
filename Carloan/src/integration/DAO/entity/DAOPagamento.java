@@ -79,7 +79,7 @@ public class DAOPagamento implements DAO {
 
 	@Override
 	public Entity lettura(int id) throws CommonException {
-		String read= "Select * from pagamento where idpagamento='?'";
+		String read= "Select * from Pagamento where IDPagamento='?'";
 		read = queryReplaceFirst(read, String.valueOf(id));
 	  Connection connection= Connection.getConnection(daofactory);
  

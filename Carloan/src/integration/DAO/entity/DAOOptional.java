@@ -44,7 +44,7 @@ public class DAOOptional implements DAO{
 
 	@Override
 	public Entity lettura(int id) {
-		 String readQuery = "Select Nome,Descrizione,prezzo,LimiteCopertura,numeroSeggiolini,numeroGuidatoriAggiuntivi from Optional where idOptional= '?'";
+		 String readQuery = "Select Nome,Descrizione,prezzo,LimiteCopertura,numeroSeggiolini,numeroGuidatoriAggiuntivi from Optional where IDOptional= '?'";
 
 		Connection connection= Connection.getConnection(daofactory);
 		ResultSet readQueryResultSet = null;
@@ -95,7 +95,7 @@ public class DAOOptional implements DAO{
 		return risultato;
 	}
 	public List<Optional> getAllByNoleggio(int id){
-		 String readQuery = "Select idoptional from NoleggioOptional where idnoleggio='?'";
+		 String readQuery = "Select IDOptional from NoleggioOptional where IDNoleggio='?'";
 		  readQuery = queryReplaceFirst(readQuery, String.valueOf(id));
 		Connection connection= Connection.getConnection(daofactory);
 		 
@@ -105,8 +105,8 @@ public class DAOOptional implements DAO{
 		try {
 				readQueryResultSet = connection.executeRead(readQuery);	
 				while(readQueryResultSet.next()){
-					readQuery="Select * from optional where idoptional='?'";
-					readQuery = queryReplaceFirst(readQuery, String.valueOf(readQueryResultSet.getInt("idOptional")));
+					readQuery="Select * from Optional where IDOptional='?'";
+					readQuery = queryReplaceFirst(readQuery, String.valueOf(readQueryResultSet.getInt("IDOptional")));
 					readSingle= connection.executeRead(readQuery);	
 					while(readSingle.next())
 						risultato.add(ottieniOptional(readSingle));

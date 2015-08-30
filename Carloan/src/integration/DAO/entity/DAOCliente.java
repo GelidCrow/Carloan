@@ -87,7 +87,7 @@ public class DAOCliente implements DAO{
 	@Override
 	public Entity lettura(int id) {
 		 String QUERY= "Select IDCliente,Nome,Cognome,Sesso,DataEmissPatente,DataNascita,"
-		 			+ "Indirizzo,CodFiscale,NumCell,NumTel,PatenteGuida,DataScadPatente,PartitaIva,Email from cliente where idcliente='?' ";
+		 			+ "Indirizzo,CodFiscale,NumCell,NumTel,PatenteGuida,DataScadPatente,PartitaIva,Email from Cliente where IDCliente='?' ";
 		 Connection connection= Connection.getConnection(daofactory);
 		 
 		 String readQuery = QUERY;
@@ -120,7 +120,7 @@ public class DAOCliente implements DAO{
 
 	public List<Cliente> getAll(){		
 		 String readQuery = "Select IDCliente,Nome,Cognome,Sesso,DataEmissPatente,DataNascita,"
-				 			+ "Indirizzo,CodFiscale,NumCell,NumTel,PatenteGuida,DataScadPatente,PartitaIva,Email from cliente";
+				 			+ "Indirizzo,CodFiscale,NumCell,NumTel,PatenteGuida,DataScadPatente,PartitaIva,Email from Cliente";
 		 Connection connection= Connection.getConnection(daofactory);
 	        
 	     ResultSet readQueryResultSet = null;
@@ -172,7 +172,7 @@ public class DAOCliente implements DAO{
 		String UPDATE = "Update  Cliente SET"
 				+ " Nome ='?',Cognome='?',Sesso='?',DataEmissPatente='?',DataNascita='?',"
 				+ "Indirizzo='?',CodFiscale='?',NumCell='?',NumTel='?',PatenteGuida='?',DataScadPatente='?',PartitaIva='?',Email='?' "
-				+ "where idCliente= '?';";
+				+ "where IDCliente= '?';";
 		
 		String updateQuery = UPDATE;
 		
