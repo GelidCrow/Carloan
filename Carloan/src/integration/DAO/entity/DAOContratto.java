@@ -2,7 +2,6 @@ package integration.DAO.entity;
 
 import static utility.QueryStringReplacer.queryReplaceFirst;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -12,16 +11,13 @@ import javafx.scene.control.Alert.AlertType;
 import integration.DAO.DaoFactory;
 import integration.DAO.connection.Connection;
 import MessaggiFinestra.AlertView;
-import business.entity.Cliente;
 import business.entity.Entity;
-import business.entity.Utente;
 import business.entity.UtenteCorrente;
 import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Gestori.SupervisoreSede;
 import business.entity.Noleggio.Contratto;
-import business.entity.Noleggio.Noleggio;
 import business.entity.Noleggio.StatoContratto;
 import business.model.Exception.CommonException;
 

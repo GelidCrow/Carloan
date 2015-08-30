@@ -16,7 +16,6 @@ import business.entity.Noleggio.Optional.Assicurazione_KASKO;
 import business.entity.Noleggio.Optional.CateneNeve;
 import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
 import business.entity.Noleggio.Optional.Gps;
-import business.entity.Noleggio.Optional.Guidatore;
 import business.entity.Noleggio.Optional.GuidatoreAggiuntivo;
 import business.entity.Noleggio.Optional.Optional;
 import business.entity.Noleggio.Optional.Seggiolino;

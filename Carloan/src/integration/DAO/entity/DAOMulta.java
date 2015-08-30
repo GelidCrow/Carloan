@@ -12,7 +12,6 @@ import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
-import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Noleggio.Multa;
 import business.entity.Noleggio.StatoMulta;
