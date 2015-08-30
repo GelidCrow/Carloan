@@ -43,6 +43,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
@@ -267,6 +268,23 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			try {
 				Connection.chiudiConnessione();
 			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			FXMLParameter.setTitolo("Login");
+		    FXMLParameter.setRidimensionabile(false);
+			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraLogin",Modality.WINDOW_MODAL);
+		}
+	}
+	
+	@FXML
+	public void logout_filebar(ActionEvent e){
+		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);
+		 
+		if(result.isPresent() && result.get() == ButtonType.OK){
+			chiudiFinestra();
+			try {
+				Connection.chiudiConnessione();
+			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -274,6 +292,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		    FXMLParameter.setRidimensionabile(false);
 			Finestra.visualizzaFinestra(presenter,FXMLParameter,this,"MostraLogin",Modality.WINDOW_MODAL);
 		}
+	}
+	public void about_filebar(ActionEvent e){
+		Alert about= new Alert(AlertType.INFORMATION);
+		about.setContentText("Powered by :\n•Mastronardo Claudio\n•Giannico Francesco");
+		about.setTitle("About");
+		about.show();
 	}
 	
 	/**
@@ -785,6 +809,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		
 	}
+	@SuppressWarnings("rawtypes")
 	private class ItemSelectedSede implements ChangeListener{
 		@SuppressWarnings("unchecked")
 		@Override

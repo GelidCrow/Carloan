@@ -2,15 +2,11 @@ package utility;
 
 import java.lang.reflect.InvocationTargetException;
 
-import business.entity.Cliente;
 import business.model.Exception.CommonException;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.ReturnableStage;
 import presentation.mvp.view.controller.Schermata;
-import presentation.mvp.view.controller.generale.SchermataGenerale;
 
 public class Finestra {
 	/**
