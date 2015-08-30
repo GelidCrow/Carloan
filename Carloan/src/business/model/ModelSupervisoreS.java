@@ -20,14 +20,26 @@ public class ModelSupervisoreS implements Model{
 	}
 
 	@Override
-	public void Inserimento(Entity parameter) {
-		// TODO Auto-generated method stub
+	public void Inserimento(Entity parameter) throws CommonException {
+		try{
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+				 ((DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS")).creazione(parameter);
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
 		
 	}
 
 	@Override
 	public void aggiornamento(Entity parameter) throws CommonException {
-		// TODO Auto-generated method stub
+		try{
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+				((DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS")).aggiornamento(parameter);;
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
 		
 	}
 
@@ -47,6 +59,30 @@ public List<SupervisoreSede> getAll_bysede(int id){
 		if(daofactory==null)
 			daofactory= DaoFactory.getDaoFactory(1);
 			return (List<SupervisoreSede>) ((DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS")).getAll_bySede(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	return null;
+}
+
+
+public List<SupervisoreSede> getAll(){
+	try{
+		if(daofactory==null)
+			daofactory= DaoFactory.getDaoFactory(1);
+			return (List<SupervisoreSede>) ((DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS")).getAll();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	return null;
+}
+
+
+public SupervisoreSede leggiSupervisoreSedeByCodiceFiscale(String c){
+	try{
+		if(daofactory==null)
+			daofactory= DaoFactory.getDaoFactory(1);
+			return((DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS")).leggiSupervisoreSedeByCodiceFiscale(c);
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}

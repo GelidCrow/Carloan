@@ -5,6 +5,7 @@ package presentation.mvp.view.controller.generale.gestori;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -80,12 +81,12 @@ public void initData(Entity x){
 			String current_username=(String) presenter.processRequest("getUsername", this.amministratore_coinvolto);
 			
 			if(!current_username.equals(login.getUsername()))
-			presenter.processRequest("VerificaCredenziali",login.getUsername());//Verifico se l'username non è stato scelto già
+			presenter.processRequest("VerificaCredenziali",login);//Verifico se l'username non è stato scelto già
 			
 			presenter.processRequest("ModificaAmministratore", a);
-			a=(Amministratore) presenter.processRequest("leggiAmministratoreByCodiceFiscale", a.getCodiceFiscale());
 			login.setAmministratore(String.valueOf(a.getIdUtente()));
 			presenter.processRequest("ModificaCredenziali", login);
+			schermataGenerale.caricaTabella((List<Amministratore>)presenter.processRequest("getAllAmministratori", null), tw);
 			chiudiFinestra();
 			
 			}
@@ -118,45 +119,7 @@ public void initData(Entity x){
 	
 	
 	protected Amministratore prendiDatiDaView() throws CommonException{
-		Amministratore a=new Amministratore();
-		String n=nome.getText();
-		if(n==null || n.isEmpty())
-			throw new CommonException("Il nome è vuoto");
-		a.setNome(n);
-		n=cognome.getText();
-		if(n==null || n.isEmpty())
-			throw new CommonException("Il cognome è vuoto");
-		a.setCognome(n);
-		if(radio_m.isSelected())
-			a.setSesso("Maschio");
-		else
-			a.setSesso("Femmina");
-		LocalDate datanasc=datanas.getValue();
-		if(datanasc==null)
-			throw new CommonException("Data nascita vuota");
-		if(datanasc.isAfter(LocalDate.now()))
-			throw new CommonException("Data nascita nel futuro");
-		a.setDataNascita(datanasc);
-		n=indirizzo.getText();
-		if(n==null)
-			n="";
-		a.setIndirizzo(n);
-		n=codfis.getText();
-		if(n==null || n.isEmpty())
-			throw new CommonException("Codice fiscale vuoto");
-		if(n.length()!=16)
-			throw new CommonException("Codice fiscale non valido(deve essere di 16 caratteri)");
-		a.setCodiceFiscale(n);
-		n=nfisso.getText();
-		if(n==null)
-			n="";
-		a.setNumFisso(n);
-		n=ncell.getText();
-		if(n==null)
-			n="";
-			a.setNumCell(n);
-		Amministratore current_admin=(Amministratore)UtenteCorrente.getUtente();
-		a.setIDDitta(current_admin.getIDDitta());//Il nuovo amministratore avrà lo stesso idditta dell'amministratore che lo sta aggiungendo
+		Amministratore a=super.prendiDatiDaView();
 		if(assunto.isSelected())
 			a.setAssunto(true);
 		else

@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -80,6 +81,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TableView<T> tablesupsede;
 	@FXML
 	private TableView<T> tbAmministratore;
+	@FXML
+	private TableView<T> tbSs;
 	
 	@FXML
 	private Label txtBenvenuto;
@@ -113,6 +116,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TabAgenzia tbAgenziaController;
 	private TabSede tbSedeController;
 	private TabAmministratore tbAmministratoreController;
+	private TabSupervisoreSede tbSupervisoresedeController;
+	
 	private TabAuto tbAutoController;
 	@FXML
 	private Label nome_agenzia;
@@ -126,6 +131,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private Label codfis_supsede;;
 	@FXML
 	private Label superv_agenzia;
+	@FXML
+	private Label nome_sede_tabss;
+	@FXML
+	private Label indirizzo_sede_tabss;
+	@FXML
+	private Label numtel_sede_tabss;
 	
 		/***********  CONTRATTO *************/
 	@FXML
@@ -243,6 +254,19 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 	}
 	
+	@FXML
+	public void btnnuovo_ss(ActionEvent e){
+		tbSupervisoresedeController.NuovoSupervisoreSede();
+	}
+	@FXML
+	public void btnmodifica_ss(ActionEvent e){
+		try {
+			tbSupervisoresedeController.ModificaSupervisoreSede();
+		} catch (CommonException e1) {
+			// TODO Auto-generated catch block
+			e1.showMessage();
+		}
+	}
 	
 	@FXML
 	public void btnVOptional(ActionEvent e){
@@ -328,6 +352,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbSede;
 		else if(table.equals("Amministratore"))
 			return tbAmministratore;
+		else if(table.equals("SupervisoreSede"))
+			return tbSs;
 		else
 			return null;
 	}
@@ -345,6 +371,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbAgenzia.getSelectionModel().getSelectedIndex();
 		else if(table.equals("Amministratore"))
 			return tbAmministratore.getSelectionModel().getSelectedIndex();
+		else if(table.equals("SupervisoreSede"))
+			return tbSs.getSelectionModel().getSelectedIndex();
 		else
 			return 0;
 	}
@@ -367,7 +395,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbSede.getSelectionModel().getSelectedItem();
 		else if(table.equals("Amministratore"))
 			return tbAmministratore.getSelectionModel().getSelectedItem();
-		
+		else if(table.equals("SupervisoreSede"))
+			return tbSs.getSelectionModel().getSelectedItem();
 		else
 			return null;
 	}
@@ -545,6 +574,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 					e.printStackTrace();
 				}
 			}
+			//Amministratore
 			else if(panes.get(6)==newValue){
 				tbAmministratoreController=new TabAmministratore((TableView<Amministratore>)tbAmministratore,SchermataGenerale.this);
 				List<Amministratore> l;
@@ -561,7 +591,36 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				}
 				
 			}
-			
+			//SupervisoreSede
+			else if(panes.get(7)==newValue){
+				tbSupervisoresedeController=new TabSupervisoreSede((TableView<SupervisoreSede>)tbSs,SchermataGenerale.this);
+				Utente u=UtenteCorrente.getUtente();
+				List<SupervisoreSede> l;
+				try{
+				if(u instanceof Amministratore)
+					l=(List<SupervisoreSede>)presenter.processRequest("getAllSupervisoriSede",null);
+				
+				else if (u instanceof SupervisoreAgenzia){
+					List<Sede> ls=(List<Sede>)presenter.processRequest("getAllSediByAgenzia", ((SupervisoreAgenzia)u).getIDAgenzia());
+					l=new LinkedList<SupervisoreSede>();
+					for(Sede s:ls)
+						l.addAll((Collection<? extends SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede",s.getIDSede()));
+						
+				}
+				else // SupervisoreSede
+					l=(List<SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede",((SupervisoreSede)u).getIDSede());
+				
+				caricaTabella((List<T>) l, tbSs);
+				}
+				catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalArgumentException
+						| InvocationTargetException | CommonException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		
 	    }
 	} 
 	@FXML
@@ -767,13 +826,14 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				panes.get(i).setDisable(true);
 		}
 		else if(utente instanceof SupervisoreSede){
-			for(short i=4;i<9;i++)
+			for(short i=4;i<9;i++){
+				if(i!=7)
 				panes.get(i).setDisable(true);
+			}
 		}
 		else if(utente instanceof SupervisoreAgenzia){
 			panes.get(4).setDisable(true);
 			panes.get(6).setDisable(true);
-			panes.get(7).setDisable(true);
 		}	
 	}
 	private class ItemSelectedAgenzia implements ChangeListener<Agenzia>{
@@ -821,9 +881,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				Agenzia a=(Agenzia)presenter.processRequest("leggiAgenzia",((Sede)newValue).getIDAgenzia());
 				nome_agenzia.setText(a.getNome());
 				tel_agenzia.setText(a.getNumTelefono());
-				
-				
-				
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
 					| SecurityException | IllegalArgumentException
@@ -831,14 +888,35 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
-
+		}
+	}
 	
+	
+	private class ItemSelectedSs implements ChangeListener{
 
+		@Override
+		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+			if(newValue!=null){
+				try {
+					Sede sed=(Sede)presenter.processRequest("leggiSede", ((SupervisoreSede)newValue).getIDSede());
+					nome_sede_tabss.setText(sed.getNome());
+					indirizzo_sede_tabss.setText(sed.getIndirizzo());
+					numtel_sede_tabss.setText(sed.getNumeroTelefono());
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalArgumentException
+						| InvocationTargetException | CommonException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 		}
 		
 	}
+	
+	
 	
 	public Fascia getFascia(){
 		return choice_fascia.getSelectionModel().getSelectedItem();
@@ -953,7 +1031,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tbAuto.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedAutoveicolo());
 		tbAgenzia.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedAgenzia());
 		tbSede.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedSede());
-		
+		tbSs.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedSs());
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	

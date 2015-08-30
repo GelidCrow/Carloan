@@ -15,5 +15,9 @@ public abstract class Supervisore extends Utente{
 		// TODO Auto-generated constructor stub
 	}
 
+	public Supervisore() {
+		// TODO Auto-generated constructor stub
+	}
+
 
 }

@@ -346,10 +346,29 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView layoutY="111.0" prefHeight="237.0" prefWidth="1236.0" />
-                                    <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
-                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
-                                    <Label layoutX="26.0" layoutY="379.0" text="Sede di Appartenenza" />
+                                    <TableView fx:id="tbSs" layoutY="56.0" prefHeight="309.0" prefWidth="1228.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="ID" />
+                                          <TableColumn prefWidth="140.0" text="Nome" />
+                                          <TableColumn prefWidth="124.0" text="Cognome" />
+                                          <TableColumn prefWidth="148.0" text="Data di nascita" />
+                                          <TableColumn prefWidth="134.0" text="Indirizzo" />
+                                          <TableColumn prefWidth="263.0" text="Codice Fiscale" />
+                                          <TableColumn prefWidth="161.0" text="Numero cellulare" />
+                                          <TableColumn minWidth="3.0" prefWidth="182.0" text="Numero fisso" />
+                                       </columns></TableView>
+                                    <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnnuovo_ss" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
+                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnmodifica_ss" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
+                                    <Label layoutX="26.0" layoutY="379.0" text="Sede di Appartenenza">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font></Label>
+                                    <Label layoutX="26.0" layoutY="420.0" text="Nome :" />
+                                    <Label layoutX="26.0" layoutY="450.0" text="Indirizzo :" />
+                                    <Label layoutX="26.0" layoutY="485.0" text="Numero di telefono :" />
+                                    <Label fx:id="nome_sede_tabss" layoutX="82.0" layoutY="420.0" prefHeight="17.0" prefWidth="204.0" />
+                                    <Label fx:id="indirizzo_sede_tabss" layoutX="82.0" layoutY="450.0" prefHeight="17.0" prefWidth="204.0" />
+                                    <Label fx:id="numtel_sede_tabss" layoutX="147.0" layoutY="485.0" prefHeight="17.0" prefWidth="204.0" />
                                  </children>
                               </AnchorPane>
                            </content>

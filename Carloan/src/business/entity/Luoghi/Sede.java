@@ -55,4 +55,14 @@ public class Sede extends Entity{
 	public void setIDAgenzia(int idagenzia2) {
 		IDAgenzia = idagenzia2;
 	}
+	
+	
+	public boolean equals(Object s){
+		if(s instanceof Sede)
+			if(((Sede) s).getIDSede()==this.IDSede)
+				return true;
+		
+		return false;
+		
+	}
 }

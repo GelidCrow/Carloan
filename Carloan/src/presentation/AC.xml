@@ -62,6 +62,11 @@
 		<class>business.model.ModelSupervisoreS</class>
 		<method>lettura</method>
 	</call>
+	<call id="ModificaSupervisoreSede">
+		<class>business.model.ModelSupervisoreS</class>
+		<method>aggiornamento</method>
+	</call>
+	
 	
 	<!--SupervisoreAgenzia-->
 	<call id="letturaSupervisoreAgenzia">
@@ -288,6 +293,20 @@
 		<class>business.model.ModelSupervisoreS</class>
 		<method>getAll_bysede</method>
 	</call>
+<call id="getAllSupervisoriSede">
+	<class>business.model.ModelSupervisoreS</class>
+	<method>getAll</method>
+</call>
+
+<call id="InserisciSupervisoreSede">
+	<class>business.model.ModelSupervisoreS</class>
+	<method>Inserimento</method>
+</call>
+
+<call id="leggiSupervisoreSedeByCodiceFiscale">
+	<class>business.model.ModelSupervisoreS</class>
+	<method>leggiSupervisoreSedeByCodiceFiscale</method>
+</call>
 	<!-- Agenzia-->
 	<call id="InserisciAgenzia">
 		<class>business.model.ModelAgenzia</class>

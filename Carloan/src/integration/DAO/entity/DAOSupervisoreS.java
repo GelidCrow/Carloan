@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Gestori.SupervisoreSede;
+import business.model.Exception.CommonException;
 
 
 public class DAOSupervisoreS implements DAO{
@@ -24,15 +25,70 @@ public class DAOSupervisoreS implements DAO{
 	}
 
 	@Override
-	public ResultSet creazione(Entity x) {
+	public ResultSet creazione(Entity x) throws CommonException {
+		String query="Insert into SupervisoreSede(Nome,Cognome,Sesso,DataNascita,Indirizzo,CodiceFiscale,NumCell,NumFisso,"
+				+"Assunto,IDSede) values('?','?','?','?','?','?','?','?','1',?)";
+		SupervisoreSede s=(SupervisoreSede)x;
+		query=queryReplaceFirst(query, s.getNome());
+		query=queryReplaceFirst(query, s.getCognome());
+		query=queryReplaceFirst(query, s.getSesso());
+		query=queryReplaceFirst(query, s.getDataNascita().toString());
+		query=queryReplaceFirst(query, s.getIndirizzo());
+		query=queryReplaceFirst(query, s.getCodiceFiscale());
+		query=queryReplaceFirst(query, s.getNumCell());
+		query=queryReplaceFirst(query, s.getNumFisso());
+		query=queryReplaceFirst(query, String.valueOf(s.getIDSede()));
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet r;
+		try {
+			r=c.executeUpdate(query);
+			if(r!=null)
+				AlertView.getAlertView("Supervisore Sede inserito con successo", AlertType.INFORMATION);
+			else
+				throw new CommonException("Supervisore sede non inserito");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void aggiornamento(Entity x) {
-		// TODO Auto-generated method stub
+	public void aggiornamento(Entity x) throws CommonException {
+		String query="Update SupervisoreSede Set Nome='?',Cognome='?',Sesso='?',DataNascita='?',Indirizzo='?',CodiceFiscale='?',"+
+				"NumCell='?',NumFisso='?',Assunto='?',IDSede=? where IDSupervisoreSede=?";
+		SupervisoreSede s=(SupervisoreSede)x;
+		query=queryReplaceFirst(query, s.getNome());
+		query=queryReplaceFirst(query, s.getCognome());
+		query=queryReplaceFirst(query, s.getSesso());
+		query=queryReplaceFirst(query, s.getDataNascita().toString());
+		query=queryReplaceFirst(query, s.getIndirizzo());
+		query=queryReplaceFirst(query, s.getCodiceFiscale());
+		query=queryReplaceFirst(query, s.getNumCell());
+		query=queryReplaceFirst(query, s.getNumFisso());
+		if(s.isAssunto())
+			query=queryReplaceFirst(query, "1");
+		else
+			query=queryReplaceFirst(query, "0");
+		
+		query=queryReplaceFirst(query, String.valueOf(s.getIDSede()));
+		query=queryReplaceFirst(query, String.valueOf(s.getIdUtente()));
+		
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet r=null;
+		try {
+			r=c.executeUpdate(query);
+			if(r!=null)
+				AlertView.getAlertView("Supervisore Sede aggiornato con successo", AlertType.INFORMATION);
+			else
+				throw new CommonException("Supervisore sede non aggiornato");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -92,5 +148,34 @@ public class DAOSupervisoreS implements DAO{
 		}
 		}
 		return l;
+	}
+
+	public List<SupervisoreSede> getAll() {
+		String query="Select * from SupervisoreSede";
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet r=null;
+		try {
+			 r=c.executeRead(query);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return creaElencoSupervisoriSede(r);
+	}
+
+	public SupervisoreSede leggiSupervisoreSedeByCodiceFiscale(String c) {
+		String query="Select * from SupervisoreSede where CodiceFiscale='?'";
+		query=queryReplaceFirst(query, c);
+		Connection co=Connection.getConnection(this.daofactory);
+		try {
+			ResultSet r=co.executeRead(query);
+			if(r.next())
+			return ottieniSupS(r);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

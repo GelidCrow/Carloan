@@ -51,5 +51,7 @@
 	<interface id="MostraSchermataVisualizzaMulte" src ="markup/generale/noleggio/multa/VisualizzaMulte.fxml"></interface>
 	<interface id="MostraSchermataChiusuraMulta" src ="markup/generale/noleggio/multa/ChiusuraMulta.fxml"></interface>
 	
-	
+	<!--SupervisoreSede-->
+	<interface id="MostraSchermataNuovoSupervisoreSede" src ="markup/generale/gestori/Nuovo_SupervisoreSede.fxml"></interface>
+	<interface id="MostraSchermataModificaSupervisoreSede" src ="markup/generale/gestori/Modifica_SupervisoreSede.fxml"></interface>
 </interfaces>

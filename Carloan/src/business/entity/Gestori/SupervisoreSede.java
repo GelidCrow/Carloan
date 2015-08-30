@@ -13,6 +13,9 @@ public class SupervisoreSede extends Supervisore {
 		// TODO Auto-generated constructor stub
 		this.IDSede=idSede;
 	}
+	public SupervisoreSede() {
+		super();
+	}
 	public int getIDSede() {
 		return IDSede;
 	}
