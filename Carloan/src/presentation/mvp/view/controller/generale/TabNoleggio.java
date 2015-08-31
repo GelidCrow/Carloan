@@ -42,8 +42,24 @@ public class TabNoleggio {
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataNuovoNoleggio",Modality.APPLICATION_MODAL);
 	}
 	
-	public void ModificaNoleggio(){
-		
+	public void AnnullaNoleggio(){
+		try {
+			if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
+					throw new CommonException("Nessun elemento selezionato");
+			}
+			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
+			if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString()) || noleggio.getStato().toString().equals(noleggio.getStato().chiuso.toString())){
+				throw new CommonException("Operazione non disponibile per questo noleggio");
+			}
+			else {
+				FXMLParameter.setTitolo("Annulla noleggio");
+			    FXMLParameter.setRidimensionabile(false);
+			    FXMLParameter.setEntity(noleggio);
+				Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataAnnullaNoleggio",Modality.APPLICATION_MODAL);
+			}
+		} catch (CommonException e) {
+			e.showMessage();
+		}
 	}
 	
 	public void ChiudiNoleggio(){

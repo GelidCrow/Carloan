@@ -19,7 +19,9 @@
 	
 	<!-- NOLEGGIO -->
 	<interface id="MostraSchermataNuovoNoleggio" src ="markup/generale/noleggio/NuovoNoleggio.fxml"></interface>
-	<interface id="MostraSchermataModificaNoleggio" src ="markup/generale/noleggio/ModificaNoleggio.fxml"></interface>
+	<interface id="MostraSchermataChiusuraNoleggio" src ="markup/generale/noleggio/ChiudiNoleggio.fxml"></interface>
+	<interface id="MostraSchermataAnnullaNoleggio" src ="markup/generale/noleggio/AnnullaNoleggio.fxml"></interface>
+	
 	<!-- GUIDATORE -->
 	<interface id="MostraSchermataVisualizzaGuidatori" src ="markup/generale/noleggio/guidatore/VisualizzaGuidatore.fxml"></interface>
 	<!-- Autoveicolo -->

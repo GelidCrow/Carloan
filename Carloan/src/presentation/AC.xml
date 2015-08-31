@@ -112,7 +112,11 @@
 		<class>business.model.ModelNoleggio</class>
 		<method>Inserimento</method>
 	</call>
-	<call id="ModificaNoleggio">
+	<call id="ChiudiNoleggio">
+		<class>business.model.ModelNoleggio</class>
+		<method>aggiornamento</method>
+	</call>
+	<call id="AnnullaNoleggio">
 		<class>business.model.ModelNoleggio</class>
 		<method>aggiornamento</method>
 	</call>

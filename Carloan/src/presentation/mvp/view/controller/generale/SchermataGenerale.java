@@ -202,7 +202,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	@FXML
 	public void btnAnnullaNoleggio(ActionEvent e) {
-		
+		tbNoleggioController.AnnullaNoleggio();
 	}
 	
 	@FXML
