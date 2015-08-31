@@ -330,6 +330,11 @@
         <class>business.model.ModelSupervisoreA</class>
         <method>leggiSupervisoreAgenziaByCodiceFiscale</method>
     </call>
+    
+     <call id="ModificaSupervisoreAgenzia">
+        <class>business.model.ModelSupervisoreA</class>
+        <method>aggiornamento</method>
+    </call>
     	<!-- Agenzia-->
     	<call id="InserisciAgenzia">
     		<class>business.model.ModelAgenzia</class>
