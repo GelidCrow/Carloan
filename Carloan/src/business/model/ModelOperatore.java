@@ -1,5 +1,7 @@
 package business.model;
 
+import java.util.List;
+
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOOperatore;
 import integration.DAO.entity.DAOSupervisoreS;
@@ -13,11 +15,6 @@ public class ModelOperatore implements Model{
 	private DaoFactory daofactory;
 
 
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void Inserimento(Entity parameter) {
@@ -44,6 +41,12 @@ public class ModelOperatore implements Model{
 					e.printStackTrace();
 				}
 		
+		return null;
+	}
+
+	@Override
+	public List<Entity> ricerca(Entity parameter) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

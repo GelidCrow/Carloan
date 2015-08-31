@@ -25,11 +25,6 @@ public class ModelOptional implements Model{
 	}
 
 
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public List<Optional> getAll(){
 		try {
@@ -53,6 +48,12 @@ public class ModelOptional implements Model{
 	}
 	@Override
 	public Entity lettura(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
 		return null;
 	}

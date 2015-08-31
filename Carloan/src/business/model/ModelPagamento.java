@@ -1,6 +1,8 @@
 package business.model;
 
 
+import java.util.List;
+
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOCliente;
 import integration.DAO.entity.DAOPagamento;
@@ -46,10 +48,12 @@ public class ModelPagamento implements Model{
 	}
 
 	@Override
-	public void ricerca() {
+	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
+
 	
 
 

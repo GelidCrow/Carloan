@@ -15,11 +15,6 @@ public class ModelSede implements Model{
 
 
 
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 	@Override
@@ -71,6 +66,12 @@ public class ModelSede implements Model{
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public List<Entity> ricerca(Entity parameter) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

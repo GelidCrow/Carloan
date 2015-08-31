@@ -13,11 +13,6 @@ public class ModelSupervisoreS implements Model{
 	private DaoFactory daofactory;
 
 
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void Inserimento(Entity parameter) throws CommonException {
@@ -86,6 +81,12 @@ public SupervisoreSede leggiSupervisoreSedeByCodiceFiscale(String c){
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+	return null;
+}
+
+@Override
+public List<Entity> ricerca(Entity parameter) {
+	// TODO Auto-generated method stub
 	return null;
 }
 }

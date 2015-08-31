@@ -217,12 +217,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TextField txtContratto;
 	@FXML
 	private void btnCerca(ActionEvent e){
-		
 		try{
+			
 			int idContratto=0;
-			if(!txtContratto.getText().isEmpty()){
+			if(!txtContratto.getText().isEmpty() )
 				idContratto=(Integer.parseInt(txtContratto.getText()));
-			tbNoleggioController.ricerca(idContratto,choiceStato.getSelectionModel().getSelectedItem(),dInizio.getValue());	}		
+			tbNoleggioController.ricerca(idContratto,choiceStato.getSelectionModel().getSelectedItem(),dInizio.getValue());			
 		}
 		catch(NumberFormatException exc){
 			AlertView.getAlertView("Inserire solo  numeri nella casella dell'id del contratto",AlertType.WARNING); 
@@ -231,7 +231,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	private void dInizioAction(ActionEvent a){
 		try{
-		if(dInizio.getValue().isBefore(LocalDate.of(2014,12,31))){
+			
+		if(dInizio.getValue()!=null && dInizio.getValue().isBefore(LocalDate.of(2014,12,31))){
 			dInizio.setValue(LocalDate.of(2014,12,31));
 			throw new CommonException("La data scelta non è valida in quanto è precedente a 31-12-2014");
 		} }

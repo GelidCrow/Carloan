@@ -2,6 +2,7 @@ package presentation.mvp.view.controller.generale;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
@@ -80,21 +81,25 @@ public class TabNoleggio {
 	
 	}
 	
-	public void ricerca(int idContratto, StatoNoleggio stato,
+	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
+		void ricerca(int idContratto, StatoNoleggio stato,
 			LocalDate dStart) {
-		FXMLParameter.setTitolo("Visualizza multe");
-	    FXMLParameter.setRidimensionabile(false);
-	    RicercaNoleggio ricercaNoleggio = new RicercaNoleggio(stato,dStart,idContratto);
 		try {
-			presenter.processRequest("RicercaNoleggio", ricercaNoleggio);
+			if(dStart==null && idContratto==0 
+					&& stato.toString().equals(StatoNoleggio.vuoto.toString())){
+				((SchermataGenerale)schermata).caricaTabella((List<Noleggio>)presenter.processRequest("getAllNoleggi", null), tbNoleggio);
+			}
+			else {
+		    RicercaNoleggio ricercaNoleggio = new RicercaNoleggio(stato,dStart,idContratto);
+			((SchermataGenerale)schermata).caricaTabella((List<Noleggio>)presenter.processRequest("RicercaNoleggio", ricercaNoleggio), tbNoleggio);
+			}
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | NoSuchMethodException
-				| SecurityException | IllegalArgumentException
-				| InvocationTargetException | CommonException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			| ClassNotFoundException | NoSuchMethodException
+			| SecurityException | IllegalArgumentException
+			| InvocationTargetException | CommonException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 		}
-		
 	}
 	
 	void VisualizzaMulta(){

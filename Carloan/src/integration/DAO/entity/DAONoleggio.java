@@ -228,6 +228,20 @@ public class DAONoleggio implements DAO{
         try {
          if(resultset!=null){
             while (resultset.next()) {
+                noleggi.add((Noleggio) ottieniNoleggio(resultset,connection));
+            }
+         }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } 
+		return noleggi;
+	}
+	private List<Entity> creaElencoNoleggi2(ResultSet resultset,Connection connection){
+		List<Entity> noleggi=new LinkedList<Entity>();
+        try {
+         if(resultset!=null){
+            while (resultset.next()) {
                 noleggi.add(ottieniNoleggio(resultset,connection));
             }
          }
@@ -237,8 +251,7 @@ public class DAONoleggio implements DAO{
         } 
 		return noleggi;
 	}
-	
-	private Noleggio ottieniNoleggio(ResultSet resultset,Connection connection) throws SQLException{
+	private Entity ottieniNoleggio(ResultSet resultset,Connection connection) throws SQLException{
 		List<Integer> idOptionals= ottieniIDOptional(resultset,connection);
 		List<Integer> idMulta  = ottieniIDMulte(resultset,connection);
 
@@ -324,63 +337,70 @@ public class DAONoleggio implements DAO{
 		RicercaNoleggio ricnoleggio=(RicercaNoleggio) parameter;
 		String ricerca1="Select * from noleggio where idContratto='?'";
 		
-		String ricerca2="Select * from noleggio where dInizio='?'";
+		String ricerca2="Select * from noleggio where InizioNoleggio='?'";
 		String ricerca3="Select * from noleggio where stato='?'";
 		
 		
-		String ricerca5="Select * from noleggio where idContratto='?',dInizio='?'";
-		String ricerca6="Select * from noleggio where dInizio='?', stato='?'";
-		String ricerca7="Select * from noleggio where idContratto='?', stato='?'";
+		String ricerca5="Select * from noleggio where idContratto='?' and InizioNoleggio='?'";
+		String ricerca6="Select * from noleggio where InizioNoleggio='?' and stato='?'";
+		String ricerca7="Select * from noleggio where idContratto='?' and  stato='?'";
 	
 		
-		String ricerca4="Select * from noleggio where idContratto='?',dInizio='?', stato='?'";
+		String ricerca4="Select * from noleggio where idContratto='?' and InizioNoleggio='?' and stato='?'";
 		
 		LocalDate dInizio= ricnoleggio.getdInizio();
 	    int idContratto= ricnoleggio.getidContratto();
 	    StatoNoleggio stato= ricnoleggio.getStato();
-	    List<Entity> entity= 
+	    List<Entity> noleggi =null;
 	    
 		if(dInizio!=null && idContratto==0 && stato.toString().equals(StatoNoleggio.vuoto.toString())){
 			ricerca2 =queryReplaceFirst(ricerca2,dInizio.toString());
+			noleggi= interroga(ricerca2);
 		}
 		else if(dInizio==null && idContratto!=0 && stato.toString().equals(StatoNoleggio.vuoto.toString())){
 			ricerca1 =queryReplaceFirst(ricerca1,String.valueOf(idContratto));
+			noleggi= interroga(ricerca1);
 		}
 		else if(dInizio==null && idContratto==0 && !stato.toString().equals(StatoNoleggio.vuoto.toString())){
-			ricerca3 =queryReplaceFirst(ricerca3, dInizio.toString());
+			ricerca3 =queryReplaceFirst(ricerca3, stato.toString());
+			noleggi = interroga(ricerca3);
 		}
 		else if(dInizio!=null && idContratto!=0 && !stato.toString().equals(StatoNoleggio.vuoto.toString())){
 			ricerca4 =queryReplaceFirst(ricerca4, String.valueOf(idContratto));	
 			ricerca4 =queryReplaceFirst(ricerca4, dInizio.toString());	
 			ricerca4 =queryReplaceFirst(ricerca4, stato.toString());	
+			noleggi = interroga(ricerca4);
 		}
 		else if(dInizio!=null && idContratto!=0 && stato.toString().equals(StatoNoleggio.vuoto.toString())){
 			ricerca5 =queryReplaceFirst(ricerca5,String.valueOf(idContratto));
 			ricerca5 =queryReplaceFirst(ricerca5,dInizio.toString());
+			noleggi = interroga(ricerca5);
 		}
 		else if(dInizio!=null && idContratto==0 && !stato.toString().equals(StatoNoleggio.vuoto.toString())){
 			ricerca6 =queryReplaceFirst(ricerca6,dInizio.toString());
 			ricerca6 =queryReplaceFirst(ricerca6,stato.toString());
+			noleggi= interroga(ricerca6);
 		}
 		
 		else if(dInizio==null && idContratto!=0 && !stato.toString().equals(StatoNoleggio.vuoto.toString())){
 			ricerca7 =queryReplaceFirst(ricerca7,String.valueOf(idContratto));
 			ricerca7 =queryReplaceFirst(ricerca7,stato.toString());
-			interroga(ricerca7);
+			noleggi= interroga(ricerca7);
 		}
-		return null;
+		return noleggi;
 	}
 	private List<Entity> interroga(String query){
 		Connection connection= Connection.getConnection(daofactory);
 		 
 		ResultSet readQueryResultSet = null;
-		List<Noleggio> risultato = null;
+		List<Entity> risultato = null;
 		try {
 			readQueryResultSet = connection.executeRead(query);	
-			risultato= creaElencoNoleggi(readQueryResultSet,connection);
+			if(readQueryResultSet!=null)
+				risultato= creaElencoNoleggi2(readQueryResultSet,connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			AlertView.getAlertView("Non è stato possibile leggere i contratti" , AlertType.ERROR);
+			AlertView.getAlertView("Non è stato possibile leggere i noleggi" , AlertType.ERROR);
 		}
 		finally{
 			try {

@@ -1,5 +1,7 @@
 package business.model;
 
+import java.util.List;
+
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOAmministratore;
 import integration.DAO.entity.DAOSupervisoreA;
@@ -14,11 +16,7 @@ public class ModelSupervisoreA implements Model{
 	private DaoFactory daofactory;
 
 
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void Inserimento(Entity parameter) {
@@ -41,6 +39,12 @@ public class ModelSupervisoreA implements Model{
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public List<Entity> ricerca(Entity parameter) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

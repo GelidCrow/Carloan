@@ -88,8 +88,9 @@ public class ModelManutenzione implements Model{
 	return null;	
 	}
 
+
 	@Override
-	public List<Entity> ricerca() {
+	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
 		return null;
 	}
