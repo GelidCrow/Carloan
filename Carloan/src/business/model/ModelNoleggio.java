@@ -73,7 +73,17 @@ public class ModelNoleggio implements Model{
 		}
 	return null;	
 	}
+	public List<Noleggio> getNoleggiByContratto(int id){
+		try {
+		if(daofactory==null)
+			daofactory= DaoFactory.getDaoFactory(1);
+		return 	((DAONoleggio) daofactory.getDao("DAONoleggio")).getNoleggiByContratto(id);
 
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	return null;	
+	}
 	@Override
 	public Entity lettura(int id) {
 		// TODO Auto-generated method stub

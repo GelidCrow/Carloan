@@ -165,4 +165,36 @@ public class DAOMulta implements DAO{
 		}
 		return null;
 	}
+	
+	public int countMulteAperteByNoleggio(int id){
+		String count= "Select count(IDMulta) as numeromulte from multa where IDNoleggio='?' and stato='aperto'";
+		count= queryReplaceFirst(count,String.valueOf(id));
+		int numero=0;
+		Connection connection= Connection.getConnection(daofactory);
+        
+        ResultSet countElements = null;
+        try {
+        	countElements = connection.executeRead(count);
+			 if(countElements!=null){
+				 while(countElements.next()){
+					 numero= countElements.getInt("numeromulte");
+				 } 
+			 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 AlertView.getAlertView("Non è stato possibile inserire la multa" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				countElements.close();
+				//connection.chiudiConnessione();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return numero;
+		
+	}
 }
