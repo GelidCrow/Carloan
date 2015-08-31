@@ -32,7 +32,7 @@ public class AnnullaNoleggio extends Schermata{
 		tw= schermata.getTable("Noleggio");
 		noleggio.setNote(textAreaAnnulla.getText());
 		try {
-			//presenter.processRequest("VerificaAnnullaNoleggio", noleggio);
+			presenter.processRequest("VerificaAnnullaNoleggio", noleggio);
 			presenter.processRequest("AnnullaNoleggio", noleggio);
 			Autoveicolo auto= (Autoveicolo) presenter.processRequest("letturaAutoveicolo", noleggio.getIdAuto());
 			auto.setDisponibilita(Disponibilita.Disponibile);
