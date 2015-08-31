@@ -59,7 +59,20 @@ public class ModelMulta implements Model{
 		return null;	
     }
 
-	
+    public int countMulteAperteByNoleggio(int id){
+			if(daofactory==null)
+				try {
+					daofactory= DaoFactory.getDaoFactory(1);
+					return ((DAOMulta) daofactory.getDao("DAOMulta")).countMulteAperteByNoleggio( id);
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		return -1;
+    }
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub

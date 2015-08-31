@@ -10,10 +10,7 @@
     		<class>business.model.checker.LoginChecker</class>
     		<method>check</method>
     	</call>
-    	
-    	
-    	
-    	
+
     	<!-- CLIENTE -->
     	
     	<call id="InserimentoCliente">
@@ -137,7 +134,10 @@
     		<class>business.model.ModelNoleggio</class>
     		<method>getNoleggiAperti</method>
     	</call>
-
+		<call id="getNoleggiByContratto">
+    		<class>business.model.ModelNoleggio</class>
+    		<method>getNoleggiByContratto</method>
+    	</call>
 
     	<!--Autoveicolo-->
     	<call id="getAllAuto">
@@ -377,6 +377,10 @@
     	<call id="getAllMulteByNoleggio">
     		<class>business.model.ModelMulta</class>
     		<method>getAllMulteByNoleggio</method>
+    	</call>
+    	<call id="countMulteAperteByNoleggio">
+    		<class>business.model.ModelMulta</class>
+    		<method>countMulteAperteByNoleggio</method>
     	</call>
     	<call id="InserimentoMulta">
     		<class>business.model.ModelMulta</class>

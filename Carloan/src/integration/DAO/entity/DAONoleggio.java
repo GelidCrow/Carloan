@@ -231,7 +231,8 @@ public class DAONoleggio implements DAO{
 		List<Noleggio> risultato = null;
 		try {
 			readQueryResultSet = connection.executeRead(readQuery);	
-			risultato= creaElencoNoleggi(readQueryResultSet,connection);
+			if(readQueryResultSet!=null)
+				risultato= creaElencoNoleggi(readQueryResultSet,connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			AlertView.getAlertView("Non è stato possibile leggere i contratti" , AlertType.ERROR);
@@ -246,7 +247,32 @@ public class DAONoleggio implements DAO{
 		}
 		return risultato;
 	}
-	
+	public List<Noleggio> getNoleggiByContratto(int idContratto){
+		 String readQuery = "Select * from Noleggio where IDContratto='?'";
+		 readQuery = queryReplaceFirst(readQuery, String.valueOf(idContratto));
+		 
+		Connection connection= Connection.getConnection(daofactory);
+		 
+		ResultSet readQueryResultSet = null;
+		List<Noleggio> risultato = null;
+		try {
+			readQueryResultSet = connection.executeRead(readQuery);	
+			if(readQueryResultSet!=null)
+				risultato= creaElencoNoleggi(readQueryResultSet,connection);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			AlertView.getAlertView("Non è stato possibile leggere i contratti" , AlertType.ERROR);
+		}
+		finally{
+			try {
+				readQueryResultSet.close();
+				//connection.chiudiConnessione();
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
+		return risultato;
+	}
 	private List<Noleggio> creaElencoNoleggi(ResultSet resultset,Connection connection){
 		List<Noleggio> noleggi=new LinkedList<Noleggio>();
         try {

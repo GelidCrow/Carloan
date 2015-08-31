@@ -71,6 +71,12 @@ public class TabContratto {
 		else 
 			contratto.setDataChiusura(LocalDate.now());//imposto la data di chiusura se il valore scelto è annullato
 		
+		List<Noleggio> noleggi  = (List<Noleggio>)presenter.processRequest("getNoleggiByContratto", contratto.getIDContratto());
+		for(Noleggio n: noleggi){
+			if((int)presenter.processRequest("countMulteAperteByNoleggio", n.getIDNoleggio())>0){
+				throw new CommonException("Ci sono dei noleggi con delle multe aperte,è necessario  pagarle prima di poter chiudere contratto");
+			}
+		}
 	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
