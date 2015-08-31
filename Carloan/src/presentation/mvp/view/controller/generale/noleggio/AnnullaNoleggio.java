@@ -37,12 +37,13 @@ public class AnnullaNoleggio extends Schermata{
 			Autoveicolo auto= (Autoveicolo) presenter.processRequest("letturaAutoveicolo", noleggio.getIdAuto());
 			auto.setDisponibilita(Disponibilita.Disponibile);
 			presenter.processRequest("AggiornamentoAutoveicolo", auto);
+			AlertView.getAlertView("Noleggio annullato con successo",AlertType.INFORMATION);
 			schermata.caricaTabella((List<Noleggio>)presenter.processRequest("getAllNoleggi",null), tw);
+			chiudiFinestra();
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
 				| InvocationTargetException | CommonException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
