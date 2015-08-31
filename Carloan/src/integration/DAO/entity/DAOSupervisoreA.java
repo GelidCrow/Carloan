@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Gestori.SupervisoreAgenzia;
+import business.entity.Gestori.SupervisoreSede;
 import business.model.Exception.CommonException;
 
 public class DAOSupervisoreA implements DAO{
@@ -47,8 +48,38 @@ public class DAOSupervisoreA implements DAO{
 	}
 
 	@Override
-	public void aggiornamento(Entity x) {
-		// TODO Auto-generated method stub
+	public void aggiornamento(Entity x) throws CommonException {
+		String query="Update SupervisoreAgenzia Set Nome='?',Cognome='?',Sesso='?',DataNascita='?',Indirizzo='?',CodiceFiscale='?',"+
+				"NumCell='?',NumFisso='?',Assunto='?',IDAgenzia=? where IDSupervisoreAgenzia=?";
+		SupervisoreAgenzia s=(SupervisoreAgenzia)x;
+		query=queryReplaceFirst(query, s.getNome());
+		query=queryReplaceFirst(query, s.getCognome());
+		query=queryReplaceFirst(query, s.getSesso());
+		query=queryReplaceFirst(query, s.getDataNascita().toString());
+		query=queryReplaceFirst(query, s.getIndirizzo());
+		query=queryReplaceFirst(query, s.getCodiceFiscale());
+		query=queryReplaceFirst(query, s.getNumCell());
+		query=queryReplaceFirst(query, s.getNumFisso());
+		if(s.isAssunto())
+			query=queryReplaceFirst(query, "1");
+		else
+			query=queryReplaceFirst(query, "0");
+		
+		query=queryReplaceFirst(query, String.valueOf(s.getIDAgenzia()));
+		query=queryReplaceFirst(query, String.valueOf(s.getIdUtente()));
+		
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet r=null;
+		try {
+			r=c.executeUpdate(query);
+			if(r!=null)
+				AlertView.getAlertView("Supervisore Agenzia aggiornato con successo", AlertType.INFORMATION);
+			else
+				throw new CommonException("Supervisore Agenzia non aggiornato");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
