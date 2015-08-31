@@ -80,36 +80,14 @@ public class TabNoleggio {
 		}
 	
 	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
-		void ricerca(int idContratto, StatoNoleggio stato,
-			LocalDate dStart) {
-		try {
-			if(dStart==null && idContratto==0 
-					&& stato.toString().equals(StatoNoleggio.vuoto.toString())){
-				((SchermataGenerale)schermata).caricaTabella((List<Noleggio>)presenter.processRequest("getAllNoleggi", null), tbNoleggio);
-			}
-			else {
-		    RicercaNoleggio ricercaNoleggio = new RicercaNoleggio(stato,dStart,idContratto);
-			((SchermataGenerale)schermata).caricaTabella((List<Noleggio>)presenter.processRequest("RicercaNoleggio", ricercaNoleggio), tbNoleggio);
-			}
-		} catch (InstantiationException | IllegalAccessException
-			| ClassNotFoundException | NoSuchMethodException
-			| SecurityException | IllegalArgumentException
-			| InvocationTargetException | CommonException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		}
-	}
-	
 	void VisualizzaMulta(){
+		try{
 		if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
-			try {
 				throw new CommonException("Nessun elemento selezionato");
-			} catch (CommonException e) {
-				// TODO Auto-generated catch block
-				e.showMessage();
-			}
+		}
+		Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
+		if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString())){
+			throw new CommonException("Non è possibile visualizzare le multe di questo contratto in quanto è stato annullato");
 		}
 		else {
 			FXMLParameter.setTitolo("Visualizza multe");
@@ -117,7 +95,33 @@ public class TabNoleggio {
 		    FXMLParameter.setEntity(((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio"));
 			Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaMulte",Modality.APPLICATION_MODAL);
 		}
+	} catch (CommonException e) {
+		// TODO Auto-generated catch block
+		e.showMessage();
 	}
+	}
+	@SuppressWarnings({ "unchecked", "rawtypes"})
+	void ricerca(int idContratto, StatoNoleggio stato,
+		LocalDate dStart) {
+	try {
+		if(dStart==null && idContratto==0 
+				&& stato.toString().equals(StatoNoleggio.vuoto.toString())){
+			((SchermataGenerale)schermata).caricaTabella((List<Noleggio>)presenter.processRequest("getAllNoleggi", null), tbNoleggio);
+		}
+		else {
+	    RicercaNoleggio ricercaNoleggio = new RicercaNoleggio(stato,dStart,idContratto);
+		((SchermataGenerale)schermata).caricaTabella((List<Noleggio>)presenter.processRequest("RicercaNoleggio", ricercaNoleggio), tbNoleggio);
+		}
+	} catch (InstantiationException | IllegalAccessException
+		| ClassNotFoundException | NoSuchMethodException
+		| SecurityException | IllegalArgumentException
+		| InvocationTargetException | CommonException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+	}
+}
+	
+
 	
 	public void bindingValuesContratto(){
 		noleggio.get(0).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Noleggio) cellData.getValue()).getIDNoleggio()));
