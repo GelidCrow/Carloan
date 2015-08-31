@@ -87,7 +87,9 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TableView<T> tbAmministratore;
 	@FXML
 	private TableView<T> tbSs;
-
+	@FXML
+	private TableView<T> tbSa;
+	
 	@FXML
 	private Label txtBenvenuto;
 	@FXML
@@ -121,6 +123,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TabSede tbSedeController;
 	private TabAmministratore tbAmministratoreController;
 	private TabSupervisoreSede tbSupervisoresedeController;
+	private TabSupervisoreAgenzia tbSupervisoreagenziaController;
 	
 	private TabAuto tbAutoController;
 	@FXML
@@ -385,6 +388,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbAmministratore;
 		else if(table.equals("SupervisoreSede"))
 			return tbSs;
+		else if(table.equals("SupervisoreAgenzia"))
+			return tbSa;
 		else
 			return null;
 	}
@@ -404,6 +409,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbAmministratore.getSelectionModel().getSelectedIndex();
 		else if(table.equals("SupervisoreSede"))
 			return tbSs.getSelectionModel().getSelectedIndex();
+		else if(table.equals("SupervisoreAgenzia"))
+			return tbSa.getSelectionModel().getSelectedIndex();
 		else
 			return 0;
 	}
@@ -428,6 +435,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbAmministratore.getSelectionModel().getSelectedItem();
 		else if(table.equals("SupervisoreSede"))
 			return tbSs.getSelectionModel().getSelectedItem();
+		else if(table.equals("SupervisoreAgenzia"))
+			return tbSa.getSelectionModel().getSelectedItem();
 		else
 			return null;
 	}
@@ -650,6 +659,26 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+			else if(panes.get(8)==newValue){
+				tbSupervisoreagenziaController=new TabSupervisoreAgenzia((TableView<SupervisoreAgenzia>)tbSa, SchermataGenerale.this);
+				
+					try {
+						Utente u =UtenteCorrente.getUtente();
+						List<SupervisoreAgenzia> list;
+						if(u instanceof Amministratore)
+						list=(List<SupervisoreAgenzia>)presenter.processRequest("getAllSupervisoriAgenzia", null);
+						else// E' un supervisore agenzia e quindi può vedere solo i supervisoriagenzia della sua agenzia
+							list=(List<SupervisoreAgenzia>)presenter.processRequest("getAllSupervisoriAgenziabyAgenzia", ((SupervisoreAgenzia)u).getIDAgenzia());
+						caricaTabella((List<T>) list, tbSa);
+					} catch (InstantiationException | IllegalAccessException
+							| ClassNotFoundException | NoSuchMethodException
+							| SecurityException | IllegalArgumentException
+							| InvocationTargetException | CommonException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
 			}
 		
 	    }
@@ -947,7 +976,28 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		
 	}
 	
-	
+	@SuppressWarnings("rawtypes")
+	private class ItemSelectedSa implements ChangeListener{
+
+		@Override
+		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+			if(newValue!=null){
+				try {
+					Agenzia s=(Agenzia)presenter.processRequest("leggiAgenzia", ((SupervisoreAgenzia)newValue).getIDAgenzia());
+					/*TO DO info agenzia*/
+					
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalArgumentException
+						| InvocationTargetException | CommonException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		
+	}
 	
 	public Fascia getFascia(){
 		return choice_fascia.getSelectionModel().getSelectedItem();
@@ -1074,6 +1124,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tbAgenzia.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedAgenzia());
 		tbSede.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedSede());
 		tbSs.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedSs());
+		tbSa.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedSa());
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	

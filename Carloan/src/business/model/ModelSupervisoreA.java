@@ -47,4 +47,27 @@ public class ModelSupervisoreA implements Model{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	public List<SupervisoreAgenzia> getAll(){
+		
+		try{
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+				return ((DAOSupervisoreA)daofactory.getDao("DAOSupervisoreA")).getAll();
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			return null;
+	}
+	public List<SupervisoreAgenzia> getAllbyAgenzia(int idAgenzia){
+		try{
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+				return ((DAOSupervisoreA)daofactory.getDao("DAOSupervisoreA")).getAllByAgenzia(idAgenzia);
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			return null;
+	}
 }

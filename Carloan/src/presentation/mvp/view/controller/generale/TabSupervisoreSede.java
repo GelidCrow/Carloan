@@ -46,7 +46,7 @@ public class TabSupervisoreSede {
 		
 	}
 	public void NuovoSupervisoreSede() {
-		FXMLParameter.setTitolo("Inserimento nuovo SupervisoreSede");
+		FXMLParameter.setTitolo("Inserimento nuovo Supervisore Sede");
 		Finestra.visualizzaFinestra(presenter, FXMLParameter, schermata, "MostraSchermataNuovoSupervisoreSede",Modality.APPLICATION_MODAL);
 		
 	}
@@ -55,7 +55,7 @@ public class TabSupervisoreSede {
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{
-	    	FXMLParameter.setTitolo("Modifica SupervisoreSede");
+	    	FXMLParameter.setTitolo("Modifica Supervisore Sede");
 	    	FXMLParameter.setEntity(((SchermataGenerale<?>) schermata).getEntitaElementoSelezionato("SupervisoreSede"));
 	    	Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataModificaSupervisoreSede",Modality.APPLICATION_MODAL);
 	    }

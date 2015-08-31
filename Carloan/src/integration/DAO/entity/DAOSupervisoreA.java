@@ -6,6 +6,8 @@ import integration.DAO.connection.Connection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
@@ -71,5 +73,46 @@ public class DAOSupervisoreA implements DAO{
 				 	resultset.getString(7),resultset.getString(8),resultset.getString(9),resultset.getBoolean(10),resultset.getInt(11));
 	}
 
+	public List<SupervisoreAgenzia> getAll() {
+		String query="Select * from SupervisoreAgenzia";
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet r=null;
+		try {
+			r=c.executeRead(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return creaElencoSupervisoriagenzia(r);
+	}
 
+	private List<SupervisoreAgenzia> creaElencoSupervisoriagenzia(ResultSet r){
+		List<SupervisoreAgenzia> l=new LinkedList<SupervisoreAgenzia>();
+		if(r!=null){
+			try {
+				while(r.next()){
+					l.add(ottieniSupA(r));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return l;
+	}
+
+	public List<SupervisoreAgenzia> getAllByAgenzia(int idAgenzia) {
+	String query="Select  * from SupervisoreAgenzia where IDAgenzia="+idAgenzia;
+	Connection c=Connection.getConnection(this.daofactory);
+	ResultSet r=null;
+	try {
+		r=c.executeRead(query);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return creaElencoSupervisoriagenzia(r);
+	}
 }
