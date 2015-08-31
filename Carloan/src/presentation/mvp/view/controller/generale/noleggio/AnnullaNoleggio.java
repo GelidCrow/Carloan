@@ -34,9 +34,9 @@ public class AnnullaNoleggio extends Schermata{
 		try {
 			//presenter.processRequest("VerificaAnnullaNoleggio", noleggio);
 			presenter.processRequest("AnnullaNoleggio", noleggio);
-			Autoveicolo auto= (Autoveicolo) presenter.processRequest("leggiAuto", noleggio.getIdAuto());
+			Autoveicolo auto= (Autoveicolo) presenter.processRequest("letturaAutoveicolo", noleggio.getIdAuto());
 			auto.setDisponibilita(Disponibilita.Disponibile);
-			presenter.processRequest("aggiornaAuto", auto);
+			presenter.processRequest("AggiornamentoAutoveicolo", auto);
 			schermata.caricaTabella((List<Noleggio>)presenter.processRequest("getAllNoleggi",null), tw);
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException

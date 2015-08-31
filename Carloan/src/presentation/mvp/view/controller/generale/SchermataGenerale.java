@@ -230,15 +230,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	@FXML
 	private void dInizioAction(ActionEvent a){
-		try{
-			
-		if(dInizio.getValue()!=null && dInizio.getValue().isBefore(LocalDate.of(2014,12,31))){
-			dInizio.setValue(LocalDate.of(2014,12,31));
-			throw new CommonException("La data scelta non è valida in quanto è precedente a 31-12-2014");
-		} }
-		catch(CommonException e){
-			e.showMessage();
-		}
+		if(dInizio.getValue()!=null ){}
 	}
 	
 	
