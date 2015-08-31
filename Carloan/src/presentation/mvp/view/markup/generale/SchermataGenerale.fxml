@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="1228.0">
         <menus>
@@ -133,37 +133,52 @@
                                         <MenuItem mnemonicParsing="false" text="Visualizza" />
                                       </items>
                                     </MenuButton>
-                                    <Label layoutX="12.0" layoutY="322.0" prefHeight="17.0" prefWidth="146.0" text="Informazioni aggiuntive " />
-                                    <Label layoutX="23.0" layoutY="339.0" prefHeight="17.0" prefWidth="59.0" text="Auto " />
+                                    <Label layoutX="7.0" layoutY="318.0" prefHeight="28.0" prefWidth="233.0" text="Informazioni aggiuntive ">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font></Label>
+                                    <Label layoutX="10.0" layoutY="342.0" prefHeight="17.0" prefWidth="59.0" text="Auto " />
                                     <Label layoutX="229.0" layoutY="355.0" text="Targa" />
                                     <Label layoutX="229.0" layoutY="381.0" text="Marca" />
                                     <Label layoutX="229.0" layoutY="409.0" text="Modello" />
-                                    <ImageView fx:id="imgAutoNoleggio" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="355.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="imgAutoNoleggio" fitHeight="150.0" fitWidth="200.0" layoutX="11.0" layoutY="363.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label fx:id="lblTarga" layoutX="280.0" layoutY="355.0" prefHeight="17.0" prefWidth="80.0" />
                                     <Label fx:id="lblMarca" layoutX="280.0" layoutY="381.0" prefHeight="17.0" prefWidth="97.0" />
                                     <Label fx:id="lblModello" layoutX="283.0" layoutY="409.0" prefHeight="17.0" prefWidth="107.0" />
-                                    <Label layoutX="377.0" layoutY="323.0" prefHeight="17.0" prefWidth="107.0" text="Sede Restituzione" />
+                                    <Label layoutX="366.0" layoutY="319.0" prefHeight="31.0" prefWidth="178.0" text="Sede Restituzione">
+                                       <font>
+                                          <Font size="21.0" />
+                                       </font></Label>
                                     <Label layoutX="396.0" layoutY="348.0" text="Nome Sede" />
                                     <Label layoutX="396.0" layoutY="374.0" text="Indirizzo" />
                                     <Label fx:id="lblNSede" layoutX="473.0" layoutY="344.0" prefHeight="17.0" prefWidth="110.0" />
                                     <Label fx:id="lblIndirizzo" layoutX="473.0" layoutY="370.0" prefHeight="17.0" prefWidth="115.0" />
-                                    <Label layoutX="652.0" layoutY="327.0" text="Contratto" />
-                                    <Label layoutX="658.0" layoutY="352.0" text="Codice Contratto" />
+                                    <Label layoutX="646.0" layoutY="315.0" text="Contratto">
+                                       <font>
+                                          <Font size="27.0" />
+                                       </font></Label>
+                                    <Label layoutX="658.0" layoutY="353.0" text="Codice Contratto" />
                                     <Label layoutX="658.0" layoutY="378.0" text="Data Apertura" />
                                     <Label layoutX="658.0" layoutY="406.0" text="Data Chiusura" />
                                     <Label layoutX="658.0" layoutY="433.0" text="Stato" />
                                     <Label fx:id="lblCodContratto" layoutX="781.0" layoutY="352.0" prefHeight="17.0" prefWidth="119.0" />
                                     <Label fx:id="lblDAp" layoutX="781.0" layoutY="378.0" prefHeight="17.0" prefWidth="129.0" />
-                                    <Label fx:id="lblDChiusura" layoutX="777.0" layoutY="409.0" prefHeight="17.0" prefWidth="128.0" />
-                                    <Label fx:id="lblStato" layoutX="781.0" layoutY="436.0" prefHeight="17.0" prefWidth="153.0" />
-                                    <Label fx:id="lblCognome" layoutX="1058.0" layoutY="401.0" prefHeight="17.0" prefWidth="198.0" />
-                                    <Label fx:id="lblNome" layoutX="1058.0" layoutY="375.0" prefHeight="17.0" prefWidth="204.0" />
-                                    <Label fx:id="lblCodFiscale" layoutX="1057.0" layoutY="350.0" prefHeight="17.0" prefWidth="182.0" />
-                                    <Label layoutX="922.0" layoutY="401.0" text="Cognome" />
-                                    <Label layoutX="922.0" layoutY="375.0" text="Nome" />
-                                    <Label layoutX="919.0" layoutY="350.0" text="Codice Fiscale" />
-                                    <Label layoutX="874.0" layoutY="326.0" text="Cliente" textFill="#1f489a" />
-                                    <Label layoutX="377.0" layoutY="402.0" prefHeight="17.0" prefWidth="69.0" text="Pagamento" />
+                                    <Label fx:id="lblDChiusura" layoutX="752.0" layoutY="406.0" prefHeight="17.0" prefWidth="128.0" />
+                                    <Label fx:id="lblStato" layoutX="740.0" layoutY="433.0" prefHeight="17.0" prefWidth="153.0" />
+                                    <Label fx:id="lblCognome" layoutX="1017.0" layoutY="419.0" prefHeight="17.0" prefWidth="198.0" />
+                                    <Label fx:id="lblNome" layoutX="1017.0" layoutY="393.0" prefHeight="17.0" prefWidth="152.0" />
+                                    <Label fx:id="lblCodFiscale" layoutX="1016.0" layoutY="368.0" prefHeight="17.0" prefWidth="182.0" />
+                                    <Label layoutX="881.0" layoutY="419.0" text="Cognome" />
+                                    <Label layoutX="881.0" layoutY="393.0" text="Nome" />
+                                    <Label layoutX="880.0" layoutY="370.0" text="Codice Fiscale" />
+                                    <Label layoutX="872.0" layoutY="309.0" text="Cliente">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font></Label>
+                                    <Label layoutX="366.0" layoutY="393.0" prefHeight="30.0" prefWidth="117.0" text="Pagamento">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Label>
                                     <Label layoutX="392.0" layoutY="421.0" text="Tipo Pagamento" />
                                     <Label fx:id="lblTPagamento" layoutX="524.0" layoutY="421.0" prefHeight="17.0" prefWidth="128.0" />
                                     <Label layoutX="399.0" layoutY="441.0" text="Importo Momentaneo" />
@@ -383,10 +398,23 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="1234.0">
                                  <children>
-                                    <TableView layoutY="111.0" prefHeight="194.0" prefWidth="1236.0" />
+                                    <TableView fx:id="tbSa" layoutX="-4.0" layoutY="68.0" prefHeight="304.0" prefWidth="1228.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="ID" />
+                                          <TableColumn prefWidth="158.0" text="Nome" />
+                                          <TableColumn prefWidth="180.0" text="Cognome" />
+                                          <TableColumn prefWidth="163.0" text="Data di nascita" />
+                                          <TableColumn prefWidth="212.0" text="Indirizzo" />
+                                          <TableColumn prefWidth="131.0" text="Codice fiscale" />
+                                          <TableColumn prefWidth="164.0" text="Numero cellulare" />
+                                          <TableColumn prefWidth="144.0" text="Numero fisso" />
+                                       </columns></TableView>
                                     <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
-                                    <Label layoutX="13.0" layoutY="313.0" text="Agenzia Di appartenenza" />
+                                    <Label layoutX="9.0" layoutY="370.0" text="Agenzia Di appartenenza">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Label>
                                  </children>
                               </AnchorPane>
                            </content>
