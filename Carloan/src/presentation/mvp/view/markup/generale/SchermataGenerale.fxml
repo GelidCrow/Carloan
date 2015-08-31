@@ -409,12 +409,16 @@
                                           <TableColumn prefWidth="164.0" text="Numero cellulare" />
                                           <TableColumn prefWidth="144.0" text="Numero fisso" />
                                        </columns></TableView>
-                                    <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
-                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
+                                    <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnnuovo_sa" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
+                                    <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnmodifica_sa" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Label layoutX="9.0" layoutY="371.0" text="Agenzia Di appartenenza">
                                        <font>
                                           <Font size="18.0" />
                                        </font></Label>
+                                    <Label layoutX="27.0" layoutY="424.0" text="Numero di telefono :" />
+                                    <Label layoutX="102.0" layoutY="447.0" text="Nome:" />
+                                    <Label fx:id="nome_agenzia_tabsa" layoutX="147.0" layoutY="447.0" prefHeight="17.0" prefWidth="146.0" />
+                                    <Label fx:id="tel_agenzia_tabsa" layoutX="147.0" layoutY="424.0" prefHeight="17.0" prefWidth="146.0" />
                                  </children>
                               </AnchorPane>
                            </content>

@@ -144,6 +144,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private Label indirizzo_sede_tabss;
 	@FXML
 	private Label numtel_sede_tabss;
+	@FXML
+	private Label tel_agenzia_tabsa;
+	@FXML
+	private Label nome_agenzia_tabsa;
 	
 	
 	
@@ -301,6 +305,22 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			e1.showMessage();
 		}
 	}
+	@FXML
+	public void btnnuovo_sa(ActionEvent e){
+		tbSupervisoreagenziaController.NuovoSupervisoreAgenzia();
+	}
+	@FXML
+	public void btnmodifica_sa(ActionEvent e){
+		try {
+			tbSupervisoreagenziaController.ModificaSupervisoreAgenzia();
+		} catch (CommonException e1) {
+			// TODO Auto-generated catch block
+			e1.showMessage();
+		}
+	}
+	
+	
+	
 	
 	@FXML
 	public void btnVOptional(ActionEvent e){
@@ -984,8 +1004,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			if(newValue!=null){
 				try {
 					Agenzia s=(Agenzia)presenter.processRequest("leggiAgenzia", ((SupervisoreAgenzia)newValue).getIDAgenzia());
-					/*TO DO info agenzia*/
-					
+					nome_agenzia_tabsa.setText(s.getNome());
+					tel_agenzia_tabsa.setText(s.getNumTelefono());
 				} catch (InstantiationException | IllegalAccessException
 						| ClassNotFoundException | NoSuchMethodException
 						| SecurityException | IllegalArgumentException
