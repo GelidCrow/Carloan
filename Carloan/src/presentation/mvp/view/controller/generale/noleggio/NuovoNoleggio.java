@@ -267,11 +267,12 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 				if(lDate.isBefore(LocalDate.now())){
 					impostaDate(LocalDate.now());
 				}
-				if (lDate.isAfter(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()+MASSIMO_INIZIO))){
-					impostaDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()+MASSIMO_INIZIO));		
+				else if (lDate.isAfter(LocalDate.now().plusDays(MASSIMO_INIZIO))){
+					impostaDate(LocalDate.now().plusDays(MASSIMO_INIZIO));		
 				}
 				else 
 					impostaDate(lDate);
+			
 			}
 			else 
 				throw new CommonException("Data di Ritiro non impostata");

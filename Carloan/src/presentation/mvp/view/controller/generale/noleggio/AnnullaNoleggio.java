@@ -1,19 +1,51 @@
 package presentation.mvp.view.controller.generale.noleggio;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Optional;
 
+import business.entity.Entity;
+import business.entity.Auto.Autoveicolo;
+import business.entity.Auto.Disponibilita;
+import business.entity.Noleggio.Noleggio;
+import business.model.Exception.CommonException;
 import MessaggiFinestra.AlertView;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import presentation.mvp.view.controller.Schermata;
+import presentation.mvp.view.controller.generale.SchermataGenerale;
 
 public class AnnullaNoleggio extends Schermata{
 	@FXML
 	private TextArea textAreaAnnulla;
+	@SuppressWarnings("rawtypes")
+	private SchermataGenerale schermata;
+	private TableView<Noleggio> tw;
+	Noleggio noleggio;
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
 	public void btnConferma(){
+		schermata= (SchermataGenerale) this.getChiamante();
+		tw= schermata.getTable("Noleggio");
+		noleggio.setNote(textAreaAnnulla.getText());
+		try {
+			//presenter.processRequest("VerificaAnnullaNoleggio", noleggio);
+			presenter.processRequest("AnnullaNoleggio", noleggio);
+			Autoveicolo auto= (Autoveicolo) presenter.processRequest("leggiAuto", noleggio.getIdAuto());
+			auto.setDisponibilita(Disponibilita.Disponibile);
+			presenter.processRequest("aggiornaAuto", auto);
+			schermata.caricaTabella((List<Noleggio>)presenter.processRequest("getAllNoleggi",null), tw);
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		
 	}
 	@FXML
@@ -23,6 +55,8 @@ public class AnnullaNoleggio extends Schermata{
 				this.chiudiFinestra();
 	}
 	
-	
-
+	@Override
+	public void initData(Entity entity){
+			noleggio=(Noleggio)entity;
+	}
 }

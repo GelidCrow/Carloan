@@ -48,15 +48,25 @@ public class TabNoleggio {
 					throw new CommonException("Nessun elemento selezionato");
 			}
 			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
-			if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString()) || noleggio.getStato().toString().equals(noleggio.getStato().chiuso.toString())){
+
+			if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString())
+					|| noleggio.getStato().toString().equals(noleggio.getStato().chiuso.toString())){
 				throw new CommonException("Operazione non disponibile per questo noleggio");
 			}
-			else {
+			if(noleggio.getInizioNoleggio().isEqual(LocalDate.now())|| noleggio.getInizioNoleggio().isBefore(LocalDate.now())){
+				throw new CommonException("Noleggio già iniziato, non è possibile annullarlo.");
+			}
+			
+			else if((noleggio.getInizioNoleggio().minusDays(2).isAfter(LocalDate.now()))){
 				FXMLParameter.setTitolo("Annulla noleggio");
 			    FXMLParameter.setRidimensionabile(false);
 			    FXMLParameter.setEntity(noleggio);
 				Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataAnnullaNoleggio",Modality.APPLICATION_MODAL);
 			}
+			 else{
+				 throw new CommonException("Non è possibile annullare: Fuori intervallo limite annullamento");
+			 }
+				 
 		} catch (CommonException e) {
 			e.showMessage();
 		}
@@ -96,6 +106,7 @@ public class TabNoleggio {
 		}
 	
 	}
+	@SuppressWarnings("static-access")
 	void VisualizzaMulta(){
 		try{
 		if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
@@ -103,7 +114,7 @@ public class TabNoleggio {
 		}
 		Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
 		if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString())){
-			throw new CommonException("Non è possibile visualizzare le multe di questo contratto in quanto è stato annullato");
+			throw new CommonException("Non è possibile visualizzare le multe di questo noleggio in quanto è stato annullato");
 		}
 		else {
 			FXMLParameter.setTitolo("Visualizza multe");

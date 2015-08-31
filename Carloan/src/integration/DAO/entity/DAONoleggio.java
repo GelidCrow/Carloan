@@ -157,8 +157,32 @@ public class DAONoleggio implements DAO{
 
 	@Override
 	public void aggiornamento(Entity entity) throws CommonException {
-		// TODO Auto-generated method stub
+		Noleggio noleggio= (Noleggio)entity;
+		String updateQuery = "Update noleggio set "
+								+ "note='?' , stato='annullato' where idnoleggio='?'";
+		updateQuery= queryReplaceFirst(updateQuery,noleggio.getNote());
+		updateQuery= queryReplaceFirst(updateQuery,String.valueOf(noleggio.getIDNoleggio()));
 		
+		 
+	   Connection connection= Connection.getConnection(daofactory);
+       
+       ResultSet update = null;
+       try {
+		update = connection.executeUpdate(updateQuery);
+		 if (update==null){
+				throw new CommonException("Errore durante l'aggiornamento del noleggio");
+			 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+       finally{
+			try {
+				update.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
