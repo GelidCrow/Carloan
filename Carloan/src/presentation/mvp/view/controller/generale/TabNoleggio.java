@@ -53,7 +53,7 @@ public class TabNoleggio {
 					|| noleggio.getStato().toString().equals(noleggio.getStato().chiuso.toString())){
 				throw new CommonException("Operazione non disponibile per questo noleggio");
 			}
-			if(noleggio.getInizioNoleggio().isEqual(LocalDate.now())|| noleggio.getInizioNoleggio().isBefore(LocalDate.now())){
+			if(noleggio.getRitiro().isEqual(LocalDate.now())|| noleggio.getRitiro().isBefore(LocalDate.now())){
 				throw new CommonException("Noleggio già iniziato, non è possibile annullarlo.");
 			}
 			

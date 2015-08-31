@@ -128,7 +128,10 @@
 		<class>business.model.ModelNoleggio</class>
 		<method>ricerca</method>
 	</call>
-	
+	<call id="VerificaAnnullaNoleggio">
+		<class>business.model.checker.noleggio.checkerNoleggio</class>
+		<method>check</method>
+	</call>
 
 	
 	<call id="getAllNoleggi">

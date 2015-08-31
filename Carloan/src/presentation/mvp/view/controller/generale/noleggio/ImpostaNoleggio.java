@@ -685,7 +685,6 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	 */
 	protected void impostaDate(LocalDate localdate){
 		dRitiro.setValue(localdate);
-		lblDataInizio.setText(localdate.format(dtf));
 		setDataFineNoleggio();
 	}
 	
@@ -732,9 +731,8 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
-		
 		impostaDate(LocalDate.now());	
-		
+		lblDataInizio.setText(LocalDate.now().format(dtf));
 		bindingValuesRestituzione();
 		bindingValuesOptional();
 		bindingValuesAutoveicolo();
