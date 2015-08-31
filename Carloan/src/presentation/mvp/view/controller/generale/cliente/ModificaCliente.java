@@ -57,7 +57,7 @@ public class ModificaCliente extends NuovoCliente{
 				chiudiFinestra();
 			} 
 			catch(CommonException e){
-				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
+				e.showMessage();
 			}
 			catch(InvocationTargetException e){
 				new CommonException(((InvocationTargetException) e).getTargetException().getMessage()).showMessage();

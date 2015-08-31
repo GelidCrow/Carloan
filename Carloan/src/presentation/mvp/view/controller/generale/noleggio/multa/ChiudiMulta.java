@@ -33,7 +33,7 @@ public class ChiudiMulta extends Schermata{
 		try {
 			prendiDatiDaView();
 			try {
-				presenter.processRequest("VerificaMulta", multa);
+				presenter.processRequest("CheckMultaChiusura", multa);
 				presenter.processRequest("ChiusuraMulta", multa);
 				((VisualizzaMulte)this.getChiamante()).caricaTabella((List<Multa>)presenter.processRequest("getAllMulteByNoleggio",multa.getIdNoleggio()));
 			

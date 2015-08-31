@@ -121,10 +121,7 @@
 		<method>contaNoleggi</method>
 	</call>
 	
-	<call id="VerificaNoleggio">
-		<class>business.model.checker.contratto.NoleggioChecker</class>
-		<method>check</method>
-	</call>
+
 	
 	<call id="getAllNoleggi">
 		<class>business.model.ModelNoleggio</class>
@@ -375,6 +372,15 @@
 		<class>business.model.ModelMulta</class>
 		<method>aggiornamento</method>
 	</call>
+	<call id="CheckMulta">
+		<class>business.model.checker.multa.checkerMulta</class>
+		<method>check</method>
+	</call>
+	<call id="CheckMultaChiusura">
+		<class>business.model.checker.multa.checkerChiusuraMulta</class>
+		<method>check</method>
+	</call>
+	
 	<!--Credenziali-->
 	<call id="VerificaCredenziali">
 		<class>business.model.ModelLogin</class>

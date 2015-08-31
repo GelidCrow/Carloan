@@ -42,16 +42,21 @@ public class NuovaMulta extends Schermata{
 		try {
 			prendiDatiDaView();
 			try {
-			//	presenter.processRequest("VerificaMulta", multa);
+				presenter.processRequest("CheckMulta", multa);
 				presenter.processRequest("InserimentoMulta", multa);
-			} catch (InstantiationException | IllegalAccessException
+				chiudiFinestra();
+			} 
+			catch(InvocationTargetException e1){
+				new CommonException(((InvocationTargetException) e1).getTargetException().getMessage()).showMessage();
+			}
+			
+			catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
 					| SecurityException | IllegalArgumentException
-					| InvocationTargetException e1) {
+					 e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			chiudiFinestra();
 		}
 		catch(CommonException e1){
 			e1.showMessage();
@@ -64,16 +69,18 @@ public class NuovaMulta extends Schermata{
 			throw new CommonException("Compilare prima tutti i campi obbligatori");
 		}
 			multa.setDataMulta(dMulta.getValue());
-			if(Float.valueOf(txtImporto.getText())!=null) {
-				multa.setImporto(Float.valueOf(txtImporto.getText()));
-			}
-			else 
-				throw new CommonException("L'importo deve essere costituito da soli numeri");
-			multa.setNote(txtAreaNote.getText());
-			multa.setStato(StatoMulta.Aperto);
-			multa.setDataScadenza(dScadenzaMulta.getValue());
-			multa.setIdNoleggio(noleggio.getIDNoleggio());
-	}
+		try{
+				float importo=(Float.parseFloat(txtImporto.getText()));
+				multa.setImporto(importo);
+		}
+		catch(NumberFormatException e){
+			throw new CommonException("L'importo deve essere costituito da soli numeri");
+		}
+		multa.setNote(txtAreaNote.getText());
+		multa.setStato(StatoMulta.Aperto);
+		multa.setDataScadenza(dScadenzaMulta.getValue());
+		multa.setIdNoleggio(noleggio.getIDNoleggio());
+}
 	
 	@FXML
 	public void btnCancella(ActionEvent e){
