@@ -13,11 +13,7 @@ public class ModelAutoveicolo implements Model{
 	private DaoFactory daofactory;
 
 
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
+	
  
 	@Override
 	public void Inserimento(Entity parameter) throws CommonException {
@@ -134,6 +130,13 @@ public class ModelAutoveicolo implements Model{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+
+	@Override
+	public List<Entity> ricerca() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	

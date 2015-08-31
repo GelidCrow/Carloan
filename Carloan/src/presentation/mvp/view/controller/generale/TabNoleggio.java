@@ -1,17 +1,21 @@
 package presentation.mvp.view.controller.generale;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
+import presentation.mvp.view.controller.generale.noleggio.RicercaNoleggio;
 import utility.Finestra;
 import utility.ParametriFXML;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
+import business.entity.Noleggio.StatoNoleggio;
 import business.model.Exception.CommonException;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -55,24 +59,44 @@ public class TabNoleggio {
 	}
 	
 	void NuovaMulta(){
-		if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
-			try {
-				throw new CommonException("Nessun elemento selezionato");
-			} catch (CommonException e) {
-				// TODO Auto-generated catch block
-				e.showMessage();
+		try {
+			if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
+					throw new CommonException("Nessun elemento selezionato");
 			}
+			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
+			if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString())){
+				throw new CommonException("Non è possibile aprire una mula per questo noleggio in quanto è stato annullato");
+			}
+			else {
+				FXMLParameter.setTitolo("Nuova Multa");
+			    FXMLParameter.setRidimensionabile(false);
+			    FXMLParameter.setEntity(noleggio);
+				Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataInserimentoMulta",Modality.APPLICATION_MODAL);
+			}
+		} catch (CommonException e) {
+			// TODO Auto-generated catch block
+			e.showMessage();
 		}
-		else {
-			FXMLParameter.setTitolo("Nuova Multa");
-		    FXMLParameter.setRidimensionabile(false);
-		    FXMLParameter.setEntity(((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio"));
-			Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataInserimentoMulta",Modality.APPLICATION_MODAL);
+	
+	}
+	
+	public void ricerca(int idContratto, StatoNoleggio stato,
+			LocalDate dStart) {
+		FXMLParameter.setTitolo("Visualizza multe");
+	    FXMLParameter.setRidimensionabile(false);
+	    RicercaNoleggio ricercaNoleggio = new RicercaNoleggio(stato,dStart,idContratto);
+		try {
+			presenter.processRequest("RicercaNoleggio", ricercaNoleggio);
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
-	void ChiudiMulta(){
-			
-	}
+	
 	void VisualizzaMulta(){
 		if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
 			try {
@@ -113,4 +137,6 @@ public class TabNoleggio {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
 	}
+
+
 }

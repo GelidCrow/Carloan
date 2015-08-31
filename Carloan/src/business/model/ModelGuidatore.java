@@ -29,11 +29,7 @@ public class ModelGuidatore implements Model{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 	public List<Guidatore> getAllByNoleggio(int idNoleggio){
 		try {
@@ -42,6 +38,11 @@ public class ModelGuidatore implements Model{
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+	@Override
+	public List<Entity> ricerca() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

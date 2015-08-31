@@ -17,11 +17,7 @@ public class ModelCartaDiCredito implements Model{
 
 
 
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void Inserimento(Entity parameter) {
@@ -58,6 +54,12 @@ public class ModelCartaDiCredito implements Model{
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public List<Entity> ricerca() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	

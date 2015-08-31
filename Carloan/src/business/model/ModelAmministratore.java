@@ -22,11 +22,7 @@ public class ModelAmministratore implements Model{
 		
 	}
 
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void aggiornamento(Entity parameter) throws CommonException {
@@ -72,6 +68,14 @@ public class ModelAmministratore implements Model{
 			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
+		return null;
+	}
+
+
+
+	@Override
+	public List<Entity> ricerca() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -46,10 +46,6 @@ public class ModelContratto implements Model{
 		return null;	
 	}
 
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-	}
 
 	@Override
 	public Entity lettura(int id) {
@@ -60,6 +56,12 @@ public class ModelContratto implements Model{
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public List<Entity> ricerca() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

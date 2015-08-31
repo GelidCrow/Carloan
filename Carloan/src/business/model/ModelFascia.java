@@ -22,13 +22,6 @@ public class ModelFascia implements Model{
 		
 	}
 
-
-
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
 	public List<Fascia> getAll(){
 		try {
 			daofactory = DaoFactory.getDaoFactory(1);
@@ -41,6 +34,12 @@ public class ModelFascia implements Model{
 
 	@Override
 	public Entity lettura(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Entity> ricerca() {
 		// TODO Auto-generated method stub
 		return null;
 	}

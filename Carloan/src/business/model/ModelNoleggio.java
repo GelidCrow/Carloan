@@ -31,9 +31,16 @@ public class ModelNoleggio implements Model{
 
 
 	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
+	public List<Entity> ricerca(Entity entity) {
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			return 	((DAONoleggio) daofactory.getDao("DAONoleggio")).ricerca(entity);
+
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		return null;
 	}
 	
 	

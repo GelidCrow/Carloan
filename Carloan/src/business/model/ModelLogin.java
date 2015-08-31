@@ -2,6 +2,8 @@ package business.model;
 
 
 
+import java.util.List;
+
 import business.entity.Entity;
 import business.model.Exception.CommonException;
 import integration.DAO.DaoFactory;
@@ -11,11 +13,6 @@ public class ModelLogin implements Model {
 	private DaoFactory daofactory;
 
 
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	
 	public Entity autenticazione(Entity parameter){
@@ -86,6 +83,12 @@ public class ModelLogin implements Model {
 			e.printStackTrace();
 		}
 		return ret;
+	}
+
+	@Override
+	public List<Entity> ricerca() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

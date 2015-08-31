@@ -26,15 +26,6 @@ public class ModelAgenzia implements Model{
 	}
 
 
-
-
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	@Override
 	public void aggiornamento(Entity parameter) throws CommonException {
 		try {
@@ -67,6 +58,13 @@ public class ModelAgenzia implements Model{
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+
+	@Override
+	public List<Entity> ricerca() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -46,12 +46,7 @@ public class ModelCliente implements Model{
 		return null;
 	}
 	
-	
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 	public List<Cliente> getAll(){
 		try {
@@ -62,6 +57,12 @@ public class ModelCliente implements Model{
 			e.printStackTrace();
 		}
 		return null;	
+	}
+
+	@Override
+	public List<Entity> ricerca() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

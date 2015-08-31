@@ -120,6 +120,10 @@
 		<class>business.model.ModelNoleggio</class>
 		<method>contaNoleggi</method>
 	</call>
+	<call id="RicercaNoleggio">
+		<class>business.model.ModelNoleggio</class>
+		<method>ricerca</method>
+	</call>
 	
 
 	

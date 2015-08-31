@@ -11,11 +11,7 @@ import business.model.Exception.CommonException;
 
 public class ModelManutenzione implements Model{
 	private DaoFactory daofactory;
-	@Override
-	public void ricerca() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	public void chiusuraManutenzione(Entity parameter) throws CommonException{
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
@@ -90,5 +86,11 @@ public class ModelManutenzione implements Model{
 			e.printStackTrace();
 		}
 	return null;	
+	}
+
+	@Override
+	public List<Entity> ricerca() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -29,6 +30,7 @@ import business.entity.Luoghi.Agenzia;
 import business.entity.Luoghi.Sede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
+import business.entity.Noleggio.StatoNoleggio;
 import business.entity.pagamento.CartaDiCredito;
 import business.entity.pagamento.Pagamento;
 import business.model.Exception.CommonException;
@@ -48,6 +50,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -55,6 +58,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
@@ -83,7 +87,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TableView<T> tbAmministratore;
 	@FXML
 	private TableView<T> tbSs;
-	
+
 	@FXML
 	private Label txtBenvenuto;
 	@FXML
@@ -138,7 +142,11 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	private Label numtel_sede_tabss;
 	
+	
+	
+
 		/***********  CONTRATTO *************/
+	
 	@FXML
 	public void btnNuovoContratto(ActionEvent e){
 		tbContrattoController.NuovoContratto();
@@ -200,6 +208,36 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	public void btnChiudiNoleggio(ActionEvent e){
 		
+	}
+	@FXML
+	private ChoiceBox<StatoNoleggio> choiceStato;
+	@FXML
+	private DatePicker dInizio;
+	@FXML
+	private TextField txtContratto;
+	@FXML
+	private void btnCerca(ActionEvent e){
+		
+		try{
+			int idContratto=0;
+			if(!txtContratto.getText().isEmpty()){
+				idContratto=(Integer.parseInt(txtContratto.getText()));
+			tbNoleggioController.ricerca(idContratto,choiceStato.getSelectionModel().getSelectedItem(),dInizio.getValue());	}		
+		}
+		catch(NumberFormatException exc){
+			AlertView.getAlertView("Inserire solo  numeri nella casella dell'id del contratto",AlertType.WARNING); 
+		}
+	}
+	@FXML
+	private void dInizioAction(ActionEvent a){
+		try{
+		if(dInizio.getValue().isBefore(LocalDate.of(2014,12,31))){
+			dInizio.setValue(LocalDate.of(2014,12,31));
+			throw new CommonException("La data scelta non è valida in quanto è precedente a 31-12-2014");
+		} }
+		catch(CommonException e){
+			e.showMessage();
+		}
 	}
 	
 	
@@ -1008,6 +1046,17 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		FXMLParameter = new ParametriFXML(null,false);
+		dInizio.setValue(LocalDate.now());
+		List<StatoNoleggio> stati= new ArrayList<StatoNoleggio>();
+
+		stati.add(StatoNoleggio.vuoto);
+		stati.add(StatoNoleggio.aperto);
+		stati.add(StatoNoleggio.chiuso);
+		stati.add(StatoNoleggio.annullato);
+		
+		ObservableList<StatoNoleggio> items = FXCollections.observableArrayList(stati);
+		choiceStato.setItems(items);
+		choiceStato.getSelectionModel().selectFirst();
 		
 		panes= tabPane.getTabs();
 		//serve solo per fargli fare il binding con le colonne
