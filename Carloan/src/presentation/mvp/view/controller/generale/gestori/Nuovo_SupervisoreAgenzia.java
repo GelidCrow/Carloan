@@ -94,7 +94,7 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 			}
 	}
 	
-	protected void bindValues(){
+	protected void bindValues(){ 
 		agenzia.get(0).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Agenzia) cellData.getValue()).getIDAgenzia()));
 		agenzia.get(1).setCellValueFactory(cellData -> new SimpleStringProperty(((Agenzia) cellData.getValue()).getNome()));
 		agenzia.get(2).setCellValueFactory(cellData -> new SimpleStringProperty(((Agenzia) cellData.getValue()).getNumTelefono()));
