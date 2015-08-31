@@ -214,7 +214,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	@FXML
 	public void btnChiudiNoleggio(ActionEvent e){
-		
+		tbNoleggioController.ChiudiNoleggio();
 	}
 	@FXML
 	private ChoiceBox<StatoNoleggio> choiceStato;

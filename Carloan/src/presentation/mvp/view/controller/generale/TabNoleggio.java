@@ -73,7 +73,33 @@ public class TabNoleggio {
 	}
 	
 	public void ChiudiNoleggio(){
-		
+		try {
+			if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
+					throw new CommonException("Nessun elemento selezionato");
+			}
+			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
+
+			if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString())
+					|| noleggio.getStato().toString().equals(noleggio.getStato().chiuso.toString()) ){
+				throw new CommonException("Operazione non disponibile per questo noleggio");
+			}
+			if(noleggio.getRitiro().isAfter(LocalDate.now())){
+				throw new CommonException("Noleggio non ancora iniziato");
+			}
+			
+			else if((noleggio.getFineNoleggio().isBefore(LocalDate.now()))){
+				FXMLParameter.setTitolo("Termine noleggio");
+			    FXMLParameter.setRidimensionabile(false);
+			    FXMLParameter.setEntity(noleggio);
+				Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataChiusuraNoleggio",Modality.APPLICATION_MODAL);
+			}
+			 else{
+				 throw new CommonException("Noleggio non ancora terminato, non è possibile chiuderlo prima della data stabilita");
+			 }
+				 
+		} catch (CommonException e) {
+			e.showMessage();
+		}
 	}
 	
 	
