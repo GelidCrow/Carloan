@@ -59,4 +59,5 @@
 	<!--SupervisoreAgenzia-->
 	
 	<interface id="MostraSchermataNuovoSupervisoreAgenzia" src ="markup/generale/gestori/Nuovo_SupervisoreAgenzia.fxml"></interface>
+	<interface id="MostraSchermataModificaSupervisoreAgenzia" src ="markup/generale/gestori/Modifica_SupervisoreAgenzia.fxml"></interface>
 </interfaces>

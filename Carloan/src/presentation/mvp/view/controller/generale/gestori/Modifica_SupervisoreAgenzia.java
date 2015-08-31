@@ -1,6 +1,7 @@
 package presentation.mvp.view.controller.generale.gestori;
 
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import business.entity.Entity;
 import business.entity.Login;
 import business.entity.Utente;
 import business.entity.UtenteCorrente;
@@ -24,6 +26,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -34,44 +37,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import presentation.mvp.view.Presenter;
-import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
 
-public class Nuovo_SupervisoreAgenzia extends Schermata{
+public class Modifica_SupervisoreAgenzia extends Nuovo_SupervisoreAgenzia{
+	private SupervisoreAgenzia sup_coinvolto;
 	@FXML
-	protected TextField nome;
-	@FXML
-	protected TextField cognome;
-	@FXML
-	protected TextField indirizzo;
-	@FXML
-	protected TextField codfis;
-	@FXML
-	protected TextField nfisso;
-	@FXML
-	protected TextField ncell;
-	@FXML
-	protected TextField username;
-	@FXML
-	protected PasswordField password;
-	@FXML
-	protected RadioButton radio_m;
-	@FXML
-	protected RadioButton radio_f;
-	@FXML
-	protected DatePicker datanas;
-	@FXML
-	protected Label labelsedi;
-	
-	protected ToggleGroup tog;
-	@FXML
-	protected Label informazioni;
-	@FXML
-	protected TableView<Agenzia> table_agenzia;
-	protected ObservableList<TableColumn<Agenzia,?>> agenzia;
-	protected TableView<SupervisoreAgenzia> tw;
-	protected Utente u;
-	
+	CheckBox assunto;
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
 		tog=new ToggleGroup();
@@ -85,36 +56,63 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 			informazioni.setText("Il supervisore sarà assegnato alla agenzia a cui il corrente utente è registrato");
 			table_agenzia.setVisible(false);
 		}
-		else{
+		else
 			bindValues();
+	}
+
+	@Override
+	public void initData(Entity x){
+		sup_coinvolto=(SupervisoreAgenzia)x;
+		
+		
+		if(u instanceof Amministratore)
 			initTableAgenzie();
-			}
+		
+		
+		nome.setText(sup_coinvolto.getNome());
+		cognome.setText(sup_coinvolto.getCognome());
+		if(sup_coinvolto.getSesso().equals("Maschio"))
+			radio_m.setSelected(true);
+		else
+			radio_f.setSelected(true);
+		datanas.setValue(sup_coinvolto.getDataNascita());
+		indirizzo.setText(sup_coinvolto.getIndirizzo());
+		codfis.setText(sup_coinvolto.getCodiceFiscale());
+		nfisso.setText(sup_coinvolto.getNumFisso());
+		ncell.setText(sup_coinvolto.getNumCell());
+		assunto.setSelected(sup_coinvolto.isAssunto());
+		
+		String username1="";
+		try {
+			 username1=(String) presenter.processRequest("getUsername", this.sup_coinvolto);
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		username.setText(username1);
+		if(this.sup_coinvolto.isAssunto())
+			assunto.setSelected(true);
+		
 	}
-	
-	protected void bindValues(){ 
-		agenzia.get(0).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Agenzia) cellData.getValue()).getIDAgenzia()));
-		agenzia.get(1).setCellValueFactory(cellData -> new SimpleStringProperty(((Agenzia) cellData.getValue()).getNome()));
-		agenzia.get(2).setCellValueFactory(cellData -> new SimpleStringProperty(((Agenzia) cellData.getValue()).getNumTelefono()));
-	}
-	protected List<Agenzia> DownloadAgenzie(){
-		List<Agenzia> a=new LinkedList<Agenzia>();
-			try {
-				if(u instanceof Amministratore)
-				a= (List<Agenzia>)presenter.processRequest("getAllAgenzie", null);					
-			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException | NoSuchMethodException
-					| SecurityException | IllegalArgumentException
-					| InvocationTargetException | CommonException e) {
-				e.printStackTrace();
-			}
-			return a;
-	}
+
 	protected void initTableAgenzie(){
-		bindValues();
-		List<Agenzia> list=DownloadAgenzie();
-		ObservableList<Agenzia> obsList= FXCollections.observableList(list);
-		table_agenzia.setItems(obsList);
-		table_agenzia.getSelectionModel().selectFirst();
+		super.initTableAgenzie();
+		try {
+			Agenzia a=(Agenzia)presenter.processRequest("leggiAgenzia", this.sup_coinvolto.getIDAgenzia());
+			this.table_agenzia.getSelectionModel().select(a);
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -127,12 +125,16 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 		try {
 			SupervisoreAgenzia a=prendiDatiDaView();
 			Login login=prendiDatiPerLogIn();
-			//Verifico se l'username non è stato scelto già
-			presenter.processRequest("VerificaCredenziali",login);
-			presenter.processRequest("InserisciSupervisoreAgenzia", a);
+			
+			String current_username=(String) presenter.processRequest("getUsername", this.sup_coinvolto);
+			if(!current_username.equals(login.getUsername()))//Verifico se l'username non è stato scelto già
+			presenter.processRequest("VerificaCredenziali",login);//Verifico se l'username non è stato scelto già
+			
+			
+			presenter.processRequest("ModificaSupervisoreAgenzia", a);
 			a=(SupervisoreAgenzia) presenter.processRequest("leggiSupervisoreAgenziaByCodiceFiscale", a.getCodiceFiscale());
 			login.setSupA(String.valueOf(a.getIdUtente()));
-			presenter.processRequest("InserisciCredenziali", login);
+			presenter.processRequest("ModificaCredenziali", login);
 			/*Aggiorna la tabella nella schermata generale*/
 			if(u instanceof Amministratore)
 			schermataGenerale.caricaTabella((List<SupervisoreAgenzia>)presenter.processRequest("getAllSupervisoriAgenzia",null), tw);
@@ -164,9 +166,6 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 		if(user_name==null || user_name.isEmpty() || user_name.length()<4)
 			throw new CommonException("Username non valido");
 		String passw=password.getText();
-		if(passw==null || passw.isEmpty() || passw.length()<4)
-			throw new CommonException("Password non valida");
-			
 		return new Login(user_name, passw);
 	}
 	protected SupervisoreAgenzia prendiDatiDaView() throws CommonException {
@@ -212,6 +211,11 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 		else
 			a.setIDAgenzia(((SupervisoreAgenzia)u).getIDAgenzia());
 		
+		if(assunto.isSelected())
+			a.setAssunto(true);
+		else
+			a.setAssunto(false);
+		a.setIdUtente(sup_coinvolto.getIdUtente());
 		return  a;
 	}
 	@FXML

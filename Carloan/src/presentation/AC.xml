@@ -318,6 +318,18 @@
     	<class>business.model.ModelSupervisoreS</class>
     	<method>leggiSupervisoreSedeByCodiceFiscale</method>
     </call>
+
+
+    <!--Supervisore Agenzia-->
+    <call id="InserisciSupervisoreAgenzia">
+        <class>business.model.ModelSupervisoreA</class>
+        <method>Inserimento</method>
+        </call>
+        
+        <call id="leggiSupervisoreAgenziaByCodiceFiscale">
+        <class>business.model.ModelSupervisoreA</class>
+        <method>leggiSupervisoreAgenziaByCodiceFiscale</method>
+    </call>
     	<!-- Agenzia-->
     	<call id="InserisciAgenzia">
     		<class>business.model.ModelAgenzia</class>

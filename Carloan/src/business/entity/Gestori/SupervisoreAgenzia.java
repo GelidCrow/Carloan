@@ -15,6 +15,9 @@ public class SupervisoreAgenzia extends Supervisore {
 		// TODO Auto-generated constructor stub
 		this.IDAgenzia=IDAgenzia;
 	}
+	public SupervisoreAgenzia() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getIDAgenzia() {
 		return IDAgenzia;
 	}

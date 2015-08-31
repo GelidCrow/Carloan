@@ -3,12 +3,9 @@ package business.model;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
-import integration.DAO.entity.DAOAmministratore;
 import integration.DAO.entity.DAOSupervisoreA;
 import business.entity.Entity;
-import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.SupervisoreAgenzia;
-import business.entity.Gestori.SupervisoreSede;
 import business.model.Exception.CommonException;
 
 public class ModelSupervisoreA implements Model{
@@ -19,9 +16,14 @@ public class ModelSupervisoreA implements Model{
 
 
 	@Override
-	public void Inserimento(Entity parameter) {
-		// TODO Auto-generated method stub
-		
+	public void Inserimento(Entity parameter) throws CommonException {
+		try{
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+				 ((DAOSupervisoreA)daofactory.getDao("DAOSupervisoreA")).creazione(parameter);
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
 	}
 
 	@Override
@@ -65,6 +67,16 @@ public class ModelSupervisoreA implements Model{
 			if(daofactory==null)
 				daofactory= DaoFactory.getDaoFactory(1);
 				return ((DAOSupervisoreA)daofactory.getDao("DAOSupervisoreA")).getAllByAgenzia(idAgenzia);
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			return null;
+	}
+	public SupervisoreAgenzia leggiSupervisoreAgenziaByCodiceFiscale(String c){
+		try{
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+				return ((DAOSupervisoreA)daofactory.getDao("DAOSupervisoreA")).leggiSupervisoreAgenziaByCodiceFiscale(c);
 			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
 			}

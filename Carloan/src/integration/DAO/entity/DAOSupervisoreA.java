@@ -13,15 +13,37 @@ import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Gestori.SupervisoreAgenzia;
+import business.model.Exception.CommonException;
 
 public class DAOSupervisoreA implements DAO{
 
 	
 	@Override
-	public ResultSet creazione(Entity x) {
+	public ResultSet creazione(Entity x) throws CommonException {
+		String query="Insert into SupervisoreAgenzia(Nome,Cognome,Sesso,DataNascita,Indirizzo,CodiceFiscale,NumCell,NumFisso,"
+				+"Assunto,IDAgenzia) values('?','?','?','?','?','?','?','?','1',?)";
+		SupervisoreAgenzia s=(SupervisoreAgenzia)x;
+		query=queryReplaceFirst(query, s.getNome());
+		query=queryReplaceFirst(query, s.getCognome());
+		query=queryReplaceFirst(query, s.getSesso());
+		query=queryReplaceFirst(query, s.getDataNascita().toString());
+		query=queryReplaceFirst(query, s.getIndirizzo());
+		query=queryReplaceFirst(query, s.getCodiceFiscale());
+		query=queryReplaceFirst(query, s.getNumCell());
+		query=queryReplaceFirst(query, s.getNumFisso());
+		query=queryReplaceFirst(query, String.valueOf(s.getIDAgenzia()));
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet r;
+		try {
+			r=c.executeUpdate(query);
+			if(r!=null)
+				AlertView.getAlertView("Supervisore Agenzia inserito con successo", AlertType.INFORMATION);
+			else
+				throw new CommonException("Supervisore Agenzia non inserito");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -68,9 +90,20 @@ public class DAOSupervisoreA implements DAO{
     return risultato;
 	}
 	
-	private SupervisoreAgenzia ottieniSupA(ResultSet resultset) throws SQLException{
-		 return new SupervisoreAgenzia(resultset.getInt(1),resultset.getString(2),resultset.getString(3),resultset.getString(4),resultset.getDate(5).toLocalDate(),resultset.getString(6),
-				 	resultset.getString(7),resultset.getString(8),resultset.getString(9),resultset.getBoolean(10),resultset.getInt(11));
+	private SupervisoreAgenzia ottieniSupA(ResultSet resultset) {
+		SupervisoreAgenzia a=null;
+		if(resultset!=null)
+			try {
+				
+				a= new SupervisoreAgenzia(resultset.getInt(1),resultset.getString(2),resultset.getString(3),resultset.getString(4),resultset.getDate(5).toLocalDate(),resultset.getString(6),
+						 	resultset.getString(7),resultset.getString(8),resultset.getString(9),resultset.getBoolean(10),resultset.getInt(11));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		else
+			a=new SupervisoreAgenzia();
+		return a;
 	}
 
 	public List<SupervisoreAgenzia> getAll() {
@@ -114,5 +147,21 @@ public class DAOSupervisoreA implements DAO{
 		e.printStackTrace();
 	}
 		return creaElencoSupervisoriagenzia(r);
+	}
+
+	public SupervisoreAgenzia leggiSupervisoreAgenziaByCodiceFiscale(String c) {
+		String query="Select * from SupervisoreAgenzia where CodiceFiscale='?'";
+		query=queryReplaceFirst(query, c);
+		Connection co=Connection.getConnection(this.daofactory);
+		ResultSet r=null;
+		try {
+			r=co.executeRead(query);
+			if(r!=null)
+				r.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ottieniSupA(r);
 	}
 }
