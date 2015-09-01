@@ -16,13 +16,11 @@ import business.entity.Cliente;
 import business.model.Exception.CommonException;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-
-import javafx.beans.property.SimpleIntegerProperty;
 public class TabClienti{
 	
 	private ObservableList<TableColumn<Cliente, ?>> cliente;
 	
-	private TableView<Cliente> tbCliente;
+	
 
 	private Schermata schermata;
 	
@@ -39,7 +37,7 @@ public class TabClienti{
 	@SuppressWarnings("rawtypes")
 	public void ModificaCliente() throws CommonException{
 		
-	    if(tbCliente.getSelectionModel().getSelectedIndex()< 0){
+	    if(((SchermataGenerale<?>) schermata).getElemSelezionato("Cliente")< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{
@@ -50,7 +48,7 @@ public class TabClienti{
 	    }
 	}
 	public void NuovaCartaCredito(){
-		if(tbCliente.getSelectionModel().getSelectedIndex()< 0){
+		if(((SchermataGenerale<?>) schermata).getElemSelezionato("Cliente")< 0){
 	    		try {
 					throw new CommonException("Nessun elemento selezionato");
 				} catch (CommonException e) {
@@ -65,7 +63,7 @@ public class TabClienti{
 	}
 	@SuppressWarnings("rawtypes")
 	public void VisualizzaCartaCredito(){
-		if(tbCliente.getSelectionModel().getSelectedIndex()< 0){
+		if(((SchermataGenerale<?>) schermata).getElemSelezionato("Cliente")< 0){
     		try {
 				throw new CommonException("Nessun elemento selezionato");
 			} catch (CommonException e) {
@@ -122,7 +120,6 @@ public class TabClienti{
 		
 		this.schermata= schermata;
 		
-		this.tbCliente=tbCliente;
 		
 		bindingValuesCliente();
 		

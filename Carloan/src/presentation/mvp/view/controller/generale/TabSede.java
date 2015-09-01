@@ -51,7 +51,7 @@ public class TabSede {
 		
 	}
 	public void ModificaSede() throws CommonException{
-		 if(table_sede.getSelectionModel().getSelectedIndex()< 0){
+		 if(((SchermataGenerale<?>) schermata).getElemSelezionato("Sede")< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{

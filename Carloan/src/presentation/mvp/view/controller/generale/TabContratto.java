@@ -45,7 +45,7 @@ public class TabContratto {
 	@SuppressWarnings("rawtypes")
 	public void ModificaContratto() throws CommonException{
 		
-	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
+	    if(((SchermataGenerale<?>) schermata).getElemSelezionato("Contratto")< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{
@@ -77,7 +77,7 @@ public class TabContratto {
 				throw new CommonException("Ci sono dei noleggi con delle multe aperte,è necessario  pagarle prima di poter chiudere contratto");
 			}
 		}
-	    if(tbContratto.getSelectionModel().getSelectedIndex()< 0){
+	    if(((SchermataGenerale<?>) schermata).getElemSelezionato("Contratto")< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{

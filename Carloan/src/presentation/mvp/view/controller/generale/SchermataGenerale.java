@@ -89,6 +89,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TableView<T> tbSs;
 	@FXML
 	private TableView<T> tbSa;
+	@FXML
+	private TableView<T> tbOperatore;
 	
 	@FXML
 	private Label txtBenvenuto;
@@ -124,7 +126,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private TabAmministratore tbAmministratoreController;
 	private TabSupervisoreSede tbSupervisoresedeController;
 	private TabSupervisoreAgenzia tbSupervisoreagenziaController;
-	
+	private TabOperatore tbOperatoreController;
 	private TabAuto tbAutoController;
 	@FXML
 	private Label nome_agenzia;
@@ -148,6 +150,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private Label tel_agenzia_tabsa;
 	@FXML
 	private Label nome_agenzia_tabsa;
+	@FXML
+	private Label nome_sede_tabOp;
+	@FXML
+	private Label tel_sede_tabOp;
+	@FXML
+	private Label indirizzo_sede_tabOp;
 	
 	
 	
@@ -410,6 +418,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbSs;
 		else if(table.equals("SupervisoreAgenzia"))
 			return tbSa;
+		else if(table.equals("Operatore"))
+			return tbOperatore;
 		else
 			return null;
 	}
@@ -431,6 +441,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbSs.getSelectionModel().getSelectedIndex();
 		else if(table.equals("SupervisoreAgenzia"))
 			return tbSa.getSelectionModel().getSelectedIndex();
+		else if(table.equals("Operatore"))
+			return tbOperatore.getSelectionModel().getSelectedIndex();
 		else
 			return 0;
 	}
@@ -457,6 +469,8 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			return tbSs.getSelectionModel().getSelectedItem();
 		else if(table.equals("SupervisoreAgenzia"))
 			return tbSa.getSelectionModel().getSelectedItem();
+		else if(table.equals("Operatore"))
+			return tbOperatore.getSelectionModel().getSelectedItem();
 		else
 			return null;
 	}
@@ -680,6 +694,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 					e.printStackTrace();
 				}
 			}
+			//Supervisore agenzia
 			else if(panes.get(8)==newValue){
 				tbSupervisoreagenziaController=new TabSupervisoreAgenzia((TableView<SupervisoreAgenzia>)tbSa, SchermataGenerale.this);
 				
@@ -698,6 +713,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+				
+			}
+			//operatore
+			else if(panes.get(9)==newValue){
 				
 			}
 		
@@ -1019,6 +1038,31 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		
 	}
 	
+	@SuppressWarnings("rawtypes")
+	private class ItemSelectedOperatore implements ChangeListener{
+
+		@Override
+		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+			if(newValue!=null){
+				try {
+					Sede s=(Sede)presenter.processRequest("leggiSede", ((Operatore)newValue).getIDSede());
+					tel_sede_tabOp.setText(s.getNumeroTelefono());
+					nome_sede_tabOp.setText(s.getNome());
+					indirizzo_sede_tabOp.setText(s.getIndirizzo());
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalArgumentException
+						| InvocationTargetException | CommonException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		
+	}
+	
+	
 	public Fascia getFascia(){
 		return choice_fascia.getSelectionModel().getSelectedItem();
 	}
@@ -1145,6 +1189,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tbSede.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedSede());
 		tbSs.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedSs());
 		tbSa.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedSa());
+		tbOperatore.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedOperatore());
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	

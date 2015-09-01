@@ -18,7 +18,6 @@ import business.model.Exception.CommonException;
 import java.time.LocalDate;
 public class TabAmministratore {
 	private ObservableList<TableColumn<Amministratore,?>> amministratore;
-	private TableView<Amministratore> table_amministratore;
 	private Schermata schermata;
 	private ParametriFXML FXMLParameter;
 	private Presenter presenter;
@@ -28,7 +27,6 @@ public class TabAmministratore {
 	TabAmministratore(TableView<Amministratore> tbAmministratore,Schermata schermata){
 		amministratore= tbAmministratore.getColumns();
 		this.schermata= schermata;
-		this.table_amministratore=tbAmministratore;
 		 presenter = new Presenter();
 		 FXMLParameter = new ParametriFXML(null,false);
 		bindingValuesAmministratore();
@@ -52,7 +50,7 @@ public class TabAmministratore {
 		
 	}
 	public void ModificaAmministratore() throws CommonException{
-		 if(table_amministratore.getSelectionModel().getSelectedIndex()< 0){
+		 if(((SchermataGenerale<?>) schermata).getElemSelezionato("Amministratore")< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{

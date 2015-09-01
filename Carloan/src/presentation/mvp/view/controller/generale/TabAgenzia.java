@@ -15,14 +15,12 @@ import business.entity.Luoghi.Agenzia;
 import business.model.Exception.CommonException;
 public class TabAgenzia {
 	private ObservableList<TableColumn<Agenzia,?>> agenzia;
-	private TableView<Agenzia> table_agenzia;
 	private Schermata schermata;
 	private ParametriFXML FXMLParameter;
 	private Presenter presenter;
 	TabAgenzia(TableView<Agenzia> tbAgenzia,Schermata schermata){
 		agenzia= tbAgenzia.getColumns();
 		this.schermata= schermata;
-		this.table_agenzia=tbAgenzia;
 		bindingValuesAgenzia();
 		 presenter = new Presenter();
 		 FXMLParameter = new ParametriFXML(null,false);
@@ -40,7 +38,7 @@ public class TabAgenzia {
 		
 	}
 	public void ModificaAgenzia() throws CommonException{
-		 if(table_agenzia.getSelectionModel().getSelectedIndex()< 0){
+		 if(((SchermataGenerale<?>) schermata).getElemSelezionato("Agenzia")< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{

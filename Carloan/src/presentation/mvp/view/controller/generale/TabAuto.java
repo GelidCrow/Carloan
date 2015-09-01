@@ -20,14 +20,12 @@ import java.time.LocalDate;
 public class TabAuto {
 	private ObservableList<TableColumn<Autoveicolo,?>> auto;
 	private Schermata schermata;
-	private TableView<Autoveicolo> tbAuto;
 	private Presenter presenter;
 	private ParametriFXML FXMLParameter;
 	
 	TabAuto(TableView<Autoveicolo> tbAuto2,Schermata schermata){
 		auto=tbAuto2.getColumns();
 		this.schermata=schermata;
-		this.tbAuto=tbAuto2;
 		bindindValuesAuto();
 		presenter=new Presenter();
 		FXMLParameter=new ParametriFXML(null, false);
@@ -56,7 +54,7 @@ public class TabAuto {
 	}
 	
 	public void ModificaAuto() throws CommonException{
-		 if(tbAuto.getSelectionModel().getSelectedIndex()< 0){
+		 if(((SchermataGenerale<?>) schermata).getElemSelezionato("Autoveicolo")< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{
@@ -66,7 +64,7 @@ public class TabAuto {
 	    }
 	    }
 	public void NuovaManutenzione() throws CommonException {
-		 if(tbAuto.getSelectionModel().getSelectedIndex()< 0){
+		 if(((SchermataGenerale<?>) schermata).getElemSelezionato("Autoveicolo")< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{
@@ -76,7 +74,7 @@ public class TabAuto {
 	    }
 	}
 	public void ChiudiManutenzione()throws CommonException {
-		 if(tbAuto.getSelectionModel().getSelectedIndex()< 0){
+		 if(((SchermataGenerale<?>) schermata).getElemSelezionato("Autoveicolo")< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{
@@ -87,7 +85,7 @@ public class TabAuto {
 		
 	}
 	public void VisualizzaManutenzione() throws CommonException {
-		 if(tbAuto.getSelectionModel().getSelectedIndex()< 0){
+		 if(((SchermataGenerale<?>) schermata).getElemSelezionato("Autoveicolo")< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{

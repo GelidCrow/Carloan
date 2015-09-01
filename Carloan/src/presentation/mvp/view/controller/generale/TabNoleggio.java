@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
@@ -14,12 +13,9 @@ import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.noleggio.RicercaNoleggio;
 import utility.Finestra;
 import utility.ParametriFXML;
-import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
 import business.entity.Noleggio.StatoNoleggio;
 import business.model.Exception.CommonException;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -44,7 +40,7 @@ public class TabNoleggio {
 	
 	public void AnnullaNoleggio(){
 		try {
-			if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
+			if(((SchermataGenerale<?>) schermata).getElemSelezionato("Noleggio")<0){
 					throw new CommonException("Nessun elemento selezionato");
 			}
 			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
@@ -74,7 +70,7 @@ public class TabNoleggio {
 	
 	public void ChiudiNoleggio(){
 		try {
-			if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
+			if(((SchermataGenerale<?>) schermata).getElemSelezionato("Noleggio")<0){
 					throw new CommonException("Nessun elemento selezionato");
 			}
 			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
@@ -113,7 +109,7 @@ public class TabNoleggio {
 	
 	void NuovaMulta(){
 		try {
-			if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
+			if(((SchermataGenerale<?>) schermata).getElemSelezionato("Noleggio")<0){
 					throw new CommonException("Nessun elemento selezionato");
 			}
 			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
@@ -135,7 +131,7 @@ public class TabNoleggio {
 	@SuppressWarnings("static-access")
 	void VisualizzaMulta(){
 		try{
-		if(tbNoleggio.getSelectionModel().getSelectedIndex()<0){
+		if(((SchermataGenerale<?>) schermata).getElemSelezionato("Noleggio")<0){
 				throw new CommonException("Nessun elemento selezionato");
 		}
 		Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");

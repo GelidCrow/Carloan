@@ -51,7 +51,7 @@ public class TabSupervisoreAgenzia {
 		
 	}
 	public void ModificaSupervisoreAgenzia() throws CommonException{
-		 if(table_supervisoreagenzia.getSelectionModel().getSelectedIndex()< 0){
+		 if(((SchermataGenerale<?>) schermata).getElemSelezionato("SupervisoreAgenzia")< 0){
 	    		throw new CommonException("Nessun elemento selezionato");
 	    }
 	    else{
