@@ -26,10 +26,7 @@ import presentation.mvp.view.controller.Schermata;
 import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.ParametriFXML;
 public class NuovoCliente extends Schermata{
-	@FXML
-	protected Button btnCancella;
-	@FXML
-	protected Button btnConferma;
+
 	@FXML
 	protected TextField txtNome;
 	@FXML

@@ -63,35 +63,32 @@ public class TabContratto {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void ChiudiContratto() throws CommonException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException{
-		Contratto contratto= (Contratto) ((SchermataGenerale) schermata).getEntitaElementoSelezionato("Contratto");
+		Contratto contratto=null;
+		if(((SchermataGenerale<?>) schermata).getElemSelezionato("Contratto")< 0){
+    		throw new CommonException("Nessun elemento selezionato");
+		}
+		contratto= (Contratto) ((SchermataGenerale) schermata).getEntitaElementoSelezionato("Contratto");
+		if(!(contratto.getStato().equals("Aperto"))){
+			throw new CommonException("Operazione non disponibile per questo contratto");
+		}
 		List<Noleggio> noleggiAperti= (List<Noleggio>)presenter.processRequest("getNoleggiAperti", contratto.getIDContratto());
 		if(noleggiAperti.size()>0){
 			throw new CommonException("Ci sono dei noleggi aperti , non è possibile fare questa scelta");
 		}
-		else 
-			contratto.setDataChiusura(LocalDate.now());//imposto la data di chiusura se il valore scelto è annullato
-		
 		List<Noleggio> noleggi  = (List<Noleggio>)presenter.processRequest("getNoleggiByContratto", contratto.getIDContratto());
 		for(Noleggio n: noleggi){
 			if((int)presenter.processRequest("countMulteAperteByNoleggio", n.getIDNoleggio())>0){
 				throw new CommonException("Ci sono dei noleggi con delle multe aperte,è necessario  pagarle prima di poter chiudere contratto");
 			}
 		}
-	    if(((SchermataGenerale<?>) schermata).getElemSelezionato("Contratto")< 0){
-	    		throw new CommonException("Nessun elemento selezionato");
-	    }
-	    else{
-	    	if(((Contratto)tbContratto.getSelectionModel().getSelectedItem()).getStato().equals("Aperto")){
-	    		FXMLParameter.setTitolo("Chiudi Contratto");
-	    	    FXMLParameter.setRidimensionabile(false);
-	    	    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Contratto"));
-	    		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataChiusuraContratto",Modality.APPLICATION_MODAL);
-	    	}
-	    	else{
-	    		throw new CommonException("Operazione non disponibile per questo contratto");
-	    	}
-	    }
-	}	
+		contratto.setDataChiusura(LocalDate.now());//imposto la data di chiusura se il valore scelto è annullato
+		FXMLParameter.setTitolo("Chiudi Contratto");
+	    FXMLParameter.setRidimensionabile(false);
+	    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Contratto"));
+		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataChiusuraContratto",Modality.APPLICATION_MODAL);			
+	}
+	    	
+	    		
 	/**
 	 * <p>Effettua il binding con i singoli campi della tabella</p>
 	 */

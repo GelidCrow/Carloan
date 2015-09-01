@@ -52,13 +52,11 @@ public class ClienteChecker implements Checker{
         checkDataNascita();
         checkDataEmissPatente();
         checkDataScadPatente();
-        checkIndirizzo();
         checkCodFiscale();
         checkNumCell();
         checkNumTel();
         checkPatente();
         checkPartitaIva();
-        checkEmail();
 	}
 	
 	private void checkDataNascita() throws CommonException {
@@ -121,18 +119,7 @@ public class ClienteChecker implements Checker{
         	throw new CommonException("Sesso non valido");
         }
 	}
-	private void checkIndirizzo() throws CommonException{
-		int length;
-		
-        length = cliente.getIndirizzo().length();
 
-        isValid = (length >= MIN_INDIRIZZO_VALUE)
-                && (length <= MAX_INDIRIZZO_VALUE);
-
-        if (!isValid) {
-        	throw new CommonException("Indirizzo  non valido");
-        }
-	}
 	
 	private void checkCodFiscale() throws CommonException{
 		int length;
@@ -160,17 +147,6 @@ public class ClienteChecker implements Checker{
 	}
 	
 
-	private void checkEmail() throws CommonException{
-		int length;
-		
-        length = cliente.getEmail().length();
-
-        isValid =    (length >= MIN_EMAIL_VALUE)
-                && (length <= MAX_EMAIL_VALUE);
-        if (!isValid) {
-        	throw new CommonException("Email non valida");
-        }
-	}
 
 	private void checkNumCell() throws CommonException{
 		int length;
