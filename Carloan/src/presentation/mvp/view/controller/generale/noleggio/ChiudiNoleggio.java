@@ -13,6 +13,7 @@ import business.entity.Auto.Danni;
 import business.entity.Auto.Disponibilita;
 import business.entity.Auto.Fascia.Fascia;
 import business.entity.Noleggio.Noleggio;
+import business.entity.Noleggio.StatoNoleggio;
 import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
 import business.entity.Noleggio.Optional.Optional;
 import business.entity.Noleggio.Optional.OptionalNoleggio;
@@ -54,6 +55,10 @@ public class ChiudiNoleggio extends Schermata{
 	private Label lblTotChiusura;
 	@FXML
 	private Label lblTotKm;
+	@FXML
+	private Label lblCauzRimanente;
+	@FXML
+	private Label lblCostoAggiuntivo;
 	private Noleggio noleggio;
 	private Autoveicolo auto;
 	private Pagamento pagamento;
@@ -129,7 +134,7 @@ public class ChiudiNoleggio extends Schermata{
 	}
 	private float totaleCostoKmAggiuntivo=0;
 	private void setSezioneKm(){
-		int sommaKmMax= auto.getUltimoKm()+noleggio.getNumeroChilometri();
+		int sommaKmMax= noleggio.getKmBase()+noleggio.getNumeroChilometri();
 		int numKilometriRientro= Integer.parseInt(txtKmRientro.getText());
 		if(numKilometriRientro>sommaKmMax){
 			int kmInPiu= numKilometriRientro-sommaKmMax;
@@ -138,53 +143,101 @@ public class ChiudiNoleggio extends Schermata{
 			lblTotKm.setText(String.valueOf(totaleCostoKmAggiuntivo));
 		}
 	}
+	
+	private float totaleAggiunto=0;
+	private float cauzione=0;
+	private float calcolaImportoFinale(){
+		totaleAggiunto= importoDanni+totaleCostoKmAggiuntivo+totaleImportoGiorni;
+		 cauzione= pagamento.getDepositoCauzinale();
+		if(cauzione>totaleAggiunto)
+			return cauzione-totaleAggiunto;
+		else 
+			return totaleAggiunto-cauzione;
+	}
+	private int kmR=0;
+	
 	@FXML
 	public void btnConferma(ActionEvent e){
 		
 		try {
-//			kmbase+quelli da fare scelti ;
-//		se kmfatti < somma di quelli allora ok
-//		altrimenti fai la differenza e metti quelli in piu fatti e calcola il prezzo per ogni km fatto in piu.
-			if(!KIllimitato)
+			lblTotChiusura.setText("");
+			lblTotKm.setText("");
+			lblNumKilometri.setText("");
+			try{
+				kmR=(Integer.parseInt(txtKmRientro.getText()));
+			}
+			catch(NumberFormatException e2){
+				throw new CommonException("Il numero di km non può essere alfabetico");
+			}
+			//			kmbase+quelli da fare scelti ;
+			//		se kmfatti < somma di quelli allora ok
+			//		altrimenti fai la differenza e metti quelli in piu fatti e calcola il prezzo per ogni km fatto in piu.
+			if(txtKmRientro.getText().isEmpty()){
+				throw new CommonException("Devi inserire i km dell'auto prima di procedere");
+			}
+			if(!KIllimitato){
 				setSezioneKm();
+			}
+		
 			prendiDatiDaView();
-			calcolaImportoFinale();
 			
-			//se danni gravi sono pieni è da manutenere.
-			//fai aggiorna auto.+ aggiorna i km che adesso ha l'auto
+			float importoFinale= calcolaImportoFinale();
+			if(cauzione>totaleAggiunto){
+				lblCauzRimanente.setText(String.valueOf(importoFinale));
+				lblTotChiusura.setText("0");
+				lblCostoAggiuntivo.setText(String.valueOf(totaleAggiunto));
+			}
+			else{
+				lblCostoAggiuntivo.setText(String.valueOf(totaleAggiunto));
+				lblTotChiusura.setText(String.valueOf(importoFinale));
+			}
+			pagamento.setDetrazioneAggiuntiva(totaleAggiunto);
+			pagamento.setImporto(pagamento.getAcconto()+totaleAggiunto);
+			
+			
+			noleggio.setStato(StatoNoleggio.chiuso);
+			java.util.Optional<ButtonType> result= AlertView.getAlertView("Chiudere il contratto??",AlertType.CONFIRMATION);
+				if(result.isPresent() && result.get() == ButtonType.OK){
+					try {
+						presenter.processRequest("aggiornamentoNoleggio", noleggio);
+						presenter.processRequest("agiornamentoPagamento",pagamento);
+						presenter.processRequest("aggiornamentoAuto",auto);
+					} catch (InstantiationException | IllegalAccessException
+							| ClassNotFoundException | NoSuchMethodException
+							| SecurityException | IllegalArgumentException
+							| InvocationTargetException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					AlertView.getAlertView("Noleggio chiuso con successo", AlertType.INFORMATION);
+					chiudiFinestra();
+				}
 		} catch (CommonException e1) {
 			// TODO Auto-generated catch block
 			e1.showMessage();
-		}
+		} 
 	}
 	
 	private void prendiDatiDaView() throws CommonException{
 		try{
-			if(txtKmRientro.getText().isEmpty()){
-				throw new CommonException("Devi inserire i km dell'auto prima di procedere");
-			}
-			int kmR=(Integer.parseInt(txtKmRientro.getText()));
+			
 			noleggio.setKmRientro(kmR);
 			noleggio.setRientro(dRientro.getValue());
 			noleggio.setNote(textAreaNote.getText());
 			auto.setUltimoKm(kmR);
 			if(!textAreaDGravi.getText().isEmpty())
 				auto.setDisponibilita(Disponibilita.DaManutenere);
+			else
+				auto.setDisponibilita(Disponibilita.Disponibile);
 			auto.setDanni(new Danni(textAreaDFutili.getText(),textAreaDGravi.getText()));
 			if(!txtTotDanni.getText().isEmpty())
 				importoDanni = Float.parseFloat(txtTotDanni.getText());
+		
 	}
 	catch(NumberFormatException e){
-		throw new CommonException("La casella dei kilometri oppure quella del totale delle multe contengono caratterei alfabetici ");
+		throw new CommonException("l'importo  danni non può essere alfabetico");
 	}
 	}
 	
-	private float calcolaImportoFinale(){
-		float totaleAggiunto= importoDanni+totaleCostoKmAggiuntivo+totaleImportoGiorni;
-		float cauzione= pagamento.getDepositoCauzinale();
-		if(cauzione>totaleAggiunto)
-			return cauzione-totaleAggiunto;
-		else 
-			return totaleAggiunto-cauzione;
-	}
+
 }

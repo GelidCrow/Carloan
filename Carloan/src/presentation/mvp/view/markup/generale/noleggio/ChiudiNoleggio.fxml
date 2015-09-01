@@ -40,16 +40,21 @@
       <Label layoutX="137.0" layoutY="658.0" text="Cauzione da restituire se il totale è 0 altrimenti viene fatta la differenza" textFill="#b22b2b" />
       <Label layoutX="153.0" layoutY="685.0" prefHeight="17.0" prefWidth="129.0" text="Cauzione               €" />
       <Label fx:id="lblCauzione" layoutX="278.0" layoutY="685.0" prefHeight="17.0" prefWidth="98.0" />
-      <Label layoutX="137.0" layoutY="710.0" text="Totale dovuto alla chiusura :        €" />
-      <Label fx:id="lblTotChiusura" layoutX="336.0" layoutY="710.0" prefHeight="17.0" prefWidth="106.0" />
+      <Label layoutX="327.0" layoutY="720.0" text="Totale dovuto alla chiusura :        €" />
+      <Label fx:id="lblTotChiusura" layoutX="526.0" layoutY="720.0" prefHeight="17.0" prefWidth="106.0" />
       <Button layoutX="563.0" layoutY="771.0" mnemonicParsing="false" onAction="#btnConferma" text="Conferma" />
       <Button layoutX="460.0" layoutY="771.0" mnemonicParsing="false" onAction="#btnIndietro" text="Indietro" />
       <Label layoutX="136.0" layoutY="641.0" prefHeight="17.0" prefWidth="224.0" text="Costo totale per kilometri in piu             €" />
       <Label fx:id="lblTotKm" layoutX="361.0" layoutY="641.0" prefHeight="17.0" prefWidth="149.0" />
-      <Label layoutX="16.0" layoutY="737.0" text="Nb: Per calcolare gli importi mancanti premere Conferma. Non verrà chiuso immeditamentee il noleggio.. " textFill="#942323">
+      <Label layoutX="16.0" layoutY="744.0" text="Nb: Per calcolare gli importi mancanti premere Conferma. Non verrà chiuso immeditamentee il noleggio.. " textFill="#942323">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
+      <Label layoutX="401.0" layoutY="685.0" text="Cauzione Rimanente €" />
+      <Label layoutX="544.0" layoutY="685.0" />
+      <Label fx:id="lblCauzRimanente" layoutX="530.0" layoutY="685.0" prefHeight="17.0" prefWidth="106.0" />
+      <Label layoutX="24.0" layoutY="720.0" prefHeight="17.0" prefWidth="182.0" text="Totale del costo Aggiuntivo   €" />
+      <Label fx:id="lblCostoAggiuntivo" layoutX="204.0" layoutY="720.0" prefHeight="17.0" prefWidth="79.0" />
    </children>
 </AnchorPane>
