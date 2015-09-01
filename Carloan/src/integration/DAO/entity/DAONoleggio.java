@@ -22,7 +22,6 @@ import business.model.Exception.CommonException;
 
 public class DAONoleggio implements DAO{
 	
-	
 	private  DaoFactory daofactory;
 
 	public DAONoleggio(DaoFactory dao){
@@ -413,21 +412,20 @@ public class DAONoleggio implements DAO{
 	}
 	
 	
-	@SuppressWarnings("null")
 	public List<Entity> ricerca(Entity parameter){
 		RicercaNoleggio ricnoleggio=(RicercaNoleggio) parameter;
-		String ricerca1="Select * from noleggio where idContratto='?'";
+		String ricerca1="Select * from noleggio where IDContratto='?'";
 		
 		String ricerca2="Select * from noleggio where InizioNoleggio='?'";
-		String ricerca3="Select * from noleggio where stato='?'";
+		String ricerca3="Select * from noleggio where Stato='?'";
 		
 		
-		String ricerca5="Select * from noleggio where idContratto='?' and InizioNoleggio='?'";
-		String ricerca6="Select * from noleggio where InizioNoleggio='?' and stato='?'";
-		String ricerca7="Select * from noleggio where idContratto='?' and  stato='?'";
+		String ricerca5="Select * from noleggio where IDContratto='?' and InizioNoleggio='?'";
+		String ricerca6="Select * from noleggio where InizioNoleggio='?' and Stato='?'";
+		String ricerca7="Select * from noleggio where IDContratto='?' and  Stato='?'";
 	
 		
-		String ricerca4="Select * from noleggio where idContratto='?' and InizioNoleggio='?' and stato='?'";
+		String ricerca4="Select * from noleggio where IDContratto='?' and InizioNoleggio='?' and Stato='?'";
 		
 		LocalDate dInizio= ricnoleggio.getdInizio();
 	    int idContratto= ricnoleggio.getidContratto();

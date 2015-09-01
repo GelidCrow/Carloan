@@ -15,9 +15,9 @@ public abstract class Utente extends Entity {
 	private boolean Assunto=true;
 	
 	
-public Utente(){
-	
-}
+	public Utente(){
+		
+	}
 
 	public Utente(int idUtente, String nome, String cognome, String sesso,
 			LocalDate dataNascita, String indirizzo, String codiceFiscale,

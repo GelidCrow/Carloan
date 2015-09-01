@@ -2,7 +2,6 @@ package business.entity;
 import java.time.LocalDate;
 
 
-//potrebbeessere astratta e cliente estende cliente... cosi puoi aggiungerne tanti
 public class Cliente extends Entity{
 	
 	private Integer id;
