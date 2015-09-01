@@ -57,7 +57,9 @@
 	<interface id="MostraSchermataNuovoSupervisoreSede" src ="markup/generale/gestori/Nuovo_SupervisoreSede.fxml"></interface>
 	<interface id="MostraSchermataModificaSupervisoreSede" src ="markup/generale/gestori/Modifica_SupervisoreSede.fxml"></interface>
 	<!--SupervisoreAgenzia-->
-	
 	<interface id="MostraSchermataNuovoSupervisoreAgenzia" src ="markup/generale/gestori/Nuovo_SupervisoreAgenzia.fxml"></interface>
 	<interface id="MostraSchermataModificaSupervisoreAgenzia" src ="markup/generale/gestori/Modifica_SupervisoreAgenzia.fxml"></interface>
+	<!--Operatore-->
+	<interface id="MostraSchermataNuovoOperatore" src ="markup/generale/gestori/Nuovo_Operatore.fxml"></interface>
+	<interface id="MostraSchermataModificaOperatore" src ="markup/generale/gestori/Modifica_Operatore.fxml"></interface>
 </interfaces>

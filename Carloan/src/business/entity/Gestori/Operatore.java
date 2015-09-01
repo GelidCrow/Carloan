@@ -14,6 +14,9 @@ public class Operatore extends Utente {
 		// TODO Auto-generated constructor stub
 		this.IDSede=idSede;
 	}
+	public Operatore() {
+		
+	}
 	public int getIDSede() {
 		return IDSede;
 	}

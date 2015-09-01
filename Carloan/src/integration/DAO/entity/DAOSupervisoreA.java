@@ -13,7 +13,6 @@ import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Gestori.SupervisoreAgenzia;
-import business.entity.Gestori.SupervisoreSede;
 import business.model.Exception.CommonException;
 
 public class DAOSupervisoreA implements DAO{

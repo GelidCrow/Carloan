@@ -50,7 +50,7 @@ public class Modifica_Autoveicolo extends Nuovo_Autoveicolo{
 		this.nposti.setItems(list);
 		this.nposti.getSelectionModel().select(list.indexOf(this.auto_coinvolta.getNroPosti()));
 		//Disponibilita
-		ObservableList<String> lista=FXCollections.observableArrayList("Disponibile","NonDisponibile","ManutenzioneOrdinaria","ManutenzioneStraordinaria");
+		ObservableList<String> lista=FXCollections.observableArrayList("Disponibile","NonDisponibile","ManutenzioneOrdinaria","ManutenzioneStraordinaria","DaManutenere");
 		this.Disponibilita.setItems(lista);
 		this.Disponibilita.getSelectionModel().select(lista.indexOf(this.auto_coinvolta.getDisponibilita().toString()));
 		//Fasce

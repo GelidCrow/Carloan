@@ -4,10 +4,8 @@ import java.util.List;
 
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOOperatore;
-import integration.DAO.entity.DAOSupervisoreS;
 import business.entity.Entity;
 import business.entity.Gestori.Operatore;
-import business.entity.Gestori.SupervisoreSede;
 import business.model.Exception.CommonException;
 
 public class ModelOperatore implements Model{
@@ -17,14 +15,31 @@ public class ModelOperatore implements Model{
 
 
 	@Override
-	public void Inserimento(Entity parameter) {
-		// TODO Auto-generated method stub
+	public void Inserimento(Entity parameter) throws CommonException {
+		if(daofactory==null)
+			try {
+				daofactory= DaoFactory.getDaoFactory(1);
+
+				((DAOOperatore) daofactory.getDao("DAOOperatore")).creazione(parameter);
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
 		
 	}
 
 	@Override
 	public void aggiornamento(Entity parameter) throws CommonException {
-		// TODO Auto-generated method stub
+		if(daofactory==null)
+			try {
+				daofactory= DaoFactory.getDaoFactory(1);
+
+				((DAOOperatore) daofactory.getDao("DAOOperatore")).aggiornamento(parameter);;
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 	}
 
@@ -69,6 +84,20 @@ public class ModelOperatore implements Model{
 				daofactory= DaoFactory.getDaoFactory(1);
 
 				return  ((DAOOperatore) daofactory.getDao("DAOOperatore")).getAllOperatoriBySede(idsede);
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+	return null;
+	}
+	
+	public Operatore leggiOperatoreByCodiceFiscale(String f){
+		if(daofactory==null)
+			try {
+				daofactory= DaoFactory.getDaoFactory(1);
+
+				return  ((DAOOperatore) daofactory.getDao("DAOOperatore")).leggiOperatoreByCodiceFiscale(f);
 			} catch (InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

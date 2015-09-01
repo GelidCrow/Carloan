@@ -348,6 +348,8 @@ public class Nuovo_Autoveicolo extends Schermata{
 		break;
 	case "ManutenzioneStraordinaria":
 		temp.setDisponibilita(business.entity.Auto.Disponibilita.ManutenzioneStraordinaria);
+	case "DaManutenere":
+		temp.setDisponibilita(business.entity.Auto.Disponibilita.DaManutenere);
 		break;
 	}
 	if(this.immagine_path==null)

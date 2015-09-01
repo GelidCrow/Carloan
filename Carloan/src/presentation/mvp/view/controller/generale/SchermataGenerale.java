@@ -1029,9 +1029,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 	}
 	
-	
+	@SuppressWarnings("rawtypes")
 	private class ItemSelectedSs implements ChangeListener{
 
+		
 		@Override
 		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
 			if(newValue!=null){

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <calls>
+         
     	<!-- Login-->
     	<call id="login">
     		<class>business.model.ModelLogin</class>
@@ -75,12 +76,26 @@
             <class>business.model.ModelOperatore</class>
             <method>getAll</method>
         </call>
-        <call id="getAllOperatoriBySede">
+       <call id="getAllOperatoriBySede">
             <class>business.model.ModelOperatore</class>
             <method>getAllOperatoriBySede</method>
         </call>
-
-    	
+    
+    	<call id="InserisciOperatore">
+            <class>business.model.ModelOperatore</class>
+            <method>Inserimento</method>
+        </call>
+        
+        <call id="leggiOperatoreByCodiceFiscale">
+            <class>business.model.ModelOperatore</class>
+            <method>leggiOperatoreByCodiceFiscale</method>
+        </call>
+        <call id="ModificaOperatore">
+            <class>business.model.ModelOperatore</class>
+            <method>aggiornamento</method>
+        </call>
+        
+        
     	<!--CONTRATTO-->
     	
     	<call id="InserimentoContratto">

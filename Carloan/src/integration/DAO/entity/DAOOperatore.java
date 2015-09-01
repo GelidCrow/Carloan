@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Gestori.Operatore;
+import business.model.Exception.CommonException;
 
 
 public class DAOOperatore implements DAO{
@@ -25,16 +26,66 @@ public class DAOOperatore implements DAO{
 	}
 	
 	@Override
-	public ResultSet creazione(Entity x) {
+	public ResultSet creazione(Entity x) throws CommonException {
+		String query="Insert into Operatore(Nome,Cognome,Sesso,DataNascita,Indirizzo,CodiceFiscale,NumCell,NumFisso,"
+				+"Assunto,IDSede) values('?','?','?','?','?','?','?','?','1',?)";	
+		Operatore s=(Operatore)x;
+		query=queryReplaceFirst(query, s.getNome());
+		query=queryReplaceFirst(query, s.getCognome());
+		query=queryReplaceFirst(query, s.getSesso());
+		query=queryReplaceFirst(query, s.getDataNascita().toString());
+		query=queryReplaceFirst(query, s.getIndirizzo());
+		query=queryReplaceFirst(query, s.getCodiceFiscale());
+		query=queryReplaceFirst(query, s.getNumCell());
+		query=queryReplaceFirst(query, s.getNumFisso());
+		query=queryReplaceFirst(query, String.valueOf(s.getIDSede()));
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet r=null;
+		try {
+			r=c.executeUpdate(query);
+			if(r!=null)
+				AlertView.getAlertView("Operatore inserito con successo", AlertType.INFORMATION);
+			else
+				throw new CommonException("Operatore non inserito");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
-		// TODO Auto-generated method stub
-		
-	}
+		}
 
 	@Override
-	public void aggiornamento(Entity x) {
-		// TODO Auto-generated method stub
+	public void aggiornamento(Entity x) throws CommonException {
+		String query="Update Operatore Set Nome='?',Cognome='?',Sesso='?',DataNascita='?',Indirizzo='?',CodiceFiscale='?',"+
+				"NumCell='?',NumFisso='?',Assunto='?',IDSede=? where IDOperatore=?";
+		Operatore s=(Operatore)x;
+		query=queryReplaceFirst(query, s.getNome());
+		query=queryReplaceFirst(query, s.getCognome());
+		query=queryReplaceFirst(query, s.getSesso());
+		query=queryReplaceFirst(query, s.getDataNascita().toString());
+		query=queryReplaceFirst(query, s.getIndirizzo());
+		query=queryReplaceFirst(query, s.getCodiceFiscale());
+		query=queryReplaceFirst(query, s.getNumCell());
+		query=queryReplaceFirst(query, s.getNumFisso());
+		if(s.isAssunto())
+			query=queryReplaceFirst(query, "1");
+		else
+			query=queryReplaceFirst(query, "0");
 		
+		query=queryReplaceFirst(query, String.valueOf(s.getIDSede()));
+		query=queryReplaceFirst(query, String.valueOf(s.getIdUtente()));
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet r=null;
+		try {
+			r=c.executeUpdate(query);
+			if(r!=null)
+				AlertView.getAlertView("Operatore aggiornato con successo", AlertType.INFORMATION);
+			else
+				throw new CommonException("Operatore non aggiornato");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
@@ -102,7 +153,6 @@ public class DAOOperatore implements DAO{
 					l.add(ottieniOperatore(r));
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -118,10 +168,26 @@ public class DAOOperatore implements DAO{
 			r=c.executeRead(query);
 			l=creaElencoOperatori(r);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return l;
+	}
+
+	public Operatore leggiOperatoreByCodiceFiscale(String f) {
+		String query="Select * from Operatore where CodiceFiscale='?'";
+		query=queryReplaceFirst(query, f);
+		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet r=null;
+		try {
+			r=c.executeRead(query);
+			if(r!=null){
+				r.next();
+				return ottieniOperatore(r);
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
