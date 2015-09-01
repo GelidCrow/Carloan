@@ -5,9 +5,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.gestori.Nuovo_SupervisoreSede">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.gestori.Nuovo_Operatore">
    <children>
-      <Label layoutX="17.0" layoutY="23.0" text="Inserimento Supervisore Sede">
+      <Label layoutX="17.0" layoutY="23.0" text="Inserimento Operatore">
          <font>
             <Font size="30.0" />
          </font>
@@ -49,6 +49,6 @@
         </columns>
       </TableView>
       <Label fx:id="informazioni" layoutX="316.0" layoutY="110.0" prefHeight="45.0" prefWidth="435.0" />
-      <Label fx:id="labelsedi" layoutX="316.0" layoutY="164.0" text="Sedi :" />
+      <Label fx:id="labelsedi" layoutX="334.0" layoutY="155.0" text="Sedi :" />
    </children>
 </AnchorPane>
