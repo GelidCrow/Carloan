@@ -222,7 +222,6 @@ public class ChiudiNoleggio extends Schermata{
 					chiudiFinestra();
 				}
 		} catch (CommonException e1) {
-			// TODO Auto-generated catch block
 			e1.showMessage();
 		} 
 	}
