@@ -285,7 +285,7 @@
                                           <MenuItem fx:id="visualizza_item" mnemonicParsing="false" text="Visualizza" />
                                       </items>
                                     </MenuButton>
-                                    <ImageView fx:id="auto_image" fitHeight="138.0" fitWidth="249.0" layoutX="828.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="auto_image" fitHeight="138.0" fitWidth="249.0" layoutX="671.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label layoutX="14.0" layoutY="54.0" prefHeight="34.0" prefWidth="326.0" text="Sede di Appartenenza dell'auto">
                                        <font>
                                           <Font size="23.0" />
