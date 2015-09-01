@@ -326,6 +326,19 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			e1.showMessage();
 		}
 	}
+	@FXML
+	public void btnnuovo_operatore(ActionEvent e){
+		tbOperatoreController.NuovoOperatore();
+	}
+	@FXML
+	public void btnmodifica_operatore(ActionEvent e){
+		try {
+			tbOperatoreController.ModificaOperatore();
+		} catch (CommonException e1) {
+			// TODO Auto-generated catch block
+			e1.showMessage();
+		}
+	}
 	
 	
 	
@@ -717,7 +730,32 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 			}
 			//operatore
 			else if(panes.get(9)==newValue){
-				
+				tbOperatoreController=new TabOperatore((TableView<Operatore>) tbOperatore, SchermataGenerale.this);
+				try {
+					Utente u=UtenteCorrente.getUtente();
+					List<Operatore> l=null;
+					if(u instanceof Amministratore)
+							l=(List<Operatore>)presenter.processRequest("getAllOperatori", null);
+						
+					else if(u instanceof SupervisoreSede)
+						l=(List<Operatore>)presenter.processRequest("getAllOperatoriBySede", ((SupervisoreSede)u).getIDSede());
+					else{ // supervisore agenzia
+						List<Sede> ls=(List<Sede>)presenter.processRequest("getAllSediByAgenzia", ((SupervisoreAgenzia)u).getIDAgenzia());
+						l=new LinkedList<Operatore>();
+						for(Sede s:ls)
+							l.addAll((Collection<? extends Operatore>) presenter.processRequest("getAllOperatoriBySede",s.getIDSede()));
+					}
+					caricaTabella((List<T>) l, tbOperatore);
+						}
+					 catch (InstantiationException
+								| IllegalAccessException
+								| ClassNotFoundException
+								| NoSuchMethodException | SecurityException
+								| IllegalArgumentException
+								| InvocationTargetException | CommonException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 			}
 		
 	    }

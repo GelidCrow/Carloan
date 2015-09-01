@@ -50,6 +50,30 @@ public class ModelOperatore implements Model{
 		return null;
 	}
 
+	public List<Operatore> getAll(){
+		if(daofactory==null)
+			try {
+				daofactory= DaoFactory.getDaoFactory(1);
 
+				return  ((DAOOperatore) daofactory.getDao("DAOOperatore")).getAll();
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+	return null;
+	}
+	public List<Operatore> getAllOperatoriBySede(int idsede){
+		if(daofactory==null)
+			try {
+				daofactory= DaoFactory.getDaoFactory(1);
 
+				return  ((DAOOperatore) daofactory.getDao("DAOOperatore")).getAllOperatoriBySede(idsede);
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+	return null;
+	}
 }

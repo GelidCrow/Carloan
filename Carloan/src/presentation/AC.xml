@@ -71,7 +71,15 @@
     		<class>business.model.ModelOperatore</class>
     		<method>lettura</method>
     	</call>
-    	
+    	<call id="getAllOperatori">
+            <class>business.model.ModelOperatore</class>
+            <method>getAll</method>
+        </call>
+        <call id="getAllOperatoriBySede">
+            <class>business.model.ModelOperatore</class>
+            <method>getAllOperatoriBySede</method>
+        </call>
+
     	
     	<!--CONTRATTO-->
     	

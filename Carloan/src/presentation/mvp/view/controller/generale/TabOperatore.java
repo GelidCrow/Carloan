@@ -13,13 +13,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import business.entity.Gestori.Operatore;
-import business.entity.Gestori.SupervisoreAgenzia;
 import business.model.Exception.CommonException;
 
 import java.time.LocalDate;
 public class TabOperatore {
 	private ObservableList<TableColumn<Operatore,?>> operatore;
-	private TableView<Operatore> table_operatore;
 	private Schermata schermata;
 	private ParametriFXML FXMLParameter;
 	private Presenter presenter;
@@ -29,7 +27,6 @@ public class TabOperatore {
 	TabOperatore(TableView<Operatore> tboperatore,Schermata schermata){
 		operatore= tboperatore.getColumns();
 		this.schermata= schermata;
-		this.table_operatore=tboperatore;
 		 presenter = new Presenter();
 		 FXMLParameter = new ParametriFXML(null,false);
 		bindingValuesOperatore();
@@ -52,9 +49,9 @@ public class TabOperatore {
 		
 	}
 	public void ModificaOperatore() throws CommonException{
-		 if(((SchermataGenerale<?>) schermata).getElemSelezionato("Operatore")< 0){
+		 if(((SchermataGenerale<?>) schermata).getElemSelezionato("Operatore")< 0)
 	    		throw new CommonException("Nessun elemento selezionato");
-	    }
+	    
 	    else{
 	    	FXMLParameter.setTitolo("Modifica Operatore");
 	    	FXMLParameter.setEntity(((SchermataGenerale<?>) schermata).getEntitaElementoSelezionato("Operatore"));
