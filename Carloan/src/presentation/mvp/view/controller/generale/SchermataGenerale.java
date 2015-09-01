@@ -443,7 +443,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		else if(table.equals("Contratto"))
 			return tbContratto.getSelectionModel().getSelectedIndex();
 		else if(table.equals("Noleggio"))
-			return tbContratto.getSelectionModel().getSelectedIndex();
+			return tbNoleggio.getSelectionModel().getSelectedIndex();
 		else if(table.equals("Autoveicolo"))
 			return tbAuto.getSelectionModel().getSelectedIndex();
 		else if(table.equals("Agenzia"))
@@ -963,14 +963,15 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 				panes.get(i).setDisable(true);
 		}
 		else if(utente instanceof SupervisoreSede){
-			for(short i=4;i<9;i++){
-				if(i!=7)
+			for(short i=4;i<9;i++)
 				panes.get(i).setDisable(true);
-			}
+			
 		}
 		else if(utente instanceof SupervisoreAgenzia){
 			panes.get(4).setDisable(true);
 			panes.get(6).setDisable(true);
+			panes.get(8).setDisable(true);
+			
 		}	
 	}
 	private class ItemSelectedAgenzia implements ChangeListener<Agenzia>{

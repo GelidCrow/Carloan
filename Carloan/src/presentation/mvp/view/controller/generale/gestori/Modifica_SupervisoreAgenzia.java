@@ -52,11 +52,6 @@ public class Modifica_SupervisoreAgenzia extends Nuovo_SupervisoreAgenzia{
 		radio_f.setSelected(false);
 		agenzia=table_agenzia.getColumns();
 		this.u=UtenteCorrente.getUtente();
-		if(u instanceof SupervisoreAgenzia){
-			informazioni.setText("Il supervisore sarà assegnato alla agenzia a cui il corrente utente è registrato");
-			table_agenzia.setVisible(false);
-		}
-		else
 			bindValues();
 	}
 
@@ -64,8 +59,6 @@ public class Modifica_SupervisoreAgenzia extends Nuovo_SupervisoreAgenzia{
 	public void initData(Entity x){
 		sup_coinvolto=(SupervisoreAgenzia)x;
 		
-		
-		if(u instanceof Amministratore)
 			initTableAgenzie();
 		
 		
@@ -136,10 +129,8 @@ public class Modifica_SupervisoreAgenzia extends Nuovo_SupervisoreAgenzia{
 			login.setSupA(String.valueOf(a.getIdUtente()));
 			presenter.processRequest("ModificaCredenziali", login);
 			/*Aggiorna la tabella nella schermata generale*/
-			if(u instanceof Amministratore)
 			schermataGenerale.caricaTabella((List<SupervisoreAgenzia>)presenter.processRequest("getAllSupervisoriAgenzia",null), tw);
-			else 
-				schermataGenerale.caricaTabella((List<SupervisoreAgenzia>)presenter.processRequest("getAllSupervisoriAgenziabyAgenzia",((SupervisoreAgenzia)u).getIDAgenzia()), tw);
+				
 			/**/
 			
 			chiudiFinestra();
@@ -206,10 +197,7 @@ public class Modifica_SupervisoreAgenzia extends Nuovo_SupervisoreAgenzia{
 		if(n==null)
 			n="";
 			a.setNumCell(n);
-		if(u instanceof Amministratore )
 			a.setIDAgenzia(table_agenzia.getSelectionModel().getSelectedItem().getIDAgenzia());
-		else
-			a.setIDAgenzia(((SupervisoreAgenzia)u).getIDAgenzia());
 		
 		if(assunto.isSelected())
 			a.setAssunto(true);

@@ -51,11 +51,6 @@ public class Modifica_SupervisoreSede extends Nuovo_SupervisoreSede{
 			informazioni.setText("Di seguito sono riportate tutte le sedi sotto la sua agenzia");
 			
 		}
-		else{
-			informazioni.setText("Il supervisore sarà aggiunto come supervisore della sua sede");
-			tb_sedi.setVisible(false);
-			labelsedi.setVisible(false);
-		}
 		
 	}
 	@Override
@@ -142,8 +137,7 @@ public class Modifica_SupervisoreSede extends Nuovo_SupervisoreSede{
 					l.addAll((Collection<? extends SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede",s.getIDSede()));
 				schermataGenerale.caricaTabella(l, tw);
 			}
-			else // SupervisoreSede
-			schermataGenerale.caricaTabella((List<SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede",((SupervisoreSede)u).getIDSede()), tw);
+			
 			/**/
 			
 			chiudiFinestra();
@@ -218,10 +212,9 @@ public class Modifica_SupervisoreSede extends Nuovo_SupervisoreSede{
 		if(n==null)
 			n="";
 			a.setNumCell(n);
-		if(u instanceof Amministratore || u instanceof SupervisoreAgenzia)
+		
 			a.setIDSede(tb_sedi.getSelectionModel().getSelectedItem().getIDSede());
-		else
-			a.setIDSede(((SupervisoreSede)u).getIDSede());
+		
 		if(assunto.isSelected())
 			a.setAssunto(true);
 		else

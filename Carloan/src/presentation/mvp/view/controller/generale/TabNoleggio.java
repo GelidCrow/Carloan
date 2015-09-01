@@ -39,10 +39,10 @@ public class TabNoleggio {
 	}
 	
 	public void AnnullaNoleggio(){
-		try {
-			if(((SchermataGenerale<?>) schermata).getElemSelezionato("Noleggio")<0){
+		try { 
+			if(((SchermataGenerale<?>) schermata).getElemSelezionato("Noleggio")<0)
 					throw new CommonException("Nessun elemento selezionato");
-			}
+			
 			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
 
 			if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString())
@@ -70,9 +70,9 @@ public class TabNoleggio {
 	
 	public void ChiudiNoleggio(){
 		try {
-			if(((SchermataGenerale<?>) schermata).getElemSelezionato("Noleggio")<0){
+			if(((SchermataGenerale<?>) schermata).getElemSelezionato("Noleggio")<0)
 					throw new CommonException("Nessun elemento selezionato");
-			}
+			
 			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
 
 			if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString())

@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 import business.entity.Login;
 import business.entity.Utente;
 import business.entity.UtenteCorrente;
-import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Luoghi.Agenzia;
 import business.model.Exception.CommonException;
@@ -81,14 +80,8 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 		radio_f.setSelected(false);
 		agenzia=table_agenzia.getColumns();
 		this.u=UtenteCorrente.getUtente();
-		if(u instanceof SupervisoreAgenzia){
-			informazioni.setText("Il supervisore sarà assegnato alla agenzia a cui il corrente utente è registrato");
-			table_agenzia.setVisible(false);
-		}
-		else{
 			bindValues();
 			initTableAgenzie();
-			}
 	}
 	
 	protected void bindValues(){ 
@@ -99,7 +92,7 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 	protected List<Agenzia> DownloadAgenzie(){
 		List<Agenzia> a=new LinkedList<Agenzia>();
 			try {
-				if(u instanceof Amministratore)
+				
 				a= (List<Agenzia>)presenter.processRequest("getAllAgenzie", null);					
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | NoSuchMethodException
@@ -134,10 +127,8 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 			login.setSupA(String.valueOf(a.getIdUtente()));
 			presenter.processRequest("InserisciCredenziali", login);
 			/*Aggiorna la tabella nella schermata generale*/
-			if(u instanceof Amministratore)
 			schermataGenerale.caricaTabella((List<SupervisoreAgenzia>)presenter.processRequest("getAllSupervisoriAgenzia",null), tw);
-			else 
-				schermataGenerale.caricaTabella((List<SupervisoreAgenzia>)presenter.processRequest("getAllSupervisoriAgenziabyAgenzia",((SupervisoreAgenzia)u).getIDAgenzia()), tw);
+			
 			/**/
 			
 			chiudiFinestra();
@@ -207,10 +198,7 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 		if(n==null)
 			n="";
 			a.setNumCell(n);
-		if(u instanceof Amministratore )
 			a.setIDAgenzia(table_agenzia.getSelectionModel().getSelectedItem().getIDAgenzia());
-		else
-			a.setIDAgenzia(((SupervisoreAgenzia)u).getIDAgenzia());
 		
 		return  a;
 	}
