@@ -287,21 +287,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 		a.setPotenza(resultset.getInt(11));
 		a.setNroPosti(resultset.getInt(12));
 		a.setNroTelaio(resultset.getString(13));
-		String dispon=resultset.getString(14);
-		switch(dispon){
-		case "Disponibile":
-			a.setDisponibilita(Disponibilita.Disponibile);
-			break;
-		case "NonDisponibile":
-			a.setDisponibilita(Disponibilita.NonDisponibile);
-			break;
-		case "ManutenzioneOrdinaria":
-			a.setDisponibilita(Disponibilita.ManutenzioneOrdinaria);
-			break;
-		case "ManutenzioneStraordinaria":
-			a.setDisponibilita(Disponibilita.ManutenzioneStraordinaria);
-			break;
-		}
+		a.setDisponibilita(Disponibilita.toDisponibilita(resultset.getString(14)));
 		a.setUltimoKm(resultset.getInt(15));
 		a.setCapPortaBagnagli(resultset.getInt(16));
 		a.setNote(resultset.getString(17));

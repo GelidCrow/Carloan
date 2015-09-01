@@ -1,5 +1,5 @@
 package integration.DAO.entity;
-
+import static utility.QueryStringReplacer.queryReplaceFirst;
 import integration.DAO.DaoFactory;
 
 import java.sql.ResultSet;
@@ -35,7 +35,27 @@ public class DAOFascia implements DAO {
 
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
+		String read = "Select * from fascia where IDFascia='?'";
+		read= queryReplaceFirst(read,String.valueOf(id));
+		Connection c=Connection.getConnection(daofactory);
+		try {
+			ResultSet r=c.executeRead(read);
+			if (r!=null){
+				while(r.next()){
+						
+				 switch(r.getString(4).toLowerCase()){
+					case "suv":
+						return new Suv(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4),r.getFloat(5));
+					case "lusso":
+						return new Lusso(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4),r.getFloat(5));
+					case "utilitaria":
+						return new Utlitaria(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4),r.getFloat(5));
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	public LinkedList<Fascia> getAll(){

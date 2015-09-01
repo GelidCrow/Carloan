@@ -34,7 +34,12 @@ public class ModelFascia implements Model{
 
 	@Override
 	public Entity lettura(int id) {
-		// TODO Auto-generated method stub
+		try {
+			daofactory = DaoFactory.getDaoFactory(1);
+			return ((DAOFascia)daofactory.getDao("DAOFascia")).lettura(id);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

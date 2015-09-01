@@ -14,8 +14,8 @@
             <Font name="Cambria Bold Italic" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="55.0" layoutY="122.0" text="Km Rientro" />
-      <Label layoutX="55.0" layoutY="156.0" text="Rientro " />
+      <Label layoutX="17.0" layoutY="122.0" text="N. Km Auto Attuali " />
+      <Label layoutX="28.0" layoutY="156.0" text="Data Di Rientro" />
       <Label layoutX="55.0" layoutY="193.0" text="Note" />
       <TextArea fx:id="textAreaNote" layoutX="132.0" layoutY="202.0" prefHeight="254.0" prefWidth="191.0" />
       <DatePicker fx:id="dRientro" editable="false" layoutX="132.0" layoutY="152.0" onAction="#dRientroAction" />
@@ -34,15 +34,22 @@
       <Label fx:id="lblCostoGiorni" layoutX="525.0" layoutY="544.0" prefHeight="17.0" prefWidth="92.0" />
       <Label layoutX="129.0" layoutY="591.0" text="Totale pagamento per kilometri in eccesso per ogni kilometro in piu" />
       <Label layoutX="136.0" layoutY="615.0" text="Numero Kilometri in piu" />
-      <Label fx:id="lblNumKilometri" layoutX="264.0" layoutY="615.0" prefHeight="17.0" prefWidth="79.0" />
-      <Label layoutX="362.0" layoutY="615.0" prefHeight="17.0" prefWidth="182.0" text="Costo(0,1%) su acconto     €" />
+      <Label fx:id="lblNumKilometri" layoutX="280.0" layoutY="615.0" prefHeight="17.0" prefWidth="79.0" />
+      <Label layoutX="362.0" layoutY="615.0" prefHeight="17.0" prefWidth="182.0" text="Costo in base alla fascia al km   €" />
       <Label fx:id="lblCostoKilometri" layoutX="537.0" layoutY="615.0" prefHeight="17.0" prefWidth="68.0" />
       <Label layoutX="137.0" layoutY="658.0" text="Cauzione da restituire se il totale è 0 altrimenti viene fatta la differenza" textFill="#b22b2b" />
       <Label layoutX="153.0" layoutY="685.0" prefHeight="17.0" prefWidth="129.0" text="Cauzione               €" />
       <Label fx:id="lblCauzione" layoutX="278.0" layoutY="685.0" prefHeight="17.0" prefWidth="98.0" />
       <Label layoutX="137.0" layoutY="710.0" text="Totale dovuto alla chiusura :        €" />
       <Label fx:id="lblTotChiusura" layoutX="336.0" layoutY="710.0" prefHeight="17.0" prefWidth="106.0" />
-      <Button layoutX="523.0" layoutY="771.0" mnemonicParsing="false" onAction="#btnConferma" text="Conferma" />
-      <Button layoutX="448.0" layoutY="771.0" mnemonicParsing="false" onAction="#btnIndietro" text="Indietro" />
+      <Button layoutX="563.0" layoutY="771.0" mnemonicParsing="false" onAction="#btnConferma" text="Conferma" />
+      <Button layoutX="460.0" layoutY="771.0" mnemonicParsing="false" onAction="#btnIndietro" text="Indietro" />
+      <Label layoutX="136.0" layoutY="641.0" prefHeight="17.0" prefWidth="224.0" text="Costo totale per kilometri in piu             €" />
+      <Label fx:id="lblTotKm" layoutX="361.0" layoutY="641.0" prefHeight="17.0" prefWidth="149.0" />
+      <Label layoutX="16.0" layoutY="737.0" text="Nb: Per calcolare gli importi mancanti premere Conferma. Non verrà chiuso immeditamentee il noleggio.. " textFill="#942323">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -140,6 +140,10 @@
     	</call>
 
     	<!--Autoveicolo-->
+    	<call id="letturaFascia">
+    		<class>business.model.ModelFascia</class>
+    		<method>lettura</method>
+    	</call>
     	<call id="getAllAuto">
     		<class>business.model.ModelAutoveicolo</class>
     		<method>getAll</method>
