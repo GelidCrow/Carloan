@@ -157,7 +157,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	private Label indirizzo_sede_tabOp;
 	
-	
+	private Image immagineprova;
 	
 
 		/***********  CONTRATTO *************/
@@ -1109,19 +1109,20 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	private class ItemSelectedAutoveicolo implements ChangeListener<Autoveicolo>{
 
 		@Override
-		public void changed(ObservableValue<? extends Autoveicolo> arg0,
-				Autoveicolo arg1, Autoveicolo auto) {
+		public void changed(ObservableValue<? extends Autoveicolo> arg0,Autoveicolo arg1, Autoveicolo auto) {
 			nome_sede.setText("");
 			telefono_sede.setText("");
 			indirizzo_sede.setText("");
 			Autoveicolo a=auto;
 			if(a!=null){
 			try {
-				InputStream i=(InputStream) presenter.processRequest("leggiImmagineAutoveicolo", a.getIDauto());
-				if(i!=null)
-				auto_image.setImage(new Image(i));
-				else
+				InputStream i=(InputStream)presenter.processRequest("leggiImmagineAutoveicolo", a.getIDauto());
+				if(i!=null){
+					auto_image.setImage(new Image(i));
+				}
+				else{
 					auto_image.setImage(null);
+				}
 				Sede sede=(Sede)presenter.processRequest("leggiSede",a.getCodiceSedDisp());
 				nome_sede.setText(sede.getNome());
 				telefono_sede.setText(sede.getNumeroTelefono());
