@@ -70,8 +70,31 @@ public class DAOPagamento implements DAO {
 
 	@Override
 	public void aggiornamento(Entity entity) throws CommonException {
-		// TODO Auto-generated method stub
-		
+		Pagamento pagamento = (Pagamento)entity;
+		String update = "Update Pagamento Set"
+				+" ImportoFinale='?',DetrazioneAggiuntiva='?' where IDPagamento='?'";
+		update = queryReplaceFirst(update,String.valueOf(pagamento.getImporto()));
+		update = queryReplaceFirst(update,String.valueOf(pagamento.getDetrazioneAggiuntiva()));
+		update = queryReplaceFirst(update,String.valueOf(pagamento.getIdPagamento()));
+		 Connection connection= Connection.getConnection(daofactory);
+	        
+	        ResultSet idList = null;
+	        
+			try {
+				 idList = connection.executeUpdate(update);
+				 if(idList==null)
+					 throw new CommonException("non è stato possibile aggiornare il pagamento");
+			} catch (SQLException e) {
+				e.printStackTrace();
+				 throw new CommonException("non è stato possibile inserire il pagamento");
+			}
+			finally{
+				try {
+					idList.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 	}
 
 	@Override
