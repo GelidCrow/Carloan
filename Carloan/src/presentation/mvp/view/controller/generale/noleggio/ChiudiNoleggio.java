@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import presentation.mvp.view.controller.Schermata;
+import presentation.mvp.view.controller.generale.SchermataGenerale;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.Auto.Autoveicolo;
@@ -24,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -156,6 +158,7 @@ public class ChiudiNoleggio extends Schermata{
 	}
 	private int kmR=0;
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@FXML
 	public void btnConferma(ActionEvent e){
 		
@@ -165,6 +168,9 @@ public class ChiudiNoleggio extends Schermata{
 			lblNumKilometri.setText("");
 			try{
 				kmR=(Integer.parseInt(txtKmRientro.getText()));
+				if(kmR<noleggio.getKmBase()){
+					throw new CommonException("Kilometri non validi, numero inferire a quelli che l'auto già possedeva ");
+				}
 			}
 			catch(NumberFormatException e2){
 				throw new CommonException("Il numero di km non può essere alfabetico");
@@ -199,9 +205,12 @@ public class ChiudiNoleggio extends Schermata{
 			java.util.Optional<ButtonType> result= AlertView.getAlertView("Chiudere il contratto??",AlertType.CONFIRMATION);
 				if(result.isPresent() && result.get() == ButtonType.OK){
 					try {
+						SchermataGenerale scChiamante= ((SchermataGenerale)this.getChiamante());
+						TableView<Noleggio> tw = scChiamante.getTable("Noleggio");
 						presenter.processRequest("aggiornamentoNoleggio", noleggio);
 						presenter.processRequest("aggiornamentoPagamento",pagamento);
 						presenter.processRequest("AggiornamentoAutoveicolo",auto);
+						scChiamante.caricaTabella((List<Noleggio>) presenter.processRequest("getAllNoleggi",null),tw);
 					} catch (InstantiationException | IllegalAccessException
 							| ClassNotFoundException | NoSuchMethodException
 							| SecurityException | IllegalArgumentException
@@ -224,7 +233,7 @@ public class ChiudiNoleggio extends Schermata{
 			noleggio.setKmRientro(kmR);
 			noleggio.setRientro(dRientro.getValue());
 			noleggio.setNote(textAreaNote.getText());
-			auto.setUltimoKm(kmR);
+			auto.setUltimoKm(auto.getUltimoKm()+kmR);
 			if(!textAreaDGravi.getText().isEmpty())
 				auto.setDisponibilita(Disponibilita.DaManutenere);
 			else

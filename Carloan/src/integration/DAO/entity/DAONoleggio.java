@@ -191,7 +191,7 @@ public class DAONoleggio implements DAO{
 								+ "Rientro='?',kmRientro='?',Stato='?',Note='?' where IDNoleggio='?'";
 		updateQuery= queryReplaceFirst(updateQuery,noleggio.getRientro().toString());
 		updateQuery= queryReplaceFirst(updateQuery,String.valueOf(noleggio.getKmRientro()));
-		updateQuery= queryReplaceFirst(updateQuery,String.valueOf(noleggio.getKmRientro()));
+		updateQuery= queryReplaceFirst(updateQuery,noleggio.getStato().toString());
 		updateQuery= queryReplaceFirst(updateQuery,noleggio.getNote());
 		updateQuery= queryReplaceFirst(updateQuery,String.valueOf(noleggio.getIDNoleggio()));
 		 
