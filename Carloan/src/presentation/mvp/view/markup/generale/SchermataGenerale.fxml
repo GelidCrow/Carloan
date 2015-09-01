@@ -43,17 +43,19 @@
                                     <Image url="@../Immagini/log_in_logo.jpg" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="txtBenvenuto" layoutX="659.0" layoutY="4.0" prefHeight="82.0" prefWidth="375.0" text="Benvenuto " textFill="WHITE">
+                              <Label fx:id="txtBenvenuto" layoutX="638.0" layoutY="4.0" prefHeight="80.0" prefWidth="375.0" text="Benvenuto " textFill="WHITE">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="btnLogout" layoutX="1034.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnLogout" prefHeight="25.0" prefWidth="97.0" text="Log out" />
-                              <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="1106.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Immagini/power.png" />
-                                 </image>
-                              </ImageView>
+                              <Button fx:id="btnLogout" layoutX="1034.0" layoutY="45.0" mnemonicParsing="false" onAction="#btnLogout" prefHeight="0.0" prefWidth="97.0" text="Log out">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Immagini/power.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></Button>
                            </children>
                         </Pane>
                      </children>
@@ -94,6 +96,15 @@
                                     <Label fx:id="lblCodiceFiscaleGestore" layoutX="860.0" layoutY="276.0" prefHeight="17.0" prefWidth="248.0" />
                                     <Label fx:id="lblNomeGestore" layoutX="861.0" layoutY="305.0" prefHeight="17.0" prefWidth="225.0" />
                                     <Label fx:id="lblCognomeGestore" layoutX="860.0" layoutY="329.0" prefHeight="17.0" prefWidth="222.0" />
+                                    <Button layoutX="1016.0" layoutY="14.0" mnemonicParsing="false" onAction="#refresh_contratto" prefHeight="33.0" prefWidth="97.0" text="Refresh">
+                                       <graphic>
+                                          <ImageView fitHeight="28.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Immagini/refresh.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -120,11 +131,6 @@
                                     <Button fx:id="btnNoleggio" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnNuovoNoleggio" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="125.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAnnullaNoleggio" prefHeight="25.0" prefWidth="97.0" text="Annulla" />
                                     <Button layoutX="241.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnChiudiNoleggio" prefHeight="25.0" prefWidth="78.0" text="Chiudi" />
-                                    <ImageView fitHeight="25.0" fitWidth="158.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Immagini/ic_search_black_24dp_2x.png" />
-                                       </image>
-                                    </ImageView>
                                     <TextField fx:id="txtContratto" layoutX="209.0" layoutY="57.0" prefHeight="25.0" prefWidth="97.0" />
                                     <Button fx:id="btnVOptional" layoutX="339.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVOptional" text="Visualizza Optional " />
                                     <MenuButton fx:id="btnMulta" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" text="Multa">
@@ -194,6 +200,20 @@
                                     <DatePicker fx:id="dInizio" layoutX="642.0" layoutY="57.0" onAction="#dInizioAction" />
                                     <Label layoutX="557.0" layoutY="61.0" text="Data Inizio" />
                                     <ChoiceBox fx:id="choiceStato" layoutX="380.0" layoutY="57.0" prefWidth="150.0" />
+                                    <ImageView fitHeight="25.0" fitWidth="158.0" layoutX="15.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Immagini/ic_search_black_24dp_2x.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Button layoutX="1059.0" layoutY="21.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="97.0" text="Refresh">
+                                       <graphic>
+                                          <ImageView fx:id="refresh_noleggio" fitHeight="28.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Immagini/refresh.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                         </content>
@@ -223,6 +243,15 @@
                                     <Button fx:id="btnModificaCliente" layoutX="147.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnModificaCliente" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
                                     <Button layoutX="264.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAggiungiCartaCredito" text="Aggiungi Carta Di Credito" />
                                     <Button layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVisualizzaCartaCredito" text="Visualizza Carta di Credito" />
+                                    <Button layoutX="1059.0" layoutY="21.0" mnemonicParsing="false" onAction="#refresh_cliente" prefHeight="33.0" prefWidth="97.0" text="Refresh">
+                                       <graphic>
+                                          <ImageView fx:id="refresh_noleggio1" fitHeight="28.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Immagini/refresh.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                         </content>
@@ -269,6 +298,15 @@
                                     <Label fx:id="nome_sede" layoutX="79.0" layoutY="91.0" prefHeight="17.0" prefWidth="222.0" />
                                     <Label fx:id="indirizzo_sede" layoutX="79.0" layoutY="117.0" prefHeight="17.0" prefWidth="243.0" />
                                     <Label fx:id="telefono_sede" layoutX="143.0" layoutY="147.0" prefHeight="17.0" prefWidth="194.0" />
+                                    <Button layoutX="1029.0" layoutY="21.0" mnemonicParsing="false" onAction="#refresh_auto" prefHeight="33.0" prefWidth="97.0" text="Refresh">
+                                       <graphic>
+                                          <ImageView fx:id="refresh_noleggio2" fitHeight="28.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Immagini/refresh.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                           </content>
@@ -299,6 +337,15 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
+                                    <Button layoutX="1027.0" layoutY="21.0" mnemonicParsing="false" onAction="#refresh_agenzia" prefHeight="33.0" prefWidth="97.0" text="Refresh">
+                                       <graphic>
+                                          <ImageView fx:id="refresh_noleggio3" fitHeight="28.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Immagini/refresh.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -337,6 +384,15 @@
                                           <TableColumn prefWidth="111.0" text="Codice Fiscale" />
                                       </columns>
                                     </TableView>
+                                    <Button layoutX="1036.0" layoutY="9.0" mnemonicParsing="false" onAction="#refresh_sede" prefHeight="33.0" prefWidth="97.0" text="Refresh">
+                                       <graphic>
+                                          <ImageView fx:id="refresh_noleggio31" fitHeight="28.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Immagini/refresh.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -359,6 +415,15 @@
                                        </columns></TableView>
                                     <Button layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnnuovo_amministratore" prefHeight="25.0" prefWidth="97.0" text="Nuovo" />
                                     <Button layoutX="147.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnmodifica_amministratore" prefHeight="25.0" prefWidth="97.0" text="Modifica" />
+                                    <Button layoutX="1031.0" layoutY="14.0" mnemonicParsing="false" onAction="#refresh_amministratore" prefHeight="33.0" prefWidth="97.0" text="Refresh">
+                                       <graphic>
+                                          <ImageView fx:id="refresh_noleggio32" fitHeight="28.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Immagini/refresh.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -390,6 +455,15 @@
                                     <Label fx:id="nome_sede_tabss" layoutX="82.0" layoutY="420.0" prefHeight="17.0" prefWidth="204.0" />
                                     <Label fx:id="indirizzo_sede_tabss" layoutX="82.0" layoutY="450.0" prefHeight="17.0" prefWidth="204.0" />
                                     <Label fx:id="numtel_sede_tabss" layoutX="147.0" layoutY="485.0" prefHeight="17.0" prefWidth="204.0" />
+                                    <Button layoutX="1037.0" layoutY="9.0" mnemonicParsing="false" onAction="#refresh_ss" prefHeight="33.0" prefWidth="97.0" text="Refresh">
+                                       <graphic>
+                                          <ImageView fx:id="refresh_noleggio33" fitHeight="28.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Immagini/refresh.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -419,6 +493,15 @@
                                     <Label layoutX="102.0" layoutY="447.0" text="Nome:" />
                                     <Label fx:id="nome_agenzia_tabsa" layoutX="147.0" layoutY="447.0" prefHeight="17.0" prefWidth="146.0" />
                                     <Label fx:id="tel_agenzia_tabsa" layoutX="147.0" layoutY="424.0" prefHeight="17.0" prefWidth="146.0" />
+                                    <Button layoutX="1034.0" layoutY="9.0" mnemonicParsing="false" onAction="#refresh_sa" prefHeight="33.0" prefWidth="97.0" text="Refresh">
+                                       <graphic>
+                                          <ImageView fx:id="refresh_noleggio34" fitHeight="28.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Immagini/refresh.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -450,6 +533,15 @@
                                     <Label fx:id="nome_sede_tabOp" layoutX="76.0" layoutY="425.0" prefHeight="17.0" prefWidth="148.0" />
                                     <Label fx:id="indirizzo_sede_tabOp" layoutX="76.0" layoutY="452.0" prefHeight="17.0" prefWidth="148.0" />
                                     <Label fx:id="tel_sede_tabOp" layoutX="127.0" layoutY="481.0" prefHeight="17.0" prefWidth="148.0" />
+                                    <Button layoutX="1030.0" layoutY="9.0" mnemonicParsing="false" onAction="#refresh_op" prefHeight="33.0" prefWidth="97.0" text="Refresh">
+                                       <graphic>
+                                          <ImageView fx:id="refresh_noleggio35" fitHeight="28.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Immagini/refresh.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>

@@ -1233,4 +1233,232 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		settaSchermataPerUtente();
 	}	
 
+	
+	/**
+	 * Tutti i refresher
+	 */
+@SuppressWarnings("unchecked")
+@FXML
+public void refresh_contratto(ActionEvent e){
+	List<Contratto> contratti = null;
+	try {
+		contratti = (List<Contratto>)presenter.processRequest("getAllContratti",null);
+	} catch (InstantiationException | IllegalAccessException
+			| ClassNotFoundException | NoSuchMethodException
+			| SecurityException | IllegalArgumentException
+			| InvocationTargetException | CommonException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+	caricaTabella((List<T>) contratti,tbContratto);
+	tbContratto.getSelectionModel().selectFirst();
+	}
+@SuppressWarnings("unchecked")
+@FXML
+public void refresh_noleggio(ActionEvent e){
+	try {
+		caricaTabella((List<T>)presenter.processRequest("getAllNoleggi",null),tbNoleggio);
+		tbNoleggio.getSelectionModel().selectFirst();
+	} catch (InstantiationException | IllegalAccessException
+			| ClassNotFoundException | NoSuchMethodException
+			| SecurityException | IllegalArgumentException
+			| InvocationTargetException | CommonException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+	}
+@SuppressWarnings("unchecked")
+@FXML
+public void refresh_cliente(ActionEvent e){
+	try {
+		caricaTabella((List<T>)presenter.processRequest("getAllClienti",null),tbCliente);
+		tbCliente.getSelectionModel().selectFirst();
+	} catch (InstantiationException | IllegalAccessException
+			| ClassNotFoundException | NoSuchMethodException
+			| SecurityException | IllegalArgumentException
+			| InvocationTargetException | CommonException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+}
+@SuppressWarnings("unchecked")
+@FXML
+public void refresh_auto(ActionEvent e){
+	try{
+	Utente utente = UtenteCorrente.getUtente();
+	List<Integer> lista=null;
+	Fascia neww=choice_fascia.getSelectionModel().getSelectedItem();
+	if(utente instanceof Amministratore)
+		
+			caricaTabella((List<T>)presenter.processRequest("getAllAutoByFascia",neww.getIDFascia()), tbAuto);
+		
+	else if(utente instanceof SupervisoreAgenzia){
+		List<Autoveicolo> autoveicoli  = new ArrayList<Autoveicolo>();
+		List<Sede> sedi = (List<Sede>)presenter.processRequest("getAllSediByAgenzia",((SupervisoreAgenzia) utente).getIDAgenzia());
+		for(Sede s:sedi){
+			lista=new ArrayList<Integer>();
+			lista.add(s.getIDSede());
+			lista.add(neww.getIDFascia());
+			List<Autoveicolo> auto= (List<Autoveicolo>) presenter.processRequest("getAllAutoBySedeAndFascia",lista);
+			autoveicoli.addAll(auto);
+		}
+		caricaTabella((List<T>)autoveicoli, tbAuto);
+		
+	}
+	else{ //Supervisore sede
+		lista=new ArrayList<Integer>();
+		lista.add(((SupervisoreSede)utente).getIDSede());
+		lista.add(neww.getIDFascia());
+		tbAuto.getItems().clear();
+		caricaTabella((List<T>)presenter.processRequest("getAllAutoBySedeAndFascia",lista), tbAuto);
+	}
+	tbAuto.getSelectionModel().selectFirst();
+	}
+	 catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+}
+@SuppressWarnings("unchecked")
+@FXML
+public void refresh_agenzia(ActionEvent e){
+	List<Agenzia> l;
+	try {
+		l = (List<Agenzia>)presenter.processRequest("getAllAgenzie", null);
+		caricaTabella((List<T>)l, tbAgenzia);
+		tbAgenzia.getSelectionModel().selectFirst();
+	} catch (InstantiationException | IllegalAccessException
+			| ClassNotFoundException | NoSuchMethodException
+			| SecurityException | IllegalArgumentException
+			| InvocationTargetException | CommonException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+	
+}
+@SuppressWarnings("unchecked")
+@FXML
+public void refresh_sede(ActionEvent e){
+	try {
+	Utente u=UtenteCorrente.getUtente();
+	List<Sede> l;
+	if(u instanceof Amministratore)
+			l=(List<Sede>)presenter.processRequest("getAllSedi", null);
+		
+	else//sono un supervisore agenzia
+		l=(List<Sede>)presenter.processRequest("getAllSediByAgenzia", ((SupervisoreAgenzia)u).getIDAgenzia());
+	
+	caricaTabella((List<T>)l, tbSede);
+	tbSede.getSelectionModel().selectFirst();
+	}
+	 catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+}
+@SuppressWarnings("unchecked")
+@FXML
+public void refresh_amministratore(ActionEvent e){
+	
+	try {
+		caricaTabella((List<T>)presenter.processRequest("getAllAmministratori", null), tbAmministratore);
+		tbAmministratore.getSelectionModel().selectFirst();
+	} catch (InstantiationException | IllegalAccessException
+			| ClassNotFoundException | NoSuchMethodException
+			| SecurityException | IllegalArgumentException
+			| InvocationTargetException | CommonException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+}
+@SuppressWarnings("unchecked")
+@FXML
+public void refresh_ss(ActionEvent e){
+	Utente u=UtenteCorrente.getUtente();
+	List<SupervisoreSede> l;
+	try{
+	if(u instanceof Amministratore)
+		l=(List<SupervisoreSede>)presenter.processRequest("getAllSupervisoriSede",null);
+	
+	else if (u instanceof SupervisoreAgenzia){
+		List<Sede> ls=(List<Sede>)presenter.processRequest("getAllSediByAgenzia", ((SupervisoreAgenzia)u).getIDAgenzia());
+		l=new LinkedList<SupervisoreSede>();
+		for(Sede s:ls)
+			l.addAll((Collection<? extends SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede",s.getIDSede()));
+			
+	}
+	else // SupervisoreSede
+		l=(List<SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede",((SupervisoreSede)u).getIDSede());
+	caricaTabella((List<T>) l, tbSs);
+	}
+	catch (InstantiationException | IllegalAccessException
+			| ClassNotFoundException | NoSuchMethodException
+			| SecurityException | IllegalArgumentException
+			| InvocationTargetException | CommonException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+	tbSs.getSelectionModel().selectFirst();
+	
+}
+@SuppressWarnings("unchecked")
+@FXML
+public void refresh_sa(ActionEvent e){
+	try{
+	Utente u =UtenteCorrente.getUtente();
+	List<SupervisoreAgenzia> list;
+	if(u instanceof Amministratore)
+	
+			list=(List<SupervisoreAgenzia>)presenter.processRequest("getAllSupervisoriAgenzia", null);
+		
+	else// E' un supervisore agenzia e quindi può vedere solo i supervisoriagenzia della sua agenzia
+		list=(List<SupervisoreAgenzia>)presenter.processRequest("getAllSupervisoriAgenziabyAgenzia", ((SupervisoreAgenzia)u).getIDAgenzia());
+	caricaTabella((List<T>) list, tbSa);
+	}
+	 catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	tbSa.getSelectionModel().selectFirst();
+}
+@SuppressWarnings("unchecked")
+@FXML
+public void refresh_op(ActionEvent e){
+	try{
+	Utente u=UtenteCorrente.getUtente();
+	List<Operatore> l=null;
+	if(u instanceof Amministratore)
+		
+			l=(List<Operatore>)presenter.processRequest("getAllOperatori", null);
+		
+	else if(u instanceof SupervisoreSede)
+		l=(List<Operatore>)presenter.processRequest("getAllOperatoriBySede", ((SupervisoreSede)u).getIDSede());
+	else{ // supervisore agenzia
+		List<Sede> ls=(List<Sede>)presenter.processRequest("getAllSediByAgenzia", ((SupervisoreAgenzia)u).getIDAgenzia());
+		l=new LinkedList<Operatore>();
+		for(Sede s:ls)
+			l.addAll((Collection<? extends Operatore>) presenter.processRequest("getAllOperatoriBySede",s.getIDSede()));
+	}
+	caricaTabella((List<T>) l, tbOperatore);
+	}
+	catch (InstantiationException | IllegalAccessException
+			| ClassNotFoundException | NoSuchMethodException
+			| SecurityException | IllegalArgumentException
+			| InvocationTargetException | CommonException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+	tbOperatore.getSelectionModel().selectFirst();
+}
+
+	
 }
