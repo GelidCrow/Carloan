@@ -33,7 +33,7 @@ public class DAOContratto implements DAO{
 	@Override
 	public ResultSet creazione(Entity x) {
 		String INSERT = "INSERT INTO Contratto "
-				+ "( ?,Stato,CataCreazione,Note,IDCliente) "
+				+ "( ?,Stato,DataCreazione,Note,IDCliente) "
 				+ "values ('?','?','?','?','?');";
 		
 		String insertQuery = INSERT;
