@@ -100,6 +100,10 @@
     	
     	
     	<!--NOLEGGIO-->
+    	<call id="aggiornamentoNoleggio">
+    		<class>business.model.ModelNoleggio</class>
+    		<method>aggiornamentoCompleto</method>
+    	</call>
     	<call id="InserimentoNoleggio">
     		<class>business.model.ModelNoleggio</class>
     		<method>Inserimento</method>
@@ -365,6 +369,11 @@
     		<class>business.model.ModelPagamento</class>
     		<method>lettura</method>
     	</call>
+    		<call id="aggiornamentoPagamento">
+    		<class>business.model.ModelPagamento</class>
+    		<method>aggiornamento</method>
+    	</call>
+    	
     	<!--Sede-->
 
     <call id="InserisciSede">

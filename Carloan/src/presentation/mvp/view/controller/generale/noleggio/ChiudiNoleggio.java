@@ -200,8 +200,8 @@ public class ChiudiNoleggio extends Schermata{
 				if(result.isPresent() && result.get() == ButtonType.OK){
 					try {
 						presenter.processRequest("aggiornamentoNoleggio", noleggio);
-						presenter.processRequest("agiornamentoPagamento",pagamento);
-						presenter.processRequest("aggiornamentoAuto",auto);
+						presenter.processRequest("aggiornamentoPagamento",pagamento);
+						presenter.processRequest("AggiornamentoAutoveicolo",auto);
 					} catch (InstantiationException | IllegalAccessException
 							| ClassNotFoundException | NoSuchMethodException
 							| SecurityException | IllegalArgumentException

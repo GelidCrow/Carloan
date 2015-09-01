@@ -28,7 +28,13 @@ public class ModelPagamento implements Model{
 
 	@Override
 	public void aggiornamento(Entity parameter) throws CommonException {
-		// TODO Auto-generated method stub
+		try {
+			daofactory=DaoFactory.getDaoFactory(1);
+			((DAOPagamento)daofactory.getDao("DAOPagamento")).aggiornamento(parameter);
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

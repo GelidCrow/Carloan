@@ -34,7 +34,16 @@ public class ModelNoleggio implements Model{
 				e.printStackTrace();
 			}
 	}
+	public void aggiornamentoCompleto(Entity parameter) throws CommonException {
+		try {
+			if(daofactory==null)
+				daofactory= DaoFactory.getDaoFactory(1);
+			((DAONoleggio) daofactory.getDao("DAONoleggio")).aggiornamentoCompleto(parameter);
 
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+	}
 
 	@Override
 	public List<Entity> ricerca(Entity entity) {
