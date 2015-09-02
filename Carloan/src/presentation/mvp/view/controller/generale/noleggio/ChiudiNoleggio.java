@@ -87,7 +87,7 @@ public class ChiudiNoleggio extends Schermata{
 				lblCostoKilometri.setText(String.valueOf(fascia.getCosto_kilometrico()));
 				textAreaDFutili.setText(auto.getDanni().getDanniFutili());
 				lblCauzione.setText(String.valueOf(pagamento.getDepositoCauzinale()));				
-				dRientro.setValue(noleggio.getFineNoleggio());
+				dRientro.setValue(LocalDate.now());
 				numGiorni= (int) noleggio.getFineNoleggio().until(LocalDate.now(), ChronoUnit.DAYS);
 				lblNumGiorni.setText(String.valueOf(numGiorni));
 				

@@ -107,11 +107,11 @@ public class VisualizzaOptional extends Schermata{
 			if(listItem!=null && !listItem.isEmpty()) {
 				for(Optional op: listItem){
 					if(op instanceof GuidatoreAggiuntivo){
+						btnVGuidatore.setVisible(true);
 						break;
 					}
 					else {
 						btnVGuidatore.setVisible(false);
-						break;
 					}
 				}
 			}

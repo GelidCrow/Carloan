@@ -661,7 +661,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected Button btnRimuovi;
 	protected boolean campiDisattivi;
-	
+	protected  GuidatoreAggiuntivo guidatore= null;
 	protected void impostaFalsoTxtGuidatore(){
 			txtNome.setDisable(true);
 			txtCognome.setDisable(true);
@@ -672,7 +672,8 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 			tbGuidatori.getItems().clear();
 			tbGuidatori.setVisible(false);
 			campiDisattivi=true;
-		}
+			guidatore=null;
+	}
 	
 	
 	

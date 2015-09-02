@@ -38,7 +38,7 @@ import business.model.Exception.CommonException;
 
 public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 	private Noleggio noleggio=new Noleggio();
-	private GuidatoreAggiuntivo guidatore= null;
+	
 	@FXML
 	public void btnAggiungiOptionalNoleggio(ActionEvent e){
 		if(tbOptionalNoleggio.getSelectionModel().getSelectedIndex()<0 ){
@@ -105,7 +105,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 		if(tbGuidatori.getItems()!=null)
 			tbGuidatori.getItems().clear();
 		campiDisattivi=false;
-		guidatore=null;
+		//guidatore=null;
 	}
 	
 	/**
@@ -149,7 +149,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
 			 caricaTabella( listItem,tbGuidatori);
 			 //se la tabella non contiene già tutti gli elementi massimi da inserire in base a quello scelto
 			 
-			 if(tbGuidatori.getItems().size()<guidatore.getNumero_guidatori()){
+			 if(tbGuidatori.getItems()!=null || (tbGuidatori.getItems().size()<guidatore.getNumero_guidatori())){
 				if(txtNome.getText().isEmpty() || txtCognome.getText().isEmpty() || txtIndirizzo.getText().isEmpty() || 
 						txtCodFiscale.getText().isEmpty() || txtPatente.getText().isEmpty())
 					throw new CommonException("Compilare tutti i campi prima di procedere con l'aggiunta");	

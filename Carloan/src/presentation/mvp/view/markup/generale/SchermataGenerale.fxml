@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1228.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.mvp.view.controller.generale.SchermataGenerale">
    <children>
       <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="1228.0">
         <menus>
@@ -205,7 +205,7 @@
                                           <Image url="@../Immagini/ic_search_black_24dp_2x.png" />
                                        </image>
                                     </ImageView>
-                                    <Button layoutX="1059.0" layoutY="21.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="97.0" text="Refresh">
+                                    <Button layoutX="1059.0" layoutY="21.0" mnemonicParsing="false" onAction="#refresh_noleggio" prefHeight="33.0" prefWidth="97.0" text="Refresh">
                                        <graphic>
                                           <ImageView fx:id="refresh_noleggio" fitHeight="28.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
