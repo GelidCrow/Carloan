@@ -1,6 +1,5 @@
 package business.entity.Auto;
 
-import java.io.File;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
@@ -8,9 +7,7 @@ import java.util.List;
 
 
 
-import javafx.scene.image.Image;
 import business.entity.Entity;
-import business.entity.Auto.Fascia.*;
 import business.entity.Auto.manutenzione.Manutenzione;
 public class Autoveicolo extends Entity {
 	

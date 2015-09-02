@@ -147,17 +147,5 @@ public class ReaderXML {
 		}
 	  }
 	}
-	
-	public static void main(String[] args){
-		
-		ReaderXML readerxml= new ReaderXML("src/presentation/mvp/boundary/view/Interfacce.xml");
-		
-		System.out.println(readerxml.read_UI("login"));
-		
-		ReaderXML reader = new ReaderXML("presentation/AC.xml");
-		
-		System.out.println(reader.read("login"));
-		
-	}
 }
 
