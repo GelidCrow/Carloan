@@ -122,7 +122,7 @@ public class DAOSupervisoreS implements DAO{
 	}
 
 	public List<SupervisoreSede> getAll_bySede(int idSede){
-		String query="Select * from Supervisoresede where IDSede="+String.valueOf(idSede);
+		String query="Select * from SupervisoreSede where IDSede="+String.valueOf(idSede);
 		Connection c=Connection.getConnection(this.daofactory);
 		ResultSet r=null;
 		try {
