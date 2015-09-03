@@ -200,7 +200,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 	
 	public List<Autoveicolo> getAllAutoByFascia(int id){
 		
-		 String readQuery = "Select * from Autoveicolo where IDFascia='?'";
+		 String readQuery = "Select * from Autoveicolo where IDFascia=?";
 		 readQuery=queryReplaceFirst(readQuery,String.valueOf(id));
 		 
 		 Connection connection= Connection.getConnection(dao);
@@ -230,7 +230,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 	
 	public List<Autoveicolo> getAllAutoByFasciaAssicurazione(int id){
 		
-		 String readQuery = "Select * from Autoveicolo where IDFascia='?' and Disponibilita='Disponibile' and datediff(DataScadAssic,curdate())>27;";
+		 String readQuery = "Select * from Autoveicolo where IDFascia=? and Disponibilita='Disponibile' and datediff(DataScadAssic,curdate())>27;";
 		 readQuery=queryReplaceFirst(readQuery,String.valueOf(id));
 		 
 		 Connection connection= Connection.getConnection(dao);
@@ -338,7 +338,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 	
 	
 	public List<Autoveicolo> getAllAutoDisponibiliBySede(int id){
-		 String readQuery = "Select * from Autoveicolo where IDSede='?' and Disponibilita='Disponibile'";
+		 String readQuery = "Select * from Autoveicolo where IDSede=? and Disponibilita='Disponibile'";
 		 readQuery=queryReplaceFirst(readQuery,String.valueOf(id));
 		 
 		 Connection connection= Connection.getConnection(dao);
@@ -362,7 +362,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 	    return risultato;
 	}
 	public List<Autoveicolo> getAllAutoDisponibiliBySedeAndFascia(List<Entity> lista){
-		 String readQuery = "Select * from Autoveicolo where IDSede='?' and Disponibilita='Disponibile' and IDFascia='?'";
+		 String readQuery = "Select * from Autoveicolo where IDSede=? and Disponibilita='Disponibile' and IDFascia=?";
 		 readQuery=queryReplaceFirst(readQuery,String.valueOf(lista.get(0)));
 		 readQuery=queryReplaceFirst(readQuery,String.valueOf(lista.get(1)));
 		 Connection connection= Connection.getConnection(dao);
@@ -386,7 +386,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 	    return risultato;
 	}
 	public List<Autoveicolo> getAllAutoBySedeAndFascia(List<Entity> lista){
-		 String readQuery = "Select * from Autoveicolo where IDSede='?'  and IDFascia='?'";
+		 String readQuery = "Select * from Autoveicolo where IDSede=?  and IDFascia=?";
 		 readQuery=queryReplaceFirst(readQuery,String.valueOf(lista.get(0)));
 		 readQuery=queryReplaceFirst(readQuery,String.valueOf(lista.get(1)));
 		 Connection connection= Connection.getConnection(dao);
