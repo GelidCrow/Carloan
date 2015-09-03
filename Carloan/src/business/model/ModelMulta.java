@@ -3,7 +3,6 @@ package business.model;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
-import integration.DAO.entity.DAOCliente;
 import integration.DAO.entity.DAOMulta;
 import business.entity.Entity;
 import business.entity.Noleggio.Multa;
