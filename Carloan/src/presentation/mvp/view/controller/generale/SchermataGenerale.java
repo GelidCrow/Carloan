@@ -157,7 +157,6 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	@FXML
 	private Label indirizzo_sede_tabOp;
 	
-	private Image immagineprova;
 	
 
 		/***********  CONTRATTO *************/
