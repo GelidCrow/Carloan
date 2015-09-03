@@ -202,7 +202,7 @@ public class ChiudiNoleggio extends Schermata{
 			
 			
 			noleggio.setStato(StatoNoleggio.chiuso);
-			java.util.Optional<ButtonType> result= AlertView.getAlertView("Chiudere il contratto??",AlertType.CONFIRMATION);
+			java.util.Optional<ButtonType> result= AlertView.getAlertView("Chiudere il noleggio??",AlertType.CONFIRMATION);
 				if(result.isPresent() && result.get() == ButtonType.OK){
 					try {
 						SchermataGenerale scChiamante= ((SchermataGenerale)this.getChiamante());
