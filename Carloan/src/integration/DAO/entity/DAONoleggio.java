@@ -411,7 +411,7 @@ public class DAONoleggio implements DAO{
 		return idMulta;
 	}
 	
-	
+
 	public List<Entity> ricerca(Entity parameter){
 		RicercaNoleggio ricnoleggio=(RicercaNoleggio) parameter;
 		String ricerca1="Select * from noleggio where IDContratto='?'";

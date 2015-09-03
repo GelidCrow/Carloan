@@ -16,7 +16,12 @@ import business.entity.Gestori.SupervisoreAgenzia;
 import business.model.Exception.CommonException;
 
 public class DAOSupervisoreA implements DAO{
-
+	private  DaoFactory daofactory;
+	
+	
+	public DAOSupervisoreA(DaoFactory dao){
+		this.daofactory = dao;		
+	}
 	
 	@Override
 	public ResultSet creazione(Entity x) throws CommonException {
@@ -83,12 +88,7 @@ public class DAOSupervisoreA implements DAO{
 	}
 
 
-	private  DaoFactory daofactory;
-	
-	
-	public DAOSupervisoreA(DaoFactory dao){
-		this.daofactory = dao;		
-	}
+
 	@Override
 	public Entity lettura(int id){
 	String QUERY= "Select * from SupervisoreAgenzia where IDSupervisoreAgenzia='?' ";
