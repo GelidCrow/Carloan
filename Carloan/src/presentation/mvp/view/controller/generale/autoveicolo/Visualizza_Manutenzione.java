@@ -70,7 +70,7 @@ public class Visualizza_Manutenzione extends Nuova_Manutenzione{
 			List<ManutenzioneOrdinaria> l=(List<ManutenzioneOrdinaria>) presenter.processRequest("getAllManutenzioni_ordinarie", a.getIDauto());
 			List<ManutenzioneStraordinaria> l2=(List<ManutenzioneStraordinaria>) presenter.processRequest("getAllManutenzioni_straordinarie", a.getIDauto());
 			if(l.isEmpty() && l2.isEmpty())
-				AlertView.getAlertView("Non ci sono manutenzioni aperte per quest'auto", AlertType.ERROR);
+				AlertView.getAlertView("Quest'auto non ha mai subito manutenzioni di nessun tipo", AlertType.ERROR);
 			else{
 				caricatabella_ord(l, table_manutenzioni_ord);
 				caricatabella_stra(l2, table_manutenzioni_stra);
