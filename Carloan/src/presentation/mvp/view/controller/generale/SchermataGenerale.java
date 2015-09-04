@@ -1006,16 +1006,16 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		
 	}
-	@SuppressWarnings("rawtypes")
-	private class ItemSelectedSede implements ChangeListener{
+	private class ItemSelectedSede implements ChangeListener<Sede>{
 		@SuppressWarnings("unchecked")
 		@Override
-		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+		public void changed(ObservableValue<? extends Sede> observable,
+				Sede oldValue, Sede newValue) {
 			if(newValue!=null){
 			try {
-				LinkedList<SupervisoreSede> temp=(LinkedList<SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede", ((Sede)newValue).getIDSede());
+				LinkedList<SupervisoreSede> temp=(LinkedList<SupervisoreSede>) presenter.processRequest("leggiSupervisoriSedebySede", newValue.getIDSede());
 				caricaTabella((List<T>)temp, tablesupsede);
-				Agenzia a=(Agenzia)presenter.processRequest("leggiAgenzia",((Sede)newValue).getIDAgenzia());
+				Agenzia a=(Agenzia)presenter.processRequest("leggiAgenzia",newValue.getIDAgenzia());
 				nome_agenzia.setText(a.getNome());
 				tel_agenzia.setText(a.getNumTelefono());
 			} catch (InstantiationException | IllegalAccessException
@@ -1029,15 +1029,14 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 	}
 	
-	@SuppressWarnings("rawtypes")
-	private class ItemSelectedSs implements ChangeListener{
+	private class ItemSelectedSs implements ChangeListener<SupervisoreSede>{
 
-		
 		@Override
-		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+		public void changed(ObservableValue<? extends SupervisoreSede> observable,
+				SupervisoreSede oldValue, SupervisoreSede newValue) {
 			if(newValue!=null){
 				try {
-					Sede sed=(Sede)presenter.processRequest("leggiSede", ((SupervisoreSede)newValue).getIDSede());
+					Sede sed=(Sede)presenter.processRequest("leggiSede", newValue.getIDSede());
 					nome_sede_tabss.setText(sed.getNome());
 					indirizzo_sede_tabss.setText(sed.getIndirizzo());
 					numtel_sede_tabss.setText(sed.getNumeroTelefono());
@@ -1053,15 +1052,14 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		}
 		
 	}
-	
-	@SuppressWarnings("rawtypes")
-	private class ItemSelectedSa implements ChangeListener{
+	private class ItemSelectedSa implements ChangeListener<SupervisoreAgenzia>{
 
 		@Override
-		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+		public void changed(ObservableValue<? extends SupervisoreAgenzia> observable,
+				SupervisoreAgenzia oldValue, SupervisoreAgenzia newValue) {
 			if(newValue!=null){
 				try {
-					Agenzia s=(Agenzia)presenter.processRequest("leggiAgenzia", ((SupervisoreAgenzia)newValue).getIDAgenzia());
+					Agenzia s=(Agenzia)presenter.processRequest("leggiAgenzia", newValue.getIDAgenzia());
 					nome_agenzia_tabsa.setText(s.getNome());
 					tel_agenzia_tabsa.setText(s.getNumTelefono());
 				} catch (InstantiationException | IllegalAccessException
@@ -1077,14 +1075,13 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		
 	}
 	
-	@SuppressWarnings("rawtypes")
-	private class ItemSelectedOperatore implements ChangeListener{
-
+	private class ItemSelectedOperatore implements ChangeListener<Operatore>{
 		@Override
-		public void changed(ObservableValue observable, Object oldValue,Object newValue) {
+		public void changed(ObservableValue<? extends Operatore> observable,
+				Operatore oldValue, Operatore newValue) {
 			if(newValue!=null){
 				try {
-					Sede s=(Sede)presenter.processRequest("leggiSede", ((Operatore)newValue).getIDSede());
+					Sede s=(Sede)presenter.processRequest("leggiSede", newValue.getIDSede());
 					tel_sede_tabOp.setText(s.getNumeroTelefono());
 					nome_sede_tabOp.setText(s.getNome());
 					indirizzo_sede_tabOp.setText(s.getIndirizzo());
@@ -1226,10 +1223,10 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		tbNoleggio.getSelectionModel().selectedItemProperty().addListener( (ChangeListener<? super T>) new ItemSelectedNoleggio());
 		tbAuto.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedAutoveicolo());
 		tbAgenzia.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedAgenzia());
-		tbSede.getSelectionModel().selectedItemProperty().addListener( new ItemSelectedSede());
-		tbSs.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedSs());
-		tbSa.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedSa());
-		tbOperatore.getSelectionModel().selectedItemProperty().addListener(new ItemSelectedOperatore());
+		tbSede.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedSede());
+		tbSs.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>) new ItemSelectedSs());
+		tbSa.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>)new ItemSelectedSa());
+		tbOperatore.getSelectionModel().selectedItemProperty().addListener((ChangeListener<? super T>)new ItemSelectedOperatore());
 		//setta la schermata per l'utente corrente
 		settaSchermataPerUtente();
 	}	
