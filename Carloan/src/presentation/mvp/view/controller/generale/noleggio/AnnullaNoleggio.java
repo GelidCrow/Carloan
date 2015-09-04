@@ -10,6 +10,7 @@ import business.entity.Auto.Disponibilita;
 import business.entity.Noleggio.Noleggio;
 import business.model.Exception.CommonException;
 import MessaggiFinestra.AlertView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
@@ -27,7 +28,7 @@ public class AnnullaNoleggio extends Schermata{
 	Noleggio noleggio;
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
-	public void btnConferma(){
+	public void btnConferma(ActionEvent e){
 		schermata= (SchermataGenerale) this.getChiamante();
 		tw= schermata.getTable("Noleggio");
 		noleggio.setNote(textAreaAnnulla.getText());
@@ -43,14 +44,14 @@ public class AnnullaNoleggio extends Schermata{
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | NoSuchMethodException
 				| SecurityException | IllegalArgumentException
-				| InvocationTargetException | CommonException e) {
-			e.printStackTrace();
+				| InvocationTargetException | CommonException e2) {
+			e2.printStackTrace();
 		}
 	
 		
 	}
 	@FXML
-	public void btnIndietro(){
+	public void btnIndietro(ActionEvent e){
 		Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Se inseriti,perderai tutti i dati ",AlertType.CONFIRMATION);
 			if(result.isPresent() && result.get() == ButtonType.OK)
 				this.chiudiFinestra();
