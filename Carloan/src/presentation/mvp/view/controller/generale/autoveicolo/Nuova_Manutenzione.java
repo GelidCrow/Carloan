@@ -39,19 +39,19 @@ import utility.ParametriFXML;
 
 public class Nuova_Manutenzione extends Schermata{
 	@FXML
-	RadioButton radio_ord;
+	private RadioButton radio_ord;
 	@FXML
-	RadioButton radio_stra;
+	private RadioButton radio_stra;
 	@FXML
-	TextArea motivo;
+	private TextArea motivo;
 	@FXML
-	DatePicker data_inizio;
+	private DatePicker data_inizio;
 	@FXML
-	ImageView immagine;
+	private ImageView immagine;
 	@FXML
-	Label targa;
+	private Label targa;
 	@FXML
-	Label modello;
+	private Label modello;
 	private Autoveicolo a=null;
 	private Manutenzione man;
 	final ToggleGroup group = new ToggleGroup();
