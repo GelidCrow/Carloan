@@ -3,10 +3,7 @@ package business.model;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
-import integration.DAO.entity.DAOAutoveicolo;
 import integration.DAO.entity.DAOCartaDiCredito;
-import integration.DAO.entity.DAOCliente;
-import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.pagamento.CartaDiCredito;
 import business.model.Exception.CommonException;

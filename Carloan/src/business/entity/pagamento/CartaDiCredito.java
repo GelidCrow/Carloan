@@ -1,9 +1,6 @@
 package business.entity.pagamento;
 
 import java.time.LocalDate;
-import java.util.Date;
-
-import business.entity.Cliente;
 
 public class CartaDiCredito extends Pagamento{
 	private int IDCliente ; 

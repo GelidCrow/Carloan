@@ -4,7 +4,6 @@ import business.entity.Entity;
 import business.entity.Auto.Fascia.Fascia;
 import business.model.Exception.CommonException;
 import integration.DAO.DaoFactory;
-import integration.DAO.entity.DAOAutoveicolo;
 import integration.DAO.entity.DAOFascia;
 
 import java.util.List;
