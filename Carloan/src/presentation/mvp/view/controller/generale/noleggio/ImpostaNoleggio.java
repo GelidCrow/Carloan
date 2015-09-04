@@ -703,6 +703,11 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		public void changed(ObservableValue<? extends Integer> observable,
 				Integer oldValue, Integer newValue) {
 			if(newValue!=null){
+				
+				if(choiceSettimane.getSelectionModel().getSelectedItem()==0 && choiceGiorni.getSelectionModel().getSelectedItem()==0){
+					choiceGiorni.getSelectionModel().selectFirst();
+					choiceGiorni.getSelectionModel().selectNext();
+				}
 				setDataFineNoleggio();
 			}
 		}
