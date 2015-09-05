@@ -83,7 +83,7 @@ public class TabNoleggio {
 				throw new CommonException("Noleggio non ancora iniziato");
 			}
 			
-			else if((noleggio.getFineNoleggio().isBefore(LocalDate.now()))){
+			else if((noleggio.getRientro().isBefore(LocalDate.now()))){
 				FXMLParameter.setTitolo("Termine noleggio");
 			    FXMLParameter.setRidimensionabile(false);
 			    FXMLParameter.setEntity(noleggio);

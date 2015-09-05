@@ -23,7 +23,7 @@
             <RadioButton fx:id="rdCartaCredito" layoutX="1189.0" layoutY="468.0" mnemonicParsing="false" text="Carta di credito" />
             <Label layoutX="1093.0" layoutY="443.0" prefHeight="17.0" prefWidth="75.0" text="Pagamento" />
             <Label layoutX="23.0" layoutY="81.0" text="Data inizio *" />
-            <Label layoutX="25.0" layoutY="121.0" text="Data fine * " />
+            <Label layoutX="25.0" layoutY="121.0" text="Data rientro * " />
             <Label layoutX="24.0" layoutY="24.0" text="Data ritiro *" />
             <Label layoutX="400.0" layoutY="614.0" text="Km Base " />
             <Label layoutX="17.0" layoutY="215.0" text="Numero Settimane " />
@@ -162,7 +162,7 @@
             <ChoiceBox fx:id="choiceSettimane" layoutX="236.0" layoutY="211.0" prefHeight="25.0" prefWidth="75.0" />
             <ChoiceBox fx:id="choiceGiorni" layoutX="237.0" layoutY="255.0" prefHeight="25.0" prefWidth="75.0" />
             <Label fx:id="lblDataFineNoleggio" layoutX="162.0" layoutY="121.0" prefHeight="17.0" prefWidth="149.0" />
-            <Label layoutX="18.0" layoutY="157.0" prefHeight="17.0" prefWidth="370.0" text="N.B : Ogni giorno di ritardo aumenterà del 20% il costo del noleggio. " textFill="#a11b1b" />
+            <Label layoutX="18.0" layoutY="157.0" prefHeight="17.0" prefWidth="370.0" text="N.B : Ogni giorno di ritardo aumenterà del 0,2% il costo del noleggio. " textFill="#a11b1b" />
             <Label layoutX="14.0" layoutY="174.0" prefHeight="17.0" prefWidth="370.0" text="Tale percentuale sarà calcolata sulla base dell'acconto versato. " textFill="#a11b1b" />
             <Label layoutX="25.0" layoutY="51.0" text="Nb : Massimo 3 giorni dopo a partire da adesso" textFill="#9a1010" />
             <Label fx:id="lblDataInizio" layoutX="150.0" layoutY="84.0" prefHeight="17.0" prefWidth="149.0" />

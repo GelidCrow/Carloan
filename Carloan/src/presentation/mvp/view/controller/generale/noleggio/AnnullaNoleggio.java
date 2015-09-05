@@ -1,6 +1,7 @@
 package presentation.mvp.view.controller.generale.noleggio;
 
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,7 @@ public class AnnullaNoleggio extends Schermata{
 		schermata= (SchermataGenerale) this.getChiamante();
 		tw= schermata.getTable("Noleggio");
 		noleggio.setNote(textAreaAnnulla.getText());
+		noleggio.setFineNoleggio(LocalDate.now());
 		try {
 			presenter.processRequest("VerificaAnnullaNoleggio", noleggio);
 			presenter.processRequest("AnnullaNoleggio", noleggio);

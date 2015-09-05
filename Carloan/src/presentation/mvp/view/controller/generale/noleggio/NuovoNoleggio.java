@@ -506,7 +506,7 @@ public class NuovoNoleggio extends ImpostaNoleggio<Entity>{
     	
     	noleggio.setRitiro(dRitiro.getValue());
     	noleggio.setInizioNoleggio(LocalDate.parse(lblDataInizio.getText(),dtf));
-    	noleggio.setFineNoleggio(LocalDate.parse(lblDataFineNoleggio.getText(),dtf));
+    	noleggio.setRientro(LocalDate.parse(lblDataFineNoleggio.getText(),dtf));
     
     	noleggio.setSedeRestituzione(((Sede)tbRestituzione.getSelectionModel().getSelectedItem()).getIDSede());
     	

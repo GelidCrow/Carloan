@@ -34,7 +34,7 @@ public class ChiudiNoleggio extends Schermata{
 	@FXML
 	private TextField txtKmRientro;
 	@FXML
-	private DatePicker dRientro; 
+	private DatePicker dFineNol; 
 	@FXML
 	private TextArea textAreaNote;
 	@FXML
@@ -87,8 +87,8 @@ public class ChiudiNoleggio extends Schermata{
 				lblCostoKilometri.setText(String.valueOf(fascia.getCosto_kilometrico()));
 				textAreaDFutili.setText(auto.getDanni().getDanniFutili());
 				lblCauzione.setText(String.valueOf(pagamento.getDepositoCauzinale()));				
-				dRientro.setValue(LocalDate.now());
-				numGiorni= (int) noleggio.getFineNoleggio().until(LocalDate.now(), ChronoUnit.DAYS);
+				dFineNol.setValue(LocalDate.now());
+				numGiorni= (int) noleggio.getRientro().until(LocalDate.now(), ChronoUnit.DAYS);
 				lblNumGiorni.setText(String.valueOf(numGiorni));
 				
 				// CONTOLO CHE NON ABBIA IL KILOMETRAGGIO ILLIMITATO
@@ -121,16 +121,30 @@ public class ChiudiNoleggio extends Schermata{
 	}
 	@FXML
 	public void dRientroAction(ActionEvent e){
-		if (dRientro.getValue().isBefore(noleggio.getFineNoleggio())){
-			dRientro.setValue(noleggio.getFineNoleggio());
-			numGiorni= (int) noleggio.getFineNoleggio().until(dRientro.getValue(), ChronoUnit.DAYS);
-			lblNumGiorni.setText(String.valueOf(noleggio.getFineNoleggio().until(dRientro.getValue(), ChronoUnit.DAYS)));
-			setCostoGiorni();
+		if (dFineNol.getValue().isBefore(noleggio.getRientro())){
+			dFineNol.setValue(noleggio.getRientro());
+			if(dFineNol.getValue().isEqual(noleggio.getRientro())){
+				numGiorni= (int) dFineNol.getValue().until(noleggio.getRientro(), ChronoUnit.DAYS);
+				lblNumGiorni.setText(String.valueOf(numGiorni));
+				setCostoGiorni();
 			}
+			else {
+				numGiorni= (int) noleggio.getRientro().until(dFineNol.getValue(), ChronoUnit.DAYS);
+				lblNumGiorni.setText(String.valueOf(numGiorni));
+				setCostoGiorni();
+			}
+		}
 		else{
-			numGiorni= (int) noleggio.getFineNoleggio().until(dRientro.getValue(), ChronoUnit.DAYS);
-			lblNumGiorni.setText(String.valueOf(noleggio.getFineNoleggio().until(dRientro.getValue(), ChronoUnit.DAYS)));
-			setCostoGiorni();
+			if(dFineNol.getValue().isEqual(noleggio.getRientro())){
+				numGiorni= (int) dFineNol.getValue().until(noleggio.getRientro(), ChronoUnit.DAYS);
+				lblNumGiorni.setText(String.valueOf(numGiorni));
+				setCostoGiorni();
+			}
+			else {
+				numGiorni= (int) noleggio.getRientro().until(dFineNol.getValue(), ChronoUnit.DAYS);
+				lblNumGiorni.setText(String.valueOf(numGiorni));
+				setCostoGiorni();
+			}
 		}
 
 	}
@@ -230,7 +244,7 @@ public class ChiudiNoleggio extends Schermata{
 		try{
 			
 			noleggio.setKmRientro(kmR);
-			noleggio.setRientro(dRientro.getValue());
+			noleggio.setFineNoleggio(dFineNol.getValue());
 			noleggio.setNote(textAreaNote.getText());
 			auto.setUltimoKm(auto.getUltimoKm()+kmR);
 			if(!textAreaDGravi.getText().isEmpty())

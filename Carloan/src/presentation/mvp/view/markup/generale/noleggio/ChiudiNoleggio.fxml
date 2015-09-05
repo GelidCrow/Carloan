@@ -15,10 +15,10 @@
          </font>
       </Label>
       <Label layoutX="17.0" layoutY="122.0" text="N. Km Auto Attuali " />
-      <Label layoutX="28.0" layoutY="156.0" text="Data Di Rientro" />
+      <Label layoutX="28.0" layoutY="156.0" text="Data Fine " />
       <Label layoutX="55.0" layoutY="193.0" text="Note" />
       <TextArea fx:id="textAreaNote" layoutX="132.0" layoutY="202.0" prefHeight="254.0" prefWidth="191.0" />
-      <DatePicker fx:id="dRientro" editable="false" layoutX="132.0" layoutY="152.0" onAction="#dRientroAction" />
+      <DatePicker fx:id="dFineNol" editable="false" layoutX="132.0" layoutY="152.0" onAction="#dRientroAction" />
       <TextField fx:id="txtKmRientro" layoutX="132.0" layoutY="118.0" prefHeight="25.0" prefWidth="174.0" />
       <Label layoutX="400.0" layoutY="94.0" text="Danni Auto" />
       <Label layoutX="55.0" layoutY="518.0" text="Totale pagamento per ritardo al giorno (0,2%) su acconto) per ogni giorno di ritardo" />

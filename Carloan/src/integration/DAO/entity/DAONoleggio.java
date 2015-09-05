@@ -69,7 +69,7 @@ public class DAONoleggio implements DAO{
 	public ResultSet creazione(Entity x) {
 		String insert= "INSERT INTO Noleggio"
 				+ "(InizioNoleggio"
-				+ ",FineNoleggio"
+				+ ",Rientro"
 				+ ",Ritiro"
 				+ ",KmBase"
 				+ ",Stato"
@@ -102,7 +102,7 @@ public class DAONoleggio implements DAO{
 		Noleggio noleggio= (Noleggio)x;
 		
 	   insertQuery = queryReplaceFirst(insertQuery,  noleggio.getInizioNoleggio().toString());
-	   insertQuery = queryReplaceFirst(insertQuery, noleggio.getFineNoleggio().toString());
+	   insertQuery = queryReplaceFirst(insertQuery, noleggio.getRientro().toString());
 	   insertQuery= queryReplaceFirst(insertQuery, noleggio.getRitiro().toString());
 	   insertQuery = queryReplaceFirst(insertQuery, String.valueOf(noleggio.getKmBase()));
 	   insertQuery = queryReplaceFirst(insertQuery, noleggio.getStato().toString());
@@ -158,8 +158,9 @@ public class DAONoleggio implements DAO{
 	public void aggiornamento(Entity entity) throws CommonException {
 		Noleggio noleggio= (Noleggio)entity;
 		String updateQuery = "Update noleggio set "
-								+ "note='?' , stato='annullato' where idnoleggio='?'";
+								+ "note='?' , stato='annullato' , FineNoleggio='?' where idnoleggio='?'";
 		updateQuery= queryReplaceFirst(updateQuery,noleggio.getNote());
+		updateQuery= queryReplaceFirst(updateQuery,noleggio.getFineNoleggio().toString());
 		updateQuery= queryReplaceFirst(updateQuery,String.valueOf(noleggio.getIDNoleggio()));
 		
 		 
@@ -187,8 +188,8 @@ public class DAONoleggio implements DAO{
 	public void aggiornamentoCompleto(Entity entity) throws CommonException {
 		Noleggio noleggio= (Noleggio)entity;
 		String updateQuery = "Update noleggio set "
-								+ "Rientro='?',kmRientro='?',Stato='?',Note='?' where IDNoleggio='?'";
-		updateQuery= queryReplaceFirst(updateQuery,noleggio.getRientro().toString());
+								+ "FineNoleggio='?',kmRientro='?',Stato='?',Note='?' where IDNoleggio='?'";
+		updateQuery= queryReplaceFirst(updateQuery,noleggio.getFineNoleggio().toString());
 		updateQuery= queryReplaceFirst(updateQuery,String.valueOf(noleggio.getKmRientro()));
 		updateQuery= queryReplaceFirst(updateQuery,noleggio.getStato().toString());
 		updateQuery= queryReplaceFirst(updateQuery,noleggio.getNote());
@@ -336,13 +337,13 @@ public class DAONoleggio implements DAO{
 		List<Integer> idMulta  = ottieniIDMulte(resultset,connection);
 
 		LocalDate data=null;
-		if(resultset.getDate(4)!=null){
-			data= resultset.getDate(4).toLocalDate();
+		if(resultset.getDate(3)!=null){
+			data= resultset.getDate(3).toLocalDate();
 		}
 		return  new Noleggio(resultset.getInt(1),
 				resultset.getDate(2).toLocalDate(),
-				resultset.getDate(3).toLocalDate(),
 				data,
+				resultset.getDate(4).toLocalDate(),
 				resultset.getDate(5).toLocalDate(),
 				resultset.getInt(6),
 				resultset.getInt(7),
