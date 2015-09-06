@@ -22,7 +22,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import presentation.mvp.view.Presenter;
 import presentation.mvp.view.controller.Schermata;
-import presentation.mvp.view.controller.generale.SchermataGenerale;
 import utility.Finestra;
 import utility.ParametriFXML;
 

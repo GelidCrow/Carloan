@@ -17,7 +17,6 @@ import business.entity.Noleggio.Noleggio;
 import business.entity.Noleggio.StatoNoleggio;
 import business.entity.Noleggio.Optional.ChilometraggioIllimitato;
 import business.entity.Noleggio.Optional.Optional;
-import business.entity.Noleggio.Optional.OptionalNoleggio;
 import business.entity.pagamento.Pagamento;
 import business.model.Exception.CommonException;
 import javafx.event.ActionEvent;

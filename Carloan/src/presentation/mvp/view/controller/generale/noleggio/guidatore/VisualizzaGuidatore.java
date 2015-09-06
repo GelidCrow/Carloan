@@ -2,17 +2,13 @@ package presentation.mvp.view.controller.generale.noleggio.guidatore;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import business.entity.Cliente;
 import business.entity.Entity;
 import business.entity.Noleggio.Noleggio;
 import business.entity.Noleggio.Optional.Guidatore;
-import business.entity.pagamento.CartaDiCredito;
 import business.model.Exception.CommonException;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

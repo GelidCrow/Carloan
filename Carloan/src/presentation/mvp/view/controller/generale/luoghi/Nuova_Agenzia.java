@@ -15,8 +15,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import presentation.mvp.view.Presenter;
@@ -42,9 +40,10 @@ public class Nuova_Agenzia extends Schermata{
 		if(result.isPresent() && result.get() == ButtonType.OK)
 			this.chiudiFinestra();
 	}
+	@SuppressWarnings("unchecked")
 	@FXML
 	public void btnConferma(ActionEvent e){
-		@SuppressWarnings("unchecked")
+		
 		SchermataGenerale<Agenzia> schermataGenerale = (SchermataGenerale<Agenzia>)this.getChiamante();
 		tw= ((SchermataGenerale<Agenzia>)schermataGenerale).getTable("Agenzia");
 	

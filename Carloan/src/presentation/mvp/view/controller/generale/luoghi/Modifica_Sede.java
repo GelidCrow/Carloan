@@ -50,6 +50,7 @@ public class Modifica_Sede extends Nuova_Sede{
 		if(result.isPresent() && result.get() == ButtonType.OK)
 			this.chiudiFinestra();
 	}
+	@SuppressWarnings("unchecked")
 	@FXML
 	public void btnConferma(ActionEvent e){
 	

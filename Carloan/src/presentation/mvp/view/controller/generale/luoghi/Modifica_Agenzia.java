@@ -40,7 +40,7 @@ public class Modifica_Agenzia extends Nuova_Agenzia{
 	@SuppressWarnings("unchecked")
 	@FXML
 	public void btnConferma(ActionEvent e){
-		@SuppressWarnings("unchecked")
+		
 		SchermataGenerale<Agenzia> schermataGenerale = (SchermataGenerale<Agenzia>)this.getChiamante();
 		tw= ((SchermataGenerale<Agenzia>)schermataGenerale).getTable("Agenzia");
 	

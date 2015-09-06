@@ -602,8 +602,10 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	}
 	@FXML
 	private Button btnAggiungiCarta;
+	@SuppressWarnings("rawtypes")
 	class radioSelected implements ChangeListener{
 
+	
 		@Override
 		public void changed(ObservableValue arg0, Object arg1, Object arg2) {
 			// TODO Auto-generated method stub

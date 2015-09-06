@@ -90,10 +90,12 @@ public class Nuova_Sede extends Schermata{
 		if(result.isPresent() && result.get() == ButtonType.OK)
 			this.chiudiFinestra();
 	}
+	@SuppressWarnings("unchecked")
 	@FXML
 	public void btnConferma(ActionEvent e){
 	
 			try {
+				
 				SchermataGenerale<Sede> schermataGenerale = (SchermataGenerale<Sede>)this.getChiamante();
 				ts= ((SchermataGenerale<Sede>)schermataGenerale).getTable("Sede");
 				String n=nome.getText();
