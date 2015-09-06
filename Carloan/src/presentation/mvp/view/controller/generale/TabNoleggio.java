@@ -45,8 +45,10 @@ public class TabNoleggio {
 			
 			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
 
-			if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString())
-					|| noleggio.getStato().toString().equals(noleggio.getStato().chiuso.toString())){
+			noleggio.getStato();
+			noleggio.getStato();
+			if(noleggio.getStato().equals(StatoNoleggio.annullato.toString())
+					|| noleggio.getStato().equals(StatoNoleggio.chiuso.toString())){
 				throw new CommonException("Operazione non disponibile per questo noleggio");
 			}
 			if(noleggio.getRitiro().isEqual(LocalDate.now())|| noleggio.getRitiro().isBefore(LocalDate.now())){
@@ -75,8 +77,10 @@ public class TabNoleggio {
 			
 			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
 
-			if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString())
-					|| noleggio.getStato().toString().equals(noleggio.getStato().chiuso.toString()) ){
+			noleggio.getStato();
+			noleggio.getStato();
+			if(noleggio.getStato().equals(StatoNoleggio.annullato.toString())
+					|| noleggio.getStato().equals(StatoNoleggio.chiuso.toString()) ){
 				throw new CommonException("Operazione non disponibile per questo noleggio");
 			}
 			if(noleggio.getRitiro().isAfter(LocalDate.now())){
@@ -117,7 +121,8 @@ public class TabNoleggio {
 					throw new CommonException("Nessun elemento selezionato");
 			}
 			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
-			if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString())){
+			noleggio.getStato();
+			if(noleggio.getStato().equals(StatoNoleggio.annullato.toString())){
 				throw new CommonException("Non è possibile aprire una mula per questo noleggio in quanto è stato annullato");
 			}
 			else {
@@ -132,14 +137,14 @@ public class TabNoleggio {
 		}
 	
 	}
-	@SuppressWarnings("static-access")
+
 	void VisualizzaMulta(){
 		try{
 		if(((SchermataGenerale<?>) schermata).getElemSelezionato("Noleggio")<0){
 				throw new CommonException("Nessun elemento selezionato");
 		}
 		Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
-		if(noleggio.getStato().toString().equals(noleggio.getStato().annullato.toString())){
+		if(noleggio.getStato().equals(StatoNoleggio.annullato.toString())){
 			throw new CommonException("Non è possibile visualizzare le multe di questo noleggio in quanto è stato annullato");
 		}
 		else {

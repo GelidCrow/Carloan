@@ -10,8 +10,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import business.entity.Login;
-import business.entity.Utente;
-import business.entity.UtenteCorrente;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Luoghi.Agenzia;
 import business.model.Exception.CommonException;
@@ -69,7 +67,7 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 	protected TableView<Agenzia> table_agenzia;
 	protected ObservableList<TableColumn<Agenzia,?>> agenzia;
 	protected TableView<SupervisoreAgenzia> tw;
-	protected Utente u;
+
 	
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		presenter=new Presenter();
@@ -79,7 +77,7 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 		radio_m.setSelected(true);
 		radio_f.setSelected(false);
 		agenzia=table_agenzia.getColumns();
-		this.u=UtenteCorrente.getUtente();
+		
 			bindValues();
 			initTableAgenzie();
 	}
@@ -89,6 +87,7 @@ public class Nuovo_SupervisoreAgenzia extends Schermata{
 		agenzia.get(1).setCellValueFactory(cellData -> new SimpleStringProperty(((Agenzia) cellData.getValue()).getNome()));
 		agenzia.get(2).setCellValueFactory(cellData -> new SimpleStringProperty(((Agenzia) cellData.getValue()).getNumTelefono()));
 	}
+	@SuppressWarnings("unchecked")
 	protected List<Agenzia> DownloadAgenzie(){
 		List<Agenzia> a=new LinkedList<Agenzia>();
 			try {

@@ -132,7 +132,7 @@ public DAOAutoveicolo(DaoFactory dao) {
 				update="UPDATE Autoveicolo SET Immagine=? WHERE IDAuto="+a.getIDauto();
 				s=null;
 				InputStream i=new FileInputStream(new File(image));
-				s=connection.executeUpdate_binary(update,i);
+				connection.executeUpdate_binary(update,i);
 				updated=true;
 				}
 			if(!updated)

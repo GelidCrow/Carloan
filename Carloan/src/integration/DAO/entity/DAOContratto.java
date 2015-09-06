@@ -59,7 +59,7 @@ public class DAOContratto implements DAO{
 			insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreAgenzia().toString());
 		}
         	
-        insertQuery = queryReplaceFirst(insertQuery, contratto.getStato().toString());
+        insertQuery = queryReplaceFirst(insertQuery, contratto.getStato());
         
         insertQuery= queryReplaceFirst(insertQuery,contratto.getDataCreazione().toString());
         
@@ -104,7 +104,7 @@ public class DAOContratto implements DAO{
 		String updateQuery = UPDATE;
 	
 	
-		updateQuery = queryReplaceFirst(updateQuery, contratto.getStato().toString());
+		updateQuery = queryReplaceFirst(updateQuery, contratto.getStato());
 		
         updateQuery= queryReplaceFirst(updateQuery,contratto.getNote());
 

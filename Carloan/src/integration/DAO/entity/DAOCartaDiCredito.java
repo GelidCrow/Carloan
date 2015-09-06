@@ -37,7 +37,7 @@ public class DAOCartaDiCredito implements DAO{
         insertQuery = queryReplaceFirst(insertQuery, carta.getIBAN());
         insertQuery = queryReplaceFirst(insertQuery, carta.getNumeroCarta());
         insertQuery = queryReplaceFirst(insertQuery, carta.getDataScadenza().toString());
-        insertQuery = queryReplaceFirst(insertQuery, carta.getCircuito().toString());
+        insertQuery = queryReplaceFirst(insertQuery, carta.getCircuito());
         insertQuery = queryReplaceFirst(insertQuery, String.valueOf(carta.getIDCliente()));
 		
         

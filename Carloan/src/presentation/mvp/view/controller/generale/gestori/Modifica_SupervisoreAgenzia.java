@@ -5,35 +5,20 @@ package presentation.mvp.view.controller.generale.gestori;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import business.entity.Entity;
 import business.entity.Login;
-import business.entity.Utente;
-import business.entity.UtenteCorrente;
-import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.SupervisoreAgenzia;
 import business.entity.Luoghi.Agenzia;
 import business.model.Exception.CommonException;
 import MessaggiFinestra.AlertView;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import presentation.mvp.view.Presenter;
@@ -51,7 +36,6 @@ public class Modifica_SupervisoreAgenzia extends Nuovo_SupervisoreAgenzia{
 		radio_m.setSelected(true);
 		radio_f.setSelected(false);
 		agenzia=table_agenzia.getColumns();
-		this.u=UtenteCorrente.getUtente();
 			bindValues();
 	}
 

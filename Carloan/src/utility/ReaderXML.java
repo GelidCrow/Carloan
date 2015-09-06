@@ -57,7 +57,7 @@ public class ReaderXML {
 	 * @author Gelidcrow
 	 *
 	 */
-	class XMLHandler extends DefaultHandler{
+	static class XMLHandler extends DefaultHandler{
 		
 		boolean should_read=false;
 		boolean should_read_class=false;
@@ -115,7 +115,7 @@ public class ReaderXML {
 	 * @author Gelidcrow
 	 *
 	 */
-	class XMLHandler_UI extends DefaultHandler{
+	static class XMLHandler_UI extends DefaultHandler{
 		boolean should_read=false;
 		boolean should_read_class=false;
 		boolean should_read_method=false;

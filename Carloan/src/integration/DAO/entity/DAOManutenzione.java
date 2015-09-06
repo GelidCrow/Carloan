@@ -49,7 +49,7 @@ public class DAOManutenzione implements DAO{
 		Connection conn=Connection.getConnection(daofactory);
 		ResultSet r=null;
 		try {
-			r=conn.executeUpdate(update);
+			conn.executeUpdate(update);
 			r=null;
 			r=conn.executeUpdate(query);
 			if(r!=null)

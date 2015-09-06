@@ -18,7 +18,6 @@ import business.entity.Utente;
 import business.entity.UtenteCorrente;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.Fascia.Fascia;
-import business.entity.Auto.manutenzione.Manutenzione;
 import business.entity.Gestori.Amministratore;
 import business.entity.Gestori.Operatore;
 import business.entity.Gestori.SupervisoreAgenzia;
@@ -43,7 +42,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -79,7 +77,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	@FXML
 	protected ChoiceBox<Fascia> choiceFascia;
 
-	final int MASSIMO_KILOMETRI=2000;
+	final static int MASSIMO_KILOMETRI=2000;
 	/***
 	 * Cliente
 	 */
@@ -307,7 +305,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 		else {//prendo solo le auto delle sedi sottostanti l'agenzia a cui appartiene l'utente corrente. 
 			SupervisoreAgenzia supervisoreA = (SupervisoreAgenzia) utente;
 			List<Sede> sedi = (List<Sede>)presenter.processRequest("getAllSediByAgenzia",supervisoreA.getIDAgenzia());
-			List<Autoveicolo> autoveicoli  = new ArrayList<Autoveicolo>();
+			List<Autoveicolo> autoveicoli;
 			for(Sede s: sedi){
 				List<Integer> lista=new ArrayList<Integer>();
 				lista.add(0,s.getIDSede());

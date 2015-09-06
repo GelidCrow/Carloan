@@ -260,7 +260,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 		if(this.targa.getText().isEmpty() || this.modello.getText().isEmpty() || this.marca.getText().isEmpty() || this.immatricolazione.getValue()==null || this.prezzo.getText().isEmpty())
 			throw new CommonException("I campi obbligatori non devono essere vuoti!");
 		String s=this.targa.getText();
-		if(s.isEmpty() ||s==null)
+		if(s==null || s.isEmpty() )
 			throw new CommonException("La targa è vuota");
 		else
 			temp.setTarga(s);

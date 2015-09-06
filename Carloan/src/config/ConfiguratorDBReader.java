@@ -8,7 +8,7 @@ package config;
  */
 public class ConfiguratorDBReader implements ConfiguratorReader {
 
-	public static String PORT="port";
+	public static final String PORT="port";
 
 	private GestioneProperties gp;
 
