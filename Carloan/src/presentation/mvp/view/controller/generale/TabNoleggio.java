@@ -100,11 +100,15 @@ public class TabNoleggio {
 	
 	
 	@SuppressWarnings("rawtypes")
-	void visualizzaOptional(){
+	void visualizzaOptional() throws CommonException{
+		if(((SchermataGenerale<?>) schermata).getElemSelezionato("Noleggio")<0)
+			throw new CommonException("Noleggio non selezionato");
+		else{
 		FXMLParameter.setTitolo("Optional");
 	    FXMLParameter.setRidimensionabile(false);
 	    FXMLParameter.setEntity(((SchermataGenerale)schermata).getEntitaElementoSelezionato("Noleggio"));
 		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataVisualizzaOptional",Modality.APPLICATION_MODAL);
+		}
 	}
 	
 	void NuovaMulta(){

@@ -344,7 +344,12 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	
 	@FXML
 	public void btnVOptional(ActionEvent e){
-		tbNoleggioController.visualizzaOptional();
+		try {
+			tbNoleggioController.visualizzaOptional();
+		} catch (CommonException e1) {
+			// TODO Auto-generated catch block
+			e1.showMessage();
+			}
 	}
 	
 	
