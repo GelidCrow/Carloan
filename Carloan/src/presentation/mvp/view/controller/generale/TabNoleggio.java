@@ -47,8 +47,8 @@ public class TabNoleggio {
 
 			noleggio.getStato();
 			noleggio.getStato();
-			if(noleggio.getStato().equals(StatoNoleggio.annullato.toString())
-					|| noleggio.getStato().equals(StatoNoleggio.chiuso.toString())){
+			if(noleggio.getStato().toString().equals(StatoNoleggio.annullato.toString())
+					|| noleggio.getStato().toString().equals(StatoNoleggio.chiuso.toString())){
 				throw new CommonException("Operazione non disponibile per questo noleggio");
 			}
 			if(noleggio.getRitiro().isEqual(LocalDate.now())|| noleggio.getRitiro().isBefore(LocalDate.now())){
