@@ -43,22 +43,22 @@ public class TabNoleggio {
 			if(((SchermataGenerale<?>) schermata).getElemSelezionato("Noleggio")<0)
 					throw new CommonException("Nessun elemento selezionato");
 			
-			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
+			Noleggio noleggioo= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
 
-			noleggio.getStato();
-			noleggio.getStato();
-			if(noleggio.getStato().toString().equals(StatoNoleggio.annullato.toString())
-					|| noleggio.getStato().toString().equals(StatoNoleggio.chiuso.toString())){
+			noleggioo.getStato();
+			noleggioo.getStato();
+			if(noleggioo.getStato().toString().equals(StatoNoleggio.annullato.toString())
+					|| noleggioo.getStato().toString().equals(StatoNoleggio.chiuso.toString())){
 				throw new CommonException("Operazione non disponibile per questo noleggio");
 			}
-			if(noleggio.getRitiro().isEqual(LocalDate.now())|| noleggio.getRitiro().isBefore(LocalDate.now())){
+			if(noleggioo.getRitiro().isEqual(LocalDate.now())|| noleggioo.getRitiro().isBefore(LocalDate.now())){
 				throw new CommonException("Noleggio già iniziato, non è possibile annullarlo.");
 			}
 			
-			else if((noleggio.getInizioNoleggio().minusDays(2).isAfter(LocalDate.now()))){
+			else if(noleggioo.getInizioNoleggio().minusDays(2).isAfter(LocalDate.now())){
 				FXMLParameter.setTitolo("Annulla noleggio");
 			    FXMLParameter.setRidimensionabile(false);
-			    FXMLParameter.setEntity(noleggio);
+			    FXMLParameter.setEntity(noleggioo);
 				Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataAnnullaNoleggio",Modality.APPLICATION_MODAL);
 			}
 			 else{

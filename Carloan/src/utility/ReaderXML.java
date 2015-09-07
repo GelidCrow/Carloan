@@ -95,12 +95,11 @@ public class ReaderXML {
 				Attributes atts) throws SAXException {
 		if(qName.equals("call")){
 		for(int i=0;i<atts.getLength();i++){
-			if(atts.getQName(i).equals("id"))
-				if(atts.getValue(i).equals(this.nomeservizio))
+			if(atts.getQName(i).equals("id") && atts.getValue(i).equals(this.nomeservizio))
 					should_read=true;
 		}
 		}
-		else if(qName.equals("class") &&should_read)
+		else if(qName.equals("class") && should_read)
 			should_read_class=true;
 		else if(qName.equals("method") && should_read)
 			should_read_method=true;

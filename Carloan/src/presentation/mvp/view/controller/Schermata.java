@@ -80,9 +80,7 @@ public abstract class Schermata implements Initializable{
 		            			Finestra.visualizzaFinestra(presenter,FXMLParameter,null,"MostraLogin",Modality.WINDOW_MODAL);
 		            			Connection.chiudiConnessione();
 		            		}
-		            		else if(result.isPresent() && result.get() == ButtonType.CANCEL){
-		            			
-		            		}
+		            		
 		                
 						
 		            } catch (SQLException e) {

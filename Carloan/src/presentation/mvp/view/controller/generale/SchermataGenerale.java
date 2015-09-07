@@ -550,6 +550,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 						            }
 						        });  
 								break;
+							default:
 								
 							}
 						}
