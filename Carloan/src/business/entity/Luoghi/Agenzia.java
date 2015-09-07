@@ -53,4 +53,7 @@ public class Agenzia extends Entity{
 			else
 		return false;
 	}
+	public int hashCode(){
+		return super.hashCode();
+	}
 }

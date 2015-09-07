@@ -65,4 +65,7 @@ public class Sede extends Entity{
 		return false;
 		
 	}
+	public int hashCode(){
+		return super.hashCode();
+	}
 }
