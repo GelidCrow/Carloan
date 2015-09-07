@@ -85,7 +85,7 @@ public class DAOOptional implements DAO{
 		finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
+				
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}
@@ -117,7 +117,7 @@ public class DAOOptional implements DAO{
 		finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
+				
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}
@@ -156,6 +156,7 @@ public class DAOOptional implements DAO{
 					return new CateneNeve(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5));
 				case "seggiolino":
 					return new Seggiolino(resultset.getInt(1),resultset.getFloat(2),resultset.getString(3),resultset.getString(5), resultset.getInt(6));
+				default :
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

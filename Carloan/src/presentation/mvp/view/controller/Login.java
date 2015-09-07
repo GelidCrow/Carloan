@@ -17,7 +17,6 @@ import utility.Finestra;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 
@@ -26,8 +25,6 @@ public class Login extends Schermata{
 	private TextField txtUsername;
 	@FXML
 	private TextField txtPsw;
-	@FXML
-	private Button btnLogin;
 	
 	@FXML
 	public void btnLogin(ActionEvent e){

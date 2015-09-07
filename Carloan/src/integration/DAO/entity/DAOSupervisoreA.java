@@ -112,7 +112,7 @@ public class DAOSupervisoreA implements DAO{
 	 finally{
 		try {
 			readQueryResultSet.close();
-			//connection.chiudiConnessione();
+			
 			} catch (SQLException e) {
 				e.printStackTrace();
 		}

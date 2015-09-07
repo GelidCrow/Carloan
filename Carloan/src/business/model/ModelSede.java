@@ -37,8 +37,8 @@ public class ModelSede implements Model{
 		}
 		
 	}
-	public ArrayList<Sede> getAll(){
-		ArrayList<Sede> l=new ArrayList<Sede>();
+	public List<Sede> getAll(){
+		List<Sede> l=new ArrayList<Sede>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
 			l= ((DAOSede)daofactory.getDao("DAOSede")).getAll();

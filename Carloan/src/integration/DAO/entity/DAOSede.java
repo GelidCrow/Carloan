@@ -99,13 +99,13 @@ public class DAOSede implements DAO {
 		return s;
 	}
 
-	public ArrayList<Sede> getAll(){
+	public List<Sede> getAll(){
 		String readQuery = "Select * from Sede";
 
 		 Connection connection= Connection.getConnection(dao);
 	        
 	     ResultSet readQueryResultSet = null;
-	     ArrayList<Sede> risultato = null;
+	     List<Sede> risultato = null;
 	     try {
 			readQueryResultSet = connection.executeRead(readQuery);	
 			risultato= creaElencoSedi(readQueryResultSet);
@@ -125,8 +125,8 @@ public class DAOSede implements DAO {
 	    return risultato;
 	}
 
-	private ArrayList<Sede> creaElencoSedi(ResultSet r) {
-		ArrayList<Sede> lesedi=new ArrayList<Sede>();
+	private List<Sede> creaElencoSedi(ResultSet r) {
+		List<Sede> lesedi=new ArrayList<Sede>();
 		if(r!=null){
 				try {
 					while(r.next()){
