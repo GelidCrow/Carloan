@@ -8,6 +8,8 @@ import java.util.LinkedList;
 
 
 
+import java.util.List;
+
 import business.entity.Entity;
 import business.entity.Auto.Fascia.Fascia;
 import business.entity.Auto.Fascia.Lusso;
@@ -50,6 +52,8 @@ public class DAOFascia implements DAO {
 						return new Lusso(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4),r.getFloat(5));
 					case "utilitaria":
 						return new Utlitaria(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4),r.getFloat(5));
+						default:
+							return null;
 					}
 				}
 			}
@@ -58,10 +62,10 @@ public class DAOFascia implements DAO {
 		}
 		return null;
 	}
-	public LinkedList<Fascia> getAll(){
+	public List<Fascia> getAll(){
 		String query="Select * from Fascia";
 		Connection c=Connection.getConnection(daofactory);
-		LinkedList<Fascia> fasce =new LinkedList<Fascia>();
+		List<Fascia> fasce =new LinkedList<Fascia>();
 		try {
 			ResultSet r=c.executeRead(query);
 			if(r!=null){
@@ -78,6 +82,8 @@ public class DAOFascia implements DAO {
 					case "utilitaria":
 						fasce.add(new Utlitaria(r.getInt(1),r.getFloat(2),r.getString(3),r.getString(4),r.getFloat(5)));
 						break;
+						default :
+							
 					}
 				}
 			}

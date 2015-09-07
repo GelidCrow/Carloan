@@ -55,14 +55,11 @@ public abstract class Optional extends Entity {
 	@Override
     public boolean equals(Object x){
 		boolean ret=false;
-		if(x!=null){
-		if(x instanceof Optional){
+		if(x!=null && x instanceof Optional){
 		Optional o=(Optional)x;
-			if(this.nome.equals(o.getNome())){
+			if(this.nome.equals(o.getNome()))
 	    		ret=true;
 		}
-		}
-	}
     	return ret;
     }
   

@@ -123,12 +123,12 @@ public class DAOManutenzione implements DAO{
 		Connection conn=Connection.getConnection(this.daofactory);
 		try {
 			r=conn.executeRead(query);
-			return (creaElencoManutenzioni_ordinarie(r));
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new LinkedList<ManutenzioneOrdinaria>();
+		return (creaElencoManutenzioni_ordinarie(r));
 	}
 	private List<ManutenzioneOrdinaria> creaElencoManutenzioni_ordinarie(ResultSet r) {
 		List<ManutenzioneOrdinaria> m=new LinkedList<ManutenzioneOrdinaria>();
@@ -156,12 +156,12 @@ public class DAOManutenzione implements DAO{
 		Connection conn=Connection.getConnection(this.daofactory);
 		try {
 			r=conn.executeRead(query);
-			return (creaElencoManutenzioni_straordinarie(r));
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new LinkedList<ManutenzioneStraordinaria>();
+		return (creaElencoManutenzioni_straordinarie(r));
 	}
 	private List<ManutenzioneStraordinaria> creaElencoManutenzioni_straordinarie(ResultSet r) {
 		List<ManutenzioneStraordinaria> m=new LinkedList<ManutenzioneStraordinaria>();
@@ -193,12 +193,12 @@ public class DAOManutenzione implements DAO{
 		Connection conn=Connection.getConnection(this.daofactory);
 		try {
 			r=conn.executeRead(query);
-			return (creaElencoManutenzioni_ordinarie_aperte(r));
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new LinkedList<ManutenzioneOrdinaria>();
+		return (creaElencoManutenzioni_ordinarie_aperte(r));
 	}
 	private List<ManutenzioneOrdinaria> creaElencoManutenzioni_ordinarie_aperte(ResultSet r) {
 		List<ManutenzioneOrdinaria> m=new LinkedList<ManutenzioneOrdinaria>();
@@ -222,12 +222,12 @@ public class DAOManutenzione implements DAO{
 		Connection conn=Connection.getConnection(this.daofactory);
 		try {
 			r=conn.executeRead(query);
-			return (creaElencoManutenzioni_straordinarie_aperte(r));
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new LinkedList<ManutenzioneStraordinaria>();
+		return (creaElencoManutenzioni_straordinarie_aperte(r));
 	}
 	private List<ManutenzioneStraordinaria> creaElencoManutenzioni_straordinarie_aperte(ResultSet r) {
 		List<ManutenzioneStraordinaria> m=new LinkedList<ManutenzioneStraordinaria>();

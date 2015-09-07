@@ -16,7 +16,8 @@ public enum Disponibilita {
 			return ManutenzioneStraordinaria;
 		case "DaManutenere": 
 			return DaManutenere;
+		default :
+				return null;
 		}
-		return null;
 	}
 }

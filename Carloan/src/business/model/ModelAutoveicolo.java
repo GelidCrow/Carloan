@@ -1,6 +1,7 @@
 package business.model;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -39,75 +40,82 @@ public class ModelAutoveicolo implements Model{
 		
 	}
 	public List<Autoveicolo> getAll() {
+		List<Autoveicolo> l=new ArrayList<Autoveicolo>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAll();
+			l=((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAll();
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 	public List<Autoveicolo> getAllAutoByFascia(int id) {
+		List<Autoveicolo> l=new ArrayList<Autoveicolo>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoByFascia(id);
+			l= ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoByFascia(id);
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 	public List<Autoveicolo> getAllAutoByFasciaAssicurazione(int id) {
+		List<Autoveicolo> l=new ArrayList<Autoveicolo>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoByFasciaAssicurazione(id);
+			l=((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoByFasciaAssicurazione(id);
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 	
 	public List<Autoveicolo> getAllAutoDisponibiliBySede(int id) {
+		List<Autoveicolo> l=new ArrayList<Autoveicolo>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoDisponibiliBySede(id);
+			l= ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoDisponibiliBySede(id);
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 	public List<Autoveicolo> getAllAutoDisponibiliBySedeAndFascia(List<Entity> lista) {
+		List<Autoveicolo> l=new ArrayList<Autoveicolo>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoDisponibiliBySedeAndFascia(lista);
+			l= ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoDisponibiliBySedeAndFascia(lista);
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 	public List<Autoveicolo> getAllAutoBySedeAndFascia(List<Entity> lista) {
+		List<Autoveicolo> l=new ArrayList<Autoveicolo>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoBySedeAndFascia(lista);
+			l=((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoBySedeAndFascia(lista);
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 	public List<Autoveicolo> getAllAutoDisponibiliBySedeAndFasciaAndAssicurazione(List<Entity> lista) {
+		List<Autoveicolo> l=new ArrayList<Autoveicolo>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoDisponibiliBySedeAndFasciaAndAssicurazione(lista);
+			l= ((DAOAutoveicolo)daofactory.getDao("DAOAutoveicolo")).getAllAutoDisponibiliBySedeAndFasciaAndAssicurazione(lista);
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 	
 	@Override
@@ -136,7 +144,7 @@ public class ModelAutoveicolo implements Model{
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 	
 

@@ -1,6 +1,7 @@
 package business.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -55,7 +56,7 @@ public class ModelPagamento implements Model{
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 
 

@@ -48,10 +48,9 @@ public class Agenzia extends Entity{
 	}
 	
 	public boolean equals(Object x){
-		if(x instanceof Agenzia)
-			if(((Agenzia)x).getIDAgenzia()==IDAgenzia)
+			if((x instanceof Agenzia) && ((Agenzia)x).getIDAgenzia()==IDAgenzia)
 				return true;
-		
+			else
 		return false;
 	}
 }

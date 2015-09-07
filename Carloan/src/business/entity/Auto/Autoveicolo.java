@@ -38,48 +38,8 @@ public class Autoveicolo extends Entity {
 	private List<Manutenzione> manutenzioni;
 	private float prezzo;
 
-	
-
-	
-	public Autoveicolo(int iDauto, String targa, String marca,
-			String modello, String alimPrincipale, String alimSec,
-			String colore, String cambio, LocalDate immatricolazione,
-			int cilindrata, int potenza, int nroPosti, String nroTelaio,
-			Disponibilita disponibilita, int ultimoKm, int capPortaBagnagli,
-			String note, String immagine, LocalDate dataScadAssic, int idfascia,
-			Danni danni, int codiceSedDisp, String optionalAuto,
-			List<Manutenzione> manutenzioni, float prezzo) 
-	{
-		IDauto = iDauto;
-		Targa = targa;
-		Marca = marca;
-		Modello = modello;
-		AlimPrincipale = alimPrincipale;
-		AlimSec = alimSec;
-		Colore = colore;
-		Cambio = cambio;
-		Immatricolazione = immatricolazione;
-		Cilindrata = cilindrata;
-		this.potenza = potenza;
-		NroPosti = nroPosti;
-		NroTelaio = nroTelaio;
-		this.disponibilita = disponibilita;
-		UltimoKm = ultimoKm;
-		CapPortaBagnagli = capPortaBagnagli;
-		Note = note;
-		Immagine = immagine;
-		DataScadAssic = dataScadAssic;
-		this.idfascia = idfascia;
-		this.danni = danni;
-		CodiceSedDisp = codiceSedDisp;
-		OptionalAuto = optionalAuto;
-		this.manutenzioni= manutenzioni;
-		this.prezzo = prezzo;
-	}
-		
 
 	public Autoveicolo() {
-		// TODO Auto-generated constructor stub
 	}
 
 

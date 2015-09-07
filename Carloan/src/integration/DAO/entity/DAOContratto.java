@@ -131,7 +131,7 @@ public class DAOContratto implements DAO{
 		finally{
 			try {
 				idList.close();
-				//connection.chiudiConnessione();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -157,7 +157,7 @@ public class DAOContratto implements DAO{
 		 finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
+				
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}
@@ -204,7 +204,7 @@ public class DAOContratto implements DAO{
 			 finally{
 				try {
 					readQueryResultSet.close();
-					//connection.chiudiConnessione();
+					
 					} catch (SQLException e) {
 						e.printStackTrace();
 				}

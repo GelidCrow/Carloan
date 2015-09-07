@@ -101,14 +101,15 @@ public class DAOAgenzia implements DAO{
 	public List<Agenzia> getAll(){
 		String query="Select * from Agenzia";
 		Connection c=Connection.getConnection(this.daofactory);
+		ResultSet r=null;
 		try {
-			ResultSet r=c.executeRead(query);
-			return creaElencoAgenzie(r);
+			r=c.executeRead(query);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return creaElencoAgenzie(r);
 	}
 
 	private List<Agenzia> creaElencoAgenzie(ResultSet r) {

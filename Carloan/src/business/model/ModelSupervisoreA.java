@@ -1,5 +1,6 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -58,25 +59,26 @@ public class ModelSupervisoreA implements Model{
 	
 	
 	public List<SupervisoreAgenzia> getAll(){
-		
+		List<SupervisoreAgenzia> l=new ArrayList<SupervisoreAgenzia>();
 		try{
 			if(daofactory==null)
 				daofactory= DaoFactory.getDaoFactory(1);
-				return ((DAOSupervisoreA)daofactory.getDao("DAOSupervisoreA")).getAll();
+				l= ((DAOSupervisoreA)daofactory.getDao("DAOSupervisoreA")).getAll();
 			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
-			return null;
+			return l;
 	}
 	public List<SupervisoreAgenzia> getAllbyAgenzia(int idAgenzia){
+		List<SupervisoreAgenzia> l=new ArrayList<SupervisoreAgenzia>();
 		try{
 			if(daofactory==null)
 				daofactory= DaoFactory.getDaoFactory(1);
-				return ((DAOSupervisoreA)daofactory.getDao("DAOSupervisoreA")).getAllByAgenzia(idAgenzia);
+				l= ((DAOSupervisoreA)daofactory.getDao("DAOSupervisoreA")).getAllByAgenzia(idAgenzia);
 			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
-			return null;
+			return l;
 	}
 	public SupervisoreAgenzia leggiSupervisoreAgenziaByCodiceFiscale(String c){
 		try{

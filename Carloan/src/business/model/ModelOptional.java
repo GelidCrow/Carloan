@@ -3,6 +3,7 @@ package business.model;
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOOptional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import business.entity.Entity;
@@ -27,24 +28,26 @@ public class ModelOptional implements Model{
 
 	
 	public List<Optional> getAll(){
+		List<Optional> l=new ArrayList<Optional>();
 		try {
 			if(daofactory==null)
 				daofactory= DaoFactory.getDaoFactory(1);
-			return ((DAOOptional) daofactory.getDao("DAOOptional")).getAll();
+			l= ((DAOOptional) daofactory.getDao("DAOOptional")).getAll();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return null;	
+		return l;	
 	}
 	public List<Optional> getAllByNoleggio(int id){
+		List<Optional> l=new ArrayList<Optional>();
 		try {
 			if(daofactory==null)
 				daofactory= DaoFactory.getDaoFactory(1);
-			return ((DAOOptional) daofactory.getDao("DAOOptional")).getAllByNoleggio(id);
+			l= ((DAOOptional) daofactory.getDao("DAOOptional")).getAllByNoleggio(id);
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 	@Override
 	public Entity lettura(int id) {
@@ -55,7 +58,7 @@ public class ModelOptional implements Model{
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 	
 

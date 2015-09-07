@@ -1,5 +1,6 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -45,20 +46,21 @@ public class ModelCartaDiCredito implements Model{
 	}
 
 	public List<CartaDiCredito> getAllByCliente(int id){
+		List<CartaDiCredito> l=new ArrayList<CartaDiCredito>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOCartaDiCredito)daofactory.getDao("DAOCartaDiCredito")).getAllByCliente(id);
+			l=((DAOCartaDiCredito)daofactory.getDao("DAOCartaDiCredito")).getAllByCliente(id);
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 
 
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 	
 

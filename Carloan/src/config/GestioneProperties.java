@@ -34,7 +34,7 @@ public class GestioneProperties {
 			properties = new Properties();
 			properties.load(in);
 		} catch (IOException e) {
-		
+		e.printStackTrace();
 		}
 	}
 
@@ -71,7 +71,7 @@ public class GestioneProperties {
 			out = new FileOutputStream(path);
 			properties.store(out, null);
 		} catch (IOException e) {
-
+			e.printStackTrace();
 		}
 	}
 
@@ -87,7 +87,7 @@ public class GestioneProperties {
 			out = new FileOutputStream(path);
 			properties.store(out, null);
 		} catch (IOException e) {
-	
+			e.printStackTrace();
 		}
 	}
 }

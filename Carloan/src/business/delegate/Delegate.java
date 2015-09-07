@@ -2,7 +2,6 @@ package business.delegate;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 import presentation.mvp.view.controller.Schermata;
@@ -17,7 +16,7 @@ public class Delegate {
     private Model  model;
     private Checker checker;
     private Schermata schermata;
-    private ArrayList<String> service_method;
+    private List<String> service_method;
     private Method method;
 	private Object result;
     

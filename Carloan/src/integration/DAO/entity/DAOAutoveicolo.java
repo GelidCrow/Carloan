@@ -217,7 +217,6 @@ public DAOAutoveicolo(DaoFactory dao) {
 		 finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}
@@ -247,7 +246,6 @@ public DAOAutoveicolo(DaoFactory dao) {
 		 finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}

@@ -58,10 +58,10 @@ public class Sede extends Entity{
 	
 	
 	public boolean equals(Object s){
-		if(s instanceof Sede)
-			if(((Sede) s).getIDSede()==this.IDSede)
-				return true;
 		
+			if((s instanceof Sede) && ((Sede) s).getIDSede()==this.IDSede)
+				return true;
+			else
 		return false;
 		
 	}

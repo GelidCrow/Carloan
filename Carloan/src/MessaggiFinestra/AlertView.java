@@ -20,4 +20,7 @@ public class AlertView {
 		alert.setContentText(message);
 		return alert.showAndWait();
 	}
+	private AlertView(){
+		
+	}
 }

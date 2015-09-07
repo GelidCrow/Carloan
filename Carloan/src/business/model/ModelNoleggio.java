@@ -1,5 +1,6 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -59,38 +60,41 @@ public class ModelNoleggio implements Model{
 	
 	
 	public List<Noleggio> getAll(){
+		List<Noleggio> l=new ArrayList<Noleggio>();
 		try {
 		if(daofactory==null)
 			daofactory= DaoFactory.getDaoFactory(1);
-		return 	((DAONoleggio) daofactory.getDao("DAONoleggio")).getAll();
+		l= 	((DAONoleggio) daofactory.getDao("DAONoleggio")).getAll();
 
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-	return null;	
+	return l;	
 	}
 	
 	public List<Noleggio> getNoleggiAperti(int id){
+		List<Noleggio> l=new ArrayList<Noleggio>();
 		try {
 		if(daofactory==null)
 			daofactory= DaoFactory.getDaoFactory(1);
-		return 	((DAONoleggio) daofactory.getDao("DAONoleggio")).getNoleggiAperti(id);
+		l= 	((DAONoleggio) daofactory.getDao("DAONoleggio")).getNoleggiAperti(id);
 
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-	return null;	
+	return l;	
 	}
 	public List<Noleggio> getNoleggiByContratto(int id){
+		List<Noleggio> l=new ArrayList<Noleggio>();
 		try {
 		if(daofactory==null)
 			daofactory= DaoFactory.getDaoFactory(1);
-		return 	((DAONoleggio) daofactory.getDao("DAONoleggio")).getNoleggiByContratto(id);
+		l= 	((DAONoleggio) daofactory.getDao("DAONoleggio")).getNoleggiByContratto(id);
 
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-	return null;	
+	return l;	
 	}
 	@Override
 	public Entity lettura(int id) {

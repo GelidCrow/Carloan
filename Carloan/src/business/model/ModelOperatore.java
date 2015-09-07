@@ -1,5 +1,6 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -66,30 +67,31 @@ public class ModelOperatore implements Model{
 	}
 
 	public List<Operatore> getAll(){
+		List<Operatore> l=new ArrayList<Operatore>();
 		if(daofactory==null)
 			try {
 				daofactory= DaoFactory.getDaoFactory(1);
-
-				return  ((DAOOperatore) daofactory.getDao("DAOOperatore")).getAll();
+				l=  ((DAOOperatore) daofactory.getDao("DAOOperatore")).getAll();
 			} catch (InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	
-	return null;
+	return l;
 	}
 	public List<Operatore> getAllOperatoriBySede(int idsede){
+		List<Operatore> l=new ArrayList<Operatore>();
 		if(daofactory==null)
 			try {
 				daofactory= DaoFactory.getDaoFactory(1);
 
-				return  ((DAOOperatore) daofactory.getDao("DAOOperatore")).getAllOperatoriBySede(idsede);
+				l= ((DAOOperatore) daofactory.getDao("DAOOperatore")).getAllOperatoriBySede(idsede);
 			} catch (InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	
-	return null;
+	return l;
 	}
 	
 	public Operatore leggiOperatoreByCodiceFiscale(String f){

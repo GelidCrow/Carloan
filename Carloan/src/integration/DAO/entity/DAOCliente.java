@@ -75,7 +75,7 @@ public class DAOCliente implements DAO{
 		finally{
 			try {
 				idList.close();
-				//connection.chiudiConnessione();
+			
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -108,7 +108,7 @@ public class DAOCliente implements DAO{
 		 finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
+			
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}
@@ -219,7 +219,7 @@ public class DAOCliente implements DAO{
 		finally{
 			try {
 				idList.close();
-				//connection.chiudiConnessione();
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

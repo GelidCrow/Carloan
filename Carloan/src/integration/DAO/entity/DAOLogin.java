@@ -96,7 +96,7 @@ public class DAOLogin implements DAO{
 
         insertQuery = queryReplaceFirst(insertQuery, login.getUsername());
         String pswrd=login.getPassword();
-        if(!pswrd.equals("")){
+        if(!"".equals(pswrd)){
         	insertQuery+=",Password='?'";
         insertQuery= queryReplaceFirst(insertQuery,Crittografia.CriptaPassword(pswrd));
         }
@@ -196,7 +196,7 @@ public class DAOLogin implements DAO{
 			if(idList!=null)
 				try {
 					idList.close();	
-					//connection.chiudiConnessione();
+				
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

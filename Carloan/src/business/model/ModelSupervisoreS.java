@@ -1,5 +1,6 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -50,26 +51,28 @@ public class ModelSupervisoreS implements Model{
 		return null;
 	}
 public List<SupervisoreSede> getAll_bysede(int id){
+	List<SupervisoreSede> l=new ArrayList<SupervisoreSede>();
 	try{
 		if(daofactory==null)
 			daofactory= DaoFactory.getDaoFactory(1);
-			return (List<SupervisoreSede>) ((DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS")).getAll_bySede(id);
+			l= (List<SupervisoreSede>) ((DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS")).getAll_bySede(id);
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-	return null;
+	return l;
 }
 
 
 public List<SupervisoreSede> getAll(){
+	List<SupervisoreSede> l=new ArrayList<SupervisoreSede>();
 	try{
 		if(daofactory==null)
 			daofactory= DaoFactory.getDaoFactory(1);
-			return (List<SupervisoreSede>) ((DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS")).getAll();
+			l= (List<SupervisoreSede>) ((DAOSupervisoreS) daofactory.getDao("DAOSupervisoreS")).getAll();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-	return null;
+	return l;
 }
 
 
@@ -87,6 +90,6 @@ public SupervisoreSede leggiSupervisoreSedeByCodiceFiscale(String c){
 @Override
 public List<Entity> ricerca(Entity parameter) {
 	// TODO Auto-generated method stub
-	return null;
+	return new ArrayList<Entity>();
 }
 }

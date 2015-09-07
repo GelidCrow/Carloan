@@ -4,7 +4,7 @@ public enum StatoMulta {
 	Aperto,Chiuso;
 	
 	public static StatoMulta toState(String stato){
-		if(stato.equals("Aperto"))
+		if("Aperto".equals(stato))
 			return StatoMulta.Aperto;
 		else 
 			return StatoMulta.Chiuso;

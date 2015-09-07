@@ -9,4 +9,7 @@ public class UtenteCorrente {
 	public static void setUtente(Utente entity){
 		utente= entity;
 	}
+	private UtenteCorrente(){
+		
+	}
 }

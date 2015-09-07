@@ -38,24 +38,26 @@ public class ModelSede implements Model{
 		
 	}
 	public ArrayList<Sede> getAll(){
+		ArrayList<Sede> l=new ArrayList<Sede>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOSede)daofactory.getDao("DAOSede")).getAll();
+			l= ((DAOSede)daofactory.getDao("DAOSede")).getAll();
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return  l;
 	}
 
 	public List<Sede> getAllSediByAgenzia(int id){
+		List<Sede> l=new ArrayList<Sede>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOSede)daofactory.getDao("DAOSede")).getAllSediByAgenzia(id);
+			l= ((DAOSede)daofactory.getDao("DAOSede")).getAllSediByAgenzia(id);
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 	
 	@Override
@@ -72,6 +74,6 @@ public class ModelSede implements Model{
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 }

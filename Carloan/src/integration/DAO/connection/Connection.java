@@ -42,6 +42,7 @@ public class Connection {
 		switch(this.daofactory.getClass().getSimpleName()){
 		case "MySqlDaoFactory":
 			vendor="mysql";
+			break;
 		 default:
 			vendor="mysql";
 		}
@@ -93,7 +94,7 @@ public class Connection {
 	}
 	
 	
-	@SuppressWarnings("finally")
+
 	public ResultSet executeUpdate(String query) throws SQLException{
 		  
 		this.connetti();
@@ -111,14 +112,12 @@ public class Connection {
 			} catch (SQLException e) {
 				AlertView.getAlertView(e.getMessage(), AlertType.ERROR);
 			}
-			finally{
-				return result;
-			}
+			
 		}
 	return result;
 	}
 	
-	@SuppressWarnings("finally")
+
 	public ResultSet executeRead(String query) throws SQLException{
 		this.connetti();
 		ResultSet result=null;
@@ -132,9 +131,7 @@ public class Connection {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			finally{
-				return result;
-			}
+			
 		}
 	return result;
 	}

@@ -6,6 +6,7 @@ import business.model.Exception.CommonException;
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOFascia;
 
+import java.util.ArrayList;
 import java.util.List;
 public class ModelFascia implements Model{
 	private DaoFactory daofactory;
@@ -22,13 +23,14 @@ public class ModelFascia implements Model{
 	}
 
 	public List<Fascia> getAll(){
+		List<Fascia> l=new ArrayList<Fascia>();
 		try {
 			daofactory = DaoFactory.getDaoFactory(1);
-			return ((DAOFascia)daofactory.getDao("DAOFascia")).getAll();
+			l=((DAOFascia)daofactory.getDao("DAOFascia")).getAll();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 
 	@Override
@@ -45,6 +47,6 @@ public class ModelFascia implements Model{
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 }

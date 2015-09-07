@@ -1,5 +1,6 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -50,14 +51,15 @@ public class ModelAmministratore implements Model{
 	}	
 	
 	public List<Amministratore> getAll(){
+		List<Amministratore> r=new ArrayList<Amministratore>();
 		try{
 		if(daofactory==null)
 			daofactory= DaoFactory.getDaoFactory(1);
-		return (List<Amministratore>) ((DAOAmministratore) daofactory.getDao("DAOAmministratore")).getAll();
+		r=  ((DAOAmministratore) daofactory.getDao("DAOAmministratore")).getAll();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return r;
 	}
 	
 	public Entity leggiAmministratoreByCodiceFiscale(String c){
@@ -77,6 +79,6 @@ public class ModelAmministratore implements Model{
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 }

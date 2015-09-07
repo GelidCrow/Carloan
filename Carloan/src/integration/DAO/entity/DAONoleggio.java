@@ -124,7 +124,7 @@ public class DAONoleggio implements DAO{
 				throw new CommonException("Errore nell'inserimento del noleggio");
 			 }
 			// qui assegno l'optional ad un noleggio
-			 if(noleggio.getOptional().size()>0){
+			 if(!noleggio.getOptional().isEmpty()){
 				 insertQuery= "Insert into NoleggioOptional values ('?','?');";
 				 insertQuery = queryReplaceFirst(insertQuery, String.valueOf(conta()));
 				 String queryPartenza=insertQuery;
@@ -242,7 +242,7 @@ public class DAONoleggio implements DAO{
 		finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
+				
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}
@@ -271,7 +271,7 @@ public class DAONoleggio implements DAO{
 		finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
+			
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}
@@ -297,7 +297,7 @@ public class DAONoleggio implements DAO{
 		finally{
 			try {
 				readQueryResultSet.close();
-				//connection.chiudiConnessione();
+				
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}

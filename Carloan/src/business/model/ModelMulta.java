@@ -1,5 +1,6 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -48,14 +49,15 @@ public class ModelMulta implements Model{
 	
 	
     public List<Multa> getAllMulteByNoleggio(int id){
+    	List<Multa> l=new ArrayList<Multa>();
     	try {
 			if(daofactory==null)
 				daofactory= DaoFactory.getDaoFactory(1);
-			return ((DAOMulta) daofactory.getDao("DAOMulta")).getAllMulteByNoleggio(id);
+			l= ((DAOMulta) daofactory.getDao("DAOMulta")).getAllMulteByNoleggio(id);
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return null;	
+		return l;	
     }
 
     public int countMulteAperteByNoleggio(int id){
@@ -75,7 +77,7 @@ public class ModelMulta implements Model{
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 
 }

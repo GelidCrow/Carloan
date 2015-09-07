@@ -1,5 +1,6 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -51,19 +52,20 @@ public class ModelAgenzia implements Model{
 	}
 
 	public List<Agenzia> getAll(){
+		List<Agenzia> r=new ArrayList<Agenzia>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOAgenzia)daofactory.getDao("DAOAgenzia")).getAll();
+			r= ((DAOAgenzia)daofactory.getDao("DAOAgenzia")).getAll();
 			
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return r;
 	}
 
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 }

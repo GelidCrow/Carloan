@@ -1,6 +1,9 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import integration.DAO.DaoFactory;
 import integration.DAO.entity.DAOGuidatore;
@@ -32,18 +35,19 @@ public class ModelGuidatore implements Model{
 
 	
 	public List<Guidatore> getAllByNoleggio(int idNoleggio){
+		List<Guidatore>l=new ArrayList<Guidatore>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOGuidatore)daofactory.getDao("DAOGuidatore")).getAllByNoleggio(idNoleggio);
+			l=((DAOGuidatore)daofactory.getDao("DAOGuidatore")).getAllByNoleggio(idNoleggio);
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return l;
 	}
 
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 }

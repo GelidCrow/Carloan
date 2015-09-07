@@ -2,6 +2,7 @@ package business.model;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import business.entity.Entity;
@@ -89,7 +90,7 @@ public class ModelLogin implements Model {
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 	
 }

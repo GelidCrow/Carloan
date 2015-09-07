@@ -348,6 +348,7 @@ public class Nuovo_Autoveicolo extends Schermata{
 		break;
 	case "ManutenzioneStraordinaria":
 		temp.setDisponibilita(business.entity.Auto.Disponibilita.ManutenzioneStraordinaria);
+		break;
 	case "DaManutenere":
 		temp.setDisponibilita(business.entity.Auto.Disponibilita.DaManutenere);
 		break;

@@ -1,5 +1,6 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integration.DAO.DaoFactory;
@@ -45,53 +46,57 @@ public class ModelManutenzione implements Model{
 	}
 	
 	public List<ManutenzioneOrdinaria> getAll_ordinarie(int auto_id){
+		List<ManutenzioneOrdinaria> l=new ArrayList<ManutenzioneOrdinaria>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOManutenzione)daofactory.getDao("DAOManutenzione")).getAll_ordinarie(auto_id);
+			l=((DAOManutenzione)daofactory.getDao("DAOManutenzione")).getAll_ordinarie(auto_id);
 			
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-	return null;	
+	return l;	
 	}
 
 	public List<ManutenzioneStraordinaria> getAll_straordinarie_aperte(int auto_id){
+		List<ManutenzioneStraordinaria> l =new ArrayList<ManutenzioneStraordinaria>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOManutenzione)daofactory.getDao("DAOManutenzione")).getAll_straordinarie_aperte(auto_id);
+			l=((DAOManutenzione)daofactory.getDao("DAOManutenzione")).getAll_straordinarie_aperte(auto_id);
 			
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-	return null;	
+	return l;	
 	}
 	
 	public List<ManutenzioneOrdinaria> getAll_ordinarie_aperte(int auto_id){
+		List<ManutenzioneOrdinaria> l=new ArrayList<ManutenzioneOrdinaria>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOManutenzione)daofactory.getDao("DAOManutenzione")).getAll_ordinarie_aperte(auto_id);
+			l= ((DAOManutenzione)daofactory.getDao("DAOManutenzione")).getAll_ordinarie_aperte(auto_id);
 			
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-	return null;	
+	return l;	
 	}
 
 	public List<ManutenzioneStraordinaria> getAll_straordinarie(int auto_id){
+		List<ManutenzioneStraordinaria> l =new ArrayList<ManutenzioneStraordinaria>();
 		try {
 			daofactory=DaoFactory.getDaoFactory(1);
-			return ((DAOManutenzione)daofactory.getDao("DAOManutenzione")).getAll_straordinarie_aperte(auto_id);
+			l=((DAOManutenzione)daofactory.getDao("DAOManutenzione")).getAll_straordinarie_aperte(auto_id);
 			
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-	return null;	
+	return l;	
 	}
 
 
 	@Override
 	public List<Entity> ricerca(Entity parameter) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Entity>();
 	}
 }

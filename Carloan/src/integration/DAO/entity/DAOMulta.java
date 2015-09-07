@@ -65,7 +65,7 @@ public class DAOMulta implements DAO{
 		finally{
 			try {
 				idList.close();
-				//connection.chiudiConnessione();
+			
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -101,7 +101,7 @@ public class DAOMulta implements DAO{
 		finally{
 			try {
 				idList.close();
-				//connection.chiudiConnessione();
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -123,8 +123,8 @@ public class DAOMulta implements DAO{
         ResultSet idList = null;
         try {
 			 idList = connection.executeRead(readQuery);
-			 if(idList!=null)
-				return  creaElencoMulta(idList);
+			
+				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -133,19 +133,26 @@ public class DAOMulta implements DAO{
 		finally{
 			try {
 				idList.close();
-				//connection.chiudiConnessione();
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		return null;
+        return  creaElencoMulta(idList);
 	}
 	
-	private List<Multa> creaElencoMulta(ResultSet resultset) throws SQLException{
+	private List<Multa> creaElencoMulta(ResultSet resultset) {
 		List<Multa> multe=new ArrayList<Multa>();
-		while(resultset.next()){
-			multe.add(ottieniMulta(resultset));
+		if(resultset!=null){
+		try {
+			while(resultset.next()){
+				multe.add(ottieniMulta(resultset));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		}
 		return multe;
 	}
@@ -188,7 +195,7 @@ public class DAOMulta implements DAO{
 		finally{
 			try {
 				countElements.close();
-				//connection.chiudiConnessione();
+			
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -11,8 +11,9 @@ public enum StatoNoleggio {
 				return StatoNoleggio.annullato;
 			case "chiuso":
 				return StatoNoleggio.chiuso;
-				
+			default:
+				return null;
 		}
-		return null;
+		
 	}
 }
