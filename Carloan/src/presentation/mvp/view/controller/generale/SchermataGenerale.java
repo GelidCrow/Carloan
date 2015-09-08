@@ -400,6 +400,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 		Alert about= new Alert(AlertType.INFORMATION);
 		about.setContentText("Powered by :\n•Mastronardo Claudio\n•Giannico Francesco");
 		about.setTitle("About");
+		about.setHeaderText("About us:");
 		about.show();
 	}
 	
