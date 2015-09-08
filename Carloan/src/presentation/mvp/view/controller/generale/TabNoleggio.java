@@ -123,7 +123,7 @@ public class TabNoleggio {
 			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
 			noleggio.getStato();
 			if(noleggio.getStato().equals(StatoNoleggio.annullato.toString())){
-				throw new CommonException("Non è possibile aprire una mula per questo noleggio in quanto è stato annullato");
+				throw new CommonException("Non è possibile aprire una multa per questo noleggio in quanto è stato annullato");
 			}
 			else {
 				FXMLParameter.setTitolo("Nuova Multa");
