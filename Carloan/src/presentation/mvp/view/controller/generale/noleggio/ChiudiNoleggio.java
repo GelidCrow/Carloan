@@ -90,7 +90,7 @@ public class ChiudiNoleggio extends Schermata{
 				numGiorni= (int) noleggio.getRientro().until(LocalDate.now(), ChronoUnit.DAYS);
 				lblNumGiorni.setText(String.valueOf(numGiorni));
 				
-				// CONTOLO CHE NON ABBIA IL KILOMETRAGGIO ILLIMITATO
+				// CONTROLLO CHE NON ABBIA IL KILOMETRAGGIO ILLIMITATO
 				@SuppressWarnings("unchecked")
 				List<Optional> optional= (List<Optional>)presenter.processRequest("getAllOptionalByNoleggio",noleggio.getIDNoleggio());
 				for(Optional op: optional){

@@ -55,7 +55,7 @@ public class TabNoleggio {
 				throw new CommonException("Noleggio già iniziato, non è possibile annullarlo.");
 			}
 			
-			else if(noleggioo.getInizioNoleggio().minusDays(2).isAfter(LocalDate.now())){
+			else if(noleggioo.getRitiro().minusDays(2).isAfter(LocalDate.now())){
 				FXMLParameter.setTitolo("Annulla noleggio");
 			    FXMLParameter.setRidimensionabile(false);
 			    FXMLParameter.setEntity(noleggioo);

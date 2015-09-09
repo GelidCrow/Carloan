@@ -9,6 +9,7 @@ import business.entity.Entity;
 import business.entity.Auto.Autoveicolo;
 import business.entity.Auto.Disponibilita;
 import business.entity.Noleggio.Noleggio;
+import business.entity.Noleggio.StatoNoleggio;
 import business.model.Exception.CommonException;
 import MessaggiFinestra.AlertView;
 import javafx.event.ActionEvent;
@@ -34,6 +35,7 @@ public class AnnullaNoleggio extends Schermata{
 		tw= schermata.getTable("Noleggio");
 		noleggio.setNote(textAreaAnnulla.getText());
 		noleggio.setFineNoleggio(LocalDate.now());
+		noleggio.setStato(StatoNoleggio.annullato);
 		try {
 			presenter.processRequest("VerificaAnnullaNoleggio", noleggio);
 			presenter.processRequest("AnnullaNoleggio", noleggio);
@@ -49,8 +51,6 @@ public class AnnullaNoleggio extends Schermata{
 				| InvocationTargetException | CommonException e2) {
 			e2.printStackTrace();
 		}
-	
-		
 	}
 	@FXML
 	public void btnIndietro(ActionEvent e){
