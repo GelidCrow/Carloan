@@ -2,7 +2,7 @@ package presentation.mvp.view.controller.generale.contratto;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.time.LocalDate;
+
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -10,7 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import business.entity.Entity;
 import business.entity.Noleggio.Contratto;
-import business.entity.Noleggio.Noleggio;
+
 import business.entity.Noleggio.StatoContratto;
 import business.model.Exception.CommonException;
 import presentation.mvp.view.Presenter;
