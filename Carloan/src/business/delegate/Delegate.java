@@ -35,8 +35,8 @@ public class Delegate {
     	else if(Class.forName(service_method.get(0)).newInstance() instanceof Model){
     		model = (Model) Class.forName(service_method.get(0)).newInstance();
     		if(parameter==null){
-    			method = model.getClass().getMethod(service_method.get(1), null);
-    			result=  method.invoke(model,null);
+    			method = model.getClass().getMethod(service_method.get(1));
+    			result=  method.invoke(model);
     		}
     		else if(parameter instanceof Entity){
     			method = model.getClass().getMethod(service_method.get(1), Entity.class);
