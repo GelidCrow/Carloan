@@ -19,7 +19,7 @@ import utility.ParametriFXML;
 
 public class ChiudiContratto extends NuovoContratto{
 	
-	
+
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -27,7 +27,6 @@ public class ChiudiContratto extends NuovoContratto{
 	@FXML
 	public void btnConferma(ActionEvent event){
 		SchermataGenerale scChiamante= (SchermataGenerale) this.getChiamante();
-		contratto= (Contratto)scChiamante.getEntitaElementoSelezionato("Contratto");//ottengo le info sul cliente selezionato, ma ne cambio alcune
 			try {
 
 				contratto = prendiDatiDaView();
@@ -59,6 +58,7 @@ public class ChiudiContratto extends NuovoContratto{
 	@Override
 	public void initData(Entity x){
 		textNote.setText(((Contratto)x).getNote());
+		contratto=(Contratto)x;
 	}
 	
 	@Override
