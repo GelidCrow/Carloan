@@ -11,7 +11,7 @@ public class Contratto extends Entity{
 	private Integer IDSupervisoreSede;
 	private Integer IDSupervisoreAgenzia;
 	private Integer IDAmministratore;
-	private String stato; /// questo può esssere enumerativo di regola
+	private StatoContratto stato; /// questo può esssere enumerativo di regola
 	private LocalDate DataCreazione;
 	private LocalDate dataChiusura;
 	private String Note;
@@ -47,11 +47,15 @@ public class Contratto extends Entity{
 	public void setIDAmministratore(Integer iDAmministratore) {
 		IDAmministratore = iDAmministratore;
 	}
-	public String getStato() {
+
+	public StatoContratto getStato() {
 		return stato;
 	}
-	public void setStato(String stato) {
+	public void setStato(StatoContratto stato) {
 		this.stato = stato;
+	}
+	public void setIDContratto(int iDContratto) {
+		IDContratto = iDContratto;
 	}
 	public LocalDate getDataCreazione() {
 		return DataCreazione;

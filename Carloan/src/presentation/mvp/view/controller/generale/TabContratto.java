@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.Noleggio;
+import business.entity.Noleggio.StatoContratto;
 import business.model.Exception.CommonException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -52,7 +53,7 @@ public class TabContratto {
 	    	FXMLParameter.setTitolo("Modifica Contratto");
 		    FXMLParameter.setRidimensionabile(false);
 		    FXMLParameter.setEntity(((SchermataGenerale) schermata).getEntitaElementoSelezionato("Contratto"));
-	    	if(((Contratto)tbContratto.getSelectionModel().getSelectedItem()).getStato().equals("Aperto")){
+	    	if(((Contratto)tbContratto.getSelectionModel().getSelectedItem()).getStato().toString().equals(StatoContratto.Aperto.toString())){
 	    		Finestra.visualizzaFinestra(presenter,FXMLParameter,schermata,"MostraSchermataModificaContratto",Modality.APPLICATION_MODAL);
 	    	}
 	    	else{
@@ -68,7 +69,7 @@ public class TabContratto {
     		throw new CommonException("Nessun elemento selezionato");
 		}
 		contrattoo= (Contratto) ((SchermataGenerale) schermata).getEntitaElementoSelezionato("Contratto");
-		if(!(contrattoo.getStato().equals("Aperto"))){
+		if(!(contrattoo.getStato().toString().equals(StatoContratto.Aperto.toString()))){
 			throw new CommonException("Operazione non disponibile per questo contratto");
 		}
 		List<Noleggio> noleggiAperti= (List<Noleggio>)presenter.processRequest("getNoleggiAperti", contrattoo.getIDContratto());
@@ -97,7 +98,7 @@ public class TabContratto {
 		
 		contratto.get(0).setCellValueFactory(cellData -> new SimpleIntegerProperty(((Contratto) cellData.getValue()).getIDContratto()));
 		
-		contratto.get(1).setCellValueFactory(cellData -> new SimpleStringProperty(((Contratto) cellData.getValue()).getStato()));
+		contratto.get(1).setCellValueFactory(cellData -> new SimpleStringProperty(((Contratto) cellData.getValue()).getStato().toString()));
 		
 		contratto.get(2).setCellValueFactory(cellData -> new SimpleStringProperty(((Contratto) cellData.getValue()).getNote()));
 		

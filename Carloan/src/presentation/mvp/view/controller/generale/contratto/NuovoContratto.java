@@ -101,7 +101,7 @@ public class NuovoContratto extends Schermata{
 		
 		contratto.setNote(textNote.getText());
 		
-		contratto.setStato(StatoContratto.Aperto.toString());
+		contratto.setStato(StatoContratto.Aperto);
 		
 		
 		Utente utente= UtenteCorrente.getUtente();

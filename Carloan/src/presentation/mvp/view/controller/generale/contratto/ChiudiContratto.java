@@ -49,7 +49,7 @@ public class ChiudiContratto extends NuovoContratto{
 	@Override
 	public Contratto prendiDatiDaView() {
 		
-		contratto.setStato(StatoContratto.Chiuso.toString());
+		contratto.setStato(StatoContratto.Chiuso);
 		contratto.setNote(textNote.getText());
 			
 		return contratto;

@@ -20,7 +20,7 @@ import business.entity.Gestori.SupervisoreSede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.StatoContratto;
 import business.model.Exception.CommonException;
-
+import  business.entity.Noleggio.StatoContratto;
 
 public class DAOContratto implements DAO{
 
@@ -59,7 +59,7 @@ public class DAOContratto implements DAO{
 			insertQuery= queryReplaceFirst(insertQuery,contratto.getIDSupervisoreAgenzia().toString());
 		}
         	
-        insertQuery = queryReplaceFirst(insertQuery, contratto.getStato());
+        insertQuery = queryReplaceFirst(insertQuery, contratto.getStato().toString());
         
         insertQuery= queryReplaceFirst(insertQuery,contratto.getDataCreazione().toString());
         
@@ -104,11 +104,11 @@ public class DAOContratto implements DAO{
 		String updateQuery = UPDATE;
 	
 	
-		updateQuery = queryReplaceFirst(updateQuery, contratto.getStato());
+		updateQuery = queryReplaceFirst(updateQuery, contratto.getStato().toString());
 		
         updateQuery= queryReplaceFirst(updateQuery,contratto.getNote());
 
-        if(!contratto.getStato().equals(StatoContratto.Aperto.toString())){
+        if(!contratto.getStato().toString().equals(StatoContratto.Aperto.toString())){
     		updateQuery+=", DataChiusura='?'";
     		updateQuery= queryReplaceFirst(updateQuery,contratto.getDataChiusura().toString());
         }        	
@@ -237,7 +237,7 @@ public class DAOContratto implements DAO{
         contratto.setIdCliente(iParam);
        
         sParam= resultset.getString("Stato");
-        contratto.setStato(sParam);
+        contratto.setStato(StatoContratto.toStato(sParam));
         
         sParam= resultset.getString("Note");
         contratto.setNote(sParam);

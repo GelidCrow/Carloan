@@ -32,7 +32,7 @@ public class ModificaContratto extends NuovoContratto{
 	@FXML
 	private Button btnConferma;	
 	@FXML
-	private ChoiceBox<String> choiceStato;
+	private ChoiceBox<StatoContratto> choiceStato;
 	@FXML
 	private TextArea textNote;
 	
@@ -83,7 +83,7 @@ public class ModificaContratto extends NuovoContratto{
 		contratto.setNote(textNote.getText());
 		
 		
-		if(choiceStato.getSelectionModel().getSelectedItem().equals(StatoContratto.Annullato.toString())){
+		if(choiceStato.getSelectionModel().getSelectedItem().toString().equals(StatoContratto.Annullato.toString())){
 			List<Noleggio> contrattiAperti= (List<Noleggio>)presenter.processRequest("getNoleggiAperti", contratto.getIDContratto());
 			if(contrattiAperti.size()>0){
 				throw new CommonException("Ci sono dei noleggi aperti , non è possibile fare questa scelta");
@@ -93,7 +93,7 @@ public class ModificaContratto extends NuovoContratto{
 		}
 
 		//controllo se bisogna aggiornare
-		if(contratto.getStato().equals(StatoContratto.Aperto.toString()) && contratto.getNote().length()==lunghezzaOld){
+		if(contratto.getStato().toString().equals(StatoContratto.Aperto.toString()) && contratto.getNote().length()==lunghezzaOld){
 			Aggiornare=false;
 		}
 		return contratto;
@@ -110,7 +110,7 @@ public class ModificaContratto extends NuovoContratto{
 		textNote.setText(((Contratto)x).getNote());
 	}
 	public void settaChoiceBox(){
-		ObservableList<String> choice = FXCollections.observableArrayList(StatoContratto.getAllStates());
+		ObservableList<StatoContratto> choice = FXCollections.observableArrayList(StatoContratto.getAllStates());
 		choice.remove(1); 
 		choiceStato.setItems(choice);
 		choiceStato.getSelectionModel().selectFirst();
