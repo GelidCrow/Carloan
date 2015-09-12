@@ -55,6 +55,7 @@ public abstract class Schermata implements Initializable{
 						Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?" + "\n" + "Perderai tutti i dati inseriti ",AlertType.CONFIRMATION);
 						if(result.isPresent() && result.get() == ButtonType.OK)
 							chiudiFinestra();
+							event.consume();//ignoro l'evento
 					}	
                 });
 		}
@@ -64,27 +65,23 @@ public abstract class Schermata implements Initializable{
 		            @Override
 		            public void handle(WindowEvent window)
 		            {
-		                try {
-		                	Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);
-		           		 
-		            		if(result.isPresent() && result.get() == ButtonType.OK){
-		            			chiudiFinestra();
-		            			try {
-		            				Connection.chiudiConnessione();
-		            			} catch (SQLException e1) {
-		            				// TODO Auto-generated catch block
-		            				e1.printStackTrace();
-		            			}
-		            			FXMLParameter.setTitolo("Login");
-		            		    FXMLParameter.setRidimensionabile(false);
-		            			Finestra.visualizzaFinestra(presenter,FXMLParameter,null,"MostraLogin",Modality.WINDOW_MODAL);
-		            			Connection.chiudiConnessione();
-		            		}
-		            		
-		                
-						
-		            } catch (SQLException e) {
-							e.printStackTrace();
+		                Optional<ButtonType> result= AlertView.getAlertView("Sicuro di voler uscire?",AlertType.CONFIRMATION);
+       		 
+						if(result.isPresent() && result.get() == ButtonType.OK){
+							chiudiFinestra();
+							FXMLParameter.setTitolo("Login");
+							FXMLParameter.setHand(true);
+							FXMLParameter.setRidimensionabile(false);
+							Finestra.visualizzaFinestra(presenter,FXMLParameter,null,"MostraLogin",Modality.WINDOW_MODAL);
+							try {
+								Connection.chiudiConnessione();
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						else{
+							window.consume();//ignoro l'evento
 						}
 		            }
 		        });

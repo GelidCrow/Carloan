@@ -31,16 +31,16 @@
                   <Separator prefHeight="8.0" prefWidth="218.0" />
                   <TextField fx:id="txtIndirizzo" />
                   <Separator prefHeight="3.0" prefWidth="218.0" />
-                  <TextField fx:id="txtCodFisc" />
+                  <TextField fx:id="txtCodFisc" promptText="16 caratteri" />
                   <Separator prefWidth="200.0" />
-                  <TextField fx:id="txtNumCel" />
+                  <TextField fx:id="txtNumCel" promptText="10  cifre " />
                   <Separator prefWidth="200.0" />
-                  <TextField fx:id="txtNumTel" />
+                  <TextField fx:id="txtNumTel" promptText="10 cifre" />
                   <Separator prefWidth="200.0" />
-                  <TextField fx:id="txtPatGuida" />
+                  <TextField fx:id="txtPatGuida" promptText="10 cifre" />
                   <Separator prefWidth="200.0" />
                   <Separator prefWidth="200.0" />
-                  <TextField fx:id="txtPartIva" />
+                  <TextField fx:id="txtPartIva" promptText="11 caratteri" />
                   <Separator prefWidth="200.0" />
                   <TextField fx:id="txtEmail" />
                </children>
