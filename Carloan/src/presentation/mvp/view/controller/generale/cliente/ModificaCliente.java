@@ -2,6 +2,7 @@ package presentation.mvp.view.controller.generale.cliente;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -70,7 +71,50 @@ public class ModificaCliente extends NuovoCliente{
 			}	
 	
 	}
+	@Override
+	public Cliente prendiDatiDaView() throws CommonException{
+		LocalDate dParam= null;
+		if(txtNome.getText().isEmpty() || txtCognome.getText().isEmpty() || dNascita.getValue()==null ||  dEmissPatente.getValue() ==null ||
+				txtIndirizzo.getText().isEmpty() ||txtCodFisc.getText().isEmpty() ||  txtNumCel.getText().isEmpty() ||  txtPatGuida.getText().isEmpty() || txtEmail.getText().isEmpty())
+		
+		{
+			throw new CommonException("Prima di procedere è necessario compilare tutti i campi obbligatori");
+		}
+		else {
+			
+			cliente.setNome(txtNome.getText());
+			
+			cliente.setCognome(txtCognome.getText());
+			
+			cliente.setSesso(((RadioButton)group.getSelectedToggle()).getText());
+	
+			cliente.setDatanascita(dNascita.getValue());
 
+			cliente.setDataEmissPatente(dEmissPatente.getValue());
+			
+			//data scadenza patente -> dataEmissione + 10 anni.
+			dParam= dEmissPatente.getValue();
+			dScadPatente.setValue(LocalDate.of(dParam.getYear()+10, dParam.getMonth(),dParam.getDayOfMonth()));
+			cliente.setDataScadPatente(dScadPatente.getValue());
+			
+			cliente.setIndirizzo(txtIndirizzo.getText());
+			
+			cliente.setCodFiscale(txtCodFisc.getText());
+			
+			cliente.setNumCell(txtNumCel.getText());
+			
+			cliente.setNumTel(txtNumTel.getText());
+			
+			cliente.setPatenteGuida(txtPatGuida.getText());
+	
+			cliente.setPartitaIva(txtPartIva.getText());
+			
+			cliente.setEmail(txtEmail.getText());
+			
+			return cliente;
+		}
+	}
+	
 	@Override
 	public void initData(Entity entity){
 		cliente =  (Cliente)entity;

@@ -54,7 +54,7 @@ public class NuovoCliente extends Schermata{
 	@FXML
 	protected TextField txtEmail;
 
-	private DatePicker dScadPatente = new DatePicker();
+	protected DatePicker dScadPatente = new DatePicker();
 	
 	private TableView<Cliente> tw;
 	protected final ToggleGroup group = new ToggleGroup();
@@ -117,7 +117,7 @@ public class NuovoCliente extends Schermata{
 			cliente.setCognome(txtCognome.getText());
 			
 			cliente.setSesso(((RadioButton)group.getSelectedToggle()).getText());
-		
+		System.out.println(((RadioButton)group.getSelectedToggle()).getText());
 			cliente.setDatanascita(dNascita.getValue());
 
 			cliente.setDataEmissPatente(dEmissPatente.getValue());

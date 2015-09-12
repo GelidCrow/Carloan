@@ -117,14 +117,13 @@ public class DAOMulta implements DAO{
 	public List<Multa> getAllMulteByNoleggio(int id){
 		String readQuery= "Select * from Multa where IDNoleggio= '?'";
 		readQuery= queryReplaceFirst(readQuery,String.valueOf(id));
-		
+		List<Multa> multe=null;
 		Connection connection= Connection.getConnection(daofactory);
         
         ResultSet idList = null;
         try {
 			 idList = connection.executeRead(readQuery);
-			
-				
+			 multe=creaElencoMulta(idList);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,7 +138,7 @@ public class DAOMulta implements DAO{
 				e.printStackTrace();
 			}
 		}
-        return  creaElencoMulta(idList);
+        return  multe;
 	}
 	
 	private List<Multa> creaElencoMulta(ResultSet resultset) {

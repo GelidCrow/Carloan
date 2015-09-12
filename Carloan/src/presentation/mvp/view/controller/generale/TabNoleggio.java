@@ -122,7 +122,7 @@ public class TabNoleggio {
 			}
 			Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
 			noleggio.getStato();
-			if(noleggio.getStato().equals(StatoNoleggio.annullato.toString())){
+			if(noleggio.getStato().toString().equals(StatoNoleggio.annullato.toString())){
 				throw new CommonException("Non è possibile aprire una multa per questo noleggio in quanto è stato annullato");
 			}
 			else {
@@ -144,7 +144,7 @@ public class TabNoleggio {
 				throw new CommonException("Nessun elemento selezionato");
 		}
 		Noleggio noleggio= (Noleggio) ((SchermataGenerale<?>)schermata).getEntitaElementoSelezionato("Noleggio");
-		if(noleggio.getStato().equals(StatoNoleggio.annullato.toString())){
+		if(noleggio.getStato().toString().equals(StatoNoleggio.annullato.toString())){
 			throw new CommonException("Non è possibile visualizzare le multe di questo noleggio in quanto è stato annullato");
 		}
 		else {
