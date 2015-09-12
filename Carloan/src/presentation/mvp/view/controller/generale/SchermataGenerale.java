@@ -850,7 +850,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 					lblDAp.setText(contratto.getDataCreazione().toString());
 					if(contratto.getDataChiusura()!=null)
 						lblDChiusura.setText(contratto.getDataChiusura().toString());
-					lblStato.setText(contratto.getStato());
+					lblStato.setText(contratto.getStato().toString());
 					//CLIENTE
 					Cliente cliente=(Cliente)presenter.processRequest("letturaCliente",contratto.getIdCliente());
 					lblCodFiscale.setText(cliente.getCodFiscale());
