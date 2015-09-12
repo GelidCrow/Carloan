@@ -125,7 +125,7 @@ public class ImpostaNoleggio<T extends Entity> extends Schermata{
 	private void bindingValuesCartaCredito(){
 		iban.setCellValueFactory(cellData ->  new SimpleStringProperty(((CartaDiCredito) cellData.getValue()).getIBAN()));
 		dScadenza.setCellValueFactory(cellData ->  new SimpleObjectProperty<LocalDate>(((CartaDiCredito) cellData.getValue()).getDataScadenza()));
-		circuito.setCellValueFactory(cellData ->  new SimpleStringProperty(((CartaDiCredito) cellData.getValue()).getCircuito()));
+		circuito.setCellValueFactory(cellData ->  new SimpleStringProperty(((CartaDiCredito) cellData.getValue()).getCircuito().toString()));
 	}
 	
 	/******* TABELLA AUTOVEICOLO ***/

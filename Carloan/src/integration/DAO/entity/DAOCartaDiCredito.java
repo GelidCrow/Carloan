@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import MessaggiFinestra.AlertView;
 import business.entity.Entity;
 import business.entity.pagamento.CartaDiCredito;
+import business.entity.pagamento.tipiCircuiti;
 
 
 public class DAOCartaDiCredito implements DAO{
@@ -37,7 +38,7 @@ public class DAOCartaDiCredito implements DAO{
         insertQuery = queryReplaceFirst(insertQuery, carta.getIBAN());
         insertQuery = queryReplaceFirst(insertQuery, carta.getNumeroCarta());
         insertQuery = queryReplaceFirst(insertQuery, carta.getDataScadenza().toString());
-        insertQuery = queryReplaceFirst(insertQuery, carta.getCircuito());
+        insertQuery = queryReplaceFirst(insertQuery, carta.getCircuito().toString());
         insertQuery = queryReplaceFirst(insertQuery, String.valueOf(carta.getIDCliente()));
 		
         
@@ -141,6 +142,6 @@ public class DAOCartaDiCredito implements DAO{
 	
 	private CartaDiCredito ottieniCarta(ResultSet resultset) throws SQLException{
 		return  new CartaDiCredito(resultset.getInt(6),resultset.getDate(4).toLocalDate(),
-					resultset.getString(2),resultset.getString(3),resultset.getString(5),resultset.getInt(1));
+					resultset.getString(2),resultset.getString(3),tipiCircuiti.toCircuito(resultset.getString(5)),resultset.getInt(1));
 	}
 }

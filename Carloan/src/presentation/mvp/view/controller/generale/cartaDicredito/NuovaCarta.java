@@ -29,7 +29,7 @@ public class NuovaCarta extends Schermata {
 	@FXML private TextField txtIban;
 	@FXML private TextField txtNumCarta;
 	@FXML private DatePicker dScadenza;
-	@FXML private ChoiceBox<String> choiceCircuito;
+	@FXML private ChoiceBox<tipiCircuiti> choiceCircuito;
 	private Schermata scChiamante;
 	private Cliente cliente;
 	@SuppressWarnings("rawtypes")
@@ -95,8 +95,8 @@ public class NuovaCarta extends Schermata {
 	}
 	
 	public void settaChoiceBox(){
-		ObservableList<String> choice = FXCollections.observableArrayList(tipiCircuiti.getAllCircuiti());
+		ObservableList<tipiCircuiti> choice = FXCollections.observableArrayList(tipiCircuiti.getAllCircuiti());
 		choiceCircuito.setItems(choice);
-		choiceCircuito.getSelectionModel().select(0);
+		choiceCircuito.getSelectionModel().selectFirst();
 	}
 }

@@ -7,7 +7,7 @@ public class CartaDiCredito extends Pagamento{
 	private LocalDate dataScadenza;
 	private String IBAN;
 	private String NumeroCarta;
-	private String Circuito;
+	private tipiCircuiti Circuito;
 	private int idCarta;
 	
 
@@ -49,7 +49,7 @@ public class CartaDiCredito extends Pagamento{
 
 	
 	public CartaDiCredito( int iDCliente,LocalDate dataScadenza,
-			String iBAN, String numeroCarta, String circuito,int idCarta) {
+			String iBAN, String numeroCarta, tipiCircuiti circuito,int idCarta) {
 		super();
 		this.idCarta=idCarta;
 		IDCliente = iDCliente;
@@ -74,25 +74,29 @@ public class CartaDiCredito extends Pagamento{
 		IBAN = iBAN;
 	}
 
-	public String getCircuito() {
-		return Circuito;
-	}
 
-	public void setCircuito(String circuito) {
-		Circuito = circuito;
-	}
 
 	public CartaDiCredito(){}
 
 
 	public CartaDiCredito( String IBAN, String NumeroC,
-			LocalDate dataSca, String Circuito) {
+			LocalDate dataSca, tipiCircuiti Circuito) {
 		// TODO Auto-generated constructor stub
 		this.IBAN=IBAN;
 		this.NumeroCarta=NumeroC;
 		this.dataScadenza=dataSca;
 		this.Circuito=Circuito;
 		
+	}
+
+
+	public tipiCircuiti getCircuito() {
+		return Circuito;
+	}
+
+
+	public void setCircuito(tipiCircuiti circuito) {
+		Circuito = circuito;
 	}
 
 
