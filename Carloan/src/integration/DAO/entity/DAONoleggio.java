@@ -157,8 +157,8 @@ public class DAONoleggio implements DAO{
 	@Override
 	public void aggiornamento(Entity entity) throws CommonException {
 		Noleggio noleggio= (Noleggio)entity;
-		String updateQuery = "Update noleggio set "
-								+ "note='?' , stato='annullato' , FineNoleggio='?' where idnoleggio='?'";
+		String updateQuery = "Update Noleggio set "
+								+ "note='?' , stato='annullato' , FineNoleggio='?' where IDNoleggio='?'";
 		updateQuery= queryReplaceFirst(updateQuery,noleggio.getNote());
 		updateQuery= queryReplaceFirst(updateQuery,noleggio.getFineNoleggio().toString());
 		updateQuery= queryReplaceFirst(updateQuery,String.valueOf(noleggio.getIDNoleggio()));
@@ -187,7 +187,7 @@ public class DAONoleggio implements DAO{
 	
 	public void aggiornamentoCompleto(Entity entity) throws CommonException {
 		Noleggio noleggio= (Noleggio)entity;
-		String updateQuery = "Update noleggio set "
+		String updateQuery = "Update Noleggio set "
 								+ "FineNoleggio='?',kmRientro='?',Stato='?',Note='?' where IDNoleggio='?'";
 		updateQuery= queryReplaceFirst(updateQuery,noleggio.getFineNoleggio().toString());
 		updateQuery= queryReplaceFirst(updateQuery,String.valueOf(noleggio.getKmRientro()));
@@ -337,7 +337,7 @@ public class DAONoleggio implements DAO{
 		List<Integer> idMulta  = ottieniIDMulte(resultset,connection);
 
 		LocalDate data=null;
-		if(resultset.getDate(3)!=null){
+		if(resultset.getDate(4)!=null){
 			data= resultset.getDate(3).toLocalDate();
 		}
 		return  new Noleggio(resultset.getInt(1),
@@ -415,18 +415,18 @@ public class DAONoleggio implements DAO{
 
 	public List<Entity> ricerca(Entity parameter){
 		RicercaNoleggio ricnoleggio=(RicercaNoleggio) parameter;
-		String ricerca1="Select * from noleggio where IDContratto='?'";
+		String ricerca1="Select * from Noleggio where IDContratto='?'";
 		
-		String ricerca2="Select * from noleggio where InizioNoleggio='?'";
-		String ricerca3="Select * from noleggio where Stato='?'";
+		String ricerca2="Select * from Noleggio where InizioNoleggio='?'";
+		String ricerca3="Select * from Noleggio where Stato='?'";
 		
 		
-		String ricerca5="Select * from noleggio where IDContratto='?' and InizioNoleggio='?'";
-		String ricerca6="Select * from noleggio where InizioNoleggio='?' and Stato='?'";
-		String ricerca7="Select * from noleggio where IDContratto='?' and  Stato='?'";
+		String ricerca5="Select * from Noleggio where IDContratto='?' and InizioNoleggio='?'";
+		String ricerca6="Select * from Noleggio where InizioNoleggio='?' and Stato='?'";
+		String ricerca7="Select * from Noleggio where IDContratto='?' and  Stato='?'";
 	
 		
-		String ricerca4="Select * from noleggio where IDContratto='?' and InizioNoleggio='?' and Stato='?'";
+		String ricerca4="Select * from Noleggio where IDContratto='?' and InizioNoleggio='?' and Stato='?'";
 		
 		LocalDate dInizio= ricnoleggio.getdInizio();
 	    int idContratto= ricnoleggio.getidContratto();

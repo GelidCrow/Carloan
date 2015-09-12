@@ -164,7 +164,7 @@ public class DAOLogin implements DAO{
 		try {
 			idList = connection.executeRead(insertQuery);
 			
-			if(idList.next()){
+			if(idList!=null && idList.next()){
 				
 				if(idList.getInt(1)>0){//è un supervisoreAgenzia
 					DAOSupervisoreA daoSupervisoreA ;
