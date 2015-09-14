@@ -71,9 +71,16 @@ public class Login extends Schermata{
 			else{
 				AlertView.getAlertView("Autenticazione fallita : Ricontrollare l'Username e la password inserite",AlertType.ERROR);
 			}
-		} catch (InstantiationException | IllegalAccessException| ClassNotFoundException | NoSuchMethodException| SecurityException | IllegalArgumentException
-				| InvocationTargetException  | CommonException e1) {
-				//AlertView.getAlertView("C'è stato un problema" + e1.getMessage(), AlertType.ERROR);
+		}
+		catch (InvocationTargetException e1){
+				new CommonException(e1.getTargetException().getMessage()).showMessage();
+			
+		}
+		catch(CommonException e1){
+			e1.showMessage();
+		}
+		catch (InstantiationException | IllegalAccessException| ClassNotFoundException | NoSuchMethodException| SecurityException | IllegalArgumentException
+			   e1) {
 			e1.printStackTrace();
 		}
 	}
@@ -84,7 +91,6 @@ public class Login extends Schermata{
 	public void btnEsci(ActionEvent e){
 		this.chiudiFinestra();
 	}
-
 
 
 	@Override

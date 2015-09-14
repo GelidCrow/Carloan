@@ -23,7 +23,7 @@ public class LoginChecker implements Checker{
 
 	public void checkUsername() throws CommonException{
 		int length;
-		
+		if(login.getUsername()!=null){
         length = login.getUsername().length();
 
         isValid = (length >= MIN_USER_VALUE)
@@ -32,11 +32,14 @@ public class LoginChecker implements Checker{
         if (!isValid) {
         	throw new CommonException("Username non valido");
         }
+		}
+		else
+			throw new CommonException("Username vuoto");
 	}
 	
 	public void checkPassword()throws CommonException{
 		int length;
-		
+		if(login.getPassword()!=null){
         length = login.getPassword().length();
 
         isValid = (length >= MIN_PASS_VALUE)
@@ -45,5 +48,8 @@ public class LoginChecker implements Checker{
         if (!isValid) {
         	throw new CommonException("Password non valida");
         }
+		}
+		else
+			throw new CommonException("Password vuota");
 	}
 }
