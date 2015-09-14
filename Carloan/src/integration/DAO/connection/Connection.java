@@ -16,7 +16,7 @@ import config.ConfiguratorDBReader;
 import config.ConfiguratorReader;
 
 public class Connection {
-	private final static String PATH = "src/config/mySql.cfg";
+	private final static String PATH = "src/config/config.cfg";
 	private  String host;
 	private  String db;
 	private String port;
