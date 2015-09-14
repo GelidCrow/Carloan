@@ -337,7 +337,7 @@ public class DAONoleggio implements DAO{
 		List<Integer> idMulta  = ottieniIDMulte(resultset,connection);
 
 		LocalDate data=null;
-		if(resultset.getDate(4)!=null){
+		if(resultset.getDate(3)!=null){
 			data= resultset.getDate(3).toLocalDate();
 		}
 		return  new Noleggio(resultset.getInt(1),
