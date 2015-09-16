@@ -19,7 +19,7 @@ public class CarLoanAC implements ApplicationController {
            return viewdispatcher.dispatch(request,parameter);
 		}
         else {  
-			delegate= new Delegate("presentation/AC.xml");
+			delegate= new Delegate("src/presentation/AC.xml");
 			return delegate.doTask(request, parameter);
         }		
 	}
