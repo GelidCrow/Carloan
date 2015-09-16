@@ -15,11 +15,11 @@ public class CarLoanAC implements ApplicationController {
 	@Override
 	public Object handleRequest(String request, Object parameter) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, CommonException {
 		if (request.matches(SHOW_GUI_SYNTAX)) {
-			viewdispatcher = new ViewDispatcher("src/presentation/mvp/view/Interfacce.xml");
+			viewdispatcher = new ViewDispatcher("bin/presentation/mvp/view/Interfacce.xml");
            return viewdispatcher.dispatch(request,parameter);
 		}
         else {  
-			delegate= new Delegate("src/presentation/AC.xml");
+			delegate= new Delegate("bin/presentation/AC.xml");
 			return delegate.doTask(request, parameter);
         }		
 	}

@@ -4,8 +4,12 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import MessaggiFinestra.AlertView;
+
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javafx.scene.control.Alert.AlertType;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -24,7 +28,7 @@ public class ReaderXML {
 			myparser.parse(percorsoFile, myhandler);
 		} catch (ParserConfigurationException | SAXException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			AlertView.getAlertView("Errore fatale, non è possibile trovare il file AC.xml", AlertType.ERROR);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,7 +48,7 @@ public class ReaderXML {
 			myparser.parse(percorsoFile, myhandler);
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			AlertView.getAlertView("Errore fatale, non è possibile trovare il file Interfacce.xml", AlertType.ERROR);
 		}
 		return myhandler.getfxml_name();
 	}
