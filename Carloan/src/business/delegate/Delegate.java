@@ -14,7 +14,7 @@ import utility.ReaderXML;
 public class Delegate {
     private ReaderXML reader;
     private Model  model;
-    private Checker checker;
+    private Checker checker; 
     private Schermata schermata;
     private List<String> service_method;
     private Method method;

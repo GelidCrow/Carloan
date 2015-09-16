@@ -22,6 +22,7 @@ public class ReturnableStage extends Stage {
        
     		
         	FXMLLoader loader=new FXMLLoader();
+        	
 			loader.setLocation(getClass().getResource(schemeResource));
 			
 			try {

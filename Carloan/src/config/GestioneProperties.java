@@ -4,6 +4,7 @@ package config;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Properties;
 public class GestioneProperties {
 
 	private Properties properties;
-	private FileInputStream in;
+	private InputStream in;
 	private FileOutputStream out;
 	private String path;
 
@@ -30,7 +31,7 @@ public class GestioneProperties {
 		in = null;
 		out = null;
 		try {
-			in = new FileInputStream(path);
+			in = getClass().getClassLoader().getResourceAsStream(path);
 			properties = new Properties();
 			properties.load(in);
 		} catch (IOException e) {
