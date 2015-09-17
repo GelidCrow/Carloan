@@ -37,7 +37,7 @@ public class DAOFascia implements DAO {
 
 	@Override
 	public Entity lettura(int id) {
-		String read = "Select * from fascia where IDFascia='?'";
+		String read = "Select * from Fascia where IDFascia='?'";
 		read= queryReplaceFirst(read,String.valueOf(id));
 		Connection c=Connection.getConnection(daofactory);
 		try {
