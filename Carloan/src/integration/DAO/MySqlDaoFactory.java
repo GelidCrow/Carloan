@@ -23,7 +23,7 @@ public class MySqlDaoFactory extends DaoFactory{
 	/**
 	 * Costruttore privato per la realizzazione del Singletone.
 	 */
-	MySqlDaoFactory() {
+	private MySqlDaoFactory() {
 		
 	}
 	/**
