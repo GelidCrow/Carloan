@@ -20,7 +20,6 @@ import business.entity.Gestori.SupervisoreSede;
 import business.entity.Noleggio.Contratto;
 import business.entity.Noleggio.StatoContratto;
 import business.model.Exception.CommonException;
-import  business.entity.Noleggio.StatoContratto;
 
 public class DAOContratto implements DAO{
 
