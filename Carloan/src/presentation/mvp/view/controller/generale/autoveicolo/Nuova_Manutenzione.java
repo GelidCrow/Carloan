@@ -68,7 +68,16 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 }
 public void initData(Entity x){
 	this.a=(Autoveicolo)x;
-	InputStream i=a.getImmagine_stream();
+	InputStream i = null;
+	try {
+		i = (InputStream)presenter.processRequest("leggiImmagineAutoveicolo", a.getIDauto());
+	} catch (InstantiationException | IllegalAccessException
+			| ClassNotFoundException | NoSuchMethodException
+			| SecurityException | IllegalArgumentException
+			| InvocationTargetException | CommonException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	if(i!=null)
 	immagine.setImage(new Image(i));
 	
@@ -158,7 +167,7 @@ private Manutenzione prendiDatiDaView() throws CommonException{
 		String mot=motivo.getText();
 		if(mot==null)
 			mot="";
-			return new ManutenzioneOrdinaria(d ,null, mot,this.a.getIDauto());
+			return new ManutenzioneStraordinaria(d ,null, mot,this.a.getIDauto());
 	}
 }
 }

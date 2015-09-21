@@ -24,12 +24,12 @@
       <Label layoutX="630.0" layoutY="144.0" text="Targa: " />
       <Label layoutX="622.0" layoutY="186.0" text="Modello:" />
       <Button layoutX="867.0" layoutY="378.0" mnemonicParsing="false" onAction="#btntornaindietro" prefHeight="42.0" prefWidth="256.0" text="Torna indietro" />
-      <Label fx:id="targa" layoutX="669.0" layoutY="139.0" prefHeight="28.0" prefWidth="101.0" text=" ">
+      <Label fx:id="targa" layoutX="669.0" layoutY="139.0" prefHeight="28.0" prefWidth="174.0" text=" ">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label fx:id="modello" layoutX="678.0" layoutY="180.0" prefHeight="28.0" prefWidth="101.0" text=" ">
+      <Label fx:id="modello" layoutX="678.0" layoutY="180.0" prefHeight="28.0" prefWidth="166.0" text=" ">
          <font>
             <Font size="19.0" />
          </font>

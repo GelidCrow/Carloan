@@ -47,7 +47,16 @@ public class Visualizza_Manutenzione extends Nuova_Manutenzione{
 	@SuppressWarnings("unchecked")
 	public void initData(Entity x){
 		this.a=(Autoveicolo)x;
-		InputStream i=a.getImmagine_stream();
+		InputStream i=null;
+		try {
+			i = (InputStream)presenter.processRequest("leggiImmagineAutoveicolo", a.getIDauto());
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException | CommonException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		if(i!=null)
 			immagine.setImage(new Image(i));
 		else
