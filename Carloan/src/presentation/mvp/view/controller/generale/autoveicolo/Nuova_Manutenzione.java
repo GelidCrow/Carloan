@@ -157,17 +157,13 @@ private Manutenzione prendiDatiDaView() throws CommonException{
 	LocalDate d=data_inizio.getValue();
 	if(d==null)
 		throw new CommonException("La data d'inizio è vuota");
-	if(radio_ord.isSelected()){
-		String mot=motivo.getText();
-		if(mot==null)
-			mot="";
+	String mot=motivo.getText();
+	if(mot==null)
+		mot="";
+	if(radio_ord.isSelected())
 			return new ManutenzioneOrdinaria(d ,null, mot,this.a.getIDauto());
-	}
-	else{
-		String mot=motivo.getText();
-		if(mot==null)
-			mot="";
+	else
 			return new ManutenzioneStraordinaria(d ,null, mot,this.a.getIDauto());
 	}
 }
-}
+
