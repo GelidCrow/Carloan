@@ -173,7 +173,7 @@ public class DAOMulta implements DAO{
 	}
 	
 	public int countMulteAperteByNoleggio(int id){
-		String count= "Select count(IDMulta) as numeromulte from multa where IDNoleggio='?' and stato='aperto'";
+		String count= "Select count(IDMulta) as Numeromulte from Multa where IDNoleggio='?' and Stato='aperto'";
 		count= queryReplaceFirst(count,String.valueOf(id));
 		int numero=0;
 		Connection connection= Connection.getConnection(daofactory);
