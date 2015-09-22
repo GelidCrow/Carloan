@@ -42,9 +42,9 @@
             </TableView>
          </children>
       </AnchorPane>
-      <Label layoutX="49.0" layoutY="42.0" prefHeight="44.0" prefWidth="380.0" style="-fx-background-color: #FFFF;" text="NUOVO CONTRATTO" textFill="#ff6f00">
+      <Label layoutX="64.0" layoutY="37.0" text="Nuovo Contratto">
          <font>
-            <Font name="Cambria Bold Italic" size="36.0" />
+            <Font size="39.0" />
          </font>
       </Label>
    </children>
