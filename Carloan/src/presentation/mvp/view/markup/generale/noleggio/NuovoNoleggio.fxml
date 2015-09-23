@@ -125,8 +125,8 @@
             <Label fx:id="lblCognome" layoutX="1221.0" layoutY="133.0" prefHeight="17.0" prefWidth="149.0" />
             <Label layoutX="18.0" layoutY="565.0" text="Limite Copertura" />
             <Label fx:id="lblLimiteCopertura" layoutX="161.0" layoutY="565.0" prefHeight="17.0" prefWidth="149.0" />
-            <Label layoutX="732.0" layoutY="176.0" text="Prezzo" />
-            <Label fx:id="lblprezzoOptAuto" layoutX="800.0" layoutY="176.0" prefHeight="17.0" prefWidth="127.0" />
+            <Label layoutX="728.0" layoutY="166.0" text="Prezzo" />
+            <Label fx:id="lblprezzoOptAuto" layoutX="772.0" layoutY="169.0" prefHeight="17.0" prefWidth="89.0" />
             <Label fx:id="lblprezzoOptNoleggio" layoutX="80.0" layoutY="545.0" prefHeight="17.0" prefWidth="127.0" />
             <Label layoutX="15.0" layoutY="543.0" text="Prezzo" />
             <Label fx:id="lblprezzoOptScelti" layoutX="780.0" layoutY="361.0" prefHeight="17.0" prefWidth="89.0" />
