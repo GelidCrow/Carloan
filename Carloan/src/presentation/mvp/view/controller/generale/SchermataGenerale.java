@@ -398,7 +398,7 @@ public class SchermataGenerale<T extends Entity> extends Schermata{
 	}
 	public void about_filebar(ActionEvent e){
 		Alert about= new Alert(AlertType.INFORMATION);
-		about.setContentText("Powered by :\n•Mastronardo Claudio\n•Giannico Francesco");
+		about.setContentText("Powered by :\n•Mastronardo Claudio 619208 \n•Giannico Francesco 617403  ");
 		about.setTitle("About");
 		about.setHeaderText("About us:");
 		about.show();
